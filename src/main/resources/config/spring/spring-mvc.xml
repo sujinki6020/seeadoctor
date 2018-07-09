@@ -53,5 +53,13 @@
 
 	<!-- 컨트롤러 없이 페이지 매핑 -->
 	<mvc:view-controller path="/main/main.do" view-name="main/main" />
+	<mvc:view-controller path="/board/updateForm.do" view-name="board/updateForm" />
+	<mvc:view-controller path="/board/boardInfo.do" view-name="board/boardInfo" />
+	<mvc:view-controller path="/board/detail.do" view-name="board/detail" />
+	<mvc:view-controller path="/board/photo.do" view-name="board/photo" />
+	<mvc:view-controller path="/board/review.do" view-name="board/review" />
+	<mvc:view-controller path="/board/writeForm.do" view-name="board/writeForm" />
+	<mvc:view-controller path="/board/wrongInfoForm.do" view-name="board/wrongInfoForm" />
+	
 
 </beans>
