@@ -23,7 +23,7 @@ header {
     box-sizing: border-box;
     padding: 20px 30px;
     width: 200px;
-    height: 759px;
+    height: auto;
     background: #fff;
 }
 #mainMenu {
