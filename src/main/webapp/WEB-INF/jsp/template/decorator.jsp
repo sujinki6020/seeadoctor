@@ -6,31 +6,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title><decorator:title default="BIT DAILY" /></title>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/slider/common.css">
-<link href="${pageContext.request.contextPath}/slider/bootstrap.min.css" rel="stylesheet">
+<title><decorator:title default="See a doctor" /></title>
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header/header.css">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<style type="text/css">
-</style>
 <decorator:head />
 </head>
 <body>
-  
 	<div class="header">
 	  <c:import url="/WEB-INF/jsp/decorator/topMenu.jsp" />
 	</div>	
-	
 	<div class="content">
 	  <decorator:body />
-	</div>	
-	
-	<div class="footer">
-	  <c:import url="/WEB-INF/jsp/decorator/footer.jsp" />
-	</div>	
-	
-  
-  <script src="<c:url value="/slider/vendor/jquery/jquery.min.js"/> "></script>
-  <script src="<c:url value="/slider/vendor/bootstrap/js/bootstrap.bundle.min.js"/> "></script>
+	</div>
 </body>
 </html>
 

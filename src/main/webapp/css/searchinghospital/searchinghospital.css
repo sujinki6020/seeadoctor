@@ -1,0 +1,170 @@
+@charset "UTF-8";
+
+#searchbox {
+    width: 30%;
+    border-left: 1px solid black; 
+    box-sizing: border-box;
+}
+#searchbox::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+#searchcondition {
+    width: 100%;
+}
+#searchcondition::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+#searchcondition a{
+    display: block;
+    width: 50%;
+    height: 42px;
+    line-height: 42px;
+    background: #fff;
+    float: left;
+    text-align: center;
+    font-size: 13px;
+    color: #858585;
+    font-weight: 700;
+    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
+    border-right: 1px solid #000;
+    box-sizing: border-box;
+}
+#search {
+    background: #f0f0f0;
+    padding: 20px 10px;
+    border-bottom: 1px solid #4d5059;
+}
+#search a {
+    position: relative;
+    padding-left: 75px;
+    height: 36px;
+    line-height: 36px;
+    border: 1px solid #d7d7d7;
+    font-size: 13px;
+    display: block;
+    color: #4d5059;
+    background: #fff;
+}
+#search a span {
+    line-height: 36px;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 15px;
+    color: #858585;
+}
+#icon {
+    position: absolute;
+    right: 14px;
+    top: 50%;
+    margin-top: -4px;
+}
+#icon::before {
+    content: ' ';
+    display: block;
+    background-image: url(//cdn.ddocdoc.com/_wstatic/assets/sprite-5.8.1.png);
+    background-size: 605px 604px;
+    background-position: -301px -243px;
+    width: 12px;
+    height: 7px;
+}
+#mapbox, #searchbox {
+    float: left;
+}
+#mapbox {
+    width: 70%;
+    height: auto;
+}
+#searchaddress {
+    border: 1px solid black;
+    width: 100%;
+    box-sizing: border-box;
+}
+#searchaddress input {
+    display: block;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+    height: 40px;
+    box-sizing: border-box;
+    line-height: 34px;
+    font-size: 13px;
+    background-color: #fff;
+    color: #2c3744;
+    border: none;
+    outline: none;
+}
+#searchedmap {
+    width: 100%;
+    height: 716px; 
+    background: url("map.jpg");
+    background-clip: border-box;
+    box-sizing: border-box;
+
+}
+#result {
+    width: 100%;
+    height: 638px;
+    box-sizing: border-box;
+    position: relative;
+}
+#resultcount {
+    background: #fff;
+    color: #4d5059;
+    border-bottom: 1px solid #d7d7d7;
+    font-size: 13px;
+    line-height: 40px;
+    height: 40px;
+    padding-left: 12px;
+    box-sizing: border-box;
+}
+#resultpage {
+    position: absolute;
+    overflow: hidden;
+    height: 45px;
+    left: 0;
+    right: 0;
+    bottom: 5%;
+    background-color: #f6f6f6;
+}
+#resultpage ul {
+    margin-top: 9px;
+    font-size: 16px;
+    text-align: center;
+}
+#resultpage ul li {
+    display: inline-block;
+    width: 6%;
+    height: 27px;
+    padding-left: 4px;
+    padding-right: 4px;
+    vertical-align: middle;
+}
+#ourinfo {
+    position: absolute;
+    bottom: 0;
+    height: 37px;
+    width: 100%;
+    border-top: 1px solid #d7d7d7;
+    background-color: #f6f6f6;
+}
+#resultlist > div {
+    border-bottom: 1px solid #d7d7d7;
+    padding: 0 0 15px 12px;
+    box-sizing: border-box;
+}
+#resultlist > div > h3 {
+    margin-top: 15px;
+}
+#resultlist > div > p {
+    margin-top: 10px;
+}
+#resultlist {
+    height: 82%;
+    overflow: auto;
+}
