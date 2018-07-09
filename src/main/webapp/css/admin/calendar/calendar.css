@@ -1,0 +1,103 @@
+@charset "UTF-8";
+
+button {
+	outline: none;
+}
+input[type=text] {
+	outline: none;
+}
+
+a:link, a:hover {
+	text-decoration: none;
+}
+
+.viewWrap {
+	width: 1310px;
+	margin: 0 atuo;
+	padding: 20px 20px;
+	box-sizing: border-box;
+}
+
+#calendarTitle {
+	width: 90%;
+	margin: 30px auto;
+	background-color: #fff;
+
+}
+
+#moveCal {
+	align-items: left;
+}
+
+#todayCal {
+	align: right;
+}
+
+#calendar {
+	width: 90%;
+	margin: 0 auto;
+	background-color: #f6f6f6;
+
+}
+
+#calendar > td {
+	background-color: #fff;
+}
+
+#calDayArea {
+	height: 35px;
+}
+
+.calDay {
+	width: 100px;
+	text-align: center;
+	background-color: #f6f6f6;
+	border-bottom: 2px dotted #fff;
+	font-weight: bold;
+}
+
+.dateBox { 
+	padding: 10px 10px;
+}
+.dateBox:hover {
+	background-color: #f6f6f6 !important;
+}
+
+#todayBnt {
+	width: 80px;
+	height: 30px;
+	border-radius: 25px;
+    border: 1px solid #ddd;
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+    background-color: #fff;
+    margin-right: 5px;
+    outline: none;
+    cursor: pointer;
+}
+.calBnt {
+	width: 30px;
+	height: 30px;
+	border-radius: 25px;
+    border: 1px solid #ddd;
+    font-size: 12px;
+    font-weight: bold;
+    color: #333;
+    margin-right: 5px;
+    background-color: #fff;
+    outline: none;
+    cursor: pointer;
+}
+
+#todayBnt:hover, .calBnt:hover, #searchBnt:hover {
+	border: 1px solid #aaa;
+}
+
+#searchBnt {
+	width: 80px;
+	height: 30px;
+	background-color: #eee;
+	border-radius: 25px;
+    border: 1px solid #ddd;
+}

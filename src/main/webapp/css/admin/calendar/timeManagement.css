@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+body { 
+	font-family: 'NanumSquare', sans-serif; 
+}
+button {
+	outline: none;
+}
+input[type=text] {
+	outline: none;
+}
+
+a:link, a:hover {
+	text-decoration: none;
+}
+.popWrap {
+	padding: 20px 50px;
+	box-sizing: border-box;
+}
+#popTitle {
+}
+#confirmBtns {
+	margin-top: 20px;
+	margin-right: 60px;
+	float: right;
+}
+.confirmBtn {
+	width: 80px;
+	height: 30px;
+	background-color: #eee;
+	border-radius: 25px;
+    border: 1px solid #ddd;
+}
+.confirmBtn:hover {
+	border: 1px solid #aaa;
+}
+
+#timeList {
+	width: 88%;
+	height: auto;
+	margin: 0 auto;
+}
+
+.timeBnt {
+	width: 100px;
+	height: 50px;
+	margin: 5px 5px;
+	border: 1px solid #fff;
+	outline: none;
+	cursor: pointer;
+}
+.closeTime {
+    opacity: 0.2;
+    cursor: not-allowed;
+}
