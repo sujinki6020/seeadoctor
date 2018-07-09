@@ -23,7 +23,7 @@ header {
     box-sizing: border-box;
     padding: 20px 30px;
     width: 200px;
-    height: 760px;
+    height: 759px;
     background: #fff;
 }
 #mainMenu {
@@ -97,6 +97,5 @@ header address::after {
 .content {
     height: auto;
     margin-left: 200px;
-    height: 760px;
     box-sizing: border-box;
 }

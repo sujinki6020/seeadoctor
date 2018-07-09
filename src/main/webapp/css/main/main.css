@@ -1,10 +1,10 @@
 @charset "UTF-8";
 
 #mainpic {
-		width:100%;
+	width:100%;
 }
 #main {
-	 height:759px;
-	 overflow: hidden;
-	 box-sizing: border-box;
+	height:759px;
+	overflow: hidden;
+	box-sizing: border-box;
 }
