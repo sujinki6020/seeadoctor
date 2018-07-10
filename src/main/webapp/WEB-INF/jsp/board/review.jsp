@@ -210,7 +210,7 @@ body {
 			<div id="head_btn_area">
 				<div id="head_btns">
 					<a>
-						<img src="${pageContext.request.contextPath}/images/board/search1.png" class="pull-right" id="btn_search"/><br>
+						<img src="${pageContext.request.contextPath}/images/board/search.png" class="pull-right" id="btn_search"/><br>
 						<span>길찾기</span>
 					</a>
 					<a id="2">
@@ -252,48 +252,15 @@ body {
 				</div>
 				
 				<div id="content_review">
-				<table summary="This table shows how to create responsive tables using Datatables' extended functionality" 
-     					 class="table table-bordered table-hover dt-responsive gy">
-					<tr>
-						<td><a>정말 좋았습니다^^!(20)</a></td>
-						<td>2018.3.19</td>
-						<td>체리혜리</td>
-					</tr>	
-					<tr>
-						<td><a>정말 좋았습니다^^!(20)</a></td>
-						<td>2018.3.19</td>
-						<td>체리혜리</td>
-					</tr>	
-					<tr>
-						<td><a>정말 좋았습니다^^!(20)</a></td>
-						<td>2018.3.19</td>
-						<td>체리혜리</td>
-					</tr>	
-					<tr>
-						<td><a>정말 좋았습니다^^!(20)</a></td>
-						<td>2018.3.19</td>
-						<td>체리혜리</td>
-					</tr>	
-					<tr>
-						<td><a>정말 좋았습니다^^!(20)</a></td>
-						<td>2018.3.19</td>
-						<td>체리혜리</td>
-					</tr>	
-					<tr>
-						<td><a>정말 좋았습니다^^!(20)</a></td>
-						<td>2018.3.19</td>
-						<td>체리혜리</td>
-					</tr>	
-					<tr>
-						<td><a>정말 좋았습니다^^!(20)</a></td>
-						<td>2018.3.19</td>
-						<td>체리혜리</td>
-					</tr>	
-					<tr>
-						<td><a>정말 좋았습니다^^!(20)</a></td>
-						<td>2018.3.19</td>
-						<td>체리혜리</td>
-					<tr>	
+					<table summary="This table shows how to create responsive tables using Datatables' extended functionality" 
+	     					 class="table table-bordered table-hover dt-responsive gy">
+						<c:forEach var="board" items="${result.list}">
+							<tr>
+								<td><a href='detail.do?no=${board.no}'>${board.title}</a></td>
+								<td><fmt:formatDate value="${board.regDate}" pattern="yyyy-MM-dd"/></td>
+								<td>${board.name}</td>
+							</tr>	
+						</c:forEach>
 					</table>
 				</div>
 					
@@ -312,7 +279,8 @@ body {
 					   			</select>
 						   	<input type="text" name="search" class="search" placeholder="검색어를 입력하세요" />
 								<button type="submit" class="btn btn-default search-bar1">검색</button> 
-						<button type="button" id="writeid" class="btn btn-default pull-right">글쓰기</button>
+						<button type="button" id="writeid" class="btn btn-default pull-right"  
+								onclick='location.href="${pageContext.request.contextPath}/board/writeForm.do"'>글쓰기</button>
 						</form>
 					</div>
 					

@@ -165,7 +165,7 @@ body {
 			
 			<div id="head_btn_area">
 				<div id="head_btns">
-					<a>
+					<a href="${pageContext.request.contextPath}/board/review.do">
 						<img src="${pageContext.request.contextPath}/images/board/search.png" class="pull-right" id="btn_search"/><br>
 						<span>길찾기</span>
 					</a>
@@ -183,13 +183,13 @@ body {
 			<div id="head_btn_tap">
 				<hr id="head_tap_hr">
 					<div id="head_taps">
-						<a>
+						<a href="${pageContext.request.contextPath}/board/boardInfo.do">
 							<span>주요정보</span>
 						</a>	
-						<a>
+						<a href="${pageContext.request.contextPath}/board/photo.do">
 							<span>포토요약</span>
 						</a>
-						<a>
+						<a href="${pageContext.request.contextPath}/board/review.do">
 							<span>리뷰</span>
 						</a>
 					</div>
@@ -223,7 +223,7 @@ body {
 				
 				
 			<div id="wrong_info">
-				<a href="${pageContext.request.contextPath}/jsp/seeadoctor/wrongInfoForm.jsp">잘못된 정보 수정하기</a>
+				<a href="${pageContext.request.contextPath}/board/wrongInfoForm.do">잘못된 정보 수정하기</a>
 			</div>
 			</div>
 		</div>
@@ -239,7 +239,7 @@ var myChart = new Chart(ctx, {
     data: {
         labels: ["일","월", "화", "수", "목", "금", "토"],
         datasets: [{
-            label: '시간단위',
+            label: '마감시간',
             data: [24, 14, 21, 22, 23, 18, 15],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',

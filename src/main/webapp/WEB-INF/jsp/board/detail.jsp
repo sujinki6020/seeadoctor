@@ -74,10 +74,8 @@ body {
 }
 #review_hr{
 	width: 635px;
-    margin: 0 auto;
     height: 11px;
-    margin-top: 4px;
-	
+	margin: 4px 0px 0px 45px;	
 }
 
 .name{
@@ -137,7 +135,7 @@ body {
 	padding: 0px 45px;
 }
 #nickName{
-	padding: 0px 0px 0px 430px;
+	padding: 0px 0px 0px 453px;
 }
 
 #view_cnt{
@@ -145,7 +143,7 @@ body {
 }
 
 #date{
-	padding-left: 455px;
+      padding-left: 496px;
 }
 
 
@@ -296,60 +294,16 @@ body {
 			<div id="content_area">
 				
 				<div id="review_row">
-					<span id="title">정말 좋았습니다</span>
-					<span id="nickName">체리혜리</span>
+					<span id="title">${result.board.title}</span>
+					<span id="nickName">${result.board.name}</span>
 						<hr id="review_hr">
-					<span id="view_cnt">8</span>
-					<span id="date">2018.6.13 16:08</span>
+					<span id="view_cnt">${result.board.viewCnt}</span>
+					<span id="date"><fmt:formatDate value="${result.board.regDate}" pattern="yyyy-MM-dd"/></span>
 						<hr id="review_hr">
 				</div>
 				
 				<div id="filearea"></div>
-				<div id="content_box">
-					동해물과 백두산이 마르고 닳도록
-					하느님이 보우하사 우리 나라 만쉐동해물과 백두산이 마르고 닳도록
-					하느님이 보우하사 우리 나라 만쉐
-					동해물과 백두산이 마르고 닳도록
-					하느님이 보우하사 우리 나라 만쉐동해물과 백두산이 마르고 닳도록
-					하느님이 보우하사 우리 나라 만쉐
-					동해물과 백두산이 마르고 닳도록
-					하느님이 보우하사 우리 나라 만쉐
-					동해물과 백두산이 마르고 닳도록
-					하느님이 보우하사 우리 나라 만쉐
-					동해물과 백두산이 마르고 닳도록
-					하느님이 보우하사 우리 나라 만쉐
-					동해물과 백두산이 마르고 닳도록
-					하느님이 보우하사 우리 나라 만쉐
-					동해물과 백두산이 마르고 닳도록
-					하느님이 보우하사 우리 나라 만쉐
-					동해물과 백두산이 마르고 닳도록
-					하느님이 보우하사 우리 나라 만쉐
-					동해물과 백두산이 마르고 닳도록
-					하느님이 보우하사 우리 나라 만쉐
-					동해물과 백두산이 마르고 닳도록
-					하느님이 보우하사 우리 나라 만쉐11111111111111111111
-					동해물과 백두산이 마르고 닳도록
-					하느님이 보우하사 우리 나라 만쉐동해물과 백두산이 마르고 닳도록
-					하느님이 보우하사 우리 나라 만쉐
-					동해물과 백두산이 마르고 닳도록
-					하느님이 보우하사 우리 나라 만쉐동해물과 백두산이 마르고 닳도록
-					하느님이 보우하사 우리 나라 만쉐
-					동해물과 백두산이 마르고 닳도록
-					하느님이 보우하사 우리 나라 만쉐
-					동해물과 백두산이 마르고 닳도록
-					하느님이 보우하사 우리 나라 만쉐
-					동해물과 백두산이 마르고 닳도록
-					하느님이 보우하사 우리 나라 만쉐
-					동해물과 백두산이 마르고 닳도록
-					하느님이 보우하사 우리 나라 만쉐
-					동해물과 백두산이 마르고 닳도록
-					하느님이 보우하사 우리 나라 만쉐
-					동해물과 백두산이 마르고 닳도록
-					하느님이 보우하사 우리 나라 만쉐
-					동해물과 백두산이 마르고 닳도록
-					하느님이 보우하사 우리 나라 만쉐
-					동해물과 백두산이 마르고 닳도록
-				</div>
+				<div id="content_box">${result.board.content}</div>
 			</div>
 		</div>
 			
@@ -387,17 +341,18 @@ body {
 					<button type="button" class="btn btn-default"
 						onclick='location.href="${pageContext.request.contextPath}/board/boardInfo.do"'>목록</button>
 						<%-- 글쓰기버튼 --%>
-					<button type="button" class="btn btn-default" id="writeid">글쓰기</button>
+					<button type="button" class="btn btn-default" id="writeid"
+						onclick='location.href="${pageContext.request.contextPath}/board/writeForm.do"'>글쓰기</button>
 
 					<div id="btn_update_delete">
-						<c:if test="${sessionScope.user.id == result.board.id}">
+<%-- 						<c:if test="${sessionScope.user.id == result.board.id}"> --%>
 							<%-- 수정버튼 --%>
 							<button type="button" class="btn btn-default" id="updateid"
-								onclick='location.href="${pageContext.request.contextPath}/board/writeForm.do?no=${result.board.no}&boardNo=${result.board.boardNo}"'>수정</button>
+								onclick='location.href="${pageContext.request.contextPath}/board/updateForm.do?no=${result.board.no}"'>수정</button>
 							<%-- 삭제버튼 --%>
 							<button type="button" class="btn btn-default" id="deleteid"
-								onclick='location.href="${pageContext.request.contextPath}/board/delete.do?no=${result.board.no}&boardNo=${result.board.boardNo}"'>삭제</button>
-						</c:if>
+								onclick='location.href="${pageContext.request.contextPath}/board/delete.do?no=${result.board.no}"'>삭제</button>
+<%-- 						</c:if> --%>
 					</div>
 			</div>	
 	</div>

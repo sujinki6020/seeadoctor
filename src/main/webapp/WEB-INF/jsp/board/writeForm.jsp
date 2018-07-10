@@ -179,11 +179,14 @@ body {
     display: inline-flex;
     margin-left: 40px;
 }
-#content{
-	width: 645px;
-    height: 400px;
+#msg{
+	width: 625px;
+    height: auto;
     display: inline-flex;
-    margin: -6px 0px 0px 20px;
+    margin: -6px 0px 0px 41px;
+}
+textarea.form-control {
+    height: 400px;
 }
 
 #filearea{
@@ -269,18 +272,18 @@ body {
 				
 				<div id="review_row">
 					<span id="review">리뷰쓰기</span>
-					<span id="nickName">체리혜리</span>
+					<span id="nickName">${board.name}</span>
 					<hr id="review_hr">
 				</div>
 				
 				<div id="form">
-					<form enctype="multipart/form-data" method="post" action="">
+					<form enctype="multipart/form-data" method="post" action="write.do">
 					<div id="title">
-						<input type="text" class="form-control" name="title" placeholder="제목을 입력하세요">
+						<input type="text" class="form-control" name="title" placeholder="제목을 입력하세요" value="${board.title}">
 					</div>
 						
-					<div id="content">
-						<textarea class="form-control" id="content" name="msg" placeholder="내용을 입력해주세요"></textarea>
+					<div id="msg">
+						<textarea class="form-control" id="content" name="content" placeholder="내용을 입력해주세요">${board.content}</textarea>
 					</div>
 
 
@@ -295,7 +298,8 @@ body {
 					<hr id="review_hr">
 					<div id="btn_adm">
 						<button type="submit" class="btn btn-default" style="margin-bottom: 10px;">등록</button>
-						<button type="button" class="btn btn-default" style="margin-bottom: 10px;" onclick="">취소</button>
+						<button type="button" class="btn btn-default" style="margin-bottom: 10px;" 
+								onclick='location.href="${pageContext.request.contextPath}/board/review.do"'>취소</button>
 					</div>
 				</form>
 				</div>
@@ -309,6 +313,8 @@ body {
 var dropFile = function(event) {
 	   event.preventDefault();
 	}
+
+
 
 
 </script>
