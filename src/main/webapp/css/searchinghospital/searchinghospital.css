@@ -81,7 +81,8 @@
     height: auto;
 }
 #searchaddress {
-    border: 1px solid black;
+    border-bottom : 1px solid black;
+    border-top : 1px solid black;
     width: 100%;
     box-sizing: border-box;
 }
@@ -102,8 +103,6 @@
 #searchedmap {
     width: 100%;
     height: 716px; 
-    background: url("map.jpg");
-    background-clip: border-box;
     box-sizing: border-box;
 
 }

@@ -6,7 +6,7 @@
     <p>로그인/회원가입</p>
     <nav>
         <ul id="mainMenu">
-            <li><a href="#1">병원 찾기</a></li>
+            <li><a href="${pageContext.request.contextPath}/temporary/searchinghospital.jsp">병원 찾기</a></li>
             <li><a href="#1">내 접수현황</a></li>
             <li><a href="#1">마이페이지</a></li>
         </ul>
