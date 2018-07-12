@@ -3,6 +3,7 @@ package kr.co.seeadoctor.repository.vo;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.web.multipart.MultipartFile;
 
 @Alias("board")
 public class BoardVo {
@@ -17,8 +18,22 @@ public class BoardVo {
 	private int grProd;
 	private int depth;
 	private String name;
+	private MultipartFile[] files;
+	private int hospCode;
 	
 	
+	public MultipartFile[] getFiles() {
+		return files;
+	}
+	public void setFiles(MultipartFile[] files) {
+		this.files = files;
+	}
+	public int getHospCode() {
+		return hospCode;
+	}
+	public void setHospCode(int hospCode) {
+		this.hospCode = hospCode;
+	}
 	public String getName() {
 		return name;
 	}

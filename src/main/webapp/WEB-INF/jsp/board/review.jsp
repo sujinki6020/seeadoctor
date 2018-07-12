@@ -121,12 +121,12 @@ body {
 }
 #content_start_box{
  	width: auto;
-	height: 800px;
+	height: auto;
 /* 	border: 1px solid blue; */
 }
 #content_area{
  	width:88%;
-	height: 700px;
+   	height: auto;
 	margin:15px 0px 0px 48px;
 /* 	border: 1px solid; */
 }
@@ -180,8 +180,8 @@ body {
 	width: 260px;
     height: 45px;
     border: 1px solid #ccc;
-    
 }
+
 
 
 
@@ -227,13 +227,13 @@ body {
 			<div id="head_btn_tap">
 				<hr id="head_tap_hr">
 					<div id="head_taps">
-						<a>
+						<a href="${pageContext.request.contextPath}/board/boardInfo.do">
 							<span>주요정보</span>
 						</a>	
-						<a>
+						<a href="${pageContext.request.contextPath}/board/photo.do">
 							<span>포토요약</span>
 						</a>
-						<a>
+						<a href="${pageContext.request.contextPath}/board/review.do">
 							<span>리뷰</span>
 						</a>
 					</div>
@@ -277,7 +277,7 @@ body {
 					   				<option value="nickName">닉네임</option>
 					   				<option value="content">내용</option>
 					   			</select>
-						   	<input type="text" name="search" class="search" placeholder="검색어를 입력하세요" />
+						   	<input type="text" name="search" class="search" placeholder="검색어를 입력하세요" style="height: 30px;"/>
 								<button type="submit" class="btn btn-default search-bar1">검색</button> 
 						<button type="button" id="writeid" class="btn btn-default pull-right"  
 								onclick='location.href="${pageContext.request.contextPath}/board/writeForm.do"'>글쓰기</button>

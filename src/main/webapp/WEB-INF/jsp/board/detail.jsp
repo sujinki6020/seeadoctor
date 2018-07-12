@@ -275,13 +275,13 @@ body {
 			<div id="head_btn_tap">
 				<hr id="head_tap_hr">
 					<div id="head_taps">
-						<a>
+						<a href="${pageContext.request.contextPath}/board/boardInfo.do">
 							<span>주요정보</span>
 						</a>	
-						<a>
+						<a href="${pageContext.request.contextPath}/board/photo.do">
 							<span>포토요약</span>
 						</a>
-						<a>
+						<a href="${pageContext.request.contextPath}/board/review.do">
 							<span>리뷰</span>
 						</a>
 					</div>
@@ -302,7 +302,12 @@ body {
 						<hr id="review_hr">
 				</div>
 				
-				<div id="filearea"></div>
+				<div id="filearea">
+					<c:forEach var="file" items="${files}">
+						<img src="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}" style="width:100%; height:100%; margin:0 auto;"/><br>
+						<button type="button" class="btn btn-default" style="margin:5px 0px 20px;"><a href="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}">다운로드</a></button><br> 
+					</c:forEach>
+				</div>
 				<div id="content_box">${result.board.content}</div>
 			</div>
 		</div>
