@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.seeadoctor.repository.mapper.ReservationMapper">
+	<resultMap id="reservationMap" type="reservation">
+		<result column="reserve_seq" property="reserveSeq" />
+		<result column="user_seq" property="userSeq" />
+		<result column="hosp_code" property="hospCode" />
+		<result column="doc_code" property="docCode" />
+		<result column="reserve_date" property="reserveDate" />
+		<result column="reserve_time" property="reserveTime" />
+		<result column="symptom" property="symptom" />
+		<result column="reserve_status" property="reserveStatus" />
+		<result column="review_status" property="reviewStatus" />
+	</resultMap>
+	<resultMap id="reservationTimeMap" type="reservationTime">
+		<result column="time_seq" property="timeSeq" />
+		<result column="hosp_code" property="hospCode" />
+		<result column="doc_code" property="docCode" />
+		<result column="date" property="date" />
+		<result column="time" property="time" />
+		<result column="booked_status" property="bookedStatus" />
+		<result column="blocked_status" property="blockedStatus" />
+	</resultMap>
+
+	<insert id="insertReservation" parameterType="reservation">
+	insert into tb_reservation (user_seq, hosp_code, doc_code, reserve_date, reserve_time, symptom)
+	values (#{userSeq}, #{hospCode}, #{docCode}, #{reserveDate}, #{reserveTime}, #{symptom})
+	</insert>
+	
+	<select id="selectTimeSeq" parameterType="reservation" resultType="int">
+	select time_seq
+	  from tb_reservation_time
+	 where hosp_code = #{reservation.hospCode}
+	   and doc_code = #{reservation.docCode}
+	   and date = #{date}
+	   and time = #{reservation.reserveTime}
+	</select>
+	
+	<update id="checkedBookedStatus" parameterType="int">
+	update tb_reservation_time
+	   set booked_status = "t"
+	 where time_seq = #{timeSeq}
+	</update>
+	
+	<insert id="insertTimeManagement">
+	insert into tb_reservation_time(hosp_code, doc_code, date, time)
+	values(#{reservation.hospCode}, #{reservation.docCode}, #{reservation.reserveDate}, #{time})
+	</insert>
+	
+	<select id="selectReservationByUser" parameterType="map" resultMap="reservationMap">
+	select *
+	  from tb_reservation
+	 where user_seq = #{userSeq}
+   	 <if test="reserveStatus != null">
+   	   and reserve_status = #{reserveStatus}
+   	 </if>
+   	 <if test="reserveDate != null">
+  	 	<choose>
+			<when test="reserveDate != 4">
+	   and reserve_date between date_add(now(), interval -#{reserveDate} month) and date_add(now(), interval -(#{reserveDate}-1) month)
+			</when>
+			<when test="reserveDate == 4">
+	   and reserve_date <![CDATA[<=]]> date_add(now(), interval -4 month)
+			</when>
+		</choose>
+   	 </if>
+	 order by reserve_date desc
+	 limit #{start}, #{end}
+	</select>
+
+</mapper>
+
+
+

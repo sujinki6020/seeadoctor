@@ -37,44 +37,47 @@
 <hr>
 </div>
 
+<form action="${pageContext.request.contextPath}/reservation/reserve.do" method="post">
+
 <div id="selectZone">
 <div class="select">
 <h2><img src="${pageContext.request.contextPath}/images/reservation/doctor.png" /> 진료실 선택</h2>
 <div id="radioArea">
- 	<input type="radio" id="r1" name="doctor" checked="checked" />
+ 	<input type="radio" id="r1" name="docCode" value="1001" checked="checked" />
     <label for="r1"><span></span><font size="4px"><strong>성중원 원장</strong></font> (소아청소년과)</label>
     <p>
-    <input type="radio" id="r2" name="doctor" />
+    <input type="radio" id="r2" name="docCode" value="1002" />
     <label for="r2"><span></span><font size="4px"><strong>기수진 원장</strong></font> (흉부외과)</label>
 </div>
 </div>
 
 <div class="select">
 <h2><img src="${pageContext.request.contextPath}/images/reservation/appointment2.png" /> 날짜 선택
-<input type="text" id="datepicker" placeholder=" 클릭하세요."></h2>
+<input type="text" id="datepicker" name="date" placeholder=" 클릭하세요."></h2>
 </div>
 
 <div class="select">
 <h2><img src="${pageContext.request.contextPath}/images/reservation/time.png" /> 시간 선택</h2>
 
 	<div id="timeList">
-		<button class="timeBnt">10:00</button>
-		<button class="timeBnt closeTime">10:30</button>
-		<button class="timeBnt">11:00</button>
-		<button class="timeBnt">11:30</button>
-		<button class="timeBnt closeTime">12:00</button>
-		<button class="timeBnt">12:30</button>
-		<button class="timeBnt closeTime">13:00</button>
-		<button class="timeBnt closeTime">13:30</button>
-		<button class="timeBnt">14:00</button>
-		<button class="timeBnt">14:30</button>
-		<button class="timeBnt">15:00</button>
-		<button class="timeBnt">15:30</button>
-		<button class="timeBnt closeTime">16:00</button>
-		<button class="timeBnt">16:30</button>
-		<button class="timeBnt closeTime">17:00</button>
-		<button class="timeBnt closeTime">17:30</button>
+		<button type="button" id="1000" class="timeBnt">10:00</button>
+		<button type="button" id="1030" class="timeBnt closeTime">10:30</button>
+		<button type="button" id="1100" class="timeBnt">11:00</button>
+		<button type="button" id="1130" class="timeBnt">11:30</button>
+		<button type="button" id="1200" class="timeBnt closeTime">12:00</button>
+		<button type="button" id="1230" class="timeBnt">12:30</button>
+		<button type="button" id="1300" class="timeBnt closeTime">13:00</button>
+		<button type="button" id="1330" class="timeBnt closeTime">13:30</button>
+		<button type="button" id="1400" class="timeBnt">14:00</button>
+		<button type="button" id="1430" class="timeBnt">14:30</button>
+		<button type="button" id="1500" class="timeBnt">15:00</button>
+		<button type="button" id="1530" class="timeBnt">15:30</button>
+		<button type="button" id="1600" class="timeBnt closeTime">16:00</button>
+		<button type="button" id="1630" class="timeBnt">16:30</button>
+		<button type="button" id="1700" class="timeBnt closeTime">17:00</button>
+		<button type="button" id="1730" class="timeBnt closeTime">17:30</button>
 	</div>
+	<input type="hidden" name="reserveTime">
 </div>
 
 
@@ -82,19 +85,23 @@
 
 <div class="select">
 <h2><img src="${pageContext.request.contextPath}/images/reservation/check-list.png" /> 증상 기입</h2>
-<textarea id="symptoms" maxlength="200"></textarea>
+<textarea id="symptoms" name="symptom" maxlength="200"></textarea>
 </div>
 <button id="reservBtn">예약 접수</button>
+</div>
+
+</form>
 
 </div>
-</div>
 <script>
+
 $(document).on("click", ".timeBnt", function () {
 	var that = $(this);
 	var bnts = $('.timeBnt');
 	
 	if(that.hasClass('selectTime')) {
 			that.toggleClass('selectTime');
+			$("input[name='reserveTime']").val("");
 			return;
 	}
 	if(that.hasClass('closeTime')) {
@@ -102,15 +109,13 @@ $(document).on("click", ".timeBnt", function () {
 	}
 	
 	for(var i=0; i<bnts.size(); i++) {
-			
-			
 		if($(bnts[i]).hasClass('selectTime')) {
 			alert("예약시간은 한 구간만 선택 가능합니다.");
 			return;
 		}
-		
 		if(i==bnts.size()-1) {
 			that.toggleClass('selectTime');
+			$("input[name='reserveTime']").val(that.attr("id"));
 		};
 	}
 

@@ -58,6 +58,7 @@ a:link, a:hover {
 
 .dateBox { 
 	padding: 10px 10px;
+	height: 120px;
 }
 .dateBox:hover {
 	background-color: #f6f6f6 !important;
