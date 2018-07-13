@@ -1,9 +1,6 @@
 package kr.co.seeadoctor.repository.vo;
 
-import org.apache.ibatis.type.Alias;
-
-@Alias("hospLike")
-public class hospLikeVo {
+public class HospLike {
 
 	private String id;
 	private int hospCode;

@@ -1,8 +1,6 @@
 package kr.co.seeadoctor.repository.vo;
 
-import org.apache.ibatis.type.Alias;
-@Alias("boardFile")
-public class BoardFileVo {
+public class BoardFile {
 
 	private int fileSeq;//파일고유번호
 	private int no;

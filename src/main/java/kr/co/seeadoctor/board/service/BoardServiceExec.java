@@ -6,18 +6,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.xml.stream.events.Comment;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.seeadoctor.repository.mapper.BoardMapper;
-import kr.co.seeadoctor.repository.vo.BoardFileVo;
-import kr.co.seeadoctor.repository.vo.BoardVo;
-import kr.co.seeadoctor.repository.vo.CommentVo;
-import kr.co.seeadoctor.repository.vo.PageResultVo;
-import kr.co.seeadoctor.repository.vo.hospLikeVo;
+import kr.co.seeadoctor.repository.vo.Board;
+import kr.co.seeadoctor.repository.vo.BoardFile;
+import kr.co.seeadoctor.repository.vo.Comment;
+import kr.co.seeadoctor.repository.vo.HospLike;
+import kr.co.seeadoctor.repository.vo.PageResult;
+
 
 @Service
 public class BoardServiceExec implements BoardService{
@@ -26,10 +25,10 @@ public class BoardServiceExec implements BoardService{
 	private BoardMapper boardMapper;
 	
 	@Override
-	public Map<String, Object> selectBoard (BoardVo board) throws Exception {
+	public Map<String, Object> selectBoard (Board board) throws Exception {
 		Map<String, Object> result = new HashMap<>();
 		
-		List<BoardVo> list = boardMapper.selectBoard();
+		List<Board> list = boardMapper.selectBoard();
 
 		int sPageNo = board.getPageNo(); //탭시작번호
 		board.setPageNo(sPageNo == 0 ? 1 : sPageNo); //시작번호가0이면 1로, 그게아니면 그걸로
@@ -38,12 +37,12 @@ public class BoardServiceExec implements BoardService{
 		
 		result.put("list", list);
 		result.put("count", count);
-		result.put("pageResult", new PageResultVo(board.getPageNo(), count));
+		result.put("pageResult", new PageResult(board.getPageNo(), count));
 		return result;
 	}
 
 	@Override
-	public void insertBoard(BoardVo board)throws Exception {
+	public void insertBoard(Board board)throws Exception {
 		boardMapper.insertBoard(board);
 		
 		if(board.getFiles() !=null) {
@@ -63,7 +62,7 @@ public class BoardServiceExec implements BoardService{
 					String sysName = "final-"+UUID.randomUUID().toString()+ext;
 					file.transferTo(new File("c:/java-lec/upload/"+sysName));
 					
-					BoardFileVo fileVO = new BoardFileVo();
+					BoardFile fileVO = new BoardFile();
 					fileVO.setNo(board.getNo());
 					fileVO.setFilePath("c:/java-lec/upload/");
 					fileVO.setSysName(sysName);
@@ -80,7 +79,7 @@ public class BoardServiceExec implements BoardService{
 		Map<String, Object> result = new HashMap<>();
 		boardMapper.updateBoardViewCnt(no);
 		
-		BoardVo board = boardMapper.detailBoard(no);
+		Board board = boardMapper.detailBoard(no);
 		result.put("board", board);
 		
 		return result;
@@ -94,19 +93,19 @@ public class BoardServiceExec implements BoardService{
 		boardMapper.deleteBoard(no);
 	}
 	@Override
-	public BoardVo selectBoardUpdate(int no) throws Exception{
+	public Board selectBoardUpdate(int no) throws Exception{
 		return boardMapper.selectBoardUpdate(no);
 		 
 	}
 		
 		@Override
-		public List<BoardFileVo> selectBoardFileByNo(int no) {
+		public List<BoardFile> selectBoardFileByNo(int no) {
 			return boardMapper.selectBoardFileByNo(no);
 		}
 
 		//즐겨찾기
 		@Override
-		public int insertHospLike(hospLikeVo hospLike) { //좋아요 등록하기
+		public int insertHospLike(HospLike hospLike) { //좋아요 등록하기
 			int cnt = boardMapper.selectMyLikeCnt(hospLike); //자신의좋아요 개수 가져오기
 			
 			if(cnt == 0 && cnt < 6) {
@@ -119,12 +118,12 @@ public class BoardServiceExec implements BoardService{
 
 		//댓글리스트
 		@Override
-		public List<CommentVo> selectCommentByNo(int no){
+		public List<Comment> selectCommentByNo(int no){
 			return boardMapper.selectCommentByNo(no);
 		}
 		
 		//댓글 등록
-		public void insertComment(CommentVo comment) {
+		public void insertComment(Comment comment) {
 			boardMapper.insertComment(comment);
 		}
 
@@ -133,7 +132,7 @@ public class BoardServiceExec implements BoardService{
 		// 전체 좋아요 개수
 		// 해당 병원에 좋아요 여부
 		@Override
-		public Map<String, Object> selectHospInfo(hospLikeVo hospLike) {
+		public Map<String, Object> selectHospInfo(HospLike hospLike) {
 			Map<String, Object> result = new HashMap<>();
 			// 병원 자체 정보 추가해야 함...
 			int myCnt = boardMapper.selectMyLikeCnt(hospLike);
