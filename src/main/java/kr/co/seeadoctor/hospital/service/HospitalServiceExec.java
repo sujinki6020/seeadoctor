@@ -1,6 +1,7 @@
 package kr.co.seeadoctor.hospital.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,11 @@ public class HospitalServiceExec implements HospitalService{
 	public void deleteStar(HospLike hospLike) {
 		System.out.println("싫어요");
 		hospMapper.deleteHospLike(hospLike);
+	}
+	
+	@Override
+	public List<HospLike> selectAllHospLike(String id) {
+		return hospMapper.selectAllHospLike(id);
 	}
 	
 	

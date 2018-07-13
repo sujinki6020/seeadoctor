@@ -3,7 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.seeadoctor.repository.mapper.HospitalLikeMapper">
 
-<resultMap id="hospLikeMap" type="hospLike">
+	<resultMap id="hospLikeMap" type="hospLike">
 		<result column="id" property="id"/>
 		<result column="hosp_code" property="hospCode"/>
 		<result column="name" property="name"/>
@@ -23,6 +23,12 @@
 			 where id = #{id}
 			   and hosp_code = #{hospCode}
 		</select>  
+		
+		<select id="selectAllHospLike" parameterType="string" resultMap="hospLikeMap">
+			select *
+			  from tb_like
+			 where id = #{id} 
+		</select>
 		
 		<insert id="insertHospLike" parameterType="hospLike">
 			insert into tb_like(
