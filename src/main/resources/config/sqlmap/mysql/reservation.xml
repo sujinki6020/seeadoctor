@@ -31,10 +31,10 @@
 	<select id="selectTimeSeq" parameterType="reservation" resultType="int">
 	select time_seq
 	  from tb_reservation_time
-	 where hosp_code = #{reservation.hospCode}
-	   and doc_code = #{reservation.docCode}
-	   and date = #{date}
-	   and time = #{reservation.reserveTime}
+	 where hosp_code = #{hospCode}
+	   and doc_code = #{docCode}
+	   and date = #{reserveDate}
+	   and time = #{reserveTime}
 	</select>
 	
 	<update id="checkedBookedStatus" parameterType="int">
@@ -43,27 +43,31 @@
 	 where time_seq = #{timeSeq}
 	</update>
 	
-	<insert id="insertTimeManagement">
+	<insert id="insertTimeManagement" parameterType="reservation">
 	insert into tb_reservation_time(hosp_code, doc_code, date, time)
-	values(#{reservation.hospCode}, #{reservation.docCode}, #{reservation.reserveDate}, #{time})
+	values(#{hospCode}, #{docCode}, #{reserveDate}, #{reserveTime})
 	</insert>
 	
-	<select id="selectReservationByUser" parameterType="map" resultMap="reservationMap">
+	<select id="selectReservationByUser" parameterType="scrollPaging" resultMap="reservationMap">
 	select *
 	  from tb_reservation
 	 where user_seq = #{userSeq}
-   	 <if test="reserveStatus != null">
-   	   and reserve_status = #{reserveStatus}
-   	 </if>
-   	 <if test="reserveDate != null">
-  	 	<choose>
-			<when test="reserveDate != 4">
-	   and reserve_date between date_add(now(), interval -#{reserveDate} month) and date_add(now(), interval -(#{reserveDate}-1) month)
-			</when>
-			<when test="reserveDate == 4">
-	   and reserve_date <![CDATA[<=]]> date_add(now(), interval -4 month)
-			</when>
-		</choose>
+   	 <if test="name !=null">
+	   	<choose>
+		   	<when test="name eq 'reserveStatus'">
+		   		and reserve_status = #{val}
+		   	</when>
+		   	<when test="name eq 'reserveDate'">
+	   			<choose>
+					<when test="val != 4">
+			   			and reserve_date between date_add(now(), interval -#{val} month) and date_add(now(), interval -(#{val}-1) month)
+					</when>
+					<when test="val == 4">
+					    and reserve_date <![CDATA[<=]]> date_add(now(), interval -4 month)
+					</when>
+				</choose>
+		   	</when>
+	   	</choose>
    	 </if>
 	 order by reserve_date desc
 	 limit #{start}, #{end}

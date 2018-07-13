@@ -2,6 +2,8 @@ package kr.co.seeadoctor.repository.vo;
 
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 //예약시간 관리 테이블 
 public class ReservationTime {
 
@@ -15,7 +17,8 @@ public class ReservationTime {
 	    private Integer docCode;
 
 	    // 날짜 
-	    private Date date;
+	    @DateTimeFormat(pattern = "yyyy-MM-dd")
+		private Date date;
 
 	    // 시간 
 	    private String time;
