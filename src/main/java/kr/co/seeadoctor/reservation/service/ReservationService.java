@@ -5,20 +5,15 @@ import java.util.Map;
 
 import kr.co.seeadoctor.repository.vo.Reservation;
 import kr.co.seeadoctor.repository.vo.ReservationTime;
+import kr.co.seeadoctor.repository.vo.ScrollPaging;
 
 public interface ReservationService {
 
-	void insertReservation(Reservation reservation);
+	List<Reservation> selectReservationByUser(ScrollPaging scrollPaging);
 
-	Integer selectTimeSeq(Reservation reservation, String date);
+	void reserveHospital(Reservation reservation);
 
-	void insertTimeManagement(Reservation reservation, String time);
-	void updateBookedStatus(Integer timeSeq);
 
-	List<Reservation> selectReservationByUser(Map<String, Object> reserveMap);
 
-	List<Reservation> selectReservationPop(Reservation reservation);
-
-	List<ReservationTime> selectTimeList(ReservationTime reserveTime);
 
 }

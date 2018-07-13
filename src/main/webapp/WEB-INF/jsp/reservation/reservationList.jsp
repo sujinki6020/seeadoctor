@@ -67,8 +67,8 @@ function lastPostFunc(name, val) {
 		type : "POST",
 		url : "/seeadoctor/reservation/listAjax.json",
         data: {
-        	'name' : name,
-        	'val' : val,
+        	name : name,
+        	val : val,
         	start : start,
         	end : end
         },

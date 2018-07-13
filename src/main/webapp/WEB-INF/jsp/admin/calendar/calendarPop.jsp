@@ -15,7 +15,7 @@
 
 	<div id="popTitle">
 		<h2><font color="#529dbc">접수현황</font></h2><h3> | ${dateStr}
-		<a href="timePop.do?dateStr=${dateStr}" onclick="window.open(this.href, '팝업시간관리', 'width=650, height=500'); return false;"><button id="timeManageBnt">예약가능 시간 설정</button></a></h3>
+		<a href="timeManagement.do?dateStr=${dateStr}" onclick="window.open(this.href, '팝업시간관리', 'width=650, height=500'); return false;"><button id="timeManageBnt">예약가능 시간 설정</button></a></h3>
 	</div>
 	
 	<div id="popList">

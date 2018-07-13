@@ -2,7 +2,6 @@ package kr.co.seeadoctor.admin.calendar.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.seeadoctor.admin.calendar.service.CalendarService;
+import kr.co.seeadoctor.repository.vo.CalendarInfo;
 import kr.co.seeadoctor.repository.vo.Reservation;
 import kr.co.seeadoctor.repository.vo.ReservationTime;
 import kr.co.seeadoctor.reservation.service.ReservationService;
@@ -28,70 +29,31 @@ import kr.co.seeadoctor.reservation.service.ReservationService;
 public class CalendarController {
 	
 	@Autowired
-	private ReservationService service;
-	
-    @InitBinder
-    public void initBinder(WebDataBinder binder) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
- 
-        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
-    }
-
-	
+	private CalendarService service;
+    
+    
 	@RequestMapping("/calendar.do")
-	public void setCal(HttpServletRequest req, Model model) {
+	public void setCalendar(CalendarInfo calParam, Model model) {
 		
-		Calendar cal = Calendar.getInstance();
+		CalendarInfo calInfo = service.setCalendarDate(calParam);
+		model.addAttribute("calInfo", calInfo);
 		
-		String strYear = req.getParameter("year");
-		String strMonth = req.getParameter("month");
-		
-		int year = cal.get(Calendar.YEAR);
-		int month = cal.get(Calendar.MONTH);
-		int date = cal.get(Calendar.DATE);
-		
-		if(strYear != null) {
-		  year = Integer.parseInt(strYear);
-		  month = Integer.parseInt(strMonth);
-		}
-		
-		model.addAttribute("year", year);
-		model.addAttribute("month", month);
-		cal.set(year, month, 1);
-		
-		int startDay = cal.getMinimum(java.util.Calendar.DATE);
-		int endDay = cal.getActualMaximum(java.util.Calendar.DAY_OF_MONTH);
-		int start = cal.get(java.util.Calendar.DAY_OF_WEEK);
-		model.addAttribute("startDay", startDay);
-		model.addAttribute("endDay", endDay);
-		model.addAttribute("start", start);
-		
-		Calendar todayCal = Calendar.getInstance();
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-		int intToday = Integer.parseInt(sdf.format(todayCal.getTime()));
-		model.addAttribute("intToday", intToday);
-		
-	
 	}
+	
 	
 	@RequestMapping("/calendarPop.do")
 	public void calendarPop(HttpSession session, HttpServletRequest req, Model model) throws ParseException {
 //		session.getAttribute("user");
 		Reservation reservation = new Reservation();
-		
 		reservation.setHospCode(1);
-		
 		String year = req.getParameter("year");
 		String month = req.getParameter("month");
 		String day = req.getParameter("day");
 		if(month.length()==1) month = "0"+month;
 		if(day.length()==1) day = "0"+day;
-		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 		Date date = sdf.parse(year + month + day);
-		
 		reservation.setReserveDate(date);
-		
 		List<Reservation> reserveList = service.selectReservationPop(reservation);
 		model.addAttribute("reserveList",reserveList);
 		model.addAttribute("dateStr", year+"-"+month+"-"+day);
@@ -118,26 +80,25 @@ public class CalendarController {
 	
 	@RequestMapping("/timeList.json")
 	@ResponseBody
-	public List<ReservationTime> timeList(@RequestParam int hospCode, String dateStr, int docCode) throws ParseException {
+	public List<ReservationTime> timeList(int hospCode, String dateStr, int docCode) throws ParseException {
 		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = sdf.parse(dateStr);
-		
 		ReservationTime reserveTime = new ReservationTime();
 		reserveTime.setHospCode(hospCode);
 		reserveTime.setDate(date);
 		reserveTime.setDocCode(docCode);
+
 		
 		return service.selectTimeList(reserveTime);
 		
 	}
 	
-	/*
+/*
 	@RequestMapping("/closeTime.json")
 	@ResponseBody
-	public void closeTime(@RequestParam ArrayList<String> closeArr, int docCode, String dateStr) throws ParseException {
-
-		
+	public void closeTime(ArrayList<String> closeArr, int docCode, String dateStr) throws ParseException {
 		
 		int hospCode = 1;
 		
@@ -151,10 +112,10 @@ public class CalendarController {
 			System.out.println(closeArr.get(i));
 		}
 		
-		service.updateCloseTime();
+		ReserveService.updateCloseTime();
 		
 		
 	}
-	*/
+*/
 
 }

@@ -13,7 +13,6 @@
 </head>
 <body>
 
-
 <div class="viewWrap">
 
 	<table id="calendarTitle">
@@ -22,12 +21,12 @@
 		 <td align="left" >
 					<h1>
 
-                    <a href="<c:url value='/calendar/calendar.do'/>?year=${year-1}&amp;month=${month}"  target="_self">
+                    <a href="<c:url value='/admin/calendar/calendar.do'/>?StrYear=${calInfo.year-1}&amp;strMonth=${calInfo.month}"  target="_self">
                            <button class="calBnt">&lt;&lt;</button><!-- 이전해 --></a>
                     
                     	<c:choose>
-							<c:when test="${month > 0}">
-								<a href="<c:url value='/calendar/calendar.do' />?year=${year}&amp;month=${month-1}" target="_self">
+							<c:when test="${calInfo.month > 0}">
+								<a href="<c:url value='/admin/calendar/calendar.do' />?StrYear=${calInfo.year}&amp;strMonth=${calInfo.month-1}" target="_self">
                           		 <button class="calBnt">&lt;</button><!-- 이전달 --></a>
 							</c:when>
 						    <c:otherwise>
@@ -38,13 +37,13 @@
 
                     &nbsp;&nbsp;
 
-					${year}.${month+1}
+					${calInfo.year}.${calInfo.month+1}
 
                     &nbsp;&nbsp;
                     
                        <c:choose>
-							<c:when test="${month < 11}">
-								<a href="<c:url value='/calendar/calendar.do' />?year=${year}&amp;month=${month+1}" target="_self">
+							<c:when test="${calInfo.month < 11}">
+								<a href="<c:url value='/admin/calendar/calendar.do' />?StrYear=${calInfo.year}&amp;strMonth=${calInfo.month+1}" target="_self">
                           		 <button class="calBnt">&gt;</button><!-- 다음달 --></a>
 							</c:when>
 						    <c:otherwise>
@@ -53,13 +52,13 @@
 						</c:choose>
 
 					<!-- 다음해 -->
-                    <a href="<c:url value='/calendar/calendar.do' />?year=${year+1}&amp;month=${month}" target="_self"><button class="calBnt">&gt;&gt;</button></a>
+                    <a href="<c:url value='/admin/calendar/calendar.do' />?StrYear=${calInfo.year+1}&amp;strMonth=${calInfo.month}" target="_self"><button class="calBnt">&gt;&gt;</button></a>
 					</h1>
              </td>
              
              <td align ="right">
              	<input type="text"> <button id="searchBnt">이름검색</button>
-             	<input id="todayBnt" type="button" onclick="javascript:location.href='<c:url value='/calendar/calendar.do' />'" value="TODAY"/>
+             	<input id="todayBnt" type="button" onclick="javascript:location.href='<c:url value='/admin/calendar/calendar.do' />'" value="TODAY"/>
 			</td>
 
 		
@@ -87,7 +86,7 @@
 
 <c:set var="newLine" value="0"></c:set>
 
-<c:forEach begin="1" end="${start-1}" var="temp">
+<c:forEach begin="1" end="${calInfo.start-1}" var="temp">
 
 <td style="background-color: #f6f6f6;">&nbsp;</td>
 
@@ -97,7 +96,7 @@
 
 
 
-<c:forEach begin="1" end="${endDay}" var="day">
+<c:forEach begin="1" end="${calInfo.endDay}" var="day">
 
     <c:choose>
 		<c:when test="${newLine==0}">
@@ -112,11 +111,11 @@
 	</c:choose>
 
     <c:choose>
-		<c:when test="${month+1<10}">
-			<c:set var="todayMonth" value="0${month+1}"/>
+		<c:when test="${calInfo.month+1<10}">
+			<c:set var="todayMonth" value="0${calInfo.month+1}"/>
 		</c:when>
 	    <c:otherwise>
-			<c:set var="todayMonth" value="${month+1}"/>
+			<c:set var="todayMonth" value="${calInfo.month+1}"/>
 	    </c:otherwise>
 	</c:choose>
 
@@ -131,9 +130,9 @@
 	
 	<c:set var="tdBack" value="#fff"/>
 
-	<fmt:parseNumber var="parseToday" type="number" value="${year}${todayMonth}${todayDate}" />
+	<fmt:parseNumber var="parseToday" type="number" value="${calInfo.year}${todayMonth}${todayDate}" />
 
-	<c:if test="${parseToday == intToday}">
+	<c:if test="${parseToday == calInfo.intToday}">
 		<c:set var="tdBack" value="#eee"/>
 	</c:if>
 	
@@ -144,7 +143,7 @@
 
 		<font color="${color}"><strong>${day}</strong></font>
 		
-		<a href="calendarPop.do?year=${year}&month=${month+1}&day=${day}" onclick="window.open(this.href, '팝업리스트', 'width=800, height=700'); return false;"><font color="#4d4d4d">　　<img src="${pageContext.request.contextPath}/images/admin/calendar/board.png" /> 접수확인</span></font></a>
+		<a href="calendarPop.do?year=${calInfo.year}&month=${calInfo.month+1}&day=${day}" onclick="window.open(this.href, '팝업리스트', 'width=800, height=700'); return false;"><font color="#4d4d4d">　　<img src="${pageContext.request.contextPath}/images/admin/calendar/board.png" /> 접수확인</span></font></a>
 
 	</td>
 
@@ -153,7 +152,7 @@
 	<c:choose>
 
 		<c:when test="${newLine==7}">
-			<c:if test="${day <= endDay}">
+			<c:if test="${day <= calInfo.endDay}">
 			<tr>
 			</c:if>
 			<c:set var="newLine" value="0"></c:set>

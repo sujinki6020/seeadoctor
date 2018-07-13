@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import kr.co.seeadoctor.repository.mapper.ReservationMapper;
 import kr.co.seeadoctor.repository.vo.Reservation;
 import kr.co.seeadoctor.repository.vo.ReservationTime;
+import kr.co.seeadoctor.repository.vo.ScrollPaging;
 
 @Service
 public class ReservationServiceImpl implements ReservationService {
@@ -17,38 +18,60 @@ public class ReservationServiceImpl implements ReservationService {
 	private ReservationMapper mapper;
 
 	@Override
-	public void insertReservation(Reservation reservation) {
+	public List<Reservation> selectReservationByUser(ScrollPaging scrollPaging) {
+		return mapper.selectReservationByUser(scrollPaging);
+	}
+
+	@Override
+	public void reserveHospital(Reservation reservation) {
+
+		//시간관리테이블
+		
+		Integer timeSeq = mapper.selectTimeSeq(reservation); //hospCode, docCode, date, time에 해당하는 timeSeq 반환
+		if(timeSeq==null) {
+			
+			//영업정보 받아오기
+			String startTime = "0920";
+			String endTime = "1720";
+			
+			//만약 시간이 00,30단위가 아니라면
+			if(Integer.parseInt(startTime.substring(2)) < 30) {
+				startTime = startTime.substring(0, 2) + "00";
+			} else if(Integer.parseInt(startTime.substring(2)) > 30) {
+				startTime = startTime.substring(0, 2) + "30";
+			}
+			if(Integer.parseInt(endTime.substring(2)) < 30) {
+				endTime = endTime.substring(0, 2) + "00";
+			} else if(Integer.parseInt(endTime.substring(2)) > 30) {
+				endTime = endTime.substring(0, 2) + "30";
+			}
+
+			int start = Integer.parseInt(startTime);
+			int end = Integer.parseInt(endTime);
+			for(int i = start; i < end; ) {
+				//30분단위
+				if(i%100 == 0) {
+					i = i+30;
+				}else {
+					i = i+70;
+				}
+				String time = Integer.toString(i);
+				if(i<1000) {
+					time = "0"+time;
+				}
+				reservation.setReserveTime(time);
+				mapper.insertTimeManagement(reservation);
+			}
+			timeSeq = mapper.selectTimeSeq(reservation);
+		}
+		
+		mapper.checkedBookedStatus(timeSeq);	
+
 		mapper.insertReservation(reservation);
+		
+		
 	}
 
-	@Override
-	public Integer selectTimeSeq(Reservation reservation, String date) {
-		return mapper.selectTimeSeq(reservation, date);
-	}
 
-	@Override
-	public void insertTimeManagement(Reservation reservation, String time) {
-		mapper.insertTimeManagement(reservation, time);
-	}
-
-	@Override
-	public void updateBookedStatus(Integer timeSeq) {
-		mapper.checkedBookedStatus(timeSeq);
-	}
-
-	@Override
-	public List<Reservation> selectReservationByUser(Map<String, Object> reserveMap) {
-		return mapper.selectReservationByUser(reserveMap);
-	}
-
-	@Override
-	public List<Reservation> selectReservationPop(Reservation reservation) {
-		return mapper.selectReservationPop(reservation);
-	}
-
-	@Override
-	public List<ReservationTime> selectTimeList(ReservationTime reserveTime) {
-		return mapper.selectTimeList(reserveTime);
-	}
 
 }

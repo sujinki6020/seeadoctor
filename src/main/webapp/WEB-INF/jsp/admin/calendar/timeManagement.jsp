@@ -40,15 +40,24 @@ $(document).on("click", ".timeBnt", function () {
 });
 
 function timeList() {
+	console.log(new Date("${dateStr}"));
+	var datetime = new Date("${dateStr}");
 $.ajax({
 	type : "POST",
-	url : "/seeadoctor/calendar/timeList.json",
+	url : "/seeadoctor/admin/calendar/timeList.json",
 	data : {
 		hospCode : 1,
 		dateStr : "${dateStr}",
-		docCode : $(".activeDoc").attr("id")
+		docCode : 1001
 	},
 	success : function (data) {
+		
+		console.log(data.length);
+		
+		if(data==null) {
+			console.log("없음");
+		}
+		
 		console.log(data);
 		$("#timeList").html("");
 		for(var i=0; i<data.length; i++) {
@@ -89,7 +98,7 @@ console.log(closeArr);
 $.ajaxSettings.traditional = true;	
 	$.ajax({
 		type : "POST",
-		url : "/seeadoctor/calendar/closeTime.json",
+		url : "/seeadoctor/admin/calendar/closeTime.json",
 		data : {
 			"closeArr" : closeArr,
 			"docCode" : $(".activeDoc").attr("id"),
