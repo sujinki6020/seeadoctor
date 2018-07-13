@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import kr.co.seeadoctor.repository.mapper.HospitalLikeMapper;
 import kr.co.seeadoctor.repository.vo.HospLike;
 @Service
-public class HospitalServiceExec implements HospitalService{
+public class HospitalServiceImpl implements HospitalService{
 	
 	@Autowired
 	private HospitalLikeMapper hospMapper;

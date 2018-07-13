@@ -172,6 +172,7 @@ body {
 						<span>예약하기</span>
 					</a>
 					<a>
+					
 						<c:if test="${result.cnt ==0}">
 							<img src="${pageContext.request.contextPath}/images/board/unstar.png" data-flag="no" class="pull-right" id="btn_unlike"/><br>
 						</c:if>
@@ -234,6 +235,9 @@ body {
 </div>
 
 <script>
+
+console.log( "${result.cnt}")
+
 
 var ctx = document.getElementById("myChart").getContext('2d');
 

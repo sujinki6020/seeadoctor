@@ -17,7 +17,7 @@ import kr.co.seeadoctor.repository.vo.Comment;
 import kr.co.seeadoctor.repository.vo.PageResult;
 
 @Service
-public class BoardServiceExec implements BoardService{
+public class BoardServiceImpl implements BoardService{
 	
 	@Autowired
 	private BoardMapper boardMapper;

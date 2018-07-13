@@ -33,8 +33,9 @@ public class HospitalController {
 		User user = (User)session.getAttribute("user");
 		hospLike.setMainTreat("내과");
 		hospLike.setName("매디스캔의원");
-		hospLike.setHospCode(1);
+		hospLike.setHospCode(111);
 		hospLike.setId(user.getId());
+		
 		//병원코드 중복으로 들어가지 않게 막기
 		Map<String, Object> result = hospService.selectHospInfo(hospLike);//해당병원 좋아요했는지
 		result.put("hospLike", hospLike);
@@ -59,11 +60,11 @@ public class HospitalController {
 	public void wrongInfoForm() {
 	}
 	
-	//내가 좋아요한 리스트
-	@RequestMapping("")
-	public List<HospLike> hospLikeList(HttpSession session) {
-		User user = (User)session.getAttribute("user");
-		return hospService.selectAllHospLike(user.getId());
-	}
+//	//내가 좋아요한 리스트
+//	@RequestMapping("")
+//	public List<HospLike> hospLikeList(HttpSession session) {
+//		User user = (User)session.getAttribute("user");
+//		return hospService.selectAllHospLike(user.getId());
+//	}
 	
 }
