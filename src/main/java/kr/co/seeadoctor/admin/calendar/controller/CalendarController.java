@@ -1,4 +1,4 @@
-package kr.co.seeadoctor.calendar.controller;
+package kr.co.seeadoctor.admin.calendar.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
