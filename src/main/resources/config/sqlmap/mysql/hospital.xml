@@ -123,9 +123,9 @@
 		from (
 			select * 
 		    from tb_hospital_gangnam 
-		    where cast(wgs84Lat as decimal(17,15)) between 37.492 and 37.506 
+		    where cast(wgs84Lat as decimal(17,15)) between #{wgs84Lat - 0.00} and #{} 
 		    ) as a  
-		where cast( wgs84Lon as decimal(17,14) ) between 127.02 and 127.03 
+		where cast( wgs84Lon as decimal(17,14) ) between #{} and #{} 
 		order by wgs84Lon, wgs84Lat
 	</select>
 	
