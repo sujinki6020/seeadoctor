@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/searchinghospital/searchinghospital.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/map/searchinghospital.css" />
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=IutEeaTAqvux8P5IXvhG&submodules=geocoder"></script>
 <style>
 	#searchaddress {
@@ -92,7 +92,6 @@ function getMyLocation() {
 	if (navigator.geolocation) {
 		console.log("위치정보 지원함");
 		navigator.geolocation.getCurrentPosition(displayLocation);
-		
 	}
 	else {
 		console.log("위치정보 지원하지 않음")
