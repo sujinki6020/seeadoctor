@@ -43,12 +43,15 @@ public class BoardServiceImpl implements BoardService{
 	public void insertBoard(Board board)throws Exception {
 		boardMapper.insertBoard(board);
 		
-		if(board.getFiles() !=null) {
+//		if(board.getFiles() !=null) {
 			
 			 for(MultipartFile file: board.getFiles()) {
 				 
 				 System.out.println(file.getName());
 				 System.out.println("들어왔니?:"+file.getOriginalFilename());
+				 if (file.getOriginalFilename().equals("")) {
+					 continue;
+				 }
 				 String ext="";
 				 int index = file.getOriginalFilename().lastIndexOf(".");
 					if(index != -1) {
@@ -67,7 +70,7 @@ public class BoardServiceImpl implements BoardService{
 					fileVO.setHospCode(hospCode);
 					boardMapper.insertBoardFiles(fileVO);
 			 }
-		}
+//		}
 	}
 	
 	@Override
@@ -107,6 +110,8 @@ public class BoardServiceImpl implements BoardService{
 		
 		//댓글 등록
 		public void insertComment(Comment comment) {
+//			System.out.println("name" + comment.getName());
+			System.out.println("유저시퀀스" + comment.getUserSeq());
 			boardMapper.insertComment(comment);
 		}
 		
