@@ -176,10 +176,10 @@ body {
 					<a>
 						${result.myCnt}-${result.cnt}
 						<c:if test="${result.myCnt ==0}">
-							<img src="${pageContext.request.contextPath}/images/board/unlike.png" data-flag="no" class="pull-right" id="btn_unlike"/><br>
+							<img src="${pageContext.request.contextPath}/images/board/unstar.png" data-flag="no" class="pull-right" id="btn_unlike"/><br>
 						</c:if>
 						<c:if test="${result.myCnt != 0}">
-							<img src="${pageContext.request.contextPath}/images/board/like.png" data-flag="yes" class="pull-right" id="btn_unlike"/><br>
+							<img src="${pageContext.request.contextPath}/images/board/star.png" data-flag="yes" class="pull-right" id="btn_unlike"/><br>
 						</c:if>
 						<span>즐겨찾기</span>
 					</a>	

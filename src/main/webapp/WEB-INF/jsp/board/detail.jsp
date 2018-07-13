@@ -266,7 +266,7 @@ body {
 						<span>예약하기</span>
 					</a>
 					<a>
-						<img src="${pageContext.request.contextPath}/images/board/unlike.png" class="pull-right" id="btn_unlike"/><br>
+						<img src="${pageContext.request.contextPath}/images/board/unstar.png" class="pull-right" id="btn_unlike"/><br>
 						<span>즐겨찾기</span>
 					</a>	
 				</div>

@@ -73,8 +73,6 @@ public class BoardServiceExec implements BoardService{
 	}
 	
 	@Override
-	
-	
 	public Map<String, Object> detailBoard(int no) throws Exception{
 		Map<String, Object> result = new HashMap<>();
 		boardMapper.updateBoardViewCnt(no);
@@ -144,11 +142,6 @@ public class BoardServiceExec implements BoardService{
 		
 		
 		
-		
-
-	
-
-	
 		
 		
 		
