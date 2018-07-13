@@ -14,9 +14,7 @@ import kr.co.seeadoctor.repository.mapper.BoardMapper;
 import kr.co.seeadoctor.repository.vo.Board;
 import kr.co.seeadoctor.repository.vo.BoardFile;
 import kr.co.seeadoctor.repository.vo.Comment;
-import kr.co.seeadoctor.repository.vo.HospLike;
 import kr.co.seeadoctor.repository.vo.PageResult;
-
 
 @Service
 public class BoardServiceExec implements BoardService{
@@ -101,19 +99,6 @@ public class BoardServiceExec implements BoardService{
 			return boardMapper.selectBoardFileByNo(no);
 		}
 
-		//즐겨찾기
-		@Override
-		public int insertHospLike(HospLike hospLike) { //좋아요 등록하기
-			int cnt = boardMapper.selectMyLikeCnt(hospLike); //자신의좋아요 개수 가져오기
-			
-			if(cnt == 0 && cnt < 6) {
-				boardMapper.insertHospLike(hospLike);
-			} else {
-				boardMapper.deleteHospLike(hospLike);
-			}
-			return cnt;
-		}
-
 		//댓글리스트
 		@Override
 		public List<Comment> selectCommentByNo(int no){
@@ -124,27 +109,6 @@ public class BoardServiceExec implements BoardService{
 		public void insertComment(Comment comment) {
 			boardMapper.insertComment(comment);
 		}
-
-		// 아래의 정보를 가져오기 위한 서비스 필요한
-		// 병원 정보 가져오기
-		// 전체 좋아요 개수
-		// 해당 병원에 좋아요 여부
-		@Override
-		public Map<String, Object> selectHospInfo(HospLike hospLike) {
-			Map<String, Object> result = new HashMap<>();
-			// 병원 자체 정보 추가해야 함...
-			int myCnt = boardMapper.selectMyLikeCnt(hospLike);
-			int cnt = boardMapper.selectHospLikeCnt(hospLike);
-			result.put("cnt", cnt);
-			result.put("myCnt", myCnt);
-			return result;
-		}
-		
-		
-		
-		
-		
-		
 		
 		/*
 		//파일이 있을 때

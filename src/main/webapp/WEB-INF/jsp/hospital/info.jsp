@@ -138,8 +138,6 @@ body {
 }
 
 
-
-
 </style>
 </head>
 <body>
@@ -169,12 +167,12 @@ body {
 						<img src="${pageContext.request.contextPath}/images/board/search.png" class="pull-right" id="btn_search"/><br>
 						<span>길찾기</span>
 					</a>
-					<a id="2">
+					<a id="2" href="${pageContext.request.contextPath}/reservation/reservationForm.do">
 						<img src="${pageContext.request.contextPath}/images/board/booking.png" class="pull-right" id="btn_booking"/><br>
 						<span>예약하기</span>
 					</a>
 					<a>
-						${result.myCnt}-${result.cnt}
+<%-- 						${result.myCnt}-${result.cnt} --%>
 						<c:if test="${result.myCnt ==0}">
 							<img src="${pageContext.request.contextPath}/images/board/unstar.png" data-flag="no" class="pull-right" id="btn_unlike"/><br>
 						</c:if>
