@@ -81,7 +81,7 @@ public class BoardController {
 		//mysql셀렉트키를 이용하면 매개변수board에 입력된 글 번호가 설정된다(설정함)
 		boardService.insertBoard(board); //가져간다
 		//매개변수로 글번호와 멀티파트파일정보를 가지고 있는 보드vo객체를 넘긴다
-		boardService.insertBoardFiles(board); //(보드no가 설정된board객체)가져간다
+//		boardService.insertBoardFiles(board); //(보드no가 설정된board객체)가져간다
 		return "redirect:/board/review.do";
 	}
 

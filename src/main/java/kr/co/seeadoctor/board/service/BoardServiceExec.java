@@ -45,6 +45,32 @@ public class BoardServiceExec implements BoardService{
 	@Override
 	public void insertBoard(BoardVo board)throws Exception {
 		boardMapper.insertBoard(board);
+		
+		if(board.getFiles() !=null) {
+			
+			 for(MultipartFile file: board.getFiles()) {
+				 
+				 System.out.println(file.getName());
+				 System.out.println("들어왔니?:"+file.getOriginalFilename());
+				 String ext="";
+				 int index = file.getOriginalFilename().lastIndexOf(".");
+					if(index != -1) {
+						ext = file.getOriginalFilename().substring(index);
+					}
+					
+					int hospCode = 1; 
+					
+					String sysName = "final-"+UUID.randomUUID().toString()+ext;
+					file.transferTo(new File("c:/java-lec/upload/"+sysName));
+					
+					BoardFileVo fileVO = new BoardFileVo();
+					fileVO.setNo(board.getNo());
+					fileVO.setFilePath("c:/java-lec/upload/");
+					fileVO.setSysName(sysName);
+					fileVO.setHospCode(hospCode);
+					boardMapper.insertBoardFiles(fileVO);
+			 }
+		}
 	}
 	
 	@Override
@@ -72,36 +98,6 @@ public class BoardServiceExec implements BoardService{
 		return boardMapper.selectBoardUpdate(no);
 		 
 	}
-	//파일업로드
-	@Override
-	public void insertBoardFiles(BoardVo board) throws Exception{
-		
-		if(board.getFiles() !=null) {
-			
-			 for(MultipartFile file: board.getFiles()) {
-				 
-				 System.out.println(file.getName());
-				 System.out.println("들어왔니?:"+file.getOriginalFilename());
-				 String ext="";
-				 int index = file.getOriginalFilename().lastIndexOf(".");
-					if(index != -1) {
-						ext = file.getOriginalFilename().substring(index);
-					}
-					
-					int hospCode = 1; 
-					
-					String sysName = "final-"+UUID.randomUUID().toString()+ext;
-					file.transferTo(new File("c:/java-lec/upload/"+sysName));
-					
-					BoardFileVo fileVO = new BoardFileVo();
-					fileVO.setNo(board.getNo());
-					fileVO.setFilePath("c:/java-lec/upload/");
-					fileVO.setSysName(sysName);
-					fileVO.setHospCode(hospCode);
-					boardMapper.insertBoardFiles(fileVO);
-			 }
-		}
-	}	
 		
 		@Override
 		public List<BoardFileVo> selectBoardFileByNo(int no) {

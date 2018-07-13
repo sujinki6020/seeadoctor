@@ -14,8 +14,6 @@ public interface BoardService {
 	public BoardVo selectBoardUpdate(int no)throws Exception;
 	public void insertBoard(BoardVo board)throws Exception;
 	public void deleteBoard(int no);
-	//파일등록
-	public void insertBoardFiles(BoardVo board) throws Exception;
 	//디테일 파일
 	public List<BoardFileVo> selectBoardFileByNo(int no);
 	
