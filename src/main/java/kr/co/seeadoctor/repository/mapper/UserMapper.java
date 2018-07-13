@@ -9,4 +9,6 @@ public interface UserMapper {
 	public List<User> selectByUser(String id);
 	
 	public void insertUser(User user);
+
+	public List<User> selectUserByName(String name);
 }

@@ -31,4 +31,11 @@
 			#{id}, #{pw}, #{name}, #{gender}, #{birth}, #{email}, #{phone}, #{addr1}, #{addr2}, #{zip}
  		)
 	</insert>
+	
+	<select id="selectUserByName" parameterType="string" resultMap="userMap">
+		select user_seq, name, gender, birth, phone
+		  from tb_user
+		 where admin = 'N'
+		   and name = #{name} 
+	</select>
 </mapper>

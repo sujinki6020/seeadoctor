@@ -7,7 +7,7 @@ public class ScrollPaging {
 	int end;
 	
 	String name;
-	String val;
+	int val;
 	
 	
 	
@@ -36,10 +36,10 @@ public class ScrollPaging {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getVal() {
+	public int getVal() {
 		return val;
 	}
-	public void setVal(String val) {
+	public void setVal(int val) {
 		this.val = val;
 	}
 	
