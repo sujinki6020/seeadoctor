@@ -6,13 +6,24 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.seeadoctor.map.service.MapService;
+
 @Controller
 @RequestMapping("/map")
 public class AddressController {
+	
+	@Autowired
+	private MapService mapService;
+	
+	@RequestMapping("/main.do")
+	public void main() {
+		mapService.start();
+	}
 	
 	@RequestMapping(value="/address.do" ,produces="text/plain;charset=UTF-8")
 	public @ResponseBody String getAddress(String q) {
@@ -47,9 +58,9 @@ public class AddressController {
         }
         return response.toString();
 	}
+	
 	@RequestMapping(value="/position.do" ,produces="text/plain;charset=UTF-8")
 	public @ResponseBody String getPosition(String latitude ,String longitude) {
-		System.out.println("포지셔닝");
 		StringBuffer response = null;
         String serviceKey = "xQForva6YupidhLn9gLiGhCigt00qdhYbUBx71%2B82rBdxRal%2BpeE5n4oNrC5mp9Nm01mF6SVAIZY8T8%2FmoFSQA%3D%3D";
             String apiURL = "http://apis.data.go.kr/B552657/HsptlAsembySearchService/getHsptlMdcncLcinfoInqire?ServiceKey=";
@@ -78,8 +89,6 @@ public class AddressController {
         } catch (Exception e) {
             System.out.println(e);
         }
-        System.out.println("포지셔닝 끝남");
-        System.out.println(response.toString());
         return response.toString();
 	}
 }

@@ -42,7 +42,7 @@
             <a href="#1"><span>진료과목</span><i id="icon"></i></a>
         </div>
         <div id="result">
-            <div id="resultcount"><span>현 지도 내에 71077건 검색되었습니다.</span></div>
+            <div id="resultcount"><span>전체 보기</span></div>
             <div id="resultlist">
                 
             </div>
@@ -203,14 +203,6 @@ function getHospital(x,y){
 		removeMarker();
 		$("#resultlist").empty();
 		$items.map(function(item ,index){
-			console.log('아이템',item ,'인덱스', index);
-			console.log($(index).find("dutyName").text())
-			console.log($(index).find("dutyAddr").text())
-			console.log($(index).find("dutyDiv").text())
-			console.log($(index).find("dutyDivName").text())
-			console.log($(index).find("latitude").text())
-			console.log($(index).find("longitude").text())
-			
 			latlng = new naver.maps.LatLng($(index).find("latitude").text(), $(index).find("longitude").text()); 
 			let marker = new naver.maps.Marker({
 			    position: latlng,
@@ -238,7 +230,8 @@ function getHospital(x,y){
 			});
 		})
 	});
-}	
+}
+
 function removeMarker(){
 	markerArr.map(function(item){
 		item.setMap(null);
@@ -248,6 +241,7 @@ function setHospitalList(name ,address, deptName){
 	let content = '<div><h3>'+ name +'&nbsp<span>' + deptName +'</span></h3><p>' + address + '</p></div>';
 	$("#resultlist").append(content);
 }
+
 
 </script>
 </body>

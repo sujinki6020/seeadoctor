@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.seeadoctor.repository.mapper.HospitalMapper">
+	<resultMap id="hospitalMap" type="hospital">
+		<result column="hospital_seq" property="hospitalSeq"/>
+		<result column="qd" property="qd"/>
+		<result column="rnum" property="rnum"/>
+		<result column="dutyAddr" property="dutyAddr"/>
+		<result column="dutyDiv" property="dutyDiv"/>
+		<result column="dutyDivNam" property="dutyDivNam"/>
+		<result column="dutyEmcls" property="dutyEmcls"/>
+		<result column="dutyEmclsName" property="dutyEmclsName"/>
+		<result column="dutyEryn" property="dutyEryn"/>
+		<result column="dutyEtc" property="dutyEtc"/>
+		<result column="dutyMapimg" property="dutyMapimg"/>
+		<result column="dutyName" property="dutyName"/>
+		<result column="dutyTel1" property="dutyTel1"/>
+		<result column="dutyTel3" property="dutyTel3"/>
+		<result column="dutyTime1c" property="dutyTime1c"/>
+		<result column="dutyTime2c" property="dutyTime2c"/>
+		<result column="dutyTime3c" property="dutyTime3c"/>
+		<result column="dutyTime4c" property="dutyTime4c"/>
+		<result column="dutyTime5c" property="dutyTime5c"/>
+		<result column="dutyTime6c" property="dutyTime6c"/>
+		<result column="dutyTime7c" property="dutyTime7c"/>
+		<result column="dutyTime8c" property="dutyTime8c"/>
+		<result column="dutyTime1s" property="dutyTime1s"/>
+		<result column="dutyTime2s" property="dutyTime2s"/>
+		<result column="dutyTime3s" property="dutyTime3s"/>
+		<result column="dutyTime4s" property="dutyTime4s"/>
+		<result column="dutyTime5s" property="dutyTime5s"/>
+		<result column="dutyTime6s" property="dutyTime6s"/>
+		<result column="dutyTime7s" property="dutyTime7s"/>
+		<result column="dutyTime8s" property="dutyTime8s"/>
+		<result column="hpid" property="hpid"/>
+		<result column="postCdn1" property="postCdn1"/>
+		<result column="postCdn2" property="postCdn2"/>
+		<result column="wgs84Lon" property="wgs84Lon"/>
+		<result column="wgs84Lat" property="wgs84Lat"/>
+		<result column="dutyInf" property="dutyInf"/>
+	</resultMap>
+	
+	
+	<insert id="insertHospital" parameterType="hospital">
+		insert into tb_hospital_gangnam (
+			qd,
+			rnum ,
+			dutyAddr,
+			dutyDiv ,
+			dutyDivNam,
+			dutyEmcls ,
+			dutyEmclsName,
+			dutyEryn ,
+			dutyEtc,
+			dutyMapimg,
+			dutyName,
+			dutyTel1,
+			dutyTel3,
+			dutyTime1c, 
+			dutyTime2c, 
+			dutyTime3c, 
+			dutyTime4c, 
+			dutyTime5c, 
+			dutyTime6c, 
+			dutyTime7c,
+			dutyTime8c, 
+			dutyTime1s, 
+			dutyTime2s, 
+			dutyTime3s, 
+			dutyTime4s, 
+			dutyTime5s, 
+			dutyTime6s, 
+			dutyTime7s, 
+			dutyTime8s, 
+			hpid,
+			postCdn1,
+			postCdn2,
+			wgs84Lon,
+			wgs84Lat,
+			dutyInf 
+		) values(
+			#{qd},
+			#{rnum} ,
+			#{dutyAddr},
+			#{dutyDiv} ,
+			#{dutyDivNam},
+			#{dutyEmcls} ,
+			#{dutyEmclsName},
+			#{dutyEryn} ,
+			#{dutyEtc},
+			#{dutyMapimg},
+			#{dutyName},
+			#{dutyTel1},
+			#{dutyTel3},
+			#{dutyTime1c}, 
+			#{dutyTime2c}, 
+			#{dutyTime3c}, 
+			#{dutyTime4c}, 
+			#{dutyTime5c}, 
+			#{dutyTime6c}, 
+			#{dutyTime7c},
+			#{dutyTime8c}, 
+			#{dutyTime1s}, 
+			#{dutyTime2s}, 
+			#{dutyTime3s}, 
+			#{dutyTime4s}, 
+			#{dutyTime5s}, 
+			#{dutyTime6s}, 
+			#{dutyTime7s}, 
+			#{dutyTime8s}, 
+			#{hpid},
+			#{postCdn1},
+			#{postCdn2},
+			#{wgs84Lon},
+			#{wgs84Lat},
+			#{dutyInf} 
+		)
+	</insert>
+	
+</mapper>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
