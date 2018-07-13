@@ -1,6 +1,6 @@
 package kr.co.seeadoctor.repository.vo;
 
-public class PageResultVo {
+public class PageResult {
 
 	//한 페이지에 몇개의 게시물을 나타낼 것인지
 	//하나의 블럭에 몇개의 페이지를 나타낼 것인지
@@ -16,7 +16,7 @@ public class PageResultVo {
 	private boolean next; //다음페이지
 	
 	
-	public PageResultVo(int pageNo, int count) { //생성자
+	public PageResult(int pageNo, int count) { //생성자
 		this.count = count;
 		this.pageNo = pageNo;
 		init();

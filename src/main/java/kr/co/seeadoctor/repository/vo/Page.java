@@ -1,6 +1,6 @@
 package kr.co.seeadoctor.repository.vo;
 
-public class PageVo {
+public class Page {
 
 	private int pageNo = 1; //탭 시작 번호
 	
@@ -10,9 +10,9 @@ public class PageVo {
 	public int getEnd() {
 		return pageNo * 20; //1탭에 해당하는 게시글 수
 	}
-	public PageVo() {} //생성자
+	public Page() {} //생성자
 	
-	public PageVo(int pageNo) { //오버로딩
+	public Page(int pageNo) { //오버로딩
 		super();
 		this.pageNo=pageNo;
 	}

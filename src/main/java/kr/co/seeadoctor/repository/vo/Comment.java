@@ -1,10 +1,7 @@
 package kr.co.seeadoctor.repository.vo;
 
 import java.util.Date;
-
-import org.apache.ibatis.type.Alias;
-@Alias("comment")
-public class CommentVo {
+public class Comment {
 	private int no;
 	private int userSeq;
 	private String content;

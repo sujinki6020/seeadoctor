@@ -18,10 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.seeadoctor.board.service.BoardService;
-import kr.co.seeadoctor.repository.vo.BoardFileVo;
-import kr.co.seeadoctor.repository.vo.BoardVo;
-import kr.co.seeadoctor.repository.vo.CommentVo;
-import kr.co.seeadoctor.repository.vo.hospLikeVo;
+import kr.co.seeadoctor.repository.vo.BoardFile;
+import kr.co.seeadoctor.repository.vo.Board;
+import kr.co.seeadoctor.repository.vo.Comment;
+import kr.co.seeadoctor.repository.vo.HospLike;
 
 @Controller
 @RequestMapping("/board")
@@ -31,7 +31,7 @@ public class BoardController {
 	private BoardService boardService;
 	
 	@RequestMapping("/info.do")
-	public void hospInfo(hospLikeVo hospLike, Model model) {
+	public void hospInfo(HospLike hospLike, Model model) {
 		
 		// 아래의 정보를 가져오기 위한 서비스 필요한
 		// 병원 정보 가져오기
@@ -56,22 +56,22 @@ public class BoardController {
 //	}
 	
 	@RequestMapping("/review.do") 
-	public void review(Model model, BoardVo board) throws Exception {
+	public void review(Model model, Board board) throws Exception {
 		model.addAttribute("result", boardService.selectBoard(board));
 	}
 	
 	@RequestMapping("/writeForm.do")
-	public void writeForm(BoardVo board) {
+	public void writeForm(Board board) {
 	}
 	
 	@RequestMapping("/updateForm.do")
-	public String updateForm(BoardVo board, Model model)throws Exception {
+	public String updateForm(Board board, Model model)throws Exception {
 		model.addAttribute("board", boardService.selectBoardUpdate(board.getNo())); 
 		return "board/writeForm";
 	}
 	
 	@RequestMapping("/write.do")
-	public String write(BoardVo board)throws Exception {//들어온다4
+	public String write(Board board)throws Exception {//들어온다4
 		System.out.println("들어오니");
 		board.setUserSeq(3); //세션에있는 유저객체를 받아와서 셋해줌
 		board.setName("체리혜리");
@@ -86,10 +86,10 @@ public class BoardController {
 	}
 
 	@RequestMapping("/detail.do")
-	public void detail(Model model, BoardVo board) throws Exception {
+	public void detail(Model model, Board board) throws Exception {
 		Map<String, Object> result = boardService.detailBoard(board.getNo());
-		List<BoardFileVo> files = boardService.selectBoardFileByNo(board.getNo());
-		List<CommentVo> commentList = boardService.selectCommentByNo(board.getNo());
+		List<BoardFile> files = boardService.selectBoardFileByNo(board.getNo());
+		List<Comment> commentList = boardService.selectCommentByNo(board.getNo());
 		
 		model.addAttribute("result", result);
 		model.addAttribute("files", files);
@@ -101,7 +101,7 @@ public class BoardController {
 	//추천
 	@RequestMapping("/hospLike.json")
 	@ResponseBody
-	public void hospLike(hospLikeVo hospLike) { //return 어떻게 해야할 지 몰라서 우선 void로 함
+	public void hospLike(HospLike hospLike) { //return 어떻게 해야할 지 몰라서 우선 void로 함
 		boardService.insertHospLike(hospLike);
 	}
 	
@@ -185,17 +185,17 @@ public class BoardController {
 	//댓글리스트
 	@RequestMapping("/commentList.json")
 	@ResponseBody
-	public List<CommentVo> commentList(int no){
-		List<CommentVo> commentList = boardService.selectCommentByNo(no);
+	public List<Comment> commentList(int no){
+		List<Comment> commentList = boardService.selectCommentByNo(no);
 		System.out.println("왔니");
 		return commentList;
 	}
 	//댓글 등록: 등록 후 등록된 댓글 까지 리스트 불러오기
 	@RequestMapping("/commentRegist.json")
 	@ResponseBody
-	public List<CommentVo> commentRegist(CommentVo comment){
+	public List<Comment> commentRegist(Comment comment){
 		boardService.insertComment(comment);
-		List<CommentVo> commentList = boardService.selectCommentByNo(comment.getNo());
+		List<Comment> commentList = boardService.selectCommentByNo(comment.getNo());
 		return commentList;
 	}
 	
