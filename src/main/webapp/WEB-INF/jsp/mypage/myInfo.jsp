@@ -4,9 +4,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/myInfo.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/like.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage/mypage.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage/myInfo.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage/like.css" />
 </head>
 <body>
 	<main> 
@@ -17,12 +17,12 @@
 
 	<section id="content1"">
 		<div id="myInfo">
-			<form action="" class="register">
+			<form action="myPage.do" class="register">
 				<h1 id="myH1">My Information</h1>
 				<fieldset class="row1">
 					<legend>ID & PW </legend>
 					<p>
-						<label>ID </label> <input type="text" value="My ID" />
+						<label>ID </label> <input type="text" value="${user.id}" />
 					</p>
 					<p>
 						<label>Password </label> 
@@ -35,7 +35,7 @@
 					<legend>Personal Details </legend>
 					<p>
 						<label>Name </label> <input type="text" class="long"
-							value="My Name" />
+							value="${user.name}" />
 					</p>
 					<p>
 						<label>Phone </label> <input type="text" maxlength="11" />

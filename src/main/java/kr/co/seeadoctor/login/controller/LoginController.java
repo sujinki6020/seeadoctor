@@ -5,13 +5,12 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 import kr.co.seeadoctor.login.service.LoginService;
 import kr.co.seeadoctor.repository.vo.User;
 
 @Controller
-@RequestMapping("/temp")
+@RequestMapping("/login")
 public class LoginController {
 	@Autowired
 	private LoginService service;
@@ -27,19 +26,20 @@ public class LoginController {
 //		request.getSession().setAttribute("user", true);
 		
 		 String returnURL = "";
+		 		// 기존에 login이란 세션 값이 존재한다면
 	        if ( session.getAttribute("user") != null ){
-	            // 기존에 login이란 세션 값이 존재한다면
-	            session.removeAttribute("user"); // 기존값을 제거해 준다.
+	        	// 기존값 제거
+	            session.removeAttribute("user"); 
 	        }
 	         
-	        // 로그인이 성공하면 UserVO 객체를 반환함.
+	        // 로그인이 성공하면 UserVO 객체를 반환
 	        User vo = service.login(user);
 	         
 	        if ( vo != null ){ // 로그인 성공
-	            session.setAttribute("user", vo); // 세션에 login인이란 이름으로 UserVO 객체를 저장.
-	            returnURL = "redirect:/index.jsp"; // 로그인 성공시 게시글 목록페이지로 바로 이동하도록 하고
-	        }else { // 로그인에 실패한 경우
-	            returnURL = "temp/loginForm"; // 로그인 폼으로 다시 가도록 함
+	            session.setAttribute("user", vo); // 세션에 login인이란 이름으로 User 객체 저장
+	            returnURL = "redirect:/index.jsp"; // 로그인 성공 시 main(index)로 바로 이동
+	        }else { // 로그인 실패
+	            returnURL = "login/loginForm"; // 로그인 폼으로 다시 
 	        }
 	         
 	        return returnURL; // 위에서 설정한 returnURL 을 반환해서 이동시킴

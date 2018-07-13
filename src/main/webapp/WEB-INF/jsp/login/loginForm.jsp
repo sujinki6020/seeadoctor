@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login/login.css" />
 </head>
 <body>
 	<div class="wrapper fadeInDown">
@@ -19,10 +19,10 @@
 			</div>
 
 			<!-- Login Form -->
-			<form method="post" action="/temp/login">
-				<input type="text" id="login" class="fadeIn second" name="login" placeholder="login"> 
-				<input type="password" id="password" class="fadeIn third" name="login" placeholder="password"> 
-				<input type="submit" class="fadeIn fourth" value="Log In">
+			<form method="post" action="${pageContext.request.contextPath}/login/login.do">
+				<input type="text" id="login" class="fadeIn second" name="id" placeholder="login"> 
+				<input type="password" id="password" class="fadeIn third" name="pw" placeholder="password" style="color:black;">
+				<button id="fourth">Log In</button>
 			</form>
 
 			<!-- Remind Passowrd -->

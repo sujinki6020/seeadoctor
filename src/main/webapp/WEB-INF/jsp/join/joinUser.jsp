@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/joinUser.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/join/joinUser.css" />
 <style>
 	.form-group {
 		position:relative;
@@ -182,16 +182,8 @@ $("#phone").keyup(function () {
 	}
 });
 
-// $("#save").click(function (e) {
-// 	e.preventDefault();
-// 	// 코드를 
-	
-// 	document.form.submit();
-// });
-
 $("#save").on("submit", function(event) {
     event.preventDefault();
-    // process form
     console.log("addr1", addr1);
     console.log("addr2", addr2);
     console.log("pw", pw);

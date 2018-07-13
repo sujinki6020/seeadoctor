@@ -6,12 +6,12 @@
     <p>
     <c:choose>
 	    <c:when test="${empty sessionScope.user }">
-	    <a href="${pageContext.request.contextPath}/temp/loginForm.do" id="loginA" onchange="changeUI();">로그인</a>
-	    /<a href="${pageContext.request.contextPath}/temp/joinUser.do" id="joinA">회원가입</a><br>
+	    <a href="${pageContext.request.contextPath}/login/loginForm.do" id="loginA" onchange="changeUI();">로그인</a>
+	    /<a href="${pageContext.request.contextPath}/join/joinUser.do" id="joinA">회원가입</a><br>
 	    </c:when>
 	    <c:otherwise>
         ${user.name}님 환영합니다. <br><br>
-	    <a href="${pageContext.request.contextPath}/temp/logout.do" >로그아웃</a>
+	    <a href="${pageContext.request.contextPath}/login/logout.do" >로그아웃</a>
 	    </c:otherwise>
     </c:choose>
     </p>
@@ -19,14 +19,14 @@
         <ul id="mainMenu">
             <li><a href="${pageContext.request.contextPath}/temporary/searchinghospital.jsp">병원 찾기</a></li>
             <li><a href="${pageContext.request.contextPath}/reservation/reservationList.do">내 접수현황</a></li>
-            <li><a href="${pageContext.request.contextPath}/temp/myPage.do">마이페이지</a></li>
+            <li><a href="${pageContext.request.contextPath}/mypage/myPage.do">마이페이지</a></li>
         </ul>
         
     </nav>
     <div id="bottomArea">
         <ul class="etcInfo">
 	        <li style="font-weight:900;">
-	        	<a href="${pageContext.request.contextPath}/temp/joinAdmin.do" id="joinA">Admin 회원가입</a> 
+	        	<a href="${pageContext.request.contextPath}/join/joinAdmin.do" id="joinA">Admin 회원가입</a> 
 	        </li>
             <li>
                 <a href="#1">About us</a>
