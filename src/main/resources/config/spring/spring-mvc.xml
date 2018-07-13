@@ -54,6 +54,7 @@
 	<!-- 컨트롤러 없이 페이지 매핑 -->
 	<mvc:view-controller path="/main/main.do" view-name="main/main" />
 	
+<<<<<<< HEAD
 	
 	
 	
@@ -65,5 +66,7 @@
 			<ref bean="loginInterceptor" />
 		</mvc:interceptor>
 	</mvc:interceptors>
+=======
+>>>>>>> 8b482b6177f0880d24d201636012ad4b31c58cb6
 
 </beans>

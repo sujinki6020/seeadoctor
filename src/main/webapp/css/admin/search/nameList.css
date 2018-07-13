@@ -1,0 +1,41 @@
+@charset "UTF-8";
+
+
+a:link, a:hover {
+	text-decoration: none;
+}
+.viewWrap {
+	font-size: medium;
+	width: 1315px;
+	padding: 35px 20px;
+	box-sizing: border-box;
+}
+#resultTitle {
+	width: 80%;
+	margin: 20px auto;
+}
+#resultList {
+	width: 70%;
+	margin: 40px auto;
+}
+#searchKey {
+	display: inline-block;
+}
+.resultIndex {
+	height: 60px;
+	font-weight: bolder;
+}
+.detailBnt {
+	padding: 5px 10px;
+	width: 70px;
+	height: 25px;
+	border-radius: 25px;
+    border: 1px solid #ddd;
+    font-size: smaller;
+    font-weight: bold;
+    color: #666;
+    background-color: #fff;
+    margin-left: 15px;
+    outline: none;
+    cursor: pointer;
+}

@@ -6,6 +6,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>성공</h1>
+	<h1>데이터 집어놓기 성공</h1>
 </body>
 </html>

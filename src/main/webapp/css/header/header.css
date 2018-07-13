@@ -6,7 +6,7 @@ body, p, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, table, th, td, form, fi
     margin: 0;
     padding: 0;
     line-height: 1.5; 
-    font-family: "NanumSquare";
+    font-family: "NanumSquare" , sans-serif;
 }
 body, input, textarea, select, button, table {
     font-size: 12px;

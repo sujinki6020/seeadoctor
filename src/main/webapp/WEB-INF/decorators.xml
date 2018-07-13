@@ -9,9 +9,14 @@
 
 <!-- 	decorators를 적용시키지 않을 url 패턴 -->
 	<excludes>
+<<<<<<< HEAD
 		<pattern>/login/login*</pattern>
 		<pattern>/temp/chat.jsp</pattern>
 		<pattern>/temp/jusoPopup.do</pattern>
+=======
+		<pattern>/calendar/calendarPop.do</pattern>
+		<pattern>/calendar/timePop.do</pattern>
+>>>>>>> 8b482b6177f0880d24d201636012ad4b31c58cb6
 	</excludes>
 </decorators>
 

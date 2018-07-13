@@ -1,0 +1,133 @@
+@charset "UTF-8";
+
+body { 
+	font-family: 'NanumSquare', sans-serif; 
+}
+::-webkit-scrollbar { 
+    display: none; 
+}
+input[type=text] {
+	outline: none;
+}
+
+a:link, a:hover {
+	text-decoration: none;
+}
+.popWrap {
+	padding: 20px 20px;
+	box-sizing: border-box;
+}
+#popTitle {
+	margin-bottom: 30px;
+}
+#timeManageBnt {
+	float: right;
+	width: 200px;
+	height: 30px;
+	border: 1px solid #529dbc;
+	background-color: #529dbc;
+	opacity: 0.9;
+	color: #fff;
+	outline: none;
+    cursor: pointer;
+    box-shadow: 4px 4px 3px #ddd;
+}
+.listBox {
+	border-top: 1px dotted #ddd;
+	border-bottom: 1px dotted #ddd;
+	padding: 5px 10px;
+}
+.detailBox {
+margin: 8px 8px;
+	background-color: #f6f6f6;
+	padding: 5px 5px;
+	color: #4d4d4d;
+ 	display: none; 
+}
+.detailInfo {
+margin: 8px 8px;
+	display: inline-block;
+}
+.listBtns {
+	display: inline;
+	float: right;
+	margin-right: 10px;
+	margin-top: 9px;
+}
+
+
+
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+    width: 50px;
+    height: 26px;
+  vertical-align:middle;
+}
+ 
+/* Hide default HTML checkbox */
+.switch input {display:none;}
+ 
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #f66291;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+ 
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 20px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+ 
+input:checked + .slider {
+  background-color: #555;
+}
+ 
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+ 
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+ 
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+ 
+.slider.round:before {
+  border-radius: 50%;
+}
+ 
+#on, #off {
+  margin:0px;
+  display:inline-block;
+  font-size:15px;
+  font-weight:bold;
+}
+#cancleReserv {
+font-size: small;
+	background-color: #333;
+	color: #fff;
+	padding: 5px 20px;
+	border-radius: 5px;
+}
