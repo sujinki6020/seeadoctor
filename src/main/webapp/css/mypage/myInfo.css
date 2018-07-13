@@ -32,7 +32,7 @@ a:hover{
     font-weight:200;
     color: #33BBEA;
     font-size:20pt;
-    background: transparent url(../img/h1.png) no-repeat center left;
+    background: transparent url("http://localhost:8001/seeadoctor/images/mypage/h1.png") no-repeat center left;
     padding-left:33px;
     margin:7px 5px 8px 8px;
 }
@@ -168,7 +168,7 @@ form.register input[type=password]
 }
 .button
 {
-    background:rgba(61, 149, 218, 1.0) url(../img/overlay.png) repeat-x;
+    background:rgba(61, 149, 218, 1.0) url("http://localhost:8001/seeadoctor/images/mypage/overlay.png") repeat-x;
     padding: 8px 10px 8px;
     color: #fff;
     text-decoration: none;

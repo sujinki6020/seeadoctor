@@ -15,7 +15,7 @@ public class MyPageController {
 	@Autowired 
 	private MyPageService myPageService;
 
-	@RequestMapping("/myPage.do")
+	@RequestMapping("/myInfo.do")
 	public List<User> retrieveUser(String id) {
 		System.out.println(id);
 		List<User> userList = myPageService.retrieveUser(id);

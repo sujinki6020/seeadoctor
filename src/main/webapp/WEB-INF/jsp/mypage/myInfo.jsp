@@ -17,7 +17,7 @@
 
 	<section id="content1"">
 		<div id="myInfo">
-			<form action="myPage.do" class="register">
+			<form action="myInfo.do" class="register">
 				<h1 id="myH1">My Information</h1>
 				<fieldset class="row1">
 					<legend>ID & PW </legend>
@@ -67,42 +67,42 @@
 		</div>
 	</section>
 
-	<section id="content2">
-		<div id="likeContainer" class="container">
-			<div id="likeRow" class="row">
-				<div class="col-xs-12 shelf hidden-md hidden-lg"></div>
+<!-- 	<section id="content2"> -->
+<!-- 		<div id="likeContainer" class="container"> -->
+<!-- 			<div id="likeRow" class="row"> -->
+<!-- 				<div class="col-xs-12 shelf hidden-md hidden-lg"></div> -->
 
-				<div class="col-xs-4 col-md-2">
-					<a href=""><img src="../images/like.png"
-						class="img-responsive book"></a>
-				</div>
-				<div class="col-xs-4 col-md-2">
-					<a href=""><img src="../images/like.png"
-						class="img-responsive book"></a>
-				</div>
-				<div class="col-xs-4 col-md-2">
-					<a href=""><img src="../images/like.png"
-						class="img-responsive book"></a>
-				</div>
-				<div class="col-xs-12 shelf"></div>
-				<div class="col-xs-4 col-md-2">
-					<a href=""><img src="../images/like.png"
-						class="img-responsive book"></a>
-				</div>
-				<div class="col-xs-4 col-md-2">
-					<a href=""><img src="../images/like.png"
-						class="img-responsive book"></a>
-				</div>
-				<div class="col-xs-4 col-md-2">
-					<a href=""><img src="../images/like.png"
-						class="img-responsive book"></a>
-				</div>
+<!-- 				<div class="col-xs-4 col-md-2"> -->
+<!-- 					<a href=""><img src="../images/like.png" -->
+<!-- 						class="img-responsive book"></a> -->
+<!-- 				</div> -->
+<!-- 				<div class="col-xs-4 col-md-2"> -->
+<!-- 					<a href=""><img src="../images/like.png" -->
+<!-- 						class="img-responsive book"></a> -->
+<!-- 				</div> -->
+<!-- 				<div class="col-xs-4 col-md-2"> -->
+<!-- 					<a href=""><img src="../images/like.png" -->
+<!-- 						class="img-responsive book"></a> -->
+<!-- 				</div> -->
+<!-- 				<div class="col-xs-12 shelf"></div> -->
+<!-- 				<div class="col-xs-4 col-md-2"> -->
+<!-- 					<a href=""><img src="../images/like.png" -->
+<!-- 						class="img-responsive book"></a> -->
+<!-- 				</div> -->
+<!-- 				<div class="col-xs-4 col-md-2"> -->
+<!-- 					<a href=""><img src="../images/like.png" -->
+<!-- 						class="img-responsive book"></a> -->
+<!-- 				</div> -->
+<!-- 				<div class="col-xs-4 col-md-2"> -->
+<!-- 					<a href=""><img src="../images/like.png" -->
+<!-- 						class="img-responsive book"></a> -->
+<!-- 				</div> -->
 
-				<div class="col-xs-12 shelf hidden-md hidden-lg"></div>
-				<div class="col-xs-12 shelf"></div>
-			</div>
-		</div>
-	</section>
+<!-- 				<div class="col-xs-12 shelf hidden-md hidden-lg"></div> -->
+<!-- 				<div class="col-xs-12 shelf"></div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</section> -->
 	</main>
 </body>
 </html>
