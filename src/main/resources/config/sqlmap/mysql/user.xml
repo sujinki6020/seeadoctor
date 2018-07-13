@@ -31,4 +31,14 @@
 			#{id}, #{pw}, #{name}, #{gender}, #{birth}, #{email}, #{phone}, #{addr1}, #{addr2}, #{zip}
  		)
 	</insert>
+	
+	<update id="updateUser" parameterType="user">
+		update tb_user
+		set pw = #{pw}
+			,phone = #{phone}
+			,addr1 = #{addr1}
+			,addr2 = #{addr2}
+			,email = #{email}
+		where id = #{id}
+	</update>
 </mapper>

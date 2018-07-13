@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,92 +18,205 @@
 
 	<section id="content1"">
 		<div id="myInfo">
-			<form action="myInfo.do" class="register">
+			<form class="register" id="updateTest" action="${pageContext.request.contextPath}/mypage/updateUser.do">
 				<h1 id="myH1">My Information</h1>
 				<fieldset class="row1">
 					<legend>ID & PW </legend>
 					<p>
-						<label>ID </label> <input type="text" value="${user.id}" />
+						<label>ID </label> <input type="text" name="id" id="id" readonly value="${user.id}" />
 					</p>
 					<p>
 						<label>Password </label> 
-						<input type="password" value="My Password" /> 
+						<input type="password" name="pw" id="password" value="${user.pw}"/> 
 						<label>Repeat Password </label> 
-						<input type="password" />
+						<input type="password" name="password_confirmation" id="password_confirmation" />
+						<p id="pwp" style="color:red;"></p>
+						<p id="pwConfirm" style="color:red;"></p>
 					</p>
 				</fieldset>
 				<fieldset class="row2">
 					<legend>Personal Details </legend>
 					<p>
-						<label>Name </label> <input type="text" class="long"
-							value="${user.name}" />
+						<label>Name </label> 
+						<input type="text" class="long" name="name" id="name" readonly value="${user.name}님" />
 					</p>
 					<p>
-						<label>Phone </label> <input type="text" maxlength="11" />
+						<label>Phone </label> 
+						<input type="text" name="phone" id="phone" value="${user.phone}"/>
+						<p id="phonep" style="color:red;"></p>
 					</p>
 					<p>
-						<label>Address </label> <input type="text" class="long" />
+						<label>Address </label> 
+						<input type="text" class="long" name="addr1" id="addr1" value="${user.addr1}"/>
 					</p>
 					<p>
-						<label>Address(Detail) </label> <input type="text" class="long" />
+						<label>Address(Detail) </label> 
+						<input type="text" class="long" name="addr2" id="addr2" value="${user.addr2}"/>
 					</p>
 					<p>
-						<label>Email </label> <input type="text" class="long" />
+						<label>Email </label> 
+						<input type="text" class="long" name="email" id="email" value="${user.email}" />
+						<p id="emailp" style="color:red;"></p>
 					</p>
 				</fieldset>
 				<fieldset class="row3">
 					<legend>Further Information </legend>
 					<p>
-						<label>Gender</label> <input type="radio" value="radio" /> <label
-							class="gender">Male</label> <input type="radio" value="radio"
-							checked /> <label class="gender">Female</label>
+						<label>Gender</label>  
+						<c:choose>
+						<c:when test="${user.gender} == 'M'">
+							<input type="radio" value="M" checked /> 
+							<label class="gender">Male</label> 
+							<input type="radio" value="F" /> 
+							<label class="gender">Female</label>
+						</c:when>
+						<c:otherwise>
+							<input type="radio" value="M"  /> 
+							<label class="gender">Male</label> 
+							<input type="radio" value="F"  checked/> 
+							<label class="gender">Female</label>
+						</c:otherwise>
+						</c:choose>
 					</p>
 					<p>
-						<label>Birthdate</label> <input class="birth" type="text"
-							size="6" maxlength="6" />예 901202
+						<label>Birthdate</label> ${user.birth} 
+						<input class="birth" type="text" size="6" maxlength="6" readonly value="${user.birth}" />
 					</p>
 				</fieldset>
-					<button class="button">수정하기 &raquo;</button>
+						<button type="submit" class="button" id="updateInfo">수정하기</button>
 			</form>
 		</div>
 	</section>
 
-<!-- 	<section id="content2"> -->
+	<section id="content2">
 <!-- 		<div id="likeContainer" class="container"> -->
-<!-- 			<div id="likeRow" class="row"> -->
-<!-- 				<div class="col-xs-12 shelf hidden-md hidden-lg"></div> -->
 
-<!-- 				<div class="col-xs-4 col-md-2"> -->
-<!-- 					<a href=""><img src="../images/like.png" -->
-<!-- 						class="img-responsive book"></a> -->
-<!-- 				</div> -->
-<!-- 				<div class="col-xs-4 col-md-2"> -->
-<!-- 					<a href=""><img src="../images/like.png" -->
-<!-- 						class="img-responsive book"></a> -->
-<!-- 				</div> -->
-<!-- 				<div class="col-xs-4 col-md-2"> -->
-<!-- 					<a href=""><img src="../images/like.png" -->
-<!-- 						class="img-responsive book"></a> -->
-<!-- 				</div> -->
-<!-- 				<div class="col-xs-12 shelf"></div> -->
-<!-- 				<div class="col-xs-4 col-md-2"> -->
-<!-- 					<a href=""><img src="../images/like.png" -->
-<!-- 						class="img-responsive book"></a> -->
-<!-- 				</div> -->
-<!-- 				<div class="col-xs-4 col-md-2"> -->
-<!-- 					<a href=""><img src="../images/like.png" -->
-<!-- 						class="img-responsive book"></a> -->
-<!-- 				</div> -->
-<!-- 				<div class="col-xs-4 col-md-2"> -->
-<!-- 					<a href=""><img src="../images/like.png" -->
-<!-- 						class="img-responsive book"></a> -->
-<!-- 				</div> -->
+<!-- 			<section class="hero-unit"> -->
 
-<!-- 				<div class="col-xs-12 shelf hidden-md hidden-lg"></div> -->
-<!-- 				<div class="col-xs-12 shelf"></div> -->
-<!-- 			</div> -->
+				<div class="row">
+					<div class="large-12 columns">
+
+						<ul class="small-block-grid-2 medium-block-grid-3 flip-cards">
+
+							<li ontouchstart="this.classList.toggle('hover');">
+								<div class="large button card-front">
+									<a href="#">즐겨찾기1</a> <i class="fa fa-code card-icon "></i>
+								</div>
+								<div class="panel card-back"><p>name ${like.name} </p> naaame</div>
+							</li>
+
+							<li ontouchstart="this.classList.toggle('hover');">
+								<div class="large button card-front">
+									<a href="#">즐겨찾기2</a> <i
+										class="fa fa-pencil-square-o card-icon"></i>
+								</div>
+
+								<div class="panel card-back"></div>
+							</li>
+
+							<li ontouchstart="this.classList.toggle('hover');">
+								<div class="large button card-front">
+									<a href="#">즐겨찾기3</a> <i class="fa fa-paper-plane-o card-icon"></i>
+								</div>
+
+								<div class="panel card-back"></div>
+							</li>
+
+							<li ontouchstart="this.classList.toggle('hover');">
+								<div class="large button card-front">
+									<a href="#">즐겨찾기4</a> <i class="fa fa-map-o card-icon"></i>
+								</div>
+
+								<div class="panel card-back"></div>
+							</li>
+
+							<li ontouchstart="this.classList.toggle('hover');">
+								<div class="large button card-front">
+									<a href="#">즐겨찾기5</a> <i class="fa fa-language card-icon"></i>
+								</div>
+
+								<div class="panel card-back"></div>
+							</li>
+
+							<li ontouchstart="this.classList.toggle('hover');">
+								<div class="large button card-front">
+									<a href="#">즐겨찾기6</a> <i class="fa fa-users card-icon"></i>
+								</div>
+
+								<div class="panel card-back"></div>
+							</li>
+
+						</ul>
+					</div>
+				</div>
+<!-- 			</section> -->
 <!-- 		</div> -->
-<!-- 	</section> -->
+	</section>
 	</main>
+	
+	<script>
+	$("#updateInfo").on("click", function(event) {
+	    event.preventDefault();
+// 	    console.log("addr1", addr1);
+// 	    console.log("addr2", addr2);
+	    console.log("pw", $('#password').val());
+	    console.log("name", $('#name').val());
+	    console.log("id", $('#id').val());
+	    $('#updateTest').submit();
+	 });
+	
+	$("#password").keyup(function () {
+		var pw = $(this).val();
+		var pwReg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,20}/;
+		if(pw.length==0) {
+			$("#pwp").hide();
+		} else if(!pwReg.test(pw)) {
+			$("#pwp").show();
+			$("#pwp").text("비밀번호는 6~20자 영문자/숫자/특수문자 조합이어야 합니다.");
+		} else {
+			$("#pwp").hide();
+		}
+	});
+	
+	$("#password_confirmation").keyup(function () {
+		var pw = $("#password").val();
+		var pwConfirm = $(this).val();
+ 		console.log(pwConfirm.length);
+ 		if(pwConfirm.length == 0) {
+			$("#pwConfirm").hide();
+ 		} else if(pw != pwConfirm) {
+			$("#pwConfirm").show();
+			$("#pwConfirm").text("비밀번호가 일치하지 않습니다.");
+		} else {
+			$("#pwConfirm").hide();
+		}
+	});
+	
+	$("#email").keyup(function() {
+		var email = $(this).val();
+		var emailReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+		if(email.length == 0) {
+			$("#emailp").hide();
+		} else if(email.match(emailReg) == null) {
+			$("#emailp").show();
+			$("#emailp").text("email 형식에 맞지 않습니다.");
+		} else {
+			$("#emailp").hide();
+		}
+	});
+	
+	$("#phone").keyup(function () {
+		var phone = $(this).val();
+		var phoneReg = /^01([016789]?)-?([0-9]{3,4})-?([0-9]{4})$/;
+		if(phone.length==0) {
+			$("#phonep").hide();
+		} else if(!phoneReg.test(phone)) {
+			$("#phonep").show();
+			$("#phonep").text("핸드폰 번호는 -을 포함한 숫자로만 입력해 주세요.");
+		} else {
+			$("#phonep").hide();
+		}
+	});
+	</script>
 </body>
 </html>

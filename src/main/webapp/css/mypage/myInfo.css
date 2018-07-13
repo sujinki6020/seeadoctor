@@ -4,6 +4,11 @@
     margin: 0;
     border: 0;
 }
+
+form, input {
+  font-family: "Poppins", sans-serif;
+}
+
 body, html {
     color: #373C40;
     font-family: Verdana,Arial, Helvetica, sans-serif;
@@ -168,7 +173,7 @@ form.register input[type=password]
 }
 .button
 {
-    background:rgba(61, 149, 218, 1.0) url("http://localhost:8001/seeadoctor/images/mypage/overlay.png") repeat-x;
+/*     background:rgba(61, 149, 218, 1.0) url("http://localhost:8001/seeadoctor/images/mypage/overlay.png") repeat-x; */
     padding: 8px 10px 8px;
     color: #fff;
     text-decoration: none;

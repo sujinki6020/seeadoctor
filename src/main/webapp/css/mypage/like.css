@@ -4,6 +4,10 @@ a:hover {
   text-decoration: underline;
 }
 
+form, input {
+  font-family: "Poppins", sans-serif;
+}
+
 /* Hero Unit ----------------------*/
 .hero-unit {
   height: 640px;
@@ -98,10 +102,11 @@ a:hover {
 
 .flip-cards li {
   float: left;
-  width: 33.3%;
+  width: 20%;
   height: 180px;
   position: relative;
   padding: 0;
+  margin: 3%;
 }
 
 .flip-cards li:hover {
