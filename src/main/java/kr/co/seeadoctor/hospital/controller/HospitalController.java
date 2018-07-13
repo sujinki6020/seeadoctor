@@ -33,7 +33,7 @@ public class HospitalController {
 		hospLike.setMainTreat("내과");
 		hospLike.setName("매디스캔의원");
 		hospLike.setHospCode(1);
-		hospLike.setId("kim");
+		hospLike.setId(session.getId());
 		//병원코드 중복으로 들어가지 않게 막기
 		Map<String, Object> result = hospService.selectHospInfo(hospLike);//해당병원 좋아요했는지
 		result.put("hospLike", hospLike);
@@ -43,10 +43,10 @@ public class HospitalController {
 	//추천하기
 	@RequestMapping("/plusStar.json")
 	@ResponseBody
-	public void plusStar(HospLike hospLike) { //return 어떻게 해야할 지 몰라서 우선 void로 함
-		System.out.println("또꼳");
-		hospService.insertHospLike(hospLike);
+	public void plusStar(HospLike hospLike) {
+		hospService.insertStar(hospLike);
 	}
+	//추천취소
 	@RequestMapping("/minusStar.json")
 	@ResponseBody
 	public void minusStar(HospLike hospLike) {

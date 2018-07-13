@@ -3,7 +3,7 @@ package kr.co.seeadoctor.repository.mapper;
 import kr.co.seeadoctor.repository.vo.HospLike;
 import kr.co.seeadoctor.repository.vo.Hospital;
 
-public interface HospitalMapper {
+public interface HospitalLikeMapper {
 	//상세정보 불러오기
 	void insertHospital(Hospital hospital);
 	

@@ -172,7 +172,6 @@ body {
 						<span>예약하기</span>
 					</a>
 					<a>
-<%-- 						${result.myCnt}-${result.cnt} --%>
 						<c:if test="${result.cnt ==0}">
 							<img src="${pageContext.request.contextPath}/images/board/unstar.png" data-flag="no" class="pull-right" id="btn_unlike"/><br>
 						</c:if>
@@ -292,7 +291,7 @@ $("#btn_unlike").click(function(){
 })
 function plusStar(target){
 	 if(myCnt >= 6 ){
-		 alert("관심병원이 6개이상이여서.. 더이상 즐겨찾기를 할 수 없습니다");
+		 alert("최대 관심병원 등록은 6개만 가능합니다.");
 		 return;
 	 }
 	 $.ajax({ //

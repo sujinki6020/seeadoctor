@@ -6,13 +6,13 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import kr.co.seeadoctor.repository.mapper.HospitalMapper;
+import kr.co.seeadoctor.repository.mapper.HospitalLikeMapper;
 import kr.co.seeadoctor.repository.vo.HospLike;
 @Service
 public class HospitalServiceExec implements HospitalService{
 	
 	@Autowired
-	private HospitalMapper hospMapper;
+	private HospitalLikeMapper hospMapper;
 
 	// 아래의 정보를 가져오기 위한 서비스 필요한
 	// 병원 정보 가져오기
@@ -30,18 +30,7 @@ public class HospitalServiceExec implements HospitalService{
 		return result;
 	}
 	
-	//즐겨찾기
-	@Override
-	public int insertHospLike(HospLike hospLike) { //좋아요 등록하기
-		if(hospMapper.selectMyLikeCnt(hospLike) < 7) {
-			System.out.println("좋아요");
-			hospMapper.insertHospLike(hospLike);
-			return 1;
-		} 
-		System.out.println("싫어요");
-		hospMapper.deleteHospLike(hospLike);
-		return 0;
-	}
+	
 	@Override
 	public void insertStar(HospLike hospLike) {
 		System.out.println("좋아요");

@@ -217,8 +217,13 @@ body {
 						<img src="${pageContext.request.contextPath}/images/board/booking.png" class="pull-right" id="btn_booking"/><br>
 						<span>예약하기</span>
 					</a>
-					<a>
-						<img src="${pageContext.request.contextPath}/images/board/unstar.png" class="pull-right" id="btn_unlike"/><br>
+						<a>
+						<c:if test="${result.cnt ==0}">
+							<img src="${pageContext.request.contextPath}/images/board/unstar.png" data-flag="no" class="pull-right" id="btn_unlike"/><br>
+						</c:if>
+						<c:if test="${result.cnt != 0}">
+							<img src="${pageContext.request.contextPath}/images/board/star.png" data-flag="yes" class="pull-right" id="btn_unlike"/><br>
+						</c:if>
 						<span>즐겨찾기</span>
 					</a>	
 				</div>
@@ -290,6 +295,11 @@ body {
 </div>
 
 <script>
+
+
+
+
+
 /*
 	//페이지 목록
 // 			html += '	<td><a href="detail.do?no=${board.no}">'+ board.title + '</a></td>';

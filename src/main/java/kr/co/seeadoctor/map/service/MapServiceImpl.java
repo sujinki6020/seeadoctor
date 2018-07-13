@@ -15,13 +15,13 @@ import org.springframework.stereotype.Service;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
-import kr.co.seeadoctor.repository.mapper.HospitalMapper;
+import kr.co.seeadoctor.repository.mapper.HospitalLikeMapper;
 import kr.co.seeadoctor.repository.vo.Hospital;
 @Service
 public class MapServiceImpl implements MapService {
 
 	@Autowired
-	private HospitalMapper mapper;
+	private HospitalLikeMapper mapper;
 	
 	@Override
 	public void parseDoc(Document doc,String dept) {
