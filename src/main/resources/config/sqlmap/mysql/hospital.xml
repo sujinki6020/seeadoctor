@@ -125,13 +125,6 @@
 		<result column="main_treat" property="mainTreat"/>
 	</resultMap>
 	
-		<insert id="insetHospLike" parameterType="hospLike">
-			insert into tb_like(
-				id, hosp_code, name, main_treat
-			) values(
-				#{id}, #{hospCode}, #{name}, #{mainTreat}
-			)
-		</insert>
 		
 		<select id="selectMyLikeCnt" parameterType="hospLike" resultType="int">
 			select count(*)
@@ -145,6 +138,14 @@
 			 where id = #{id}
 			   and hosp_code = #{hospCode}
 		</select>  
+		
+		<insert id="insertHospLike" parameterType="hospLike">
+			insert into tb_like(
+				id, hosp_code, name, main_treat
+			) values(
+				#{id}, #{hospCode}, #{name}, #{mainTreat}
+			)
+		</insert>
 		
 		<delete id="deleteHospLike" parameterType="hospLike">
 			delete

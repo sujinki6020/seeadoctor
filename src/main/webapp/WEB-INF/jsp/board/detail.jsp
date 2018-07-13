@@ -275,7 +275,7 @@ body {
 			<div id="head_btn_tap">
 				<hr id="head_tap_hr">
 					<div id="head_taps">
-						<a href="${pageContext.request.contextPath}/board/boardInfo.do">
+						<a href="${pageContext.request.contextPath}/hospital/info.do">
 							<span>주요정보</span>
 						</a>	
 						<a href="${pageContext.request.contextPath}/board/photo.do">

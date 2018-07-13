@@ -8,7 +8,11 @@ public interface HospitalService {
 
 	//좋아요
 	public int insertHospLike(HospLike hospLike); //즐찾하기
-	// 추후  hosp 쪽으로 옮겨야 한다.
+	
+	//병원정보가져오기
 	public Map<String, Object> selectHospInfo(HospLike hospLike);
+	
+	public void insertStar(HospLike hospLike);
+	public void deleteStar(HospLike hospLike);
 	
 }

@@ -173,10 +173,10 @@ body {
 					</a>
 					<a>
 <%-- 						${result.myCnt}-${result.cnt} --%>
-						<c:if test="${result.myCnt ==0}">
+						<c:if test="${result.cnt ==0}">
 							<img src="${pageContext.request.contextPath}/images/board/unstar.png" data-flag="no" class="pull-right" id="btn_unlike"/><br>
 						</c:if>
-						<c:if test="${result.myCnt != 0}">
+						<c:if test="${result.cnt != 0}">
 							<img src="${pageContext.request.contextPath}/images/board/star.png" data-flag="yes" class="pull-right" id="btn_unlike"/><br>
 						</c:if>
 						<span>즐겨찾기</span>
@@ -187,7 +187,7 @@ body {
 			<div id="head_btn_tap">
 				<hr id="head_tap_hr">
 					<div id="head_taps">
-						<a href="${pageContext.request.contextPath}/board/boardInfo.do">
+						<a href="${pageContext.request.contextPath}/hospital/info.do">
 							<span>주요정보</span>
 						</a>	
 						<a href="${pageContext.request.contextPath}/board/photo.do">
@@ -227,7 +227,7 @@ body {
 				
 				
 			<div id="wrong_info">
-				<a href="${pageContext.request.contextPath}/board/wrongInfoForm.do">잘못된 정보 수정하기</a>
+				<a href="${pageContext.request.contextPath}/hospital/wrongInfoForm.do">잘못된 정보 수정하기</a>
 			</div>
 			</div>
 		</div>
@@ -277,28 +277,54 @@ var myChart = new Chart(ctx, {
     	}
     }
 });
+var myCnt = ${result.myCnt};
 
-	$("#btn_unlike").click(function(){
-			if($(this).data("flag")=="no"){
-				var result = confilm("관심병원 등록 하시겠습니까?");
-				if(result){
-					$(this).attr("src", "${pageContext.request.contextPath}/images/like.png");
-					$.ajax({ //
-							url:"${pageontext.request.contextPath}/board/hospLike.json", //통신할url
-							data : {
-// 								id:{sessionScope.user.id}
-// 								hospCode:{sessionScope.user.hospCode}
-							},
-							success: function(result){
-								$(this).attr("src","${pageContext.request.contextPath}/images/like-0.png");
-//	 							$("#gy").text(result.count);
-							}
-					})
-					$(this).attr("src","${pageContext.request.contextPath}/images/like.png");
-				}
-			}
+$("#btn_unlike").click(function(){
+	if($(this).data("flag")=="no"){
+		if(confirm("관심병원 등록 하시겠습니까?")){
+			plusStar($(this));
+		}
+	}else {
+		if(confirm("관심병원 취소 하시겠습니까?")){
+			minusStar($(this));
+		}
+	}
+})
+function plusStar(target){
+	 if(myCnt >= 6 ){
+		 alert("관심병원이 6개이상이여서.. 더이상 즐겨찾기를 할 수 없습니다");
+		 return;
+	 }
+	 $.ajax({ //
+		url:"${pageContext.request.contextPath}/hospital/plusStar.json", //통신할url
+		data : {
+			id:'${result.hospLike.id}',
+			hospCode:'${result.hospLike.hospCode}',
+			name:'${result.hospLike.name}',
+			mainTreat:'${result.hospLike.mainTreat}'	
+		}
 	})
-	
+	.done(function(result){
+		target.attr("src", "${pageContext.request.contextPath}/images/board/star.png");
+		target.data("flag","yes");
+	})
+}
+function minusStar(target){
+	$.ajax({ //
+		url:"${pageContext.request.contextPath}/hospital/minusStar.json", //통신할url
+		data : {
+			id:'${result.hospLike.id}',
+			hospCode:'${result.hospLike.hospCode}'
+		}
+	})
+	.done(function(result){
+		target.attr("src", "${pageContext.request.contextPath}/images/board/unstar.png");
+		target.data("flag","no");
+	})
+	.fail(function(result){
+		console.log(result);
+	})
+}
 
 
 

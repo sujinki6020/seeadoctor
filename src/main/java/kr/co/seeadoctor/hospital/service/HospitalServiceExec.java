@@ -21,25 +21,36 @@ public class HospitalServiceExec implements HospitalService{
 	@Override
 	public Map<String, Object> selectHospInfo(HospLike hospLike) {
 		Map<String, Object> result = new HashMap<>();
+		
 		// 병원 자체 정보 추가해야 함...
-		int myCnt = hospMapper.selectMyLikeCnt(hospLike);
-		int cnt = hospMapper.selectHospLikeCnt(hospLike);
-		result.put("cnt", cnt);
+		int myCnt = hospMapper.selectMyLikeCnt(hospLike);//내 총 즐찾개수
+		int cnt = hospMapper.selectHospLikeCnt(hospLike); //중복
 		result.put("myCnt", myCnt);
+		result.put("cnt", cnt);
 		return result;
 	}
 	
 	//즐겨찾기
 	@Override
 	public int insertHospLike(HospLike hospLike) { //좋아요 등록하기
-		int cnt = hospMapper.selectMyLikeCnt(hospLike); //자신의좋아요 개수 가져오기
-		
-		if(cnt == 0 && cnt < 6) {
+		if(hospMapper.selectMyLikeCnt(hospLike) < 7) {
+			System.out.println("좋아요");
 			hospMapper.insertHospLike(hospLike);
-		} else {
-			hospMapper.deleteHospLike(hospLike);
-		}
-		return cnt;
+			return 1;
+		} 
+		System.out.println("싫어요");
+		hospMapper.deleteHospLike(hospLike);
+		return 0;
+	}
+	@Override
+	public void insertStar(HospLike hospLike) {
+		System.out.println("좋아요");
+		hospMapper.insertHospLike(hospLike);
+	}
+	@Override
+	public void deleteStar(HospLike hospLike) {
+		System.out.println("싫어요");
+		hospMapper.deleteHospLike(hospLike);
 	}
 	
 	
