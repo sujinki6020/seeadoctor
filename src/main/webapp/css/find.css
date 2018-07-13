@@ -1,0 +1,104 @@
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #009FE5;
+    background-color: white;
+    width: 400px;    
+    margin: 5% auto;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: rgba(250, 228, 228, 0.2);
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+    width: 50%;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #009FE5;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #33BBEA;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid white;
+    border-top: none;
+    margin: 20px;
+}
+
+
+/* body {font-family: Arial, Helvetica, sans-serif;}
+* {box-sizing: border-box} */
+
+/* Full-width input fields */
+input[type=text] {
+    width: 500px;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    display: inline-block;
+    border: none;
+    background: #f1f1f1;
+} */
+
+ input[type=text]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+/* Set a style for all buttons */
+#ok {
+    background-color: #33BBEA;
+    color: white;
+    /* padding: 20px; */
+    /* margin: 8px; */
+    /* border: none; */
+    cursor: pointer;
+    width: 80px;
+    opacity: 0.9;
+    text-align: center;
+    font-size: 20px;
+}
+
+button:hover {
+    opacity:1;
+}
+
+/* Add padding to container elements */
+.container {
+    padding: 16px;
+    border: 1px solid skyblue;
+    /* margin-top: 20px;  */
+    margin: auto;
+    width: 700px;    
+}
+
+/* Clear floats */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+    .cancelbtn, .signupbtn {
+       width: 100%;
+    }
+}
+
+.signup {
+	text-align:center;
+}

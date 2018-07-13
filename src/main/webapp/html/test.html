@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script> -->
+    <!-- <script src="../js/test.js"></script> -->
+    <link rel="stylesheet" href="../css/test.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+</head>
+<body>
+        <div class="container" ng-app="formvalid">
+                <div class="panel" data-ng-controller="validationCtrl">
+                <div class="panel-heading border">    
+                  <h2>Data table using jquery datatable in Angularjs
+                  </h2>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered bordered table-striped table-condensed datatable" ui-jq="dataTable" ui-options="dataTableOpt">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Office</th>
+                        <th>Age</th>
+                        <th>Start Date</th>
+                      </tr>
+                    </thead>
+                      <tbody>
+                        <tr ng-repeat="n in data">
+                          <td>{{$index+1}}</td>
+                          <td>{{n[0]}}</td>
+                          <td>{{n[1]}}</td>
+                          <td>{{n[2]}}</td>
+                          <td>{{n[3]}}</td>
+                          <td>{{n[4] | date:'dd/MM/yyyy'}}</td>
+                        </tr>
+                      </tbody>
+                  </table>
+                </div>
+              </div>
+              </div>
+              <script src="../js/test.js"></script>
+</body>
+</html>

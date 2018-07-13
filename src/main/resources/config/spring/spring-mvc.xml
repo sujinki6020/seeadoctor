@@ -53,5 +53,17 @@
 
 	<!-- 컨트롤러 없이 페이지 매핑 -->
 	<mvc:view-controller path="/main/main.do" view-name="main/main" />
+	
+	
+	
+	
+	<!-- Interceptors -->
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/board/test.do" />
+			<mvc:mapping path="/temp/myPage.do" />
+			<ref bean="loginInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
 
 </beans>

@@ -14,7 +14,7 @@ public class SampleController {
 	@Autowired
 	private SampleMapper mapper;
 	
-	@RequestMapping("/test")
+	@RequestMapping("/test.do")
 	public void sampleTest() {
 		Sample2 sample2 = new Sample2();
 		sample2.setNo(1);

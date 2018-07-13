@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title><decorator:title default="See a doctor" /></title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header/header.css">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <decorator:head />
