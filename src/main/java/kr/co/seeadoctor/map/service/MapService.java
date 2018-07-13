@@ -1,9 +1,10 @@
 package kr.co.seeadoctor.map.service;
 
-import org.w3c.dom.Document;
+import java.util.List;
+
+import kr.co.seeadoctor.repository.vo.Hospital;
 
 public interface MapService {
-	public void parseDoc(Document doc,String dept);
-	public void start();
-	public int getTotalCount(String kind, String dept ,int index);
+	public List<Hospital> selectHospitalAll();
+	public List<Hospital> selectHospitalBylatlon();
 }

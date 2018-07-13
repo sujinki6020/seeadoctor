@@ -11,14 +11,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.seeadoctor.map.service.MapService;
+import kr.co.seeadoctor.map.service.AddressService;
 
 @Controller
 @RequestMapping("/map")
 public class AddressController {
 	
 	@Autowired
-	private MapService mapService;
+	private AddressService mapService;
 	
 	@RequestMapping("/main.do")
 	public void main() {
