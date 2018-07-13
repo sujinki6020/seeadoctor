@@ -1,5 +1,5 @@
 package kr.co.seeadoctor.admin.search.service;
 
-public class SearchServiceExec {
+public class SearchServiceImpl {
 
 }

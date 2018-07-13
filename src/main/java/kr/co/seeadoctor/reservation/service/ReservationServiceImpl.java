@@ -11,7 +11,7 @@ import kr.co.seeadoctor.repository.vo.Reservation;
 import kr.co.seeadoctor.repository.vo.ReservationTime;
 
 @Service
-public class ReservationServiceExec implements ReservationService {
+public class ReservationServiceImpl implements ReservationService {
 	
 	@Autowired
 	private ReservationMapper mapper;

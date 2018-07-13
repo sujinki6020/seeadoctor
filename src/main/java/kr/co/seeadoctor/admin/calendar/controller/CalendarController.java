@@ -2,7 +2,6 @@ package kr.co.seeadoctor.admin.calendar.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -11,8 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,14 +24,22 @@ import kr.co.seeadoctor.repository.vo.ReservationTime;
 import kr.co.seeadoctor.reservation.service.ReservationService;
 
 @Controller
-@RequestMapping("/calendar")
+@RequestMapping("/admin/calendar")
 public class CalendarController {
 	
 	@Autowired
 	private ReservationService service;
 	
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+ 
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
+	
 	@RequestMapping("/calendar.do")
-	public String setCal(HttpServletRequest req, Model model) {
+	public void setCal(HttpServletRequest req, Model model) {
 		
 		Calendar cal = Calendar.getInstance();
 		
@@ -62,11 +72,10 @@ public class CalendarController {
 		model.addAttribute("intToday", intToday);
 		
 	
-		return "/admin/calendar/calendar";
 	}
 	
 	@RequestMapping("/calendarPop.do")
-	public String calendarPop(HttpSession session, HttpServletRequest req, Model model) throws ParseException {
+	public void calendarPop(HttpSession session, HttpServletRequest req, Model model) throws ParseException {
 //		session.getAttribute("user");
 		Reservation reservation = new Reservation();
 		
@@ -87,11 +96,10 @@ public class CalendarController {
 		model.addAttribute("reserveList",reserveList);
 		model.addAttribute("dateStr", year+"-"+month+"-"+day);
 		
-		return "/admin/calendar/calendarPop";
 	}
 	
-	@RequestMapping("/timePop.do")
-	public String timePop(HttpSession session, HttpServletRequest req, Model model) throws ParseException {
+	@RequestMapping("/timeManagement.do")
+	public void timePop(HttpSession session, HttpServletRequest req, Model model) throws ParseException {
 //		session.getAttribute("user");
 		Reservation reservation = new Reservation();
 		reservation.setHospCode(1);
@@ -106,7 +114,6 @@ public class CalendarController {
 		
 		//병원seq로 얻은 의사정보를 add해준다.
 		
-		return "/admin/calendar/timeManagement";
 	}
 	
 	@RequestMapping("/timeList.json")

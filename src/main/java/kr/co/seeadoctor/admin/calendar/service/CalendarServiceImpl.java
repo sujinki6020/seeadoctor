@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import kr.co.seeadoctor.repository.mapper.ReservationMapper;
 
 @Service
-public class CalendarServiceExec {
+public class CalendarServiceImpl {
 	
 	@Autowired
 	private ReservationMapper mapper;
