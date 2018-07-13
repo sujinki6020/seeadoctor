@@ -2,20 +2,24 @@ package kr.co.seeadoctor.map.service;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
+import kr.co.seeadoctor.repository.mapper.HospitalMapper;
 import kr.co.seeadoctor.repository.vo.Hospital;
 
 public class MapServiceImpl implements MapService {
 
+	@Autowired
+	private HospitalMapper mapper;
+	
 	@Override
 	public List<Hospital> selectHospitalAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.selectHospitalAll();
 	}
 
 	@Override
 	public List<Hospital> selectHospitalBylatlon() {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.selectHospitalByLatLon();
 	}
 	
 }
