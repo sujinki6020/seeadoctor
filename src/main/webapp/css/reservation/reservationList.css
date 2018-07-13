@@ -14,7 +14,7 @@ a:link, a:hover {
 	box-sizing: border-box;
 }
 #titleArea {
-margin: 30px 20px 10px;
+margin: 30px 10px 10px;
 }
 #selectBoxs {
 margin: 5px 5px;
@@ -29,7 +29,7 @@ border: 1px solid #ddd;
 }
 .reservDetail {
 	border-top: 1px solid #eee;
-	margin: 5px 50px 15px;
+	margin: 5px 100px 15px 30px;
 	padding: 0px 10px;
 }
 #listFooter {
@@ -51,17 +51,17 @@ border: 1px solid #ddd;
     background-color: #eee;
     margin-right: 5px;
 }
-.stateOne {
+.state1 {
 	background-color: #66c178;
 }
-.stateTwo {
+.state2 {
 	background-color: #f4427a;
 }
-.stateThree {
-	background-color: #5398e8;
-}
-.stateFour {
+.state3 {
 	background-color: #f7ba65;
+}
+.state4 {
+	background-color: #5398e8;
 }
 .stateBnts {
 	float: right;
@@ -76,4 +76,30 @@ border: 1px solid #ddd;
     margin-right: 5px;
     outline: none;
     cursor: pointer;
+}
+#topBtn {
+    position: fixed;
+    left: 50%;
+    bottom: 60px;
+    width: 50px;
+    height: 50px;
+    line-height: 50px;
+    margin-left: 620px;
+ 	display: block;
+    background-color: #f1f7fa;
+    color: #bbb;
+    font-size: 10px;
+    text-align: center;
+    border-radius: 10px;
+    cursor: pointer;
+}
+#loadingImg {
+	margin-left: 450px;
+}
+#endPost {
+	color: #aaa;
+	font-size: large;
+	font-weight: bold;
+	margin-top: 50px;
+	margin-left: 50px;
 }

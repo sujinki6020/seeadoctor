@@ -21,7 +21,11 @@
 		 order by no desc 
 	</select>
 	
-	<insert id="insertBoard" parameterType="board">
+	<insert id="insertBoard" parameterType="board" >
+		<!-- 		mysql selectKey 를 이용한 입력된 글 번호 가져오기--> 
+		<selectKey resultType="int" keyProperty="no" order="AFTER" >
+		    select last_insert_id()
+		</selectKey>
 		insert into tb_board (name, user_seq, title, content
 			) values(
 				#{name},#{userSeq},#{title},#{content}
@@ -52,9 +56,27 @@
 		 where no = #{no} 
 	</select>
 	
+	<resultMap id="boardFileMap" type="boardFile">
+		<result column="file_sql" property="fileSql"/>
+		<result column="no" property="no"/>
+		<result column="file_path" property="filePath"/>
+		<result column="sys_name" property="sysName"/>
+		<result column="hosp_code" property="hospCode"/>
+	</resultMap>
 	
+	<insert id="insertBoardFiles" parameterType="boardFile">
+		insert into tb_board_file(
+			no, file_path, sys_name, hosp_code
+		) values(
+			#{no},#{filePath},#{sysName},#{hospCode}
+		)
+	</insert>
 	
-	
+	<select id="selectBoardFileByNo" parameterType="int" resultMap="boardFileMap">
+		select *
+		  from tb_board_file
+		 where no=#{no}  
+	</select>
 	
 </mapper>
 	

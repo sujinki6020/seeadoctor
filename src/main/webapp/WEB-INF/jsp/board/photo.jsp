@@ -172,7 +172,7 @@ body {
 			<div id="head_btn_area">
 				<div id="head_btns">
 					<a>
-						<img src="${pageContext.request.contextPath}/images/board/search1.png" class="pull-right" id="btn_search"/><br>
+						<img src="${pageContext.request.contextPath}/images/board/search.png" class="pull-right" id="btn_search"/><br>
 						<span>길찾기</span>
 					</a>
 					<a id="2">
@@ -189,13 +189,13 @@ body {
 			<div id="head_btn_tap">
 				<hr id="head_tap_hr">
 					<div id="head_taps">
-						<a>
+						<a href="${pageContext.request.contextPath}/board/boardInfo.do">
 							<span>주요정보</span>
 						</a>	
-						<a>
+						<a href="${pageContext.request.contextPath}/board/photo.do">
 							<span>포토요약</span>
 						</a>
-						<a>
+						<a href="${pageContext.request.contextPath}/board/review.do">
 							<span>리뷰</span>
 						</a>
 					</div>

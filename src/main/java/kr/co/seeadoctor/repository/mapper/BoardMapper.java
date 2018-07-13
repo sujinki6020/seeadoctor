@@ -1,8 +1,8 @@
 package kr.co.seeadoctor.repository.mapper;
 
 import java.util.List;
-import java.util.Map;
 
+import kr.co.seeadoctor.repository.vo.BoardFileVo;
 import kr.co.seeadoctor.repository.vo.BoardVo;
 
 public interface BoardMapper {
@@ -13,4 +13,7 @@ public interface BoardMapper {
 	BoardVo detailBoard(int no);
 	void deleteBoard(int no);
 	BoardVo selectBoardUpdate(int no);
+	void insertBoardFiles(BoardFileVo fileVO);
+	List<BoardFileVo> selectBoardFileByNo(int no);
+//	void insertBoardFiles(MultipartFile f);
 }

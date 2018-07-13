@@ -4,10 +4,10 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%-- <%@ taglib tagdir="" prefix="navi" %> --%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <%-- <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script> --%>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -252,13 +252,13 @@ textarea.form-control {
 			<div id="head_btn_tap">
 				<hr id="head_tap_hr">
 					<div id="head_taps">
-						<a>
+						<a href="${pageContext.request.contextPath}/board/boardInfo.do">
 							<span>주요정보</span>
 						</a>	
-						<a>
+						<a href="${pageContext.request.contextPath}/board/photo.do">
 							<span>포토요약</span>
 						</a>
-						<a>
+						<a href="${pageContext.request.contextPath}/board/review.do">
 							<span>리뷰</span>
 						</a>
 					</div>
@@ -278,6 +278,9 @@ textarea.form-control {
 				
 				<div id="form">
 					<form enctype="multipart/form-data" method="post" action="write.do">
+					<c:if test="${!empty board.no}">
+						<input type="text" name="no" value="${board.no}" hidden="hidden">
+					</c:if>
 					<div id="title">
 						<input type="text" class="form-control" name="title" placeholder="제목을 입력하세요" value="${board.title}">
 					</div>
@@ -286,10 +289,9 @@ textarea.form-control {
 						<textarea class="form-control" id="content" name="content" placeholder="내용을 입력해주세요">${board.content}</textarea>
 					</div>
 
-
 					<div id="filearea">
 							<span id="file_span" >첨부파일</span>
-							<input type="file" multiple="multiple" name="filename[]" id="file"
+							<input type="file" multiple="multiple" name="files" id="file"
 									accept=".gif, .jpg, .png" placeholder="지원되는 파일 양식: jpg, png, gif">
 									
 							<div onchange="dropfile();">Drap and Drop here.</div>
