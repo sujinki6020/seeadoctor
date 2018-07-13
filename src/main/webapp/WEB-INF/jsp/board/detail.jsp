@@ -132,10 +132,10 @@ body {
 	margin: 30px 30px 0px 135px;
 }
 #title{
-	padding: 0px 45px;
+	float: left;
 }
-#nickName{
-	padding: 0px 0px 0px 453px;
+#name{
+	 float: right;
 }
 
 #view_cnt{
@@ -231,7 +231,10 @@ body {
 #btn_update_delete{
 	float: right;
 }
-
+#rrr{
+	height: 15px;
+    width: 632px;
+}
 
 
 </style>
@@ -299,8 +302,10 @@ body {
 			<div id="content_area">
 				
 				<div id="review_row">
-					<span id="title">${result.board.title}</span>
-					<span id="nickName">${result.board.name}</span>
+					<div id="rrr">
+						<span id="title">${result.board.title}</span>
+						<span id="name">${result.board.name}</span>
+					</div>
 						<hr id="review_hr">
 					<span id="view_cnt">${result.board.viewCnt}</span>
 					<span id="date"><fmt:formatDate value="${result.board.regDate}" pattern="yyyy-MM-dd"/></span>
@@ -308,10 +313,10 @@ body {
 				</div>
 				
 				<div id="filearea">
-					<c:forEach var="file" items="${files}">
-						<img src="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}" style="width:100%; height:100%; margin:0 auto;"/><br>
-						<button type="button" class="btn btn-default" style="margin:5px 0px 20px;"><a href="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}">다운로드</a></button><br> 
-					</c:forEach>
+						<c:forEach var="file" items="${files}">
+							<img src="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}" style="width:100%; height:100%; margin:0 auto;"/><br>
+							<button type="button" class="btn btn-default" style="margin:5px 0px 20px;"><a href="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}">다운로드</a></button><br> 
+						</c:forEach>
 				</div>
 				<div id="content_box">${result.board.content}</div>
 			</div>
@@ -329,7 +334,7 @@ body {
 			
 			<div id="commentComment">
 				<%-- 댓글입력파트 --%>
-				<form role="form" id="rForm" class="clearfix" >
+				<form id="rForm" class="clearfix" >
 					<div class="comment">
 						<div id="commentId">
 							<label class="sr-only" for="name" >아이디</label> 
@@ -371,11 +376,12 @@ body {
 	
 </div>
 
-</body>
+
 
 <script>
 	//댓글등록
-	$("rForm").submit(function(e){
+	$("#rForm").submit(function(e){
+		alert($("#rForm input[name='name']").val())
 		e.preventDefault();
 		
 		$.ajax({
@@ -383,9 +389,9 @@ body {
 			type : "POST",
 			data : {
 				no: "${result.board.no}",
-				content : $("rForm textarea[name='content']").val(),
-	//			userSeq : $("rForm input[name='userSeq']").val(),
-				name :$("rForm input[name='name']").val()
+				content : $("#rForm textarea[name='content']").val(),
+	//			userSeq : $("#rForm input[name='userSeq']").val(),
+				name :$("#rForm input[name='name']").val()
 			},
 			dataType: "json"
 		}).done(function(result){
@@ -417,7 +423,7 @@ body {
 
 </script>
 
-
+</body>
 </html>
 
 

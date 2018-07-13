@@ -133,7 +133,7 @@ body {
 #review{
 	padding: 0px 45px;
 }
-#nickName{
+#name{
 	padding: 0px 0px 0px 465px;
 }
 #content_area div{
@@ -277,7 +277,7 @@ textarea.form-control {
 				
 				<div id="review_row">
 					<span id="review">리뷰쓰기</span>
-					<span id="nickName">${board.name}</span>
+					<span id="name">${sessionSocpe.user.name}</span>
 					<hr id="review_hr">
 				</div>
 				
