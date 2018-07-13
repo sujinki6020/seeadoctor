@@ -10,6 +10,10 @@
 /*   height: 100vh; */
 /* } */
 
+form, input {
+  font-family: "Poppins", sans-serif;
+}
+
 body {
 /*   font: 14px/1 'Open Sans', sans-serif; */
   font: Helvetica Neue",Helvetica,Arial,sans-serif;

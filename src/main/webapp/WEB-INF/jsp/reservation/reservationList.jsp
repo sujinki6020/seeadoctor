@@ -74,6 +74,10 @@ function lastPostFunc(name, val) {
         },
 		success : function(list) {
 			
+			console.log(start);
+			console.log(end);
+			console.log(list);
+			
 			if(list.length == 0){
 				setTimeout(function () {
 					$("#loadingImg").remove();

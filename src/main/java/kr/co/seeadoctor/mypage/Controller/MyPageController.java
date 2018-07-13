@@ -21,4 +21,11 @@ public class MyPageController {
 		List<User> userList = myPageService.retrieveUser(id);
 		return userList;
 	}
+	
+	@RequestMapping("/updateUser.do")
+	public String update(User user) {
+		myPageService.updateUser(user);
+		System.out.println("update????");
+		return "redirect:/index.jsp";
+	}
 }
