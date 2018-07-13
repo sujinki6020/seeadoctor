@@ -89,7 +89,7 @@
 
 <c:forEach begin="1" end="${start-1}" var="temp">
 
-<TD style="background-color: #f6f6f6;">&nbsp;</TD>
+<td style="background-color: #f6f6f6;">&nbsp;</td>
 
 <c:set var="newLine" value="${newLine+1}"></c:set><!-- newline -->
 
@@ -144,7 +144,7 @@
 
 		<font color="${color}"><strong>${day}</strong></font>
 		
-		<a href="calendarPop.do" onclick="window.open(this.href, '팝업리스트', 'width=800, height=700'); return false;"><font color="#4d4d4d">　　<img src="${pageContext.request.contextPath}/images/calendar/board.png" /> 접수확인</span></font></a>
+		<a href="calendarPop.do?year=${year}&month=${month+1}&day=${day}" onclick="window.open(this.href, '팝업리스트', 'width=800, height=700'); return false;"><font color="#4d4d4d">　　<img src="${pageContext.request.contextPath}/images/calendar/board.png" /> 접수확인</span></font></a>
 
 	</td>
 
@@ -154,7 +154,7 @@
 
 		<c:when test="${newLine==7}">
 			<c:if test="${day <= endDay}">
-			<TR>
+			<tr>
 			</c:if>
 			<c:set var="newLine" value="0"></c:set>
 		</c:when>

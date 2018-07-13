@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import kr.co.seeadoctor.repository.vo.Reservation;
+import kr.co.seeadoctor.repository.vo.ReservationTime;
 
 public interface ReservationMapper {
 	
@@ -17,5 +18,9 @@ public interface ReservationMapper {
 	void insertTimeManagement(@Param("reservation")Reservation reservation, @Param("time")String time);
 	
 	List<Reservation> selectReservationByUser(Map<String, Object> reserveMap);
+
+	List<Reservation> selectReservationPop(Reservation reservation);
+
+	List<ReservationTime> selectTimeList(ReservationTime reserveTime);
 
 }

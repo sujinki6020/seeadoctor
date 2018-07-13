@@ -17,8 +17,7 @@ a:link, a:hover {
 	padding: 20px 50px;
 	box-sizing: border-box;
 }
-#popTitle {
-}
+
 #confirmBtns {
 	margin-top: 20px;
 	margin-right: 60px;
@@ -32,7 +31,8 @@ a:link, a:hover {
     border: 1px solid #ddd;
 }
 .confirmBtn:hover {
-	border: 1px solid #aaa;
+    background-color: #565e61;
+    color: #fff;
 }
 
 #timeList {
@@ -48,8 +48,29 @@ a:link, a:hover {
 	border: 1px solid #fff;
 	outline: none;
 	cursor: pointer;
+	
+	background-color: #565e61;
+    color: #fff;
 }
 .closeTime {
     opacity: 0.2;
     cursor: not-allowed;
+}
+
+#doctorTab {
+	height: 35px;
+	margin-left: 30px;
+}
+.doctorBnt {
+	width: 80px;
+    height: 35px;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    background-color: #233265;
+    opacity: 0.6;
+}
+.activeDoc {
+	background-color: #233265;
+    opacity: 1.0;
 }

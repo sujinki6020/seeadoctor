@@ -69,6 +69,31 @@
 	 limit #{start}, #{end}
 	</select>
 
+	<select id="selectReservationPop" parameterType="reservation" resultMap="reservationMap">
+		select *
+		  from tb_reservation
+		 where hosp_code = #{hospCode}
+		   and reserve_date = #{reserveDate}
+		 order by reserve_seq asc
+	</select>
+	
+	<select id="selectTimeList" parameterType="reservationTime" resultMap="reservationTimeMap">
+	select *
+	  from tb_reservation_time
+	 where hosp_code = #{hospCode}
+	   and doc_code = #{docCode}
+	   and date = #{date}
+	 order by time_seq asc
+	</select>
+	
+	<update id="updateCloseTime" parameterType="hashmap">
+	 update tb_reservation_time
+	    set blocked_status = "t"
+	 where time in 
+		 <foreach collection="closeArr" item="closeTime" index="index"  open="(" close=")" separator=",">
+            #{closeTime[index]}
+        </foreach>
+	</update>
 </mapper>
 
 

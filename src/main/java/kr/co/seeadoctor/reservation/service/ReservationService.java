@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.seeadoctor.repository.vo.Reservation;
+import kr.co.seeadoctor.repository.vo.ReservationTime;
 
 public interface ReservationService {
 
@@ -15,5 +16,9 @@ public interface ReservationService {
 	void updateBookedStatus(Integer timeSeq);
 
 	List<Reservation> selectReservationByUser(Map<String, Object> reserveMap);
+
+	List<Reservation> selectReservationPop(Reservation reservation);
+
+	List<ReservationTime> selectTimeList(ReservationTime reserveTime);
 
 }

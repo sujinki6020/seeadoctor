@@ -61,9 +61,8 @@ var name;
 var val;
 
 function lastPostFunc(name, val) {  
-	console.log(start);
-	console.log(name);
-	console.log(val);
+	$("#reservList").append("<img id='loadingImg' src='/seeadoctor/images/reservation/loading-heart.gif'/>");
+	
 	$.ajax({
 		type : "POST",
 		url : "/seeadoctor/reservation/listAjax.json",
@@ -74,7 +73,6 @@ function lastPostFunc(name, val) {
         	end : end
         },
 		success : function(list) {
-			$("#reservList").append("<img id='loadingImg' src='/seeadoctor/images/reservation/loading-heart.gif'/>");
 			
 			if(list.length == 0){
 				setTimeout(function () {

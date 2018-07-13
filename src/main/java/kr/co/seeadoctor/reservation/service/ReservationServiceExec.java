@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.seeadoctor.repository.mapper.ReservationMapper;
 import kr.co.seeadoctor.repository.vo.Reservation;
+import kr.co.seeadoctor.repository.vo.ReservationTime;
 
 @Service
 public class ReservationServiceExec implements ReservationService {
@@ -38,6 +39,16 @@ public class ReservationServiceExec implements ReservationService {
 	@Override
 	public List<Reservation> selectReservationByUser(Map<String, Object> reserveMap) {
 		return mapper.selectReservationByUser(reserveMap);
+	}
+
+	@Override
+	public List<Reservation> selectReservationPop(Reservation reservation) {
+		return mapper.selectReservationPop(reservation);
+	}
+
+	@Override
+	public List<ReservationTime> selectTimeList(ReservationTime reserveTime) {
+		return mapper.selectTimeList(reserveTime);
 	}
 
 }

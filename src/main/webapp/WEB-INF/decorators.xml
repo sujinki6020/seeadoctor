@@ -12,8 +12,9 @@
 		<pattern>/login/login*</pattern>
 		<pattern>/temp/chat.jsp</pattern>
 		<pattern>/temp/jusoPopup.do</pattern>
-		<pattern>/calendar/calendarPop.do</pattern>
-		<pattern>/calendar/timePop.do</pattern>
+		<pattern>/calendar/calendarPop*</pattern>
+		<pattern>/calendar/timePop*</pattern>
+
 	</excludes>
 </decorators>
 

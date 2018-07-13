@@ -39,11 +39,8 @@ public class ReservationController {
 	@RequestMapping("/listAjax.json")
 	@ResponseBody
 	public List<Reservation> listAjax(HttpSession session, @RequestParam int start, int end, String name, String val) {
-		
-		System.out.println(name);
-		System.out.println(val);
-		
-//		session.getAttribute("user");
+
+		//		session.getAttribute("user");
 		int userSeq = 1;
 		
 		Map<String, Object> reserveMap = new HashMap<String, Object>();
