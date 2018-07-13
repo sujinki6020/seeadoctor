@@ -315,6 +315,8 @@ body {
 			<!-- 댓글파트 -->
 			<div id="allComment">
 			<form action="commentUpdate.json" method="post">
+				<input type="hidden" name="no" value="${result.board.no}"/>
+				<input type="hidden" name="commentNo" value="${commentNo}"/>
 				
 				<%-- 댓글 리스트--%>
 				<div id="commentList"></div>
@@ -326,8 +328,8 @@ body {
 					<div class="comment">
 						<div id="commentId">
 							<label class="sr-only" for="name" >아이디</label> 
-							<input type="text"  id="name" name="name" class="form-control" value="${user.nickName}" readonly />
-		           			<input id="id" name="id" type="text" hidden="hidden" value="${user.id}" />
+<%-- 		           			<input id="id" name="userSeq" type="text" hidden="hidden" value="${result.board.userSeq}" /> --%>
+							<input type="text" id="name" name="name" class="form-control" value="${result.board.name}" readonly />
 						</div>
 						<div id="commentWrite" style="height: 140px;">
 							<label class="sr-only" for="content">댓글내용입력</label>
@@ -366,6 +368,56 @@ body {
 
 </body>
 
+<script>
+	//댓글등록
+	$("rForm").submit(function(e){
+		e.preventDefault();
+		
+		$.ajax({
+			url : "<c:url value='/board/commentRegist.json'/>",
+			type : "POST",
+			data : {
+				no: "${result.board.no}",
+				content : $("rForm textarea[name='content']").val(),
+	//			userSeq : $("rForm input[name='userSeq']").val(),
+				name :$("rForm input[name='name']").val()
+			},
+			dataType: "json"
+		}).done(function(result){
+			if(!'${result.board.userSeq}'){
+				$("#rForm input[name='userSeq']").val("");
+			}
+			$("#rForm textarea[name='content']").val("");
+			makeCommentList(result);
+		});
+	});
+	
+	//댓글목록
+	function makeCommentList(result){
+		console.dir(result);
+		var html="";
+		html += '<table class="table table-bordered">';
+		html += '	<colgroup>';
+		html += '		<col width="7%">';
+		html += '		<col width="*">';
+		html += '		<col width="14%">';
+		html += '		<col width="10%">';
+		html += '	</colgroup>';
+	}
+
+	
+
+</script>
+
 
 </html>
+
+
+
+
+
+
+
+
+
 

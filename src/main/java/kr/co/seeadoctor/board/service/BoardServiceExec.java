@@ -6,17 +6,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.xml.stream.events.Comment;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.seeadoctor.repository.mapper.BoardMapper;
 import kr.co.seeadoctor.repository.vo.BoardFileVo;
 import kr.co.seeadoctor.repository.vo.BoardVo;
+import kr.co.seeadoctor.repository.vo.CommentVo;
+import kr.co.seeadoctor.repository.vo.PageResultVo;
+import kr.co.seeadoctor.repository.vo.hospLikeVo;
 
 @Service
 public class BoardServiceExec implements BoardService{
@@ -25,11 +26,19 @@ public class BoardServiceExec implements BoardService{
 	private BoardMapper boardMapper;
 	
 	@Override
-	public Map<String, Object> selectBoard()throws Exception {
+	public Map<String, Object> selectBoard (BoardVo board) throws Exception {
 		Map<String, Object> result = new HashMap<>();
+		
 		List<BoardVo> list = boardMapper.selectBoard();
-		System.out.println("list" + list.get(0).getTitle());
+
+		int sPageNo = board.getPageNo(); //탭시작번호
+		board.setPageNo(sPageNo == 0 ? 1 : sPageNo); //시작번호가0이면 1로, 그게아니면 그걸로
+
+		int count = boardMapper.selectBoardCount(board); //총 게시글수
+		
 		result.put("list", list);
+		result.put("count", count);
+		result.put("pageResult", new PageResultVo(board.getPageNo(), count));
 		return result;
 	}
 
@@ -39,6 +48,8 @@ public class BoardServiceExec implements BoardService{
 	}
 	
 	@Override
+	
+	
 	public Map<String, Object> detailBoard(int no) throws Exception{
 		Map<String, Object> result = new HashMap<>();
 		boardMapper.updateBoardViewCnt(no);
@@ -48,6 +59,9 @@ public class BoardServiceExec implements BoardService{
 		
 		return result;
 	}
+	
+	
+	
 	
 	@Override
 	public void deleteBoard(int no) {
@@ -93,6 +107,53 @@ public class BoardServiceExec implements BoardService{
 		public List<BoardFileVo> selectBoardFileByNo(int no) {
 			return boardMapper.selectBoardFileByNo(no);
 		}
+
+		//즐겨찾기
+		@Override
+		public int insertHospLike(hospLikeVo hospLike) { //좋아요 등록하기
+			int cnt = boardMapper.selectMyLikeCnt(hospLike); //자신의좋아요 개수 가져오기
+			
+			if(cnt == 0 && cnt < 6) {
+				boardMapper.insertHospLike(hospLike);
+			} else {
+				boardMapper.deleteHospLike(hospLike);
+			}
+			return cnt;
+		}
+
+		//댓글리스트
+		@Override
+		public List<CommentVo> selectCommentByNo(int no){
+			return boardMapper.selectCommentByNo(no);
+		}
+		
+		//댓글 등록
+		public void insertComment(CommentVo comment) {
+			boardMapper.insertComment(comment);
+		}
+
+		// 아래의 정보를 가져오기 위한 서비스 필요한
+		// 병원 정보 가져오기
+		// 전체 좋아요 개수
+		// 해당 병원에 좋아요 여부
+		@Override
+		public Map<String, Object> selectHospInfo(hospLikeVo hospLike) {
+			Map<String, Object> result = new HashMap<>();
+			// 병원 자체 정보 추가해야 함...
+			int myCnt = boardMapper.selectMyLikeCnt(hospLike);
+			int cnt = boardMapper.selectHospLikeCnt(hospLike);
+			result.put("cnt", cnt);
+			result.put("myCnt", myCnt);
+			return result;
+		}
+		
+		
+		
+		
+
+	
+
+	
 		
 		
 		

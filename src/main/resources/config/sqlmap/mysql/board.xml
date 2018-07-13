@@ -15,46 +15,52 @@
 		<result column="name" property="name"/>
 	</resultMap>
 	
-	<select id="selectBoard" parameterType="board" resultMap="boardMap">
-		select *
-		  from tb_board
-		 order by no desc 
-	</select>
+		<select id="selectBoard" parameterType="board" resultMap="boardMap">
+			select *
+			  from tb_board
+			 order by no desc 
+		</select>
+		
+		<select id="selectBoardCount" parameterType="board" resultType="int">
+			select count(*)
+			  from tb_board
+		</select>
+		
+		<insert id="insertBoard" parameterType="board" >
+			<!-- 		mysql selectKey 를 이용한 입력된 글 번호 가져오기--> 
+			<selectKey resultType="int" keyProperty="no" order="AFTER" >
+			    select last_insert_id()
+			</selectKey>
+			insert into tb_board (name, user_seq, title, content
+				) values(
+					#{name},#{userSeq},#{title},#{content}
+				)
+		</insert>
+		
+		<update id="updateBoardViewCnt">
+			update tb_board
+			   set view_cnt = view_cnt + 1
+			 where no = #{no}  
+		</update>
+		
+		<select id="detailBoard" resultMap="boardMap" parameterType="int">
+			select *
+			  from tb_board
+			 where no = #{no}
+		</select>
+		
+		<delete id="deleteBoard" parameterType="int">
+			delete
+			  from tb_board
+			 where no= #{no}
+		</delete>
+		
+		<select id="selectBoardUpdate" parameterType="int" resultType="board">
+			select *
+			  from tb_board
+			 where no = #{no} 
+		</select>
 	
-	<insert id="insertBoard" parameterType="board" >
-		<!-- 		mysql selectKey 를 이용한 입력된 글 번호 가져오기--> 
-		<selectKey resultType="int" keyProperty="no" order="AFTER" >
-		    select last_insert_id()
-		</selectKey>
-		insert into tb_board (name, user_seq, title, content
-			) values(
-				#{name},#{userSeq},#{title},#{content}
-			)
-	</insert>
-	
-	<update id="updateBoardViewCnt">
-		update tb_board
-		   set view_cnt = view_cnt + 1
-		 where no = #{no}  
-	</update>
-	
-	<select id="detailBoard" resultMap="boardMap" parameterType="int">
-		select *
-		  from tb_board
-		 where no = #{no}
-	</select>
-	
-	<delete id="deleteBoard" parameterType="int">
-		delete
-		  from tb_board
-		 where no= #{no}
-	</delete>
-	
-	<select id="selectBoardUpdate" parameterType="int" resultType="board">
-		select *
-		  from tb_board
-		 where no = #{no} 
-	</select>
 	
 	<resultMap id="boardFileMap" type="boardFile">
 		<result column="file_sql" property="fileSql"/>
@@ -64,19 +70,84 @@
 		<result column="hosp_code" property="hospCode"/>
 	</resultMap>
 	
-	<insert id="insertBoardFiles" parameterType="boardFile">
-		insert into tb_board_file(
-			no, file_path, sys_name, hosp_code
-		) values(
-			#{no},#{filePath},#{sysName},#{hospCode}
-		)
-	</insert>
+		<insert id="insertBoardFiles" parameterType="boardFile">
+			insert into tb_board_file(
+				no, file_path, sys_name, hosp_code
+			) values(
+				#{no},#{filePath},#{sysName},#{hospCode}
+			)
+		</insert>
+		
+		<select id="selectBoardFileByNo" parameterType="int" resultMap="boardFileMap">
+			select *
+			  from tb_board_file
+			 where no=#{no}  
+		</select>
 	
-	<select id="selectBoardFileByNo" parameterType="int" resultMap="boardFileMap">
-		select *
-		  from tb_board_file
-		 where no=#{no}  
-	</select>
+	<resultMap id="hospLikeMap" type="hospLike">
+		<result column="id" property="id"/>
+		<result column="hosp_code" property="hospCode"/>
+		<result column="name" property="name"/>
+		<result column="main_treat" property="mainTreat"/>
+	</resultMap>
+	
+		<insert id="insetHospLike" parameterType="hospLike">
+			insert into tb_like(
+				id, hosp_code, name, main_treat
+			) values(
+				#{id}, #{hospCode}, #{name}, #{mainTreat}
+			)
+		</insert>
+		
+		<select id="selectMyLikeCnt" parameterType="hospLike" resultType="int">
+			select count(*)
+			  from tb_like
+			 where id = #{id} 
+		</select>
+		
+		<select id="selectHospLikeCnt" parameterType="hospLike" resultType="int">
+			select count(*)
+			  from tb_like
+			 where id = #{id}
+			   and hosp_code = #{hospCode}
+		</select>  
+		
+		<delete id="deleteHospLike" parameterType="hospLike">
+			delete
+			  from tb_like
+			 where id = #{id}
+			   and hosp_code = #{hospCode}
+		</delete>
+	
+	
+	<resultMap id="commentMap" type="comment">
+		<result column="no" property="no"/>
+		<result column="user_seq" property="userSeq"/>
+		<result column="content" property="content"/>
+		<result column="comment_no" property="commentNo"/>
+		<result column="reg_date" property="regDate"/>
+		<result column="gro_pno" property="groPno"/>
+		<result column="gro_prod" property="groProd"/>
+		<result column="depth" property="depth"/>
+	</resultMap>
+	
+		<select id="selectCommentByNo" resultMap="commentMap" parameterType="int">
+			select *
+			  from tb_comment 
+	<!-- 		 inner join tb_user u -->
+	<!-- 		    on c.userSeq = u.userSeq -->
+			 where no = #{no}
+			 order by reg_date desc 
+		</select>
+		
+		<insert id="insertComment" parameterType="comment">
+			insert into tb_comment(
+				no, user_seq, content 
+			) values (
+				#{no},#{userSeq},#{content}
+			)
+		</insert>
+	
 	
 </mapper>
 	

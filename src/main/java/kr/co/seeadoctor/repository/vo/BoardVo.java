@@ -6,7 +6,7 @@ import org.apache.ibatis.type.Alias;
 import org.springframework.web.multipart.MultipartFile;
 
 @Alias("board")
-public class BoardVo {
+public class BoardVo extends PageVo {
 
 	private int userSeq; //id
 	private int no;

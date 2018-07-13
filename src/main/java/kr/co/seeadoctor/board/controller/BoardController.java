@@ -1,11 +1,8 @@
 package kr.co.seeadoctor.board.controller;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.List;
 import java.util.Map;
@@ -18,11 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.seeadoctor.board.service.BoardService;
 import kr.co.seeadoctor.repository.vo.BoardFileVo;
 import kr.co.seeadoctor.repository.vo.BoardVo;
+import kr.co.seeadoctor.repository.vo.CommentVo;
+import kr.co.seeadoctor.repository.vo.hospLikeVo;
 
 @Controller
 @RequestMapping("/board")
@@ -31,8 +30,18 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
-	@RequestMapping("/boardInfo.do")
-	public void boardInfo() {
+	@RequestMapping("/info.do")
+	public void hospInfo(hospLikeVo hospLike, Model model) {
+		
+		// 아래의 정보를 가져오기 위한 서비스 필요한
+		// 병원 정보 가져오기
+		// 전체 좋아요 개수
+		// 해당 병원에 좋아요 여부
+		hospLike.setId("");
+		hospLike.setHospCode(1);
+		//병원코드 중복으로 들어가지 않게 막기
+		Map<String, Object> result = boardService.selectHospInfo(hospLike);//해당병원 좋아요했는지
+		model.addAttribute("result", result);
 	}
 	
 	//리뷰리스트
@@ -47,8 +56,8 @@ public class BoardController {
 //	}
 	
 	@RequestMapping("/review.do") 
-	public void review(Model model) throws Exception {
-		model.addAttribute("result", boardService.selectBoard());
+	public void review(Model model, BoardVo board) throws Exception {
+		model.addAttribute("result", boardService.selectBoard(board));
 	}
 	
 	@RequestMapping("/writeForm.do")
@@ -79,14 +88,23 @@ public class BoardController {
 	@RequestMapping("/detail.do")
 	public void detail(Model model, BoardVo board) throws Exception {
 		Map<String, Object> result = boardService.detailBoard(board.getNo());
-		
-		System.out.println(result.get(board.getNo()));
-		
 		List<BoardFileVo> files = boardService.selectBoardFileByNo(board.getNo());
+		List<CommentVo> commentList = boardService.selectCommentByNo(board.getNo());
 		
 		model.addAttribute("result", result);
 		model.addAttribute("files", files);
+		model.addAttribute("commentList", commentList);
+		
 	}
+	
+	
+	//추천
+	@RequestMapping("/hospLike.json")
+	@ResponseBody
+	public void hospLike(hospLikeVo hospLike) { //return 어떻게 해야할 지 몰라서 우선 void로 함
+		boardService.insertHospLike(hospLike);
+	}
+	
 	
 	@RequestMapping("/delete.do")
 	public String delete(int no) {
@@ -161,39 +179,27 @@ public class BoardController {
 	            }
 	        }
 	    }
-		
-		/*기영
-		//String filePath = "c:/java-lec/upload/";
-		// 파일이 저장되는 베이스 경로
-		//String serverUpload = "C:\\java-lec\\upload\\";
-		//사용자 컴퓨터에 저장할 파일명
-		String dName = request.getParameter("dName");
-		if(dName ==null) {
-			response.setHeader("Content-Type", "image/jpg");
-		}
-		//파일의 종류에 상관없이 무조건 다운로드
-		else {
-			response.setHeader("Content-Type", "application/octet-stream");
-			//다운로드 시 받을 이름 설명, 다운로드 시 한글 파일명 처리하기
-			dName = new String(sysName.getBytes("utf-8"),"8859_1");
-			response.setHeader("Content-Disposition", "attachment;filename="+dName);
-		}
-		
-		FileInputStream fis = new FileInputStream(f);
-		BufferedInputStream bis = new BufferedInputStream(fis);
-		
-		OutputStream out = response.getOutputStream();
-		BufferedOutputStream bos = new BufferedOutputStream(out);
-		
-		while(true) {
-			int ch = bis.read();
-			if(ch==-1)break;
-			bos.write(ch);
-		}
-		bos.flush();//출력
-		bis.close(); fis.close(); bos.close(); out.close();
-*/
 	}
+	
+	
+	//댓글리스트
+	@RequestMapping("/commentList.json")
+	@ResponseBody
+	public List<CommentVo> commentList(int no){
+		List<CommentVo> commentList = boardService.selectCommentByNo(no);
+		System.out.println("왔니");
+		return commentList;
+	}
+	//댓글 등록: 등록 후 등록된 댓글 까지 리스트 불러오기
+	@RequestMapping("/commentRegist.json")
+	@ResponseBody
+	public List<CommentVo> commentRegist(CommentVo comment){
+		boardService.insertComment(comment);
+		List<CommentVo> commentList = boardService.selectCommentByNo(comment.getNo());
+		return commentList;
+	}
+	
+	
 		
 	//포토요약
 	@RequestMapping("/photo.do")

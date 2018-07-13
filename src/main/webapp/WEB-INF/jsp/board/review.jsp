@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%-- <%@ taglib tagdir="" prefix="navi" %> --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -12,6 +11,7 @@
 <%-- <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script> --%>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <style>
 body { 
    font-family: 'NanumSquare', sans-serif; 
@@ -176,7 +176,7 @@ body {
 	line-height: 2;
 }
 
-#paging{
+.pagination{
 	width: 260px;
     height: 45px;
     border: 1px solid #ccc;
@@ -246,7 +246,7 @@ body {
 			<div id="content_area">
 				
 				<div id="review_row">
-					<span id="review">리뷰 ()개의 글</span>
+					<span id="review">리뷰 ${result.count}개의 글</span>
 					<span id="review1">다녀온 후기를 남겨주세요!</span>
 					<hr id="review_hr">
 				</div>
@@ -254,6 +254,7 @@ body {
 				<div id="content_review">
 					<table summary="This table shows how to create responsive tables using Datatables' extended functionality" 
 	     					 class="table table-bordered table-hover dt-responsive gy">
+<!-- 						<tbody id="pageTable"></tbody> -->
 						<c:forEach var="board" items="${result.list}">
 							<tr>
 								<td><a href='detail.do?no=${board.no}'>${board.title}</a></td>
@@ -264,10 +265,9 @@ body {
 					</table>
 				</div>
 					
-					<div id="paging">페이징
-<%-- 						<div id="nav"><navi:page data="${pageResult}" /></div> --%>
-					</div>
-					
+				<nav>	
+					<ul class="pagination"></ul>
+				</nav>	
 					
 			   		<div id= search_area>
 						<form action="">
@@ -283,14 +283,102 @@ body {
 								onclick='location.href="${pageContext.request.contextPath}/board/writeForm.do"'>글쓰기</button>
 						</form>
 					</div>
-					
-				
 			</div>
 		</div>
 		
 	</div>
 </div>
 
+<script>
+/*
+	//페이지 목록
+// 			html += '	<td><a href="detail.do?no=${board.no}">'+ board.title + '</a></td>';
+	function makePageList(result) {
+		$("#count").text(result.pageResult.count);
+		var html = "";
+		for (var i = 0; i < result.list.length; i++) {
+			var board = result.list[i];
+			html += '<tr>';
+			html += '	<td>' + board.title + '</td>';
+			var date = new Date(board.regDate);
+			var time = date.getFullYear() + "-" 
+			         + (date.getMonth() + 1) + "-" 
+			         + date.getDate();
+			html += '	<td>' + time + '</td>';  
+			html += '	<td>' + board.name + '</td>';
+			html += '</tr>';
+		}
+		if (!result.list.length) {
+			html += '<tr><td colspan="4">게시물이 존재하지 않습니다.</td></tr>';
+		}
+		$("#pageTable").html(html);
+		
+		makePageLink(result.pageResult);
+	}
+
+	var html = "";
+	if (data.count != 0) {
+		var clz = "";
+		if (data.prev == false) {
+			clz = "disabled";
+		}
+		html += '<li class="' + clz + '">';
+		
+		var fn = "";
+		
+		if (data.prev == true) {
+			fn = "javascript:pageList(" + (data.beginPage - 1) + ");";
+		}
+		html += '<a href="' + fn + '" aria-label="Previous">';
+		html += '    <span aria-hidden="true">&laquo;</span>';
+		html += '</a>';
+	    html += '</li>';
+		
+	    for (var i = data.beginPage; i <= data.endPage; i++) {
+	    	if (i == data.pageNo) {
+			    html += '<li class="active"><a href="#1">' + i + '</a></li>';
+	    	}
+	    	else {
+	    		html += '<li><a href="javascript:pageList(' + i + ');">' + i + '</a></li>';
+	    	}
+	    }
+	    
+		clz = "";
+		if (data.next == false) {
+			clz = "disabled";
+		}
+		html += '<li class="' + clz + '">';
+		
+		fn = "";
+		
+		if (data.next == true) {
+			fn = "javascript:pageList(" + (data.endPage + 1) + ");";
+		}
+		html += '<a href="' + fn + '" aria-label="Next">';
+		html += '    <span aria-hidden="true">&raquo;</span>';
+		html += '</a>';
+	    html += '</li>';
+	}
+	
+	$("nav > ul.pagination").html(html);
+}
+	
+	function pageList(pageNo) {
+		if (pageNo === undefined) {
+			pageNo = 1;
+		}
+		$.ajax({
+			url: "${pageContext.request.contextPath}/board/detail.do",
+			data: {pageNo: pageNo},
+			dataType: "json",
+			success: makePageList
+		});
+	}
+	
+	// 페이지 로딩시 목록 조회 ajax 호출
+	pageList();
+*/
+</script>
 	
 
 </body>

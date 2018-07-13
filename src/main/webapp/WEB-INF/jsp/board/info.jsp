@@ -165,7 +165,7 @@ body {
 			
 			<div id="head_btn_area">
 				<div id="head_btns">
-					<a href="${pageContext.request.contextPath}/board/review.do">
+					<a href="">
 						<img src="${pageContext.request.contextPath}/images/board/search.png" class="pull-right" id="btn_search"/><br>
 						<span>길찾기</span>
 					</a>
@@ -174,7 +174,13 @@ body {
 						<span>예약하기</span>
 					</a>
 					<a>
-						<img src="${pageContext.request.contextPath}/images/board/unlike.png" class="pull-right" id="btn_unlike"/><br>
+						${result.myCnt}-${result.cnt}
+						<c:if test="${result.myCnt ==0}">
+							<img src="${pageContext.request.contextPath}/images/board/unlike.png" data-flag="no" class="pull-right" id="btn_unlike"/><br>
+						</c:if>
+						<c:if test="${result.myCnt != 0}">
+							<img src="${pageContext.request.contextPath}/images/board/like.png" data-flag="yes" class="pull-right" id="btn_unlike"/><br>
+						</c:if>
 						<span>즐겨찾기</span>
 					</a>	
 				</div>
@@ -273,6 +279,31 @@ var myChart = new Chart(ctx, {
     	}
     }
 });
+
+	$("#btn_unlike").click(function(){
+			if($(this).data("flag")=="no"){
+				var result = confilm("관심병원 등록 하시겠습니까?");
+				if(result){
+					$(this).attr("src", "${pageContext.request.contextPath}/images/like.png");
+					$.ajax({ //
+							url:"${pageontext.request.contextPath}/board/hospLike.json", //통신할url
+							data : {
+// 								id:{sessionScope.user.id}
+// 								hospCode:{sessionScope.user.hospCode}
+							},
+							success: function(result){
+								$(this).attr("src","${pageContext.request.contextPath}/images/like-0.png");
+//	 							$("#gy").text(result.count);
+							}
+					})
+					$(this).attr("src","${pageContext.request.contextPath}/images/like.png");
+				}
+			}
+	})
+	
+
+
+
 </script>
 	
 
