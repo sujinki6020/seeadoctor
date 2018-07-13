@@ -26,7 +26,7 @@
 	<div id="detailList">
 		<div class="listBox">
 			<p class="detailInfo"><font size="3px"><strong>2018.07.06</strong>　10:00 기수진원장 　 </font>
-			<img class="messageImg" src="${pageContext.request.contextPath}/images/calendar/symptom.png" />
+			<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
 			</p>
 			<div class="listBtns"><p id="off">미방문</p>
 				<label class="switch">
@@ -39,7 +39,7 @@
 		</div>
 		<div class="listBox">
 			<p class="detailInfo"><font size="3px"><strong>2018.07.04</strong>　11:30 성중원원장 　</font>
-			<img class="messageImg" src="${pageContext.request.contextPath}/images/calendar/symptom.png" />
+			<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
 			</p>
 			<div class="listBtns">
 			<div id="cancleReserv">취소된 예약</div>
@@ -48,7 +48,7 @@
 		</div>
 		<div class="listBox">
 			<p class="detailInfo"><font size="3px"><strong>2018.07.03</strong>　15:30 기수진원장 　</font>
-			<img class="messageImg" src="${pageContext.request.contextPath}/images/calendar/symptom.png" />
+			<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
 			</p>
 			<div class="listBtns"><p id="off">미방문</p>
 				<label class="switch">
@@ -61,7 +61,7 @@
 		</div>
 		<div class="listBox">
 			<p class="detailInfo"><font size="3px"><strong>2018.07.01</strong>　12:30 성중원원장 　</font>
-			<img class="messageImg" src="${pageContext.request.contextPath}/images/calendar/symptom.png" />
+			<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
 			</p>
 			<div class="listBtns"><p id="off">미방문</p>
 				<label class="switch">
@@ -74,7 +74,7 @@
 		</div>
 		<div class="listBox">
 			<p class="detailInfo"><font size="3px"><strong>2018.06.29</strong>　16:00 기수진원장 　 </font>
-			<img class="messageImg" src="${pageContext.request.contextPath}/images/calendar/symptom.png" />
+			<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
 			</p>
 			<div class="listBtns">
 				<p id="off">미방문</p>
@@ -88,7 +88,7 @@
 		</div>
 		<div class="listBox">
 			<p class="detailInfo"><font size="3px"><strong>2018.06.11</strong>　13:30 성중원원장 　 </font>
-			<img class="messageImg" src="${pageContext.request.contextPath}/images/calendar/symptom.png" />
+			<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
 			</p>
 			<div class="listBtns"><p id="off">미방문</p>
 				<label class="switch">
@@ -101,7 +101,7 @@
 		</div>
 		<div class="listBox">
 			<p class="detailInfo"><font size="3px"><strong>2018.05.16</strong>　10:00 기수진원장 　</font>
-			<img class="messageImg" src="${pageContext.request.contextPath}/images/calendar/symptom.png" />
+			<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
 			</p>
 			<div class="listBtns"><p id="off">미방문</p>
 				<label class="switch">
@@ -114,7 +114,7 @@
 		</div>
 		<div class="listBox">
 			<p class="detailInfo"><font size="3px"><strong>2018.04.13</strong>　11:30 성중원원장 　</font>
-			<img class="messageImg" src="${pageContext.request.contextPath}/images/calendar/symptom.png" />
+			<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
 			</p>
 			<div class="listBtns"><p id="off">미방문</p>
 				<label class="switch">

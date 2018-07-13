@@ -144,7 +144,7 @@
 
 		<font color="${color}"><strong>${day}</strong></font>
 		
-		<a href="calendarPop.do?year=${year}&month=${month+1}&day=${day}" onclick="window.open(this.href, '팝업리스트', 'width=800, height=700'); return false;"><font color="#4d4d4d">　　<img src="${pageContext.request.contextPath}/images/calendar/board.png" /> 접수확인</span></font></a>
+		<a href="calendarPop.do?year=${year}&month=${month+1}&day=${day}" onclick="window.open(this.href, '팝업리스트', 'width=800, height=700'); return false;"><font color="#4d4d4d">　　<img src="${pageContext.request.contextPath}/images/admin/calendar/board.png" /> 접수확인</span></font></a>
 
 	</td>
 

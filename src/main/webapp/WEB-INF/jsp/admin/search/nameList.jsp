@@ -13,7 +13,7 @@
 <div class="viewWrap">
 
 <div id="resultTitle">
-<h2 id="searchKey"><img src="${pageContext.request.contextPath}/images/search/search.png" /> <font color="#529dbc">김기영</font></h2><strong> 검색결과</strong>(3건)
+<h2 id="searchKey"><img src="${pageContext.request.contextPath}/images/admin/search/search.png" /> <font color="#529dbc">김기영</font></h2><strong> 검색결과</strong>(3건)
 </div>
 
 <div id="resultList">

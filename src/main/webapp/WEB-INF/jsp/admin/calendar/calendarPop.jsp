@@ -21,7 +21,7 @@
 	<div id="popList">
 		<div class="listBox">
 			<p class="detailInfo"><font size="3px"><strong>10:00 기수진원장 　 </strong></font> 김기영 1993.01.24(여) | 010-1234-5678　
-			<img class="messageImg" src="${pageContext.request.contextPath}/images/calendar/symptom.png" />
+			<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
 			</p>
 			<div class="listBtns">
 				<p id="off">미방문</p>
@@ -35,7 +35,7 @@
 		</div>
 		<div class="listBox">
 			<p class="detailInfo"><font size="3px"><strong>11:30 성중원원장 　</strong></font> 김기영 1993.01.24(여) | 010-1234-5781　
-			<img class="messageImg" src="${pageContext.request.contextPath}/images/calendar/symptom.png" />
+			<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
 			</p>
 			<div class="listBtns">
 			<div id="cancleReserv">취소된 예약</div>
@@ -46,7 +46,7 @@
 		<c:forEach var="reservation" items="${reserveList}">
 			<div class="listBox">
 				<p class="detailInfo"><font size="3px"><strong>${reservation.reserveTime} ${reservation.docCode} 　</strong></font> ${reservation.userSeq} 1993.01.24(여) | 010-1234-5781　
-				<img class="messageImg" src="${pageContext.request.contextPath}/images/calendar/symptom.png" />
+				<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
 				</p>
 				<div class="listBtns">
 				
