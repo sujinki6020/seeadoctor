@@ -3,20 +3,20 @@ package kr.co.seeadoctor.reservation.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.SystemPropertyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.seeadoctor.repository.vo.Reservation;
 import kr.co.seeadoctor.repository.vo.ScrollPaging;
+import kr.co.seeadoctor.repository.vo.User;
 import kr.co.seeadoctor.reservation.service.ReservationService;
 
 @Controller
@@ -52,11 +52,15 @@ public class ReservationController {
 	@RequestMapping("/reserve.do")
 	public String reserve(HttpSession session, Reservation reservation, String date) throws ParseException {
 
+		User user = (User) session.getAttribute("user");
+		System.out.println("이름"+user.getName());
+		System.out.println("시퀀스"+user.getUserSeq());
 		
-//		session.getAttribute("user");
 //		System.out.println(reservation.getHospCode());
-		reservation.setUserSeq(1);
+		reservation.setUserSeq(user.getUserSeq());
 		reservation.setHospCode(1);
+		
+		
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
 		Date reserveDate = sdf.parse(date); 

@@ -1,6 +1,7 @@
 package kr.co.seeadoctor.admin.search.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,15 +21,19 @@ public class SearchController {
 	@RequestMapping("/nameList.do")
 	public void searchResult(String name, Model model) {
 		System.out.println(name);
-		List<User> userList = service.retrieveByName(name);
+		List<User> userList = service.retrieveCustomerByName(name);
 		System.out.println(userList);
 		System.out.println(userList.get(0).getName());
 		model.addAttribute("userList", userList);
 	}
 	
 	@RequestMapping("/nameDetail.do")
-	public void searchDetail() {
+	public void searchDetail(int userSeq, Model model) {
+//		List<Reservation> reserveList= service.retriveReservationByUserSeq(userSeq);
 		
+		Map<String, Object> reserveHistory = service.retriveReservationByUserSeq(userSeq);
+		
+		model.addAttribute("reserveHistory", reserveHistory);
 	}
 
 }

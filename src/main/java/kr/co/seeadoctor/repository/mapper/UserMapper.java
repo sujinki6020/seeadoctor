@@ -13,4 +13,6 @@ public interface UserMapper {
 	public List<User> selectUserByName(String name);
 	
 	public void updateUser(User user);
+
+	public User selectUserBySeq(int userSeq);
 }

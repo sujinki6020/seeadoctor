@@ -98,6 +98,13 @@
             #{closeTime[index]}
         </foreach>
 	</update>
+	
+		
+	<select id="selectRervationByUserSeq" parameterType="int" resultMap="reservationMap">
+		select *
+		  from tb_reservation
+		where user_seq = #{userSeq}
+	</select>
 </mapper>
 
 
