@@ -54,4 +54,20 @@
 			group by dutyName
 			having dutyName like concat('%', #{dutyName}, '%')
 	</select>
+	
+	
+	<!-- 예약파트 -->
+	
+	<select id="selectUserByName" parameterType="string" resultMap="userMap">
+		select user_seq, name, gender, birth, phone
+		  from tb_user
+		 where admin = 'N'
+		   and name = #{name} 
+	</select>
+	
+	<select id="selectUserBySeq" parameterType="int" resultMap="userMap">
+		select *
+		  from tb_user
+		 where user_seq = #{userSeq}
+	</select>
 </mapper>

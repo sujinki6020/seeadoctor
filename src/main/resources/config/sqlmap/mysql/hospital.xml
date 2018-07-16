@@ -149,6 +149,12 @@
 		limit #{pageNo} , 10
 	</select>
 	
+	<!-- 예약파트 -->
+	<select id="selectDutyTime" parameterType="int" resultMap="hospitalMap">
+	select *
+	  from tb_hospital_gangnam
+	 where hospital_seq = #{hospitalSeq}
+	</select>
 	
 </mapper>
 	
