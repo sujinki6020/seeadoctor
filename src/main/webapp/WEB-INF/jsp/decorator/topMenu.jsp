@@ -5,7 +5,7 @@
     <h1 id="logo"><a href="${pageContext.request.contextPath}/index.jsp"><img src="${pageContext.request.contextPath}/images/header/title1.JPG" alt=""></a></h1>
     <p>
     <c:choose>
-	    <c:when test="${empty sessionScope.user }">
+	    <c:when test="${empty sessionScope.user}">
 	    <a href="${pageContext.request.contextPath}/login/loginForm.do" id="login" onchange="changeUI();">로그인</a>
 	    /<a href="${pageContext.request.contextPath}/join/joinUser.do" id="joinUser">회원가입</a><br>
 	    </c:when>
@@ -17,22 +17,22 @@
     </p>
     <nav>
         <ul id="mainMenu">
-            
             <c:choose>
-            	<c:when test="${sessionScope.user.admin == N}">
-		            <li><a href="${pageContext.request.contextPath}/temporary/searchinghospital.jsp">병원 찾기</a></li>
+            	<c:when test="${sessionScope.user.admin eq 'Y'.charAt(0)}">
+            	
+		            <li><a href="${pageContext.request.contextPath}/admin/statistics/statistics.do">고객 통계</a></li>
             	</c:when>
             	<c:otherwise>
-		            <li><a href="${pageContext.request.contextPath}/admin/statistics/statistics.do">고객 통계</a></li>
+		            <li><a href="${pageContext.request.contextPath}/temporary/searchinghospital.jsp">병원 찾기</a></li>
             	</c:otherwise>
             </c:choose>
             
             <c:choose>
-            	<c:when test="${sessionScope.user.admin == N}">
-            		<li><a href="${pageContext.request.contextPath}/reservation/reservationList.do">내 접수현황</a></li>
+             	<c:when test="${sessionScope.user.admin eq 'Y'.charAt(0)}">
+            		<li><a href="${pageContext.request.contextPath}/admin/calendar/calendar.do">예약자 현황</a></li>
             	</c:when>
             	<c:otherwise>
-            		<li><a href="${pageContext.request.contextPath}/admin/calendar/calendar.do">예약자 현황</a></li>
+            		<li><a href="${pageContext.request.contextPath}/reservation/reservationList.do">내 접수현황</a></li>
             	</c:otherwise>
             </c:choose>
             
@@ -54,3 +54,7 @@
     </div>
     
 </header>
+
+        <script>
+        alert("${sessionScope.user.admin}");
+        </script>
