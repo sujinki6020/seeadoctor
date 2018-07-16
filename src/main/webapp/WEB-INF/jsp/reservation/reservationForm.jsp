@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,7 +16,7 @@
 <div class="viewWrap">
 <div id="reservTitleArea">
 	<h2><img id="formTitleImg" src="${pageContext.request.contextPath}/images/reservation/appointment.png" /> 
-	예약 접수하기 <font color="#529dbc">| 비트내과</font></h2>
+	예약 접수하기 <font color="#529dbc">| 비트병원</font></h2>
 </div>
 <div id="patientInfo">
 <hr>
@@ -25,9 +26,18 @@
 <td width="400px;">${user.name}</td>
 <td><button id="infoBnt">개인정보수정</button></td>
 </tr>
+
+<c:choose>
+<c:when test="${user.gender eq 'F'.charAt(0)}">
+<c:set var="gender" value="여"/>
+</c:when>
+<c:otherwise>
+<c:set var="gender" value="남"/>
+</c:otherwise>
+</c:choose>
 <tr>
 <th>생년월일</th>
-<td>${user.birth} (${user.gender})</td>
+<td>${user.birth} (${gender})</td>
 </tr>
 <tr>
 <th>전화번호</th>
@@ -38,7 +48,7 @@
 </div>
 
 <form action="${pageContext.request.contextPath}/reservation/reserve.do" method="post">
-<input type="hidden" name="hospitalSeq" value="${hospitalSeq}">
+<input type="text" name="hospitalSeq" value="${hospitalSeq}">
 <div id="selectZone">
 <div class="select">
 <h2><img src="${pageContext.request.contextPath}/images/reservation/doctor.png" /> 진료실 선택</h2>
@@ -60,24 +70,7 @@
 <h2><img src="${pageContext.request.contextPath}/images/reservation/time.png" /> 시간 선택</h2>
 
 	<div id="timeList">
-	<!-- 
-		<button type="button" id="1000" class="timeBnt">10:00</button>
-		<button type="button" id="1030" class="timeBnt closeTime">10:30</button>
-		<button type="button" id="1100" class="timeBnt">11:00</button>
-		<button type="button" id="1130" class="timeBnt">11:30</button>
-		<button type="button" id="1200" class="timeBnt closeTime">12:00</button>
-		<button type="button" id="1230" class="timeBnt">12:30</button>
-		<button type="button" id="1300" class="timeBnt closeTime">13:00</button>
-		<button type="button" id="1330" class="timeBnt closeTime">13:30</button>
-		<button type="button" id="1400" class="timeBnt">14:00</button>
-		<button type="button" id="1430" class="timeBnt">14:30</button>
-		<button type="button" id="1500" class="timeBnt">15:00</button>
-		<button type="button" id="1530" class="timeBnt">15:30</button>
-		<button type="button" id="1600" class="timeBnt closeTime">16:00</button>
-		<button type="button" id="1630" class="timeBnt">16:30</button>
-		<button type="button" id="1700" class="timeBnt closeTime">17:00</button>
-		<button type="button" id="1730" class="timeBnt closeTime">17:30</button>
-	 -->
+
 	</div>
 	<input type="hidden" name="reserveTime">
 </div>
@@ -127,6 +120,9 @@ function dayOfTheWeek(value) {
 	var date = new Date($("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' }).val());
 	//1월~6토, 0일
 	//db는 1월~7일
+	
+	alert("${hospitalSeq}");
+	
 	$.ajax({
 		type : "POST",
 		url : "/seeadoctor/reservation/timeList.json",
@@ -137,8 +133,16 @@ function dayOfTheWeek(value) {
 			date: $("input[name='date']").val(),
         	day : date.getDay()
         },
-		success : function() {
-			
+		success : function(reserveTimeList) {
+			var timeBnt = "";
+			for(var i = 0; i < reserveTimeList.length; i++) {
+				timeBnt += '<button type="button" id="'+reserveTimeList[i].time+'" class="timeBnt';
+				if(reserveTimeList[i].bookedStatus=="t" || reserveTimeList[i].blockedStatus=="t") {
+					timeBnt += ' closeTime';
+				}
+				timeBnt += '">'+reserveTimeList[i].time.substr(0,2)+':'+reserveTimeList[i].time.substr(2,2)+'</button>';
+			}
+			$("#timeList").html(timeBnt);
 		}
 	});
 }
