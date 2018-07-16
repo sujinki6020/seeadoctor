@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.seeadoctor.board.service.BoardService;
 import kr.co.seeadoctor.repository.vo.Board;
+import kr.co.seeadoctor.repository.vo.BoardFile;
 import kr.co.seeadoctor.repository.vo.Comment;
 
 @Controller
@@ -74,13 +76,11 @@ public class BoardController {
 	public void detail(Board board, Model model) throws Exception {
 		System.out.println("no : " + board.getNo());
 		Map<String, Object> result = boardService.detailBoard(board.getNo());
-		model.addAttribute("result", result);
-<<<<<<< HEAD
-=======
-		model.addAttribute("files", files);
-		model.addAttribute("commentList", commentList);
 		
->>>>>>> 16915064e8acde8a546560cace192e8b19045e39
+		model.addAttribute("result", result);
+		
+		
+
 	}
 	
 	@RequestMapping("/delete.do")
@@ -171,11 +171,7 @@ public class BoardController {
 	//댓글 등록: 등록 후 등록된 댓글 까지 리스트 불러오기
 	@RequestMapping("/commentRegist.json")
 	@ResponseBody
-<<<<<<< HEAD
-	public List<Comment> commentRegist(HttpSession session, Comment comment){
-=======
 	public List<Comment> commentRegist(Comment comment){
->>>>>>> 16915064e8acde8a546560cace192e8b19045e39
 		boardService.insertComment(comment);
 		List<Comment> commentList = boardService.selectCommentByNo(comment.getNo());
 		return commentList;
