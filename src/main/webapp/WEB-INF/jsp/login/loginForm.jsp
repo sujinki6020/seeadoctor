@@ -27,7 +27,7 @@
 
 			<!-- Remind Passowrd -->
 			<div id="formFooter">
-				<a class="underlineHover" href="#">Forgot ID / Password?</a>
+				<a class="underlineHover" href="${pageContext.request.contextPath}/login/find.do">Forgot ID / Password?</a>
 			</div>
 		</div>
 	</div>

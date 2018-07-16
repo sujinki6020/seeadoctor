@@ -15,4 +15,14 @@ public class LoginServiceImpl implements LoginService {
 	public User login(User user) throws Exception {
 		return lmapper.login(user);
 	}
+
+	@Override
+	public String findId(String name, String birth) throws Exception {
+		return lmapper.findId(name, birth);
+	}
+
+	@Override
+	public String findPw(String id, String email) throws Exception {
+		return lmapper.findPw(id, email);
+	}
 }

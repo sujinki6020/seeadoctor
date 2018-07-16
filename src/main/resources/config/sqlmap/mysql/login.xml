@@ -12,16 +12,29 @@
 		<result column="email" property="email" />
 		<result column="phone" property="phone" />
 		<result column="tel" property="tel" />
-		<result column="hosp_code" property="hospCode" />
+		<result column="hosp_name" property="hospName" />
 		<result column="addr1" property="addr1" />
 		<result column="addr2" property="addr2" />
 		<result column="admin" property="admin" />
 		<result column="zip" property="zip" />
+		<result column="hospital_seq" property="hospitalSeq" />
 	</resultMap>
 	
 	<select id="login" resultMap="userMap">
 		select * from tb_user
 			where id=#{id} 
 			and pw=#{pw}
+	</select>
+	
+	<select id="findId" parameterType="user" resultType="string">
+		select id from tb_user
+			where name = #{name}
+			and birth = #{birth}
+	</select>
+	
+	<select id="findPw" parameterType="user" resultType="string">
+		select pw from tb_user
+			where id = #{id}
+			and email = #{email}
 	</select>
 </mapper>

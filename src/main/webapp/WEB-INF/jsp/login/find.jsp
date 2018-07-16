@@ -5,7 +5,10 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/find.css" />
+	href="${pageContext.request.contextPath}/css/login/find.css" />
+<!-- <script src="sweetalert2.all.min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.25.3/dist/sweetalert2.all.min.js"></script>
 </head>
 <body>
 	<div class="tab">
@@ -14,41 +17,36 @@
 	</div>
 
 	<div id="findId" class="tabcontent">
-		<form action="/action_page.php">
+		<form action="findId.do">
 			<div class="container">
 				<div class="signup">
 					<h3>아이디를 찾기 위한 정보를 입력해 주세요.</h3>
 					<br>
-					<!-- 						<form class="form"> -->
 					<div class="form-group">
-						<input type="text" id="signup-name" class="form-control" placeholder="이름" required>
+						<input type="text" id="name" name="name" class="form-control" placeholder="이름" required>
 					</div>
 					<div class="form-group">
-						<input type="text" id="signup-surname" class="form-control" placeholder="생년월일 (6자리)" required>
+						<input type="text" id="birth" name="birth" class="form-control" placeholder="생년월일 (6자리)" required>
 					</div>
-					<button class="btn form-submit" type="submit">FIND</button>
-					<!-- 						</form> -->
+					<input class="btn form-submit" type="submit" value="FIND" id="findId">
 				</div>
 			</div>
 		</form>
 	</div>
 
 	<div id="findPw" class="tabcontent">
-		<form action="/action_page.php">
+		<form action="findPw.do">
 			<div class="container">
 				<div class="signup">
 					<h3>비밀번호를 찾기 위한 정보를 입력해 주세요.</h3>
 					<br>
-					<!-- <h1>Find ID</h1> -->
-					<!-- 						<form class="form" novalidate="novalidate"> -->
 					<div class="form-group">
-						<input type="text" id="signup-name" class="form-control" placeholder="아이디" required>
+						<input type="text" id="id" class="form-control" placeholder="아이디" required>
 					</div>
 					<div class="form-group">
-						<input type="text" id="signup-surname" class="form-control" placeholder="이메일" required>
+						<input type="text" id="email" class="form-control" placeholder="이메일" required>
 					</div>
-					<button class="btn form-submit" type="submit">FIND</button>
-					<!-- 						</form> -->
+					<input class="btn form-submit" type="submit" value="FIND" id="findPw">
 				</div>
 			</div>
 		</form>
@@ -72,6 +70,43 @@
 
 		// Get the element with id="defaultOpen" and click on it
 		document.getElementById("defaultOpen").click();
-	</script>
+		
+		// ID & PW 찾기		
+		$("#findId").on("submit", function (event) {
+			var name = $("#name").val();
+			var birth = $("#birth").val();
+			event.preventDefault();
+			$.ajax({
+				url: "${pageContext.request.contextPath}/login/findId.do",
+				data: {name:name, birth:birth},
+				type: "POST",
+				success: function(data) {
+					if(data == "") {
+						swal('사용자 정보와 일치하는 ID가 존재하지 않습니다.');
+					} else {
+						swal('고객님의 ID는' + data + '입니다.');
+					}
+				}
+			});
+		});
+		
+		$("#findPw").on("submit", function (event) {
+			var id = $("#id").val();
+			var email = $("#email").val();
+			event.preventDefault();
+			$.ajax({
+				url: "${pageContext.request.contextPath}/login/findPw.do",
+				data: {id:id, email:email},
+				type: "POST",
+				success: function(data) {
+					if(data == "") {
+						swal('사용자 정보와 일치하는 비밀번호를 찾을 수 없습니다.');
+					} else {
+						swal('고객님의 비밀번호는' + data + '입니다.');
+					}
+				}
+			});
+		});
+		</script>
 </body>
 </html>
