@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.seeadoctor.repository.mapper.HospitalAboutMapper;
+import kr.co.seeadoctor.repository.vo.Hospital;
 import kr.co.seeadoctor.repository.vo.HospitalAbout;
 @Service
 public class HospitalAboutServiceImpl implements HospitalAboutService{
@@ -19,13 +20,18 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	// 병원 정보 가져오기
 	// 전체 좋아요 개수
 	// 해당 병원에 좋아요 여부
+	
+	
 	@Override
-	public Map<String, Object> selectHospInfo(HospitalAbout hospLike) {
+	public Map<String, Object> loadHospAbout(HospitalAbout hospAbout, Hospital hospital) {
 		Map<String, Object> result = new HashMap<>();
 		
+		hospMapper.loadHospital(hospAbout, hospital);
+		
+		
 		// 병원 자체 정보 추가해야 함...
-		int myCnt = hospMapper.selectMyLikeCnt(hospLike);//내 총 즐찾개수
-		int cnt = hospMapper.selectHospLikeCnt(hospLike); //중복
+		int myCnt = hospMapper.selectMyLikeCnt(hospAbout);//내 총 즐찾개수
+		int cnt = hospMapper.selectHospLikeCnt(hospAbout); //중복
 		result.put("myCnt", myCnt);
 		result.put("cnt", cnt);
 		return result;
@@ -33,21 +39,26 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	
 	
 	@Override
-	public void insertStar(HospitalAbout hospLike) {
+	public void insertStar(HospitalAbout hospAbout) {
 		System.out.println("좋아요");
-		hospMapper.insertHospLike(hospLike);
+		hospMapper.insertHospLike(hospAbout);
 	}
 	@Override
-	public void deleteStar(HospitalAbout hospLike) {
+	public void deleteStar(HospitalAbout hospAbout) {
 		System.out.println("싫어요");
-		hospMapper.deleteHospLike(hospLike);
+		hospMapper.deleteHospLike(hospAbout);
 	}
 	
 	@Override
 	public List<HospitalAbout> selectAllHospLike(String id) {
 		return hospMapper.selectAllHospLike(id);
 	}
+
+
 	
+
+
+
 	
 	
 	
