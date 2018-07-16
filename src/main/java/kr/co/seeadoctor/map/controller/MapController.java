@@ -3,6 +3,7 @@ package kr.co.seeadoctor.map.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,12 +17,14 @@ public class MapController {
 	@Autowired
 	private MapService mapService;
 	
-	@RequestMapping("/totalHospitalList.json")
-	public List<Hospital> totalHospitalList() {
-		return mapService.selectHospitalAll();
-	}
-	@RequestMapping("/deptHospitalList.json")
-	public List<Hospital> deptHospitalList() {
-		return mapService.selectHospitalBylatlon();
+	@RequestMapping("/hospitalList.json")
+	public List<Hospital> hospitalList(Hospital hospital) {
+		int count = mapService.selectCount(hospital);
+		List<Hospital> list = mapService.selectHospital(hospital);
+		for(Hospital s : list) {
+			s.setCount(count);
+			break;
+		}
+		return list;
 	}
 }

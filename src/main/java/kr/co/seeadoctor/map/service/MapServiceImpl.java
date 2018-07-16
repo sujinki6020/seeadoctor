@@ -14,13 +14,13 @@ public class MapServiceImpl implements MapService {
 	private HospitalMapper mapper;
 	
 	@Override
-	public List<Hospital> selectHospitalAll() {
-		return mapper.selectHospitalAll();
-	}
-
-	@Override
-	public List<Hospital> selectHospitalBylatlon() {
-		return mapper.selectHospitalByLatLon();
+	public List<Hospital> selectHospital(Hospital hospital) {
+		return mapper.selectHospital(hospital);
 	}
 	
+	@Override
+	public int selectCount(Hospital hospital) {
+		return mapper.selectCount(hospital);
+	}
+
 }

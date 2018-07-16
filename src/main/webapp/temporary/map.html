@@ -1,39 +1,40 @@
-<%@ page contentType="text/html; charset=UTF-8" %>
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/map/searchinghospital.css" />
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=IutEeaTAqvux8P5IXvhG&submodules=geocoder"></script>
-<style>
-	#searchaddress {
-		position: relative;
-	}
-	#resultaddress {
-		z-index : 1;
-		position: absolute;
-		background-color: white;
-		width: 100%;
-		height: auto;
-		box-sizing: border-box;
-	}
-	#resultaddress ul li {
-		font-size: 1.5em;
-		height:40px;
-		line-height : 40px;
-		padding-left: 20px;
-    	padding-right: 20px;
-    	border-bottom: 1px solid #d7d7d7;
-    	box-sizing: border-box;
-	}
-	#resultaddress ul li:nth-of-type(1) {
-		border-top :  1px solid #d7d7d7;
-	}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/map/searchinghospital.css" />
+    <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=IutEeaTAqvux8P5IXvhG&submodules=geocoder"></script>
+    <style>
+        #searchaddress {
+            position: relative;
+        }
+        #resultaddress {
+            z-index : 1;
+            position: absolute;
+            background-color: white;
+            width: 100%;
+            height: auto;
+            box-sizing: border-box;
+        }
+        #resultaddress ul li {
+            font-size: 1.5em;
+            height:40px;
+            line-height : 40px;
+            padding-left: 20px;
+            padding-right: 20px;
+            border-bottom: 1px solid #d7d7d7;
+            box-sizing: border-box;
+        }
+        #resultaddress ul li:nth-of-type(1) {
+            border-top :  1px solid #d7d7d7;
+        }
+    </style>
 </head>
 <body>
-<div id="searchbox">
+    <div id="searchbox">
         <div id="searchcondition">
             <a href="#1">진료과 검색</a>
             <a href="#1">상황별 검색</a>
@@ -43,8 +44,7 @@
         </div>
         <div id="result">
             <div id="resultcount"><span>전체 보기</span></div>
-            <div id="resultlist">
-                
+            <div id="resultlist">               
             </div>
             <div id="resultpage">
                 <ul>
@@ -79,24 +79,28 @@ var map;
 var marker;
 var latlng;
 var markerArr = [];
-$(getMyLocation); 
-$("#resultaddress").hide();
-$(document).click(function(){
-	$("#resultaddress").hide();
-	$("#searchaddress input").val("");
+document.onload = () => {
+    document.querySelector("#resultaddress").style.display = 'none';
+    setLocationOnMap();
+}
+document.addEventListener("click", () => {
+    document.querySelector("#resultaddress").style.display = 'none';
+    document.querySelector("#searchaddress input").value = "";
 })
 
-
-function getMyLocation() {
-	// 위치정보 지원 여부 확인
-	if (navigator.geolocation) {
-		console.log("위치정보 지원함");
-		navigator.geolocation.getCurrentPosition(displayLocation);
-	}
-	else {
-		console.log("위치정보 지원하지 않음")
-	}
+function setLocationOnMap() {
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(getLocation);
+        console.log('위치정보 지원');
+    }else{
+        console.log('위치정보 지원하지 않음');
+    }
 }
+function getLocation(position) {
+    let latitude = position.coords.latitude || 33.3590628;
+    let longitude = position.coords.longitude || 126.534361;
+}
+
 
 // 위치정보 조회 성공시 호출 콜백함수
 function displayLocation(position) {
@@ -174,7 +178,8 @@ function initGeocoder() {
     infoWindow = new naver.maps.InfoWindow({
         content: ''
     });
-    getHospital(latlng.x , latlng.y);	
+    getHospital(latlng.x , latlng.y);
+	
     map.addListener('click', function(e) {
         latlng = e.coord;
         console.log('위경도',latlng);
@@ -239,8 +244,6 @@ function setHospitalList(name ,address, deptName){
 	let content = '<div><h3>'+ name +'&nbsp<span>' + deptName +'</span></h3><p>' + address + '</p></div>';
 	$("#resultlist").append(content);
 }
-
-
 </script>
 </body>
 </html>
