@@ -3,7 +3,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.co.seeadoctor.repository.mapper.HospitalLikeMapper">
 
-	<resultMap id="hospLikeMap" type="hospLike">
+	<resultMap id="hospAboutMap" type="hospitalAbout">
 		<result column="id" property="id"/>
 		<result column="hosp_code" property="hospCode"/>
 		<result column="name" property="name"/>
@@ -11,26 +11,26 @@
 	</resultMap>
 	
 		
-		<select id="selectMyLikeCnt" parameterType="hospLike" resultType="int">
+		<select id="selectMyLikeCnt" parameterType="hospitalAbout" resultType="int">
 			select count(*)
 			  from tb_like
 			 where id = #{id} 
 		</select>
 		
-		<select id="selectHospLikeCnt" parameterType="hospLike" resultType="int">
+		<select id="selectHospLikeCnt" parameterType="hospitalAbout" resultType="int">
 			select count(*)
 			  from tb_like
 			 where id = #{id}
 			   and hosp_code = #{hospCode}
 		</select>  
 		
-		<select id="selectAllHospLike" parameterType="string" resultMap="hospLikeMap">
+		<select id="selectAllHospLike" parameterType="string" resultMap="hospAboutMap">
 			select *
 			  from tb_like
 			 where id = #{id} 
 		</select>
 		
-		<insert id="insertHospLike" parameterType="hospLike">
+		<insert id="insertHospLike" parameterType="hospitalAbout">
 			insert into tb_like(
 				id, hosp_code, name, main_treat
 			) values(
@@ -38,7 +38,7 @@
 			)
 		</insert>
 		
-		<delete id="deleteHospLike" parameterType="hospLike">
+		<delete id="deleteHospLike" parameterType="hospitalAbout">
 			delete
 			  from tb_like
 			 where id = #{id}
