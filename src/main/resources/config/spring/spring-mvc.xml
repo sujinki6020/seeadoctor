@@ -59,13 +59,33 @@
 	
 	
 	<!-- Interceptors -->
+<!-- 	<mvc:interceptors> -->
+<!-- 		<mvc:interceptor> -->
+<!-- 			<mvc:mapping path="/board/test.do" /> -->
+<!-- 			<mvc:mapping path="/mypage/myInfo.do" /> -->
+<!-- 			<ref bean="loginInterceptor" /> -->
+<!-- 		</mvc:interceptor> -->
+<!-- 	</mvc:interceptors> -->
+
 	<mvc:interceptors>
 		<mvc:interceptor>
-			<mvc:mapping path="/board/test.do" />
-			<mvc:mapping path="/temp/myPage.do" />
-			<ref bean="loginInterceptor" />
+			<!-- 모든 URL 요청 mvc 인터셉터를 거치게 하도록 정의 -->
+			<mvc:mapping path="/**/*" />
+<!-- 			mvc 인터셉터를 거치지 않고 예외 시킬 URL 요청들 정의 -->
+			<mvc:exclude-mapping path="/login/loginForm.do" />
+			<mvc:exclude-mapping path="/login/login.do" />
+			<mvc:exclude-mapping path="/login/find.do" />
+			<mvc:exclude-mapping path="/join/joinUser.do" />
+			<mvc:exclude-mapping path="/join/joinAdmin.do" />
+			<mvc:exclude-mapping path="/join/idDuplChk.do" />
+			<mvc:exclude-mapping path="/join/searchHospName.do" />
+			<mvc:exclude-mapping path="/join/jusoPopup.do" />
+			<!--mvc 인터셉터 컨트롤러 빈객체 정의 -->
+			<bean class="kr.co.seeadoctor.interceptor.LoginInterceptor"></bean>
 		</mvc:interceptor>
 	</mvc:interceptors>
+
+ 
 
 
 </beans>

@@ -11,10 +11,10 @@
 	<excludes>
 		<pattern>/admin/chat/chat.jsp</pattern>
 		<pattern>/join/jusoPopup.do</pattern>
+		<pattern>/join/idDuplChk.do</pattern>
 		<pattern>/admin/calendar/calendarPop*</pattern>
 		<pattern>/admin/calendar/timeManagement*</pattern>
 		<pattern>/board/commentList.json</pattern>
-
 	</excludes>
 </decorators>
 

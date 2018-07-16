@@ -6,8 +6,8 @@
     <p>
     <c:choose>
 	    <c:when test="${empty sessionScope.user }">
-	    <a href="${pageContext.request.contextPath}/login/loginForm.do" id="loginA" onchange="changeUI();">로그인</a>
-	    /<a href="${pageContext.request.contextPath}/join/joinUser.do" id="joinA">회원가입</a><br>
+	    <a href="${pageContext.request.contextPath}/login/loginForm.do" id="login" onchange="changeUI();">로그인</a>
+	    /<a href="${pageContext.request.contextPath}/join/joinUser.do" id="joinUser">회원가입</a><br>
 	    </c:when>
 	    <c:otherwise>
         ${user.name}님 환영합니다. <br><br>
@@ -43,7 +43,7 @@
     <div id="bottomArea">
         <ul class="etcInfo">
 	        <li style="font-weight:900;">
-	        	<a href="${pageContext.request.contextPath}/join/joinAdmin.do" id="joinA">Admin 회원가입</a> 
+	        	<a href="${pageContext.request.contextPath}/join/joinAdmin.do" id="joinAdmin">Admin 회원가입</a> 
 	        </li>
             <li>
                 <a href="#1">About us</a>

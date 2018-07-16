@@ -13,7 +13,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			throws Exception {
 		System.out.println("인터셉터");
 		if(request.getSession().getAttribute("user") == null) {
-			response.sendRedirect(request.getContextPath() + "/temp/loginForm.do");
+			response.sendRedirect(request.getContextPath() + "/login/loginForm.do");
 			return false;
 		}
 		return true;
