@@ -30,7 +30,8 @@
 					<hr class="colorgraph">
 					<div class="form-group">
 						<input type="text" name="id" id="id" class="form-control input-lg"
-							placeholder="아이디" tabindex="1">
+							placeholder="아이디" tabindex="1" oninput="checkId();">
+						<span id = "chkMsg"></span>
 						<p id="idp"></p>
 					</div>
 					<div class="form-group">
@@ -188,6 +189,27 @@ $("#save").on("submit", function(event) {
     console.log("addr2", addr2);
     console.log("pw", pw);
  });
+ 
+//id 중복체크
+function checkId(){
+    var id = $('#id').val();
+    $.ajax({
+        url:'${pageContext.request.contextPath}/join/idDuplChk.do',
+        type:'post',
+        data:{id:id},
+        success:function(data){
+        	console.log("data",data);
+            if($.trim(data)==0){
+                $('#chkMsg').html("<p style='color:blue;'>사용가능한 ID입니다.</p>");
+            }else{
+                $('#chkMsg').html("<p style='color:red;'>이미 존재하는 ID입니다.</p>");
+            }
+        },
+        error:function(){
+                alert("에러입니다");
+        }
+    });
+};
 	
 </script>
 </body>

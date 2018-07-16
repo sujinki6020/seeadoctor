@@ -53,6 +53,7 @@
 			from tb_hospital_gangnam
 			group by dutyName
 			having dutyName like concat('%', #{dutyName}, '%')
+			limit 10;
 	</select>
 	
 	
