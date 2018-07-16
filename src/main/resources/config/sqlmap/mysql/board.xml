@@ -109,9 +109,9 @@
 		
 		<insert id="insertComment" parameterType="comment">
 			insert into tb_comment(
-				no, user_seq, content, name
+				no, user_seq, content 
 			) values (
-				#{no},#{userSeq},#{content},#{name}
+				#{no},#{userSeq},#{content}
 			)
 		</insert>
 		

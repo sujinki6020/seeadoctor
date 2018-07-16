@@ -13,14 +13,11 @@
 <div class="viewWrap">
 
 <div id="resultTitle">
-<h2 id="searchKey"><img src="${pageContext.request.contextPath}/images/admin/search/search.png" /> <font color="#529dbc">${name}</font></h2><strong> 검색결과</strong>(3건)
+<h2 id="searchKey"><img src="${pageContext.request.contextPath}/images/admin/search/search.png" /> <font color="#529dbc">김기영</font></h2><strong> 검색결과</strong>(3건)
 </div>
 
 <div id="resultList">
 <ol>
-<c:forEach var="user" items="${userList}">
-<li class="resultIndex">${user.name}　/　${user.birth} (${user.gender})　/　${user.phone}<a class="detailBnt" href="${pageContext.request.contextPath}/admin/search/nameDetail.do?userSeq=${user.userSeq}">조회</a></li>
-</c:forEach>
 <li class="resultIndex">김기영　/　1993.01.24(여)　/　010-1234-3456<a class="detailBnt" href="<c:url value='/search/nameDetail.do'/>">조회</a></li>
 <li class="resultIndex">김기영　/　1967.06.21(남)　/　010-3534-5785<a class="detailBnt" href="<c:url value='/search/nameDetail.do'/>">조회</a></li>
 <li class="resultIndex">김기영　/　2000.08.11(여)　/　010-3454-5555<a class="detailBnt" href="<c:url value='/search/nameDetail.do'/>">조회</a></li>
@@ -28,8 +25,6 @@
 </div>
 
 </div>
-<script type="text/javascript">
-console.log("${userList}");
-</script>
+
 </body>
 </html>

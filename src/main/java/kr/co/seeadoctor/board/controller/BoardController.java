@@ -10,7 +10,6 @@ import java.util.Map;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -57,12 +56,11 @@ public class BoardController {
 	}
 	
 	@RequestMapping("/write.do")
-	public String write(Board board, HttpSession session)throws Exception {//들어온다4
-
-		session.getAttribute("user");
-//		board.setUserSeq(3); //세션에있는 유저객체를 받아와서 셋해줌
-//		board.setName("체리혜리");
-//		System.out.println("널체크"+(board.getTitle()==null)+"title의 길이"+ board.getTitle().length());
+	public String write(Board board)throws Exception {//들어온다4
+		System.out.println("들어오니");
+		board.setUserSeq(3); //세션에있는 유저객체를 받아와서 셋해줌
+		board.setName("체리혜리");
+		System.out.println("널체크"+(board.getTitle()==null)+"title의 길이"+ board.getTitle().length());
 		//아무값도 없는데 무언가가 넘어가는것같다.
 		
 		//mysql셀렉트키를 이용하면 매개변수board에 입력된 글 번호가 설정된다(설정함)
@@ -77,6 +75,12 @@ public class BoardController {
 		System.out.println("no : " + board.getNo());
 		Map<String, Object> result = boardService.detailBoard(board.getNo());
 		model.addAttribute("result", result);
+<<<<<<< HEAD
+=======
+		model.addAttribute("files", files);
+		model.addAttribute("commentList", commentList);
+		
+>>>>>>> 16915064e8acde8a546560cace192e8b19045e39
 	}
 	
 	@RequestMapping("/delete.do")
@@ -167,7 +171,11 @@ public class BoardController {
 	//댓글 등록: 등록 후 등록된 댓글 까지 리스트 불러오기
 	@RequestMapping("/commentRegist.json")
 	@ResponseBody
+<<<<<<< HEAD
 	public List<Comment> commentRegist(HttpSession session, Comment comment){
+=======
+	public List<Comment> commentRegist(Comment comment){
+>>>>>>> 16915064e8acde8a546560cace192e8b19045e39
 		boardService.insertComment(comment);
 		List<Comment> commentList = boardService.selectCommentByNo(comment.getNo());
 		return commentList;

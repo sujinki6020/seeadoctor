@@ -24,6 +24,4 @@ public interface ReservationMapper {
 
 	List<ReservationTime> selectTimeList(ReservationTime reserveTime);
 
-	List<Reservation> selectRervationByUserSeq(int userSeq);
-
 }

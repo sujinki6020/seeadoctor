@@ -19,6 +19,7 @@ body {
    font-family: 'NanumSquare', sans-serif; 
 }
 
+<<<<<<< HEAD
 .table-bordered {
     border: none;
     width: 630px;
@@ -30,6 +31,223 @@ body {
     border-bottom: 1px solid #ccc;
     border-top: 1px solid #ccc;
 }
+=======
+#boardMain{
+	height: 100%;
+}
+#photo{
+	z-index: 1;
+    width: 1100px;
+    height: 300px;
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    position: relative;
+}	
+#main{
+	position: relative;
+    z-index: 2;
+    outline: 1px solid #ccc;
+    width: 800px;
+    height: auto;
+    margin: 0 auto;
+    margin-top: -150px;
+}
+
+#head_box{
+/* 	border: 1px solid red; */
+	width: 800px;
+	height:330px;
+	background: white;
+
+}
+#head_top_hr{
+    margin-top:0px;
+	height: 4px;
+    background: #529dbc;
+    border-top-width: 0px;
+}	
+
+#head_name_area{
+	margin : 0 auto;
+	line-height:40px;
+	width: 800px;
+    margin-top: 60px;
+/* 	border: 1px solid; */
+}
+#head_name {
+	line-height:80px;
+	margin : 0 auto;
+	width: 220px;
+	height: 70px;
+/* 	border: 1px solid; */
+}
+
+#head_tap_hr{
+	background:#fafafa;
+	width: 700px;
+	margin: 0 auto;
+}
+#review_hr{
+	width: 635px;
+    height: 11px;
+	margin: 4px 0px 0px 45px;	
+}
+
+.name{
+    font-weight: bold;
+	font-size:30px;
+}
+
+#head_btn_area{
+	text-align: center;
+ 	height:120px; 
+    position: relative; 
+/* 	border: 1px solid; */
+}
+
+#head_btns a{
+	float:left;
+    padding: 15px 30px 0px 20px;
+}
+
+#head_btns {
+	width:350px;
+	height:110px;
+	margin : 0 auto;
+}
+#head_btn_tap{
+	height:45px;
+}
+#head_taps{
+	width:320px;
+	height:35px;
+	margin : 10px 20px 10px 120px ;
+	font-weight: bold;
+	line-height: 33px;
+}
+#head_taps span{
+	padding: 0px 20px 0px 0px;
+}
+#content_box{
+/*  	width: auto; */
+	height: auto;
+}
+#content_start_box{
+/*  	width: auto; */
+	height: auto;
+}
+#content_area{
+ 	width: 88%;
+	height: 100%;
+	margin: 60px 0px 0px 42px;
+}
+#content_area_photo{
+ 	width:400px;
+	height: 100%;
+	margin: 30px 30px 0px 135px;
+}
+#title{
+	padding: 0px 45px;
+}
+#nickName{
+	padding: 0px 0px 0px 453px;
+}
+
+#view_cnt{
+	padding: 0px 45px;
+}
+
+#date{
+      padding-left: 496px;
+}
+
+
+#content_area div{
+	margin-bottom: 20px;
+}
+
+#review_row{
+	font-weight: bold;
+	height: 65px;
+}
+
+
+#search_area{
+	line-height: 2;
+}
+
+#filearea{
+	margin-left: 40px;
+}
+#file_span{
+	display: inline-flex;
+}
+#file{
+	background:#fafafa;
+    width: 625px;
+}
+#btn_adm{
+    width: 625px;
+    padding-left: 300px;
+    margin-top: 30px;
+}
+#content_box{
+	width: 625px;
+    margin: 20px 0px 0px 42px;
+    height: 100%;
+    overflow:hidden;
+    position: relative;
+}
+#commentId{
+	margin: 20px 0px 20px 90px;
+    margin-bottom: 10px;
+    width: 628px;
+}
+#commentList {
+	position: relative;
+	top: 30px;
+	width: 880px;
+}
+.comment{
+	margin-top: 30px;
+}
+#commentWrite > textarea{
+	border: 1px solid #C7C7C7;
+    width: 550px;
+    height: 130px;
+    margin-left: 90px;
+    display: inline;
+}
+#btnCommentWrite{
+	margin-bottom: 122px;
+    height: 130px;
+    width: 80px;
+    margin-left: -3px;
+}
+
+#commentWrite{
+	width: 734px;
+	height:140px;
+}
+
+#review_hr1{
+	width: 635px;
+}
+
+#buttons{
+	position: relative;
+	margin-top : 20px;
+}
+#btn_s{
+    padding-bottom: 10px;
+    width: 632px;
+    margin-left: 85px;
+}
+#btn_update_delete{
+	float: right;
+}
+
+>>>>>>> 16915064e8acde8a546560cace192e8b19045e39
 
 
 </style>
@@ -98,10 +316,8 @@ ${result.board.userSeq}
 			<div id="content_area">
 				
 				<div id="review_row">
-					<div id="rrr">
-						<span id="title">${result.board.title}</span>
-						<span id="name">${result.board.name}</span>
-					</div>
+					<span id="title">${result.board.title}</span>
+					<span id="nickName">${result.board.name}</span>
 						<hr id="review_hr">
 					<span id="view_cnt">${result.board.viewCnt}</span>
 					<span id="date"><fmt:formatDate value="${result.board.regDate}" pattern="yyyy-MM-dd"/></span>
@@ -109,10 +325,17 @@ ${result.board.userSeq}
 				</div>
 				
 				<div id="filearea">
+<<<<<<< HEAD
 						<c:forEach var="file" items="${result.files}">
 							<img src="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}" style="width:100%; height:100%; margin:0 auto;"/><br>
 							<button type="button" class="btn btn-default" style="margin:5px 0px 20px;"><a href="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}">다운로드</a></button><br> 
 						</c:forEach>
+=======
+					<c:forEach var="file" items="${files}">
+						<img src="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}" style="width:100%; height:100%; margin:0 auto;"/><br>
+						<button type="button" class="btn btn-default" style="margin:5px 0px 20px;"><a href="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}">다운로드</a></button><br> 
+					</c:forEach>
+>>>>>>> 16915064e8acde8a546560cace192e8b19045e39
 				</div>
 				<div id="content_box">${result.board.content}</div>
 			</div>
@@ -130,7 +353,7 @@ ${result.board.userSeq}
 			
 			<div id="commentComment">
 				<%-- 댓글입력파트 --%>
-				<form id="rForm" class="clearfix" >
+				<form role="form" id="rForm" class="clearfix" >
 					<div class="comment">
 						<div id="commentId">
 							<label class="sr-only" for="name" >아이디</label>
@@ -173,7 +396,7 @@ ${result.board.userSeq}
 </div>
 </div>
 
-
+</body>
 
 <script>
 
@@ -241,8 +464,12 @@ ${result.board.userSeq}
 
 
 	//댓글등록
+<<<<<<< HEAD
 	$("#rForm").submit(function(e){
 // 		alert($("#rForm input[name='name']").val())
+=======
+	$("rForm").submit(function(e){
+>>>>>>> 16915064e8acde8a546560cace192e8b19045e39
 		e.preventDefault();
 		
 		$.ajax({
@@ -250,9 +477,15 @@ ${result.board.userSeq}
 			type : "POST",
 			data : {
 				no: "${result.board.no}",
+<<<<<<< HEAD
 				content : $("#rForm textarea[name='content']").val(),
 				userSeq : $("#rForm input[name='userSeq']").val(),
 				name :$("#rForm input[name='name']").val()
+=======
+				content : $("rForm textarea[name='content']").val(),
+	//			userSeq : $("rForm input[name='userSeq']").val(),
+				name :$("rForm input[name='name']").val()
+>>>>>>> 16915064e8acde8a546560cace192e8b19045e39
 			},
 			dataType: "json"
 		}).done(function(result){
@@ -321,7 +554,7 @@ ${result.board.userSeq}
 
 </script>
 
-</body>
+
 </html>
 
 

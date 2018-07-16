@@ -10,11 +10,12 @@ public class User {
 	private String email;
 	private String phone;
 	private String tel;
-	private String hospCode;
+	private String hospName;
 	private String addr1;
 	private String addr2;
 	private char admin;
 	private String zip;
+	private int hospitalSeq;
 	public int getUserSeq() {
 		return userSeq;
 	}
@@ -69,11 +70,11 @@ public class User {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	public String getHospCode() {
-		return hospCode;
+	public String getHospName() {
+		return hospName;
 	}
-	public void setHospCode(String hospCode) {
-		this.hospCode = hospCode;
+	public void setHospName(String hospName) {
+		this.hospName = hospName;
 	}
 	public String getAddr1() {
 		return addr1;
@@ -99,10 +100,17 @@ public class User {
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
+	public int getHospitalSeq() {
+		return hospitalSeq;
+	}
+	public void setHospitalSeq(int hospitalSeq) {
+		this.hospitalSeq = hospitalSeq;
+	}
 	@Override
 	public String toString() {
 		return "User [userSeq=" + userSeq + ", id=" + id + ", pw=" + pw + ", name=" + name + ", gender=" + gender
-				+ ", birth=" + birth + ", email=" + email + ", phone=" + phone + ", tel=" + tel + ", hospCode="
-				+ hospCode + ", addr1=" + addr1 + ", addr2=" + addr2 + ", admin=" + admin + ", zip=" + zip + "]";
+				+ ", birth=" + birth + ", email=" + email + ", phone=" + phone + ", tel=" + tel + ", hospName="
+				+ hospName + ", addr1=" + addr1 + ", addr2=" + addr2 + ", admin=" + admin + ", zip=" + zip
+				+ ", hospitalSeq=" + hospitalSeq + "]";
 	}
 }

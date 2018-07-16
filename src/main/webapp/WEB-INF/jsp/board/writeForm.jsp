@@ -18,6 +18,137 @@
 body { 
    font-family: 'NanumSquare', sans-serif; 
 }
+<<<<<<< HEAD
+=======
+#boardMain{
+	height: 100%;
+}
+#photo{
+	z-index: 1;
+    width: 1100px;
+    height: 300px;
+    margin: auto;
+    border: 1px solid #ccc;
+    position: relative;
+}	
+#main{
+	position: relative;
+    z-index: 2;
+    outline: 1px solid #ccc;
+    width: 800px;
+    margin: 0 auto;
+    margin-top: -150px;
+    height: auto;
+}
+
+#head_box{
+/* 	border: 1px solid red; */
+	width: 800px;
+	height:330px;
+	background: white;
+
+}
+#head_top_hr{
+    margin-top:0px;
+	height: 4px;
+    background: #529dbc;
+    border-top-width: 0px;
+}	
+
+#head_name_area{
+	margin : 0 auto;
+	line-height:40px;
+	width: 800px;
+    margin-top: 60px;
+/* 	border: 1px solid; */
+}
+#head_name {
+	line-height:80px;
+	margin : 0 auto;
+	width: 220px;
+	height: 70px;
+/* 	border: 1px solid; */
+}
+
+#head_tap_hr{
+	background:#fafafa;
+	width: 700px;
+	margin: auto;
+}
+#review_hr{
+	background:#fafafa;
+	width: 635px;;
+	margin: auto;
+}
+
+.name{
+    font-weight: bold;
+	font-size:30px;
+}
+
+#head_btn_area{
+	text-align: center;
+ 	height:120px; 
+    position: relative; 
+/* 	border: 1px solid; */
+}
+
+#head_btns a{
+	float:left;
+    padding: 15px 30px 0px 20px;
+}
+
+#head_btns {
+	width:350px;
+	height:110px;
+	margin : 0 auto;
+}
+#head_btn_tap{
+	height:45px;
+}
+#head_taps{
+	width:320px;
+	height:35px;
+	margin : 10px 20px 10px 120px ;
+	font-weight: bold;
+	line-height: 33px;
+}
+#head_taps span{
+	padding: 0px 20px 0px 0px;
+}
+#content_box{
+ 	width: auto;
+	height: 100%;
+}
+#content_start_box{
+ 	width: auto;
+	height: auto;
+}
+#content_area{
+ 	width:88%;
+	height: auto;
+	margin:15px 0px 0px 48px;
+}
+#content_area_photo{
+ 	width:400px;
+	height: auto;
+	margin: 30px 30px 0px 135px;
+}
+#review{
+	padding: 0px 45px;
+}
+#nickName{
+	padding: 0px 0px 0px 465px;
+}
+#content_area div{
+	margin-bottom: 20px;
+	height: auto;
+}
+
+#review_row{
+	font-weight: bold;
+}
+>>>>>>> 16915064e8acde8a546560cace192e8b19045e39
 
 textarea.form-control {
     height: 400px;
@@ -111,9 +242,13 @@ textarea.form-control {
 				
 				<div id="review_row">
 					<span id="review">리뷰쓰기</span>
+<<<<<<< HEAD
 					<input type="text" id="name" name="name" value="${sessionScope.user.name}">
 					<input type="hidden" name="userSeq" value="${sessionScope.user.userSeq}">
 <%-- 					<span id="name" name="name">${sessionScope.user.name}</span> --%>
+=======
+					<span id="nickName">${board.name}</span>
+>>>>>>> 16915064e8acde8a546560cace192e8b19045e39
 					<hr id="review_hr">
 				</div>
 					<c:if test="${!empty board.no}">

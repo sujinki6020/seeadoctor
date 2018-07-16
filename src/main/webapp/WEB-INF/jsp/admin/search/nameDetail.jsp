@@ -9,15 +9,11 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin/search/nameDetail.css">
 </head>
 <body>
-<script type="text/javascript">
-console.log("${reserveHistory.reserveList}");
-console.log("${reserveHistory.userInfo}");
-</script>
 
 <div class="viewWrap">
 
 	<div id="detailTitle">
-		<h2><font color="#529dbc">${reserveHistory.userInfo.name}</font></h2><h3>　${reserveHistory.userInfo.birth}(${reserveHistory.userInfo.gender})　/　${reserveHistory.userInfo.phone}</h3>
+		<h2><font color="#529dbc">김기영</font></h2><h3>　1993.01.24(여)　/　010-1234-3456</h3>
 	</div>
 	
 	<div id="privacyLaw">
@@ -41,7 +37,94 @@ console.log("${reserveHistory.userInfo}");
 			</div>
 			<p class="detailBox">└ 배아프고 열이 나면 어떡할까요?</p>
 		</div>
-
+		<div class="listBox">
+			<p class="detailInfo"><font size="3px"><strong>2018.07.04</strong>　11:30 성중원원장 　</font>
+			<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
+			</p>
+			<div class="listBtns">
+			<div id="cancleReserv">취소된 예약</div>
+			</div>
+			<p class="detailBox">└ 배아프고 열이 나면 어떡할까요?</p>
+		</div>
+		<div class="listBox">
+			<p class="detailInfo"><font size="3px"><strong>2018.07.03</strong>　15:30 기수진원장 　</font>
+			<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
+			</p>
+			<div class="listBtns"><p id="off">미방문</p>
+				<label class="switch">
+				  <input type="checkbox">
+				  <span class="slider round"></span>
+				</label>
+				<p id="on" style="display:none;">진료완료</p>
+			</div>
+			<p class="detailBox">└ 배아프고 열이 나면 어떡할까요?</p>
+		</div>
+		<div class="listBox">
+			<p class="detailInfo"><font size="3px"><strong>2018.07.01</strong>　12:30 성중원원장 　</font>
+			<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
+			</p>
+			<div class="listBtns"><p id="off">미방문</p>
+				<label class="switch">
+				  <input type="checkbox">
+				  <span class="slider round"></span>
+				</label>
+				<p id="on" style="display:none;">진료완료</p>
+			</div>
+			<p class="detailBox">└ 배아프고 열이 나면 어떡할까요?</p>
+		</div>
+		<div class="listBox">
+			<p class="detailInfo"><font size="3px"><strong>2018.06.29</strong>　16:00 기수진원장 　 </font>
+			<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
+			</p>
+			<div class="listBtns">
+				<p id="off">미방문</p>
+					<label class="switch">
+					  <input type="checkbox">
+					  <span class="slider round"></span>
+					</label>
+				<p id="on" style="display:none;">진료완료</p>
+			</div>
+			<p class="detailBox">└ 배아프고 열이 나면 어떡할까요?</p>
+		</div>
+		<div class="listBox">
+			<p class="detailInfo"><font size="3px"><strong>2018.06.11</strong>　13:30 성중원원장 　 </font>
+			<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
+			</p>
+			<div class="listBtns"><p id="off">미방문</p>
+				<label class="switch">
+				  <input type="checkbox">
+				  <span class="slider round"></span>
+				</label>
+				<p id="on" style="display:none;">진료완료</p>
+			</div>
+			<p class="detailBox">└ 배아프고 열이 나면 어떡할까요?</p>
+		</div>
+		<div class="listBox">
+			<p class="detailInfo"><font size="3px"><strong>2018.05.16</strong>　10:00 기수진원장 　</font>
+			<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
+			</p>
+			<div class="listBtns"><p id="off">미방문</p>
+				<label class="switch">
+				  <input type="checkbox">
+				  <span class="slider round"></span>
+				</label>
+				<p id="on" style="display:none;">진료완료</p>
+			</div>
+			<p class="detailBox">└ 배아프고 열이 나면 어떡할까요?</p>
+		</div>
+		<div class="listBox">
+			<p class="detailInfo"><font size="3px"><strong>2018.04.13</strong>　11:30 성중원원장 　</font>
+			<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
+			</p>
+			<div class="listBtns"><p id="off">미방문</p>
+				<label class="switch">
+				  <input type="checkbox">
+				  <span class="slider round"></span>
+				</label>
+				<p id="on" style="display:none;">진료완료</p>
+			</div>
+			<p class="detailBox">└ 배아프고 열이 나면 어떡할까요?</p>
+		</div>
 	</div>
 
 	<script>
