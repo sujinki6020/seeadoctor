@@ -17,8 +17,25 @@
     </p>
     <nav>
         <ul id="mainMenu">
-            <li><a href="${pageContext.request.contextPath}/temporary/searchinghospital.jsp">병원 찾기</a></li>
-            <li><a href="${pageContext.request.contextPath}/reservation/reservationList.do">내 접수현황</a></li>
+            
+            <c:choose>
+            	<c:when test="${sessionScope.user.admin == N}">
+		            <li><a href="${pageContext.request.contextPath}/temporary/searchinghospital.jsp">병원 찾기</a></li>
+            	</c:when>
+            	<c:otherwise>
+		            <li><a href="${pageContext.request.contextPath}/admin/statistics/statistics.do">고객 통계</a></li>
+            	</c:otherwise>
+            </c:choose>
+            
+            <c:choose>
+            	<c:when test="${sessionScope.user.admin == N}">
+            		<li><a href="${pageContext.request.contextPath}/reservation/reservationList.do">내 접수현황</a></li>
+            	</c:when>
+            	<c:otherwise>
+            		<li><a href="${pageContext.request.contextPath}/admin/calendar/calendar.do">예약자 현황</a></li>
+            	</c:otherwise>
+            </c:choose>
+            
             <li><a href="${pageContext.request.contextPath}/mypage/myInfo.do">마이페이지</a></li>
         </ul>
         
