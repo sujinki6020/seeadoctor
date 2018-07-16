@@ -13,6 +13,8 @@ public interface ReservationService {
 
 	void reserveHospital(Reservation reservation);
 
+	List<ReservationTime> makeTimeList(ReservationTime reservationTime, int day);
+
 
 
 

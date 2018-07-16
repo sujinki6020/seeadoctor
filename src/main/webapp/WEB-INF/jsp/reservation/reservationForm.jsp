@@ -22,23 +22,23 @@
 <table id="patInfoTb">
 <tr>
 <th width="150px;">진료자명</th>
-<td width="400px;">김기영</td>
+<td width="400px;">${user.name}</td>
 <td><button id="infoBnt">개인정보수정</button></td>
 </tr>
 <tr>
 <th>생년월일</th>
-<td>1993/01/24 (여)</td>
+<td>${user.birth} (${user.gender})</td>
 </tr>
 <tr>
 <th>전화번호</th>
-<td>010-1234-5678</td>
+<td>${user.phone}</td>
 </tr>
 </table>
 <hr>
 </div>
 
 <form action="${pageContext.request.contextPath}/reservation/reserve.do" method="post">
-
+<input type="hidden" name="hospitalSeq" value="${hospitalSeq}">
 <div id="selectZone">
 <div class="select">
 <h2><img src="${pageContext.request.contextPath}/images/reservation/doctor.png" /> 진료실 선택</h2>
@@ -53,13 +53,14 @@
 
 <div class="select">
 <h2><img src="${pageContext.request.contextPath}/images/reservation/appointment2.png" /> 날짜 선택
-<input type="text" id="datepicker" name="date" placeholder=" 클릭하세요."></h2>
+<input type="text" id="datepicker" name="date" placeholder=" 클릭하세요." onchange="dayOfTheWeek(this.value)"></h2>
 </div>
 
 <div class="select">
 <h2><img src="${pageContext.request.contextPath}/images/reservation/time.png" /> 시간 선택</h2>
 
 	<div id="timeList">
+	<!-- 
 		<button type="button" id="1000" class="timeBnt">10:00</button>
 		<button type="button" id="1030" class="timeBnt closeTime">10:30</button>
 		<button type="button" id="1100" class="timeBnt">11:00</button>
@@ -76,6 +77,7 @@
 		<button type="button" id="1630" class="timeBnt">16:30</button>
 		<button type="button" id="1700" class="timeBnt closeTime">17:00</button>
 		<button type="button" id="1730" class="timeBnt closeTime">17:30</button>
+	 -->
 	</div>
 	<input type="hidden" name="reserveTime">
 </div>
@@ -120,6 +122,26 @@ $(document).on("click", ".timeBnt", function () {
 	}
 
 });
+
+function dayOfTheWeek(value) {
+	var date = new Date($("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' }).val());
+	//1월~6토, 0일
+	//db는 1월~7일
+	$.ajax({
+		type : "POST",
+		url : "/seeadoctor/reservation/timeList.json",
+        data: {
+        	hospitalSeq: "${hospitalSeq}",
+        	docCode: $("input[name='docCode']").val(),
+//         	date: new Date($("input[name='date']").val()),
+			date: $("input[name='date']").val(),
+        	day : date.getDay()
+        },
+		success : function() {
+			
+		}
+	});
+}
 </script>
 </body>
 </html>

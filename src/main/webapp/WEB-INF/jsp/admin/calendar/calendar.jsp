@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%> 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -41,6 +41,7 @@
 
                     &nbsp;&nbsp;
                     
+            
                        <c:choose>
 							<c:when test="${calInfo.month < 11}">
 								<a href="<c:url value='/admin/calendar/calendar.do' />?StrYear=${calInfo.year}&amp;strMonth=${calInfo.month+1}" target="_self">
@@ -57,7 +58,7 @@
              </td>
              
              <td align ="right">
-             	<input type="text"> <button id="searchBnt">이름검색</button>
+             	<form id="searchForm" method="post" action="/seeadoctor/admin/search/nameList.do"><input type="text" name="name"> <button id="searchBnt">이름검색</button></form>
              	<input id="todayBnt" type="button" onclick="javascript:location.href='<c:url value='/admin/calendar/calendar.do' />'" value="TODAY"/>
 			</td>
 
@@ -142,8 +143,10 @@
 		<!-- 일자찍기 -->
 
 		<font color="${color}"><strong>${day}</strong></font>
+
 		
 		<a href="calendarPop.do?year=${calInfo.year}&month=${calInfo.month+1}&day=${day}" onclick="window.open(this.href, '팝업리스트', 'width=800, height=700'); return false;"><font color="#4d4d4d">　　<img src="${pageContext.request.contextPath}/images/admin/calendar/board.png" /> 접수확인</span></font></a>
+
 
 	</td>
 

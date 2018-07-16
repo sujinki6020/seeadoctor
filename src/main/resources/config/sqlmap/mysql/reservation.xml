@@ -5,7 +5,7 @@
 	<resultMap id="reservationMap" type="reservation">
 		<result column="reserve_seq" property="reserveSeq" />
 		<result column="user_seq" property="userSeq" />
-		<result column="hosp_code" property="hospCode" />
+		<result column="hospital_seq" property="hospitalSeq" />
 		<result column="doc_code" property="docCode" />
 		<result column="reserve_date" property="reserveDate" />
 		<result column="reserve_time" property="reserveTime" />
@@ -15,7 +15,7 @@
 	</resultMap>
 	<resultMap id="reservationTimeMap" type="reservationTime">
 		<result column="time_seq" property="timeSeq" />
-		<result column="hosp_code" property="hospCode" />
+		<result column="hospital_seq" property="hospitalSeq" />
 		<result column="doc_code" property="docCode" />
 		<result column="date" property="date" />
 		<result column="time" property="time" />
@@ -24,14 +24,14 @@
 	</resultMap>
 
 	<insert id="insertReservation" parameterType="reservation">
-	insert into tb_reservation (user_seq, hosp_code, doc_code, reserve_date, reserve_time, symptom)
-	values (#{userSeq}, #{hospCode}, #{docCode}, #{reserveDate}, #{reserveTime}, #{symptom})
+	insert into tb_reservation (user_seq, hospital_seq, doc_code, reserve_date, reserve_time, symptom)
+	values (#{userSeq}, #{hospitalSeq}, #{docCode}, #{reserveDate}, #{reserveTime}, #{symptom})
 	</insert>
 	
 	<select id="selectTimeSeq" parameterType="reservation" resultType="int">
 	select time_seq
 	  from tb_reservation_time
-	 where hosp_code = #{hospCode}
+	 where hospital_seq = #{hospitalSeq}
 	   and doc_code = #{docCode}
 	   and date = #{reserveDate}
 	   and time = #{reserveTime}
@@ -43,9 +43,9 @@
 	 where time_seq = #{timeSeq}
 	</update>
 	
-	<insert id="insertTimeManagement" parameterType="reservation">
-	insert into tb_reservation_time(hosp_code, doc_code, date, time)
-	values(#{hospCode}, #{docCode}, #{reserveDate}, #{reserveTime})
+	<insert id="insertTimeManagement" parameterType="reservationTime">
+	insert into tb_reservation_time(hospital_seq, doc_code, date, time)
+	values(#{hospitalSeq}, #{docCode}, #{date}, #{time})
 	</insert>
 	
 	<select id="selectReservationByUser" parameterType="scrollPaging" resultMap="reservationMap">
@@ -76,15 +76,15 @@
 	<select id="selectReservationPop" parameterType="reservation" resultMap="reservationMap">
 		select *
 		  from tb_reservation
-		 where hosp_code = #{hospCode}
+		 where hospital_seq = #{hospitalSeq}
 		   and reserve_date = #{reserveDate}
-		 order by reserve_seq asc
+		 order by cast(reserve_time as unsigned) asc
 	</select>
 	
 	<select id="selectTimeList" parameterType="reservationTime" resultMap="reservationTimeMap">
 	select *
 	  from tb_reservation_time
-	 where hosp_code = #{hospCode}
+	 where hospital_seq = #{hospitalSeq}
 	   and doc_code = #{docCode}
 	   and date = #{date}
 	 order by time_seq asc
@@ -97,6 +97,19 @@
 		 <foreach collection="closeArr" item="closeTime" index="index"  open="(" close=")" separator=",">
             #{closeTime[index]}
         </foreach>
+	</update>
+	
+		
+	<select id="selectRervationByUserSeq" parameterType="int" resultMap="reservationMap">
+		select *
+		  from tb_reservation
+		where user_seq = #{userSeq}
+	</select>
+	
+	<update id="updateReserveStatusFinish" parameterType="int">
+	update tb_reservation
+	   set reserve_status = 4
+	 where reserve_seq = #{reserveSeq}
 	</update>
 </mapper>
 

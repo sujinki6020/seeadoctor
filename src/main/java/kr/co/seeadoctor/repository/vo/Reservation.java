@@ -1,6 +1,5 @@
 package kr.co.seeadoctor.repository.vo;
 
-import java.sql.Timestamp;
 import java.util.Date;
 
 public class Reservation {
@@ -13,7 +12,7 @@ public class Reservation {
 	    private Integer userSeq;
 
 	    // 병원코드 
-	    private Integer hospCode;
+	    private Integer hospitalSeq;
 
 	    // 의사코드 
 	    private Integer docCode;
@@ -49,12 +48,12 @@ public class Reservation {
 	        this.userSeq = userSeq;
 	    }
 
-	    public Integer getHospCode() {
-	        return hospCode;
+	    public Integer getHospitalSeq() {
+	        return hospitalSeq;
 	    }
 
-	    public void setHospCode(Integer hospCode) {
-	        this.hospCode = hospCode;
+	    public void setHospitalSeq(Integer hospitalSeq) {
+	        this.hospitalSeq = hospitalSeq;
 	    }
 
 	    public Integer getDocCode() {

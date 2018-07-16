@@ -1,12 +1,13 @@
 package kr.co.seeadoctor.reservation.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.seeadoctor.repository.mapper.HospitalMapper;
 import kr.co.seeadoctor.repository.mapper.ReservationMapper;
+import kr.co.seeadoctor.repository.vo.Hospital;
 import kr.co.seeadoctor.repository.vo.Reservation;
 import kr.co.seeadoctor.repository.vo.ReservationTime;
 import kr.co.seeadoctor.repository.vo.ScrollPaging;
@@ -16,6 +17,8 @@ public class ReservationServiceImpl implements ReservationService {
 	
 	@Autowired
 	private ReservationMapper mapper;
+	@Autowired
+	private HospitalMapper hospMapper;
 
 	@Override
 	public List<Reservation> selectReservationByUser(ScrollPaging scrollPaging) {
@@ -24,31 +27,76 @@ public class ReservationServiceImpl implements ReservationService {
 
 	@Override
 	public void reserveHospital(Reservation reservation) {
-
-		//시간관리테이블
 		
+	
+		//시간관리테이블
 		Integer timeSeq = mapper.selectTimeSeq(reservation); //hospCode, docCode, date, time에 해당하는 timeSeq 반환
-		if(timeSeq==null) {
+
+		mapper.checkedBookedStatus(timeSeq);	
+
+		mapper.insertReservation(reservation);
+		
+		
+	}
+
+	@Override
+	public List<ReservationTime> makeTimeList(ReservationTime reservationTime, int day) {
+		
+		List<ReservationTime> timeList = mapper.selectTimeList(reservationTime);
+		
+		if(timeList.size()==0) {
 			
-			//영업정보 받아오기
-			String startTime = "0920";
-			String endTime = "1720";
+			Hospital hosp = hospMapper.selectDutyTime(reservationTime.getHospitalSeq());
 			
+			String startTime = null;
+			String closeTime = null;
+			switch(day) {
+			case 1 : 
+				startTime = hosp.getDutyTime1s();
+				closeTime = hosp.getDutyTime1c();
+				break;
+			case 2 : 
+				startTime = hosp.getDutyTime2s();
+				closeTime = hosp.getDutyTime2c();
+				break;
+			case 3 : 
+				startTime = hosp.getDutyTime3s();
+				closeTime = hosp.getDutyTime3c();
+				break;
+			case 4 : 
+				startTime = hosp.getDutyTime4s();
+				closeTime = hosp.getDutyTime4c();
+				break;
+			case 5 : 
+				startTime = hosp.getDutyTime5s();
+				closeTime = hosp.getDutyTime5c();
+				break;
+			case 6 : 
+				startTime = hosp.getDutyTime6s();
+				closeTime = hosp.getDutyTime6c();
+				break;
+			case 7 : 
+				startTime = hosp.getDutyTime7s();
+				closeTime = hosp.getDutyTime7c();
+				break;
+			
+			}
+
 			//만약 시간이 00,30단위가 아니라면
 			if(Integer.parseInt(startTime.substring(2)) < 30) {
 				startTime = startTime.substring(0, 2) + "00";
 			} else if(Integer.parseInt(startTime.substring(2)) > 30) {
 				startTime = startTime.substring(0, 2) + "30";
 			}
-			if(Integer.parseInt(endTime.substring(2)) < 30) {
-				endTime = endTime.substring(0, 2) + "00";
-			} else if(Integer.parseInt(endTime.substring(2)) > 30) {
-				endTime = endTime.substring(0, 2) + "30";
+			if(Integer.parseInt(closeTime.substring(2)) < 30) {
+				closeTime = closeTime.substring(0, 2) + "00";
+			} else if(Integer.parseInt(closeTime.substring(2)) > 30) {
+				closeTime = closeTime.substring(0, 2) + "30";
 			}
 
 			int start = Integer.parseInt(startTime);
-			int end = Integer.parseInt(endTime);
-			for(int i = start; i < end; ) {
+			int close = Integer.parseInt(closeTime);
+			for(int i = start; i < close; ) {
 				//30분단위
 				if(i%100 == 0) {
 					i = i+30;
@@ -59,16 +107,18 @@ public class ReservationServiceImpl implements ReservationService {
 				if(i<1000) {
 					time = "0"+time;
 				}
-				reservation.setReserveTime(time);
-				mapper.insertTimeManagement(reservation);
+				reservationTime.setTime(time);
+				mapper.insertTimeManagement(reservationTime);
 			}
-			timeSeq = mapper.selectTimeSeq(reservation);
+			
+			timeList = mapper.selectTimeList(reservationTime);
+
 		}
 		
-		mapper.checkedBookedStatus(timeSeq);	
-
-		mapper.insertReservation(reservation);
 		
+		return timeList;
+		
+
 		
 	}
 

@@ -46,9 +46,9 @@ $.ajax({
 	type : "POST",
 	url : "/seeadoctor/admin/calendar/timeList.json",
 	data : {
-		hospCode : 1,
-		dateStr : "${dateStr}",
-		docCode : 1001
+		hospitalSeq : "${reservation.hospitalSeq}",
+		docCode : "${reservation.docCode}",
+		dateStr : "${dateStr}"
 	},
 	success : function (data) {
 		

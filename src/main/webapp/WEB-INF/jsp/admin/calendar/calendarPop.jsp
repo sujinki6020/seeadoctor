@@ -65,6 +65,7 @@
 				<c:otherwise>
 					<p id="off">미방문</p>
 						<label class="switch">
+						  <input type="hidden" value="${reservation.reserveSeq}">
 						  <input type="checkbox">
 						  <span class="slider round"></span>
 						</label>
@@ -100,6 +101,14 @@
 		  $(this).parent().prev().toggle();
 		  /* 상태 업데이트 ajax하기 */
 		  $.ajax({
+			  type: "POST",
+			  url: "/seeadoctor/admin/calendar/updateReserveStatus.json",
+			  data: {
+				  reserveSeq : $(this).prev().val()
+			  },
+			  sucess: function () {
+				
+		   	}
 		  });
 		}
 	});

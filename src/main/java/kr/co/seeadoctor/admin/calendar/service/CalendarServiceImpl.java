@@ -65,4 +65,9 @@ public class CalendarServiceImpl implements CalendarService {
 		return mapper.selectReservationPop(reservation);
 	}
 
+	@Override
+	public void updateReserveStatus(int reserveSeq) {
+		mapper.updateReserveStatusFinish(reserveSeq);
+	}
+
 }

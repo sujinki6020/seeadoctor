@@ -3,9 +3,7 @@ package kr.co.seeadoctor.reservation.controller;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.seeadoctor.repository.vo.Reservation;
+import kr.co.seeadoctor.repository.vo.ReservationTime;
 import kr.co.seeadoctor.repository.vo.ScrollPaging;
+import kr.co.seeadoctor.repository.vo.User;
 import kr.co.seeadoctor.reservation.service.ReservationService;
 
 @Controller
@@ -27,9 +27,26 @@ public class ReservationController {
 	private ReservationService service;
 	
 	@RequestMapping("/reservationForm.do")
-	public void form(Model model) {
-		//의사 정보-시간 정보(의사checked되면 checked된 시간정보를 ajax로 뿌려줌)
-//		model.addAttribute("", attributeValue)
+	public void reservationForm(Model model, int hospitalSeq, HttpSession session) {
+		
+		//세션에 있는 사용자 개인정보
+		model.addAttribute("user", session.getAttribute("user"));
+		
+		//<a>url파라미터로 넘어오는 hospital_seq
+		//이걸로 tb_doctor에서 의사정보 찾아오기 (추후작업)
+		model.addAttribute("hospitalSeq", hospitalSeq);
+	}
+	
+	//의사 + 날짜 선택되는 것에 따라 AJAX로 timeList만들어 줌
+	@RequestMapping("/timeList.json")
+	@ResponseBody
+	public List<ReservationTime> timeList(ReservationTime reservationTime,int day,String date) throws ParseException {
+		if(day==0) day=7;
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		reservationTime.setDate(sdf.parse(date));
+		
+		return service.makeTimeList(reservationTime, day);
+
 	}
 	
 	@RequestMapping("/reservationList.do")
@@ -37,13 +54,12 @@ public class ReservationController {
 
 	}
 	
+	
 	@RequestMapping("/listAjax.json")
 	@ResponseBody
 	public List<Reservation> listAjax(HttpSession session, ScrollPaging scrollPaging) {
-
-		//		session.getAttribute("user");
-		int userSeq = 1;
-		scrollPaging.setUserSeq(userSeq);
+		User user = (User) session.getAttribute("user");
+		scrollPaging.setUserSeq(user.getUserSeq());
 		
 		return service.selectReservationByUser(scrollPaging);
 	}
@@ -52,18 +68,15 @@ public class ReservationController {
 	@RequestMapping("/reserve.do")
 	public String reserve(HttpSession session, Reservation reservation, String date) throws ParseException {
 
-		
-//		session.getAttribute("user");
-//		System.out.println(reservation.getHospCode());
-		reservation.setUserSeq(1);
-		reservation.setHospCode(1);
+		User user = (User) session.getAttribute("user");
+		reservation.setUserSeq(user.getUserSeq());
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); 
 		Date reserveDate = sdf.parse(date); 
 		reservation.setReserveDate(reserveDate);
 		
 		service.reserveHospital(reservation);
-
+		
 		return "reservation/reservationList";
 	}
 

@@ -13,4 +13,6 @@ public interface CalendarService {
 	List<ReservationTime> selectTimeList(ReservationTime reserveTime);
 
 	List<Reservation> selectReservationPop(Reservation reservation);
+
+	void updateReserveStatus(int reserveSeq);
 }

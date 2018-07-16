@@ -12,6 +12,6 @@ $(function() {
     yearSuffix: '년',
     minDate: "+1D", 
     maxDate: "+7D"
-  });
+   });
 });
 
