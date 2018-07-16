@@ -12,11 +12,12 @@
 		<result column="email" property="email" />
 		<result column="phone" property="phone" />
 		<result column="tel" property="tel" />
-		<result column="hosp_code" property="hospCode" />
+		<result column="hosp_name" property="hospName" />
 		<result column="addr1" property="addr1" />
 		<result column="addr2" property="addr2" />
 		<result column="admin" property="admin" />
 		<result column="zip" property="zip" />
+		<result column="hospital_seq" property="hospitalSeq" />
 	</resultMap>
 	
 	<select id="selectByUser" parameterType="string" resultMap="userMap">
@@ -41,4 +42,16 @@
 			,email = #{email}
 		where id = #{id}
 	</update>
+	
+	<select id="idDuplChk" parameterType="string" resultType = "int">
+    	select count(*) from tb_user
+    		where id=#{id}
+	</select>
+	
+	<select id="searchHospName" parameterType="string" resultType="hospital">
+		select dutyName, dutyTel1, dutyAddr
+			from tb_hospital_gangnam
+			group by dutyName
+			having dutyName like concat('%', #{dutyName}, '%')
+	</select>
 </mapper>
