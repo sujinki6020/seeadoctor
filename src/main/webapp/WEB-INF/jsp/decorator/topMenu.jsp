@@ -54,7 +54,3 @@
     </div>
     
 </header>
-
-        <script>
-        alert("${sessionScope.user.admin}");
-        </script>
