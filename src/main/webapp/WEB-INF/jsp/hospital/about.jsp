@@ -8,6 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="/seeadoctor/css/hospital/info.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
@@ -15,129 +16,6 @@
 body { 
    font-family: 'NanumSquare', sans-serif; 
 }
-
-#boardMain{
-	height: 100%;
-}
-#photo{
-	z-index: 1;
-    width: 1100px;
-    height: 300px;
-    margin: auto;
-    border: 1px solid #ccc;
-    position: relative;
-}	
-#main{
-	position: relative;
-    z-index: 2;
-    outline: 1px solid #ccc;
-    width: 800px;
-    margin: 0 auto;
-    margin-top: -150px;
-}
-
-#head_box{
-/* 	border: 1px solid red; */
-	width: 800px;
-	height:330px;
-	background: white;
-
-}
-#head_top_hr{
-    margin-top:0px;
-	height: 4px;
-    background: #529dbc;
-    border-top-width: 0px;
-}	
-
-#head_name_area{
-	margin : 0 auto;
-	line-height:40px;
-	width: 800px;
-    margin-top: 60px;
-/* 	border: 1px solid; */
-}
-#head_name {
-	line-height:80px;
-	margin : 0 auto;
-	width: 220px;
-	height: 70px;
-/* 	border: 1px solid; */
-}
-
-#head_tap_hr{
-	background:#fafafa;
-	width: 700px;
-	margin: auto;
-}
-
-.name{
-    font-weight: bold;
-	font-size:30px;
-}
-
-#head_btn_area{
-	text-align: center;
- 	height:120px; 
-    position: relative; 
-/* 	border: 1px solid; */
-}
-
-#head_btns a{
-	float:left;
-    padding: 15px 30px 0px 20px;
-}
-
-#head_btns {
-	width:350px;
-	height:110px;
-	margin : 0 auto;
-/* 	border:1px solid blue; */
-}
-#head_btn_tap{
-	height:45px;
-/*  	border:1px solid blue;  */
-}
-#head_taps{
-	width:320px;
-	height:35px;
-	margin : 10px 20px 10px 120px ;
-	font-weight: bold;
-	line-height: 33px;
-}
-#head_taps span{
-	padding: 0px 20px 0px 0px;
-}
-#content_box{
- 	width: 800px;
-    height: 600px;
-}
-#content_area{
- 	width: 700px;
-    height: 100%;
-    margin: 20px 0px 0px 75px;
-}
-#content_area span{
-	padding: 0px 25px;
-}
-#content_area div{
-	margin-bottom: 20px;
-	font-weight: bold;
-	height: auto;
-}
-#map{
-    width: 600px;
-    height: 250px;
-    border: 1px solid #ccc;
-    margin: 10px 0px 0px 0px;
-}
-#time_help{
-	margin: 0 auto;
-    width: 420px;
-    line-height: 70px;
-}
-
-
 </style>
 </head>
 <body>
@@ -239,6 +117,96 @@ body {
 console.log( "${result.cnt}")
 
 
+
+// 		var barChartData = {
+// 			labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+// 			datasets: [{
+// 				label: 'Dataset 1',
+// 				backgroundColor: [
+// 					window.chartColors.red,
+// 					window.chartColors.orange,
+// 					window.chartColors.yellow,
+// 					window.chartColors.green,
+// 					window.chartColors.blue,
+// 					window.chartColors.purple,
+// 					window.chartColors.red
+// 				],
+// 				yAxisID: 'y-axis-1',
+// 				data: [
+// 					randomScalingFactor(),
+// 					randomScalingFactor(),
+// 					randomScalingFactor(),
+// 					randomScalingFactor(),
+// 					randomScalingFactor(),
+// 					randomScalingFactor(),
+// 					randomScalingFactor()
+// 				]
+// 			}, {
+// 				label: 'Dataset 2',
+// 				backgroundColor: window.chartColors.grey,
+// 				yAxisID: 'y-axis-2',
+// 				data: [
+// 					randomScalingFactor(),
+// 					randomScalingFactor(),
+// 					randomScalingFactor(),
+// 					randomScalingFactor(),
+// 					randomScalingFactor(),
+// 					randomScalingFactor(),
+// 					randomScalingFactor()
+// 				]
+// 			}]
+
+// 		};
+// 		window.onload = function() {
+// 			var ctx = document.getElementById('canvas').getContext('2d');
+// 			window.myBar = new Chart(ctx, {
+// 				type: 'bar',
+// 				data: barChartData,
+// 				options: {
+// 					responsive: true,
+// 					title: {
+// 						display: true,
+// 						text: 'Chart.js Bar Chart - Multi Axis'
+// 					},
+// 					tooltips: {
+// 						mode: 'index',
+// 						intersect: true
+// 					},
+// 					scales: {
+// 						yAxes: [{
+// 							type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+// 							display: true,
+// 							position: 'left',
+// 							id: 'y-axis-1',
+// 						}, {
+// 							type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
+// 							display: true,
+// 							position: 'right',
+// 							id: 'y-axis-2',
+// 							gridLines: {
+// 								drawOnChartArea: false
+// 							}
+// 						}],
+// 					}
+// 				}
+// 			});
+// 		};
+
+// 		document.getElementById('randomizeData').addEventListener('click', function() {
+// 			barChartData.datasets.forEach(function(dataset) {
+// 				dataset.data = dataset.data.map(function() {
+// 					return randomScalingFactor();
+// 				});
+// 			});
+// 			window.myBar.update();
+// 		});
+	
+		
+		
+		
+		
+		
+
 var ctx = document.getElementById("myChart").getContext('2d');
 
 var myChart = new Chart(ctx, {
@@ -273,7 +241,7 @@ var myChart = new Chart(ctx, {
            	xAxes: [{
                	ticks: {
                    	beginAtZero:false,
-                   	min:9,
+                   	min:0,
            			stepSize:1
                	}
            	}]

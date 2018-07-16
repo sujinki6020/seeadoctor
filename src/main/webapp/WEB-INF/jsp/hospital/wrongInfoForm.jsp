@@ -5,62 +5,13 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="/seeadoctor/css/hospital/wrongInfoForm.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 <style>
 body { 
    font-family: 'NanumSquare', sans-serif; 
 }
-#wrong_info{
-	height: 800px;
-}
-#wrong_info_area {
-    width: 65%;
-    height: 795px;
-    border: 1px solid #ccc;
-    padding-top: 100px;
-    margin: 0 auto;
-}
-#wrong_info_head{
- 	width: 600px;
-}
-#cBox {
-	padding: 30px 0px 30px 150px;
-}
-input[type='checkbox']{
-	width: 20px;
-    height: 15px;
-}
-#cBox label{
-    height: 31px;
-    margin-left: 20px;
-    background-color: #fafafa;
-    font-size: 17px;
-    font-weight: inherit;
-}
-#wia{
-	width: 100%;
-    margin: 0 auto;
-}
-#btn_wrong{
-	line-height: 6.7;
-    margin-left: 250px;
-    }
-.h2, h2 {
-    font-size: 30px;
-    display: inline-block;
-    margin-left: 25px;
-}
-#form{
-	width: 600px;
-}
-#wia1{
-	margin: 0 auto;
-    width: 600px;
-}
-
-
-
 </style>
 </head>
 <body>

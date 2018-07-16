@@ -22,7 +22,10 @@ public interface BoardService {
 	public List<Comment> selectCommentByNo(int no);
 	//댓글등록
 	public void insertComment(Comment comment);
-	
+	//댓삭
+	public void deleteComment(int commentNo);
+	//댓수정
+	public void updateComment(Comment comment);
 	
 }
 

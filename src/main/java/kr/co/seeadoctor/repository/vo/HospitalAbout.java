@@ -1,6 +1,6 @@
 package kr.co.seeadoctor.repository.vo;
 
-public class HospLike {
+public class HospitalAbout {
 
 	private String id;
 	private int hospCode;

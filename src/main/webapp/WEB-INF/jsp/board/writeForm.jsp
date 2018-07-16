@@ -9,149 +9,23 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="/seeadoctor/css/board/writeForm.css">
 <%-- <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script> --%>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 <style>
+
 body { 
    font-family: 'NanumSquare', sans-serif; 
 }
-#boardMain{
-	height: 100%;
-}
-#photo{
-	z-index: 1;
-    width: 1100px;
-    height: 300px;
-    margin: auto;
-    border: 1px solid #ccc;
-    position: relative;
-}	
-#main{
-	position: relative;
-    z-index: 2;
-    outline: 1px solid #ccc;
-    width: 800px;
-    margin: 0 auto;
-    margin-top: -150px;
-    height: auto;
+
+textarea.form-control {
+    height: 400px;
 }
 
-#head_box{
-/* 	border: 1px solid red; */
-	width: 800px;
-	height:330px;
-	background: white;
-
-}
-#head_top_hr{
-    margin-top:0px;
-	height: 4px;
-    background: #529dbc;
-    border-top-width: 0px;
-}	
-
-#head_name_area{
-	margin : 0 auto;
-	line-height:40px;
-	width: 800px;
-    margin-top: 60px;
-/* 	border: 1px solid; */
-}
-#head_name {
-	line-height:80px;
-	margin : 0 auto;
-	width: 220px;
-	height: 70px;
-/* 	border: 1px solid; */
-}
-
-#head_tap_hr{
-	background:#fafafa;
-	width: 700px;
-	margin: auto;
-}
-#review_hr{
-	background:#fafafa;
-	width: 635px;;
-	margin: auto;
-}
-
-.name{
-    font-weight: bold;
-	font-size:30px;
-}
-
-#head_btn_area{
-	text-align: center;
- 	height:120px; 
-    position: relative; 
-/* 	border: 1px solid; */
-}
-
-#head_btns a{
-	float:left;
-    padding: 15px 30px 0px 20px;
-}
-
-#head_btns {
-	width:350px;
-	height:110px;
-	margin : 0 auto;
-}
-#head_btn_tap{
-	height:45px;
-}
-#head_taps{
-	width:320px;
-	height:35px;
-	margin : 10px 20px 10px 120px ;
-	font-weight: bold;
-	line-height: 33px;
-}
-#head_taps span{
-	padding: 0px 20px 0px 0px;
-}
-#content_box{
- 	width: auto;
-	height: 100%;
-}
-#content_start_box{
- 	width: auto;
-	height: auto;
-}
-#content_area{
- 	width:88%;
-	height: auto;
-	margin:15px 0px 0px 48px;
-}
-#content_area_photo{
- 	width:400px;
-	height: auto;
-	margin: 30px 30px 0px 135px;
-}
-#review{
-	padding: 0px 45px;
-}
-#name{
-	padding: 0px 0px 0px 465px;
-}
-#content_area div{
-	margin-bottom: 20px;
-	height: auto;
-}
-
-#review_row{
-	font-weight: bold;
-}
-
-.button{
-    margin-bottom: 10px;
-}
-
-  .table-bordered>tbody>tr>th,.table-bordered>tbody>tr>td,
- .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, 
- .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
+.table-bordered>tbody>tr>th,.table-bordered>tbody>tr>td,
+.table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, 
+.table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
 	border: 0px solid;
 	border-bottom: 1px solid #ddd;
 }
@@ -167,49 +41,6 @@ body {
     margin-bottom: 35px;
     margin-left: 35px;
 }
-#review1{
-	padding-left: 379px;
-}
-#search_area{
-	line-height: 2;
-}
-#title{
-	width: 625px;
-    height: 45px;
-    display: inline-flex;
-    margin-left: 40px;
-}
-#msg{
-	width: 625px;
-    height: auto;
-    display: inline-flex;
-    margin: -6px 0px 0px 41px;
-}
-textarea.form-control {
-    height: 400px;
-}
-
-#filearea{
-	margin-left: 40px;
-}
-#file_span{
-	display: inline-flex;
-}
-#file{
-	background:#fafafa;
-    width: 625px;
-}
-#btn_adm{
-    width: 635px;
-    padding-left: 260px;
-    margin-top: 8px;
-    margin-left: 35px;
-}
-
-
-
-
-
 </style>
 </head>
 <body>
@@ -257,7 +88,7 @@ textarea.form-control {
 			<div id="head_btn_tap">
 				<hr id="head_tap_hr">
 					<div id="head_taps">
-						<a href="${pageContext.request.contextPath}/hospital/info.do">
+						<a href="${pageContext.request.contextPath}/hospital/about.do">
 							<span>주요정보</span>
 						</a>	
 						<a href="${pageContext.request.contextPath}/board/photo.do">
@@ -275,14 +106,16 @@ textarea.form-control {
 			
 			<div id="content_area">
 				
-				<div id="review_row">
-					<span id="review">리뷰쓰기</span>
-					<span id="name">${sessionSocpe.user.name}</span>
-					<hr id="review_hr">
-				</div>
-				
 				<div id="form">
 					<form enctype="multipart/form-data" method="post" action="write.do">
+				
+				<div id="review_row">
+					<span id="review">리뷰쓰기</span>
+					<input type="text" id="name" name="name" value="${sessionScope.user.name}">
+					<input type="hidden" name="userSeq" value="${sessionScope.user.userSeq}">
+<%-- 					<span id="name" name="name">${sessionScope.user.name}</span> --%>
+					<hr id="review_hr">
+				</div>
 					<c:if test="${!empty board.no}">
 						<input type="text" name="no" value="${board.no}" hidden="hidden">
 					</c:if>

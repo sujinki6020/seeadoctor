@@ -26,7 +26,8 @@ public interface BoardMapper {
 	//댓글
 	List<Comment> selectCommentByNo(int no); //
 	void insertComment(Comment comment);
-	void deleteComment(int no);
+	void deleteComment(int commentNo);
+	void updateComment(Comment comment);
 	
 	
 	

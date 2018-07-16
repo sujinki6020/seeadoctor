@@ -77,9 +77,17 @@ public class BoardServiceImpl implements BoardService{
 	public Map<String, Object> detailBoard(int no) throws Exception{
 		Map<String, Object> result = new HashMap<>();
 		boardMapper.updateBoardViewCnt(no);
-		
+//		System.out.println("update -> 1");
 		Board board = boardMapper.detailBoard(no);
+//		System.out.println("update -> 2");
+		
+		List<BoardFile> files = boardMapper.selectBoardFileByNo(no);
+//		System.out.println("update -> 3");
+		List<Comment> commentList = boardMapper.selectCommentByNo(no);
+		
 		result.put("board", board);
+		result.put("files", files);
+		result.put("commentList", commentList);
 		
 		return result;
 	}
@@ -113,6 +121,17 @@ public class BoardServiceImpl implements BoardService{
 //			System.out.println("name" + comment.getName());
 			System.out.println("유저시퀀스" + comment.getUserSeq());
 			boardMapper.insertComment(comment);
+		}
+		
+		//댓삭
+		public void deleteComment(int commentNo) {
+			boardMapper.deleteComment(commentNo);
+//			System.out.println("댓삭되니");
+		}
+		
+		//댓수정
+		public void updateComment(Comment comment) {
+			boardMapper.updateComment(comment);
 		}
 		
 		/*

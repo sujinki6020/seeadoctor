@@ -20,9 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.seeadoctor.board.service.BoardService;
 import kr.co.seeadoctor.repository.vo.Board;
-import kr.co.seeadoctor.repository.vo.BoardFile;
 import kr.co.seeadoctor.repository.vo.Comment;
-import kr.co.seeadoctor.repository.vo.User;
 
 @Controller
 @RequestMapping("/board")
@@ -45,6 +43,7 @@ public class BoardController {
 	@RequestMapping("/review.do") 
 	public void review(Model model, Board board) throws Exception {
 		model.addAttribute("result", boardService.selectBoard(board));
+//		System.out.println("boardName:" + d);
 	}
 	
 	@RequestMapping("/writeForm.do")
@@ -74,16 +73,10 @@ public class BoardController {
 	}
 
 	@RequestMapping("/detail.do")
-	public void detail(Model model, Board board) throws Exception {
+	public void detail(Board board, Model model) throws Exception {
+		System.out.println("no : " + board.getNo());
 		Map<String, Object> result = boardService.detailBoard(board.getNo());
-		List<BoardFile> files = boardService.selectBoardFileByNo(board.getNo());
-		List<Comment> commentList = boardService.selectCommentByNo(board.getNo());
-		
 		model.addAttribute("result", result);
-		model.addAttribute("files", files);
-		System.out.println("files" + files);
-		model.addAttribute("commentList", commentList);
-		
 	}
 	
 	@RequestMapping("/delete.do")
@@ -166,19 +159,28 @@ public class BoardController {
 	@RequestMapping("/commentList.json")
 	@ResponseBody
 	public List<Comment> commentList(int no){
+		System.out.println("no -> " + no);
 		List<Comment> commentList = boardService.selectCommentByNo(no);
-		System.out.println("왔니");
+//		System.out.println("왔니");
 		return commentList;
 	}
 	//댓글 등록: 등록 후 등록된 댓글 까지 리스트 불러오기
 	@RequestMapping("/commentRegist.json")
 	@ResponseBody
 	public List<Comment> commentRegist(HttpSession session, Comment comment){
-		User user = (User)session.getAttribute("user");
 		boardService.insertComment(comment);
 		List<Comment> commentList = boardService.selectCommentByNo(comment.getNo());
 		return commentList;
 	}
+	//댓글삭제
+	@RequestMapping("/commentDelete.json")
+	@ResponseBody
+	public void commentDelete(int commentNo) {
+		boardService.deleteComment(commentNo);
+//		System.out.println("댓글넘버"+commentNo);
+	}
+	
+	//댓글수정
 	
 	
 		

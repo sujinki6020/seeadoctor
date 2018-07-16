@@ -114,6 +114,20 @@
 				#{no},#{userSeq},#{content},#{name}
 			)
 		</insert>
+		
+		<delete id="deleteComment" parameterType="int">
+		 	delete
+		 	  from tb_comment
+		 	 where comment_no = #{commentNo}
+		</delete> 
+		
+		<update id="updateComment" parameterType="comment" >
+			update tb_comment
+			   set  content = #{content}
+			 where comment_no = #{commentNo}
+			 
+		
+		</update>
 	
 	
 </mapper>

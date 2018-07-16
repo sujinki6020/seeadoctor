@@ -1,0 +1,129 @@
+@charset "UTF-8";
+
+
+ font-family: 'NanumSquare', sans-serif; 
+}
+#h1{
+	background: #777;
+	margin: 0;
+    width: 715px;
+}
+#admin{
+/* 	 border: 1px solid red; */
+	 height: auto;
+}
+#main{
+    /* border: 1px solid; */
+    /* padding: 63px; */
+    margin: 0 auto;
+    border: 1px solid #ccc;
+    padding: 3%;
+    height: auto;
+    width: 800px;
+}
+#admin_head{
+    height: 80px;
+    padding-left: 30px;
+    margin-left: -13px;
+    width: 890px;
+}
+#form{
+/* 	border: 1px solid; */
+}
+#form div{
+	padding: 20px;
+	margin: -20px;
+}
+#form div span{
+	padding: 10px;
+/* 	font-size: 15px; */
+}
+
+input:focus, textarea:focus, input:hover, textarea:hover{
+	outline:none;
+	border-color: #C7C7C7;
+}
+
+input[type='text'] {
+    width: 600px;
+    height: 45px;
+    font-weight: bold;
+    margin-left: 18px;
+    background-color: #fafafa;
+    display: inline;
+}
+
+#address{
+	margin-left: 32px;
+	font-weight: bold;
+	background-color: #fafafa;
+}
+
+#call{
+	width: 85px;
+	height: 45px;
+	margin: 0px 0px 20px;
+}
+#call1{
+	width: 200px;
+}
+#day{
+	width: 900px;
+    height: 80px;
+    margin-left: -3px;
+}
+#day_area{
+	width:700px;
+	border: 1px solid #C7C7C7;
+	background-color: #fafafa;
+	
+}
+#day_area label{
+	padding-right: 34px;
+}
+#time input{
+	margin:20px
+}
+#filearea input{
+	background-color: #fafafa;
+    border: 1px solid #c7c7c7;
+    margin: 20px;
+}
+
+#info{
+	width: 940px;
+  	height: auto;
+    margin-top: -5px;
+}
+
+#info span{
+	height: 60px;
+    display: block;
+    font-size: 14px;
+    width: 100px;
+    float: left;
+}
+#btn_adm{
+	height: 80px;
+	width: 147px;
+	position: relative;
+/*     bottom: -20px; */
+    left: 323px;
+}
+#times{
+	width: 90px;
+	display: inline;
+}
+#major input{
+	width: 589px;
+} 
+#treat input{
+	width: 589px;
+}
+#msg{
+	width: 600px;
+    height: 180px;
+	border:1px solid #C7C7C7;
+	background-color: #fafafa;
+}
+

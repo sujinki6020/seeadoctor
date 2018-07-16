@@ -1,4 +1,4 @@
-package kr.co.seeadoctor.hospital.controller;
+package kr.co.seeadoctor.hospitalAbout.controller;
 
 import java.util.List;
 import java.util.Map;
@@ -11,20 +11,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import kr.co.seeadoctor.hospital.service.HospitalService;
-import kr.co.seeadoctor.repository.vo.HospLike;
+import kr.co.seeadoctor.hospitalAbout.service.HospitalAboutService;
+import kr.co.seeadoctor.repository.vo.HospitalAbout;
 import kr.co.seeadoctor.repository.vo.User;
 
 @Controller
 @RequestMapping("/hospital")
-public class HospitalController {
+public class HospitalAboutController {
 
 	@Autowired
-	private HospitalService hospService;
+	private HospitalAboutService hospService;
 	
 	//병원정보 가져오기
 	@RequestMapping("/info.do")
-	public void hospInfo(HospLike hospLike, Model model, HttpSession session) {
+	public void hospInfo(HospitalAbout hospLike, Model model, HttpSession session) {
 		
 		// 아래의 정보를 가져오기 위한 서비스 필요한
 		// 병원 정보 가져오기
@@ -45,13 +45,13 @@ public class HospitalController {
 	//추천하기
 	@RequestMapping("/plusStar.json")
 	@ResponseBody
-	public void plusStar(HospLike hospLike) {
+	public void plusStar(HospitalAbout hospLike) {
 		hospService.insertStar(hospLike);
 	}
 	//추천취소
 	@RequestMapping("/minusStar.json")
 	@ResponseBody
-	public void minusStar(HospLike hospLike) {
+	public void minusStar(HospitalAbout hospLike) {
 		hospService.deleteStar(hospLike);
 	}
 	

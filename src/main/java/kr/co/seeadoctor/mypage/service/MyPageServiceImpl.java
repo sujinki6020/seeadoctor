@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.seeadoctor.repository.mapper.UserMapper;
-import kr.co.seeadoctor.repository.vo.HospLike;
+import kr.co.seeadoctor.repository.vo.HospitalAbout;
 import kr.co.seeadoctor.repository.vo.User;
 
 @Service("myPageService")
@@ -20,7 +20,7 @@ public class MyPageServiceImpl implements MyPageService {
 	}
 
 	@Override
-	public List<HospLike> retrieveLike(String id) {
+	public List<HospitalAbout> retrieveLike(String id) {
 		return null;
 	}
 
