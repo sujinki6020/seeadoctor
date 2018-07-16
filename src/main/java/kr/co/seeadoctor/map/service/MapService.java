@@ -5,6 +5,6 @@ import java.util.List;
 import kr.co.seeadoctor.repository.vo.Hospital;
 
 public interface MapService {
-	public List<Hospital> selectHospitalAll();
-	public List<Hospital> selectHospitalBylatlon();
+	public List<Hospital> selectHospital(Hospital hospital);
+	public int selectCount(Hospital hospital);
 }

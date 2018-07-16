@@ -118,6 +118,37 @@
 		)
 	</insert>
 	
+	<select id="selectCount" parameterType="hospital" resultType="int">
+		select count(*) 
+		from (
+			select * 
+		    from tb_hospital_gangnam 
+		    where cast(wgs84Lat as decimal(17,15)) between #{wgs84Lat} - 0.005 and #{wgs84Lat} + 0.005 
+		    group by dutyName
+		    ) as a  
+		where cast( wgs84Lon as decimal(17,14) ) between #{wgs84Lon} - 0.005 and #{wgs84Lon} + 0.005
+		<if test="qd != null">
+		and qd = #{qd}
+		</if> 
+		order by wgs84Lon, wgs84Lat
+	</select>
+	
+	<select id="selectHospital" parameterType="hospital" resultMap="hospitalMap">
+		select * 
+		from (
+			select * 
+		    from tb_hospital_gangnam 
+		    where cast(wgs84Lat as decimal(17,15)) between #{wgs84Lat} - 0.005 and #{wgs84Lat} + 0.005 
+		    group by dutyName
+		    ) as a  
+		where cast( wgs84Lon as decimal(17,14) ) between #{wgs84Lon} - 0.005 and #{wgs84Lon} + 0.005
+		<if test="qd != null">
+		and qd = #{qd}
+		</if> 
+		order by wgs84Lon, wgs84Lat
+		limit #{pageNo} , 10
+	</select>
+	
 	
 </mapper>
 	

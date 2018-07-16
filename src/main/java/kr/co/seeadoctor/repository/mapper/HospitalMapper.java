@@ -6,6 +6,6 @@ import kr.co.seeadoctor.repository.vo.Hospital;
 
 public interface HospitalMapper {
 	void insertHospital(Hospital hospital);
-	List<Hospital> selectHospitalAll();
-	List<Hospital> selectHospitalByLatLon();
+	List<Hospital> selectHospital(Hospital hospital);
+	int selectCount(Hospital hospital);
 }

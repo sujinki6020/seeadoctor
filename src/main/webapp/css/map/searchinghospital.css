@@ -131,14 +131,14 @@
     bottom: 5%;
     background-color: #f6f6f6;
 }
-#resultpage ul {
+#resultpage > ul {
     margin-top: 9px;
     font-size: 16px;
     text-align: center;
 }
-#resultpage ul li {
+#resultpage > ul > li {
     display: inline-block;
-    width: 6%;
+    width: 8%;
     height: 27px;
     padding-left: 4px;
     padding-right: 4px;

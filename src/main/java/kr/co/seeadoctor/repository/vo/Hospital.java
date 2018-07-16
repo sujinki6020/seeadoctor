@@ -37,8 +37,27 @@ public class Hospital {
 	private String wgs84Lon;
 	private String wgs84Lat;
 	private String dutyInf;
+	private int pageNo;
+	private int count;
 	
 	
+	
+	
+	
+	
+	
+	public int getCount() {
+		return count;
+	}
+	public void setCount(int count) {
+		this.count = count;
+	}
+	public int getPageNo() {
+		return pageNo;
+	}
+	public void setPageNo(int pageNo) {
+		this.pageNo = pageNo;
+	}
 	
 	public String getQd() {
 		return qd;
