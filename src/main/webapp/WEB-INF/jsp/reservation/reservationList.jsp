@@ -111,7 +111,13 @@ function lastPostFunc(name, val) {
 						if(list[i].reserveStatus==3) {status = '미방문';}
 						if(list[i].reserveStatus==4) {status = '진료완료';}
 						appendData += '<div class="stateIcon state'+list[i].reserveStatus+'">'+status+'</div>';
-						appendData += '<span>　'+hour+':'+min+' | '+'병원코드'+list[i].hospCode+' | '+'의사코드'+list[i].docCode+'</span>';
+						appendData += '<span>　'+hour+':'+min+' | '+'병원코드'+list[i].hospitalSeq+' | '+'의사코드'+list[i].docCode+'</span>';
+						if(list[i].reserveStatus==1) {
+						appendData += '<button class="stateBnts">예약취소</button>';
+						}
+						if(list[i].reserveStatus==4 && list[i].reviewStatus=='f') {
+						appendData += '<button class="stateBnts">리뷰작성</button>';
+						}
 						appendData += '</div>';
 				};
 				
