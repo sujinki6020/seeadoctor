@@ -156,12 +156,19 @@ function hospitalList( x , y , pageNo , qd){
 			});
 			markers.push(marker);
 			setHospitalList( item.dutyName , item.dutyAddr);
+			console.log('seq', item.hospitalSeq);
+			console.log('name', item.dutyName);
 			var contentString = [
 		        '<div class="iw_inner">',
-		        '   <h3>'+item.dutyName+'</h3>',
-		        '   <p>'+item.dutyName+'</p>',
+		        '   <h3><a href="',
+		        getContextPath(),
+		        '/hospital/about.do?hospitalSeq='+ item.hospitalSeq + '">',
+		        item.dutyName,
+		        '</a></h3>',
+		        '   <p>'+item.dutyAddr+'</p>',
 		        '</div>'
 		    ].join('');
+			console.log('내용',contentString)
 			infoWindow = new naver.maps.InfoWindow({
 		        content: ''
 		    });
