@@ -23,7 +23,7 @@
 		            <li><a href="${pageContext.request.contextPath}/admin/statistics/statistics.do">고객 통계</a></li>
             	</c:when>
             	<c:otherwise>
-		            <li><a href="${pageContext.request.contextPath}/temporary/searchinghospital.jsp">병원 찾기</a></li>
+		            <li><a href="${pageContext.request.contextPath}/map/mapMain.do">병원 찾기</a></li>
             	</c:otherwise>
             </c:choose>
             

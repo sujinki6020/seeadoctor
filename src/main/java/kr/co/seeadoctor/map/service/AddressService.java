@@ -6,4 +6,6 @@ public interface AddressService {
 	public void parseDoc(Document doc,String dept);
 	public void start();
 	public int getTotalCount(String kind, String dept ,int index);
+	public String addressNaver(String q);
+	public String positionNaver(String latitude, String longitude);
 }
