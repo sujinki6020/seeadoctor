@@ -48,7 +48,7 @@
 </div>
 
 <form action="${pageContext.request.contextPath}/reservation/reserve.do" method="post">
-<input type="text" name="hospitalSeq" value="${hospitalSeq}">
+<input type="hidden" name="hospitalSeq" value="${hospitalSeq}">
 <div id="selectZone">
 <div class="select">
 <h2><img src="${pageContext.request.contextPath}/images/reservation/doctor.png" /> 진료실 선택</h2>
@@ -120,9 +120,7 @@ function dayOfTheWeek(value) {
 	var date = new Date($("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' }).val());
 	//1월~6토, 0일
 	//db는 1월~7일
-	
-	alert("${hospitalSeq}");
-	
+	$("#timeList").html("<img id='loadingImg' src='/seeadoctor/images/reservation/loading-rolling.gif'/>");
 	$.ajax({
 		type : "POST",
 		url : "/seeadoctor/reservation/timeList.json",
