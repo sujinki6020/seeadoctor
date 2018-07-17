@@ -143,6 +143,13 @@
 	 where reserve_seq = #{reserveSeq}
 	</update>
 	
+	<update id="updateReserveStatusNoShow" parameterType="int">
+	update tb_reservation
+	   set reserve_status = 3
+	 where reserve_status = 1
+	   and reserve_date <![CDATA[<]]> now()
+	</update>
+	
 	<update id="updateReservationCancle" parameterType="int">
 		update tb_reservation
 	       set reserve_status = 2

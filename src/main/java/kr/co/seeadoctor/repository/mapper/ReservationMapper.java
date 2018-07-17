@@ -1,5 +1,6 @@
 package kr.co.seeadoctor.repository.mapper;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -31,6 +32,8 @@ public interface ReservationMapper {
 	void updateOpenTime(ReservationTime reserveTime);
 
 	void updateReservationCancle(int reserveSeq);
+
+	void updateReserveStatusNoShow(Date today);
 	
 
 }

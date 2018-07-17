@@ -86,11 +86,7 @@ public class CalendarServiceImpl implements CalendarService {
 	@Override
 	public List<ReservationTime> makeTimeList(ReservationTime reservationTime) {
 		
-		System.out.println("메이크타임");
-		
 		Hospital hosp = hospMapper.selectDutyTime(reservationTime.getHospitalSeq());
-		
-		System.out.println(reservationTime.getDate().getDay());
 		
 		String startTime = null;
 		String closeTime = null;

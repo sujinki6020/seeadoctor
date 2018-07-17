@@ -51,7 +51,8 @@ public class ReservationController {
 	
 	@RequestMapping("/reservationList.do")
 	public void list() {
-
+		//지난 날짜 미방문화
+		service.ReservationNoShow(new Date());
 	}
 	
 	
