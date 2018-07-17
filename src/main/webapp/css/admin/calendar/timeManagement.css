@@ -74,3 +74,6 @@ a:link, a:hover {
 	background-color: #233265;
     opacity: 1.0;
 }
+#loadingImg {
+	margin-left: 200px;
+}

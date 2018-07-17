@@ -2,7 +2,6 @@ package kr.co.seeadoctor.admin.calendar.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -112,6 +111,17 @@ public class CalendarController {
 	@RequestMapping("/updateReserveStatus.json")
 	public void updateReserveStatus(int reserveSeq) {
 		service.updateReserveStatus(reserveSeq);
+	}
+	
+	@RequestMapping("/makeTime.json")
+	@ResponseBody
+	public List<ReservationTime> makeTime(ReservationTime reservationTime, String dateStr) throws ParseException {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = sdf.parse(dateStr);
+		reservationTime.setDate(date);
+		
+		return service.makeTimeList(reservationTime);
 	}
 
 }
