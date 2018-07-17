@@ -24,7 +24,7 @@
 <tr>
 <th width="150px;">진료자명</th>
 <td width="400px;">${user.name}</td>
-<td><button id="infoBnt">개인정보수정</button></td>
+<td><a href="${pageContext.request.contextPath}/mypage/myInfo.do?"><button type="button" id="infoBnt">개인정보수정</button></a></td>
 </tr>
 
 <c:choose>

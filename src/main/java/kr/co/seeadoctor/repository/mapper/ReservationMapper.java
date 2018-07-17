@@ -28,7 +28,9 @@ public interface ReservationMapper {
 	void updateReserveStatusFinish(int reserveSeq);
 
 	void updateCloseTime(Map<String, Object> closeMap);
+	void updateOpenTime(ReservationTime reserveTime);
 
 	void updateReservationCancle(int reserveSeq);
+	
 
 }
