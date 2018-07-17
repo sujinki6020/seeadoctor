@@ -14,18 +14,18 @@
 <div class="viewWrap">
 
 <div id="yearStat">
-<h2>연간 예약건수</h2>
+<h3>연간 예약건수</h3>
 <canvas id="lineCanvas"></canvas>
 </div>
 
 <div id="weekStat">
-<h2>주간 페이지 방문자수</h2>
+<h3>주간 페이지 방문자수</h3>
 <canvas id="barCanvas"></canvas>
 </div>
 
 <div id="monthStat">
-<br><h2>월간 예약자 정보</h2>
-<h3>　<span>성별</span> <span id="ageCanvasTitle">연령대</span> </h3>
+<br><h3>월간 예약자 정보</h3>
+<h4>　<span>성별</span> <span id="ageCanvasTitle">연령대</span> </h4>
 <canvas id="sexPieCanvas"></canvas>
 <canvas id="agePieCanvas"></canvas>
 
