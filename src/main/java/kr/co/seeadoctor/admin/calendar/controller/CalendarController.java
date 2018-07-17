@@ -2,7 +2,6 @@ package kr.co.seeadoctor.admin.calendar.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -65,8 +64,6 @@ public class CalendarController {
 		Reservation reservation = new Reservation();
 		reservation.setHospitalSeq(user.getHospitalSeq());
 		
-		System.out.println(reservation.getDocCode());
-		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = sdf.parse(dateStr);
 		reservation.setReserveDate(date);
@@ -94,7 +91,7 @@ public class CalendarController {
 	
 	@RequestMapping("/closeTime.json")
 	@ResponseBody
-	public void closeTime(ArrayList<String> closeArr, ReservationTime reserveTime, String dateStr) throws ParseException {
+	public void closeTime(ReservationTime reserveTime, String dateStr, String[] closeArr) throws ParseException {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = sdf.parse(dateStr);
@@ -114,6 +111,17 @@ public class CalendarController {
 	@RequestMapping("/updateReserveStatus.json")
 	public void updateReserveStatus(int reserveSeq) {
 		service.updateReserveStatus(reserveSeq);
+	}
+	
+	@RequestMapping("/makeTime.json")
+	@ResponseBody
+	public List<ReservationTime> makeTime(ReservationTime reservationTime, String dateStr) throws ParseException {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = sdf.parse(dateStr);
+		reservationTime.setDate(date);
+		
+		return service.makeTimeList(reservationTime);
 	}
 
 }

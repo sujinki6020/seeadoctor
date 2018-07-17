@@ -35,16 +35,46 @@
 
 </div>
 <script>
+
+
 $(document).on("click", ".timeBnt", function () {	
 	$(this).toggleClass('closeTime');
 });
 
+function makeTime() {
+	console.log("메이크타임함수");
+	$.ajax({
+		type : "POST",
+		url : "/seeadoctor/admin/calendar/makeTime.json",
+		data : {
+			hospitalSeq : "${reservation.hospitalSeq}",
+			docCode : $(".activeDoc").attr("id"),
+			dateStr : "${dateStr}"
+		},
+		success : function (data) {
+			
+			$("#timeList").html("");
+			for(var i=0; i<data.length; i++) {
+				
+				
+				var bnt = "";
+				bnt += "<button id='"+data[i].time+"' class='timeBnt";
+				if(data[i].blockedStatus=='t') {
+					bnt += " closeTime";
+				}
+				bnt += "'>"+data[i].time.substr(0,2)+":"+data[i].time.substr(2,2)+"</button>";
+				
+				$("#timeList").append(bnt);
+			}
+			
+		}
+	});
+}
+
+
 function timeList() {
-	console.log($(".activeDoc").attr("id"));
-	
-	
-	console.log(new Date("${dateStr}"));
-	var datetime = new Date("${dateStr}");
+var datetime = new Date("${dateStr}");
+$("#timeList").html("<img id='loadingImg' src='/seeadoctor/images/admin/calendar/loading-ellipsis.gif'/>");
 $.ajax({
 	type : "POST",
 	url : "/seeadoctor/admin/calendar/timeList.json",
@@ -55,13 +85,11 @@ $.ajax({
 	},
 	success : function (data) {
 		
-		console.log(data.length);
-		
-		if(data==null) {
-			console.log("없음");
+		if(data.length == 0) {
+			makeTime();
+			return;
 		}
 		
-		console.log(data);
 		$("#timeList").html("");
 		for(var i=0; i<data.length; i++) {
 			
@@ -81,6 +109,7 @@ $.ajax({
 }
 
 timeList();
+
 
 
 $(".doctorBnt").click(function () {
@@ -103,10 +132,10 @@ $.ajaxSettings.traditional = true;
 		type : "POST",
 		url : "/seeadoctor/admin/calendar/closeTime.json",
 		data : {
-			"hospitalSeq" : "${reservation.hospitalSeq}",
-			"docCode" : $(".activeDoc").attr("id"),
-			"closeArr" : closeArr,
-			"dateStr" : "${dateStr}"
+			hospitalSeq : "${reservation.hospitalSeq}",
+			docCode : $(".activeDoc").attr("id"),
+			closeArr : closeArr,
+			dateStr : "${dateStr}"
 		},
 		success : function (result) {
 			alert("시간설정이 정상적으로 완료되었습니다.");

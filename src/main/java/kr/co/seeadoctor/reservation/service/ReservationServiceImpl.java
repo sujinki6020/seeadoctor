@@ -1,5 +1,6 @@
 package kr.co.seeadoctor.reservation.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -126,6 +127,11 @@ public class ReservationServiceImpl implements ReservationService {
 	public void cancleReservation(int reserveSeq) {
 		mapper.updateReservationCancle(reserveSeq);
 		
+	}
+
+	@Override
+	public void ReservationNoShow(Date today) {
+		mapper.updateReserveStatusNoShow(today);
 	}
 
 

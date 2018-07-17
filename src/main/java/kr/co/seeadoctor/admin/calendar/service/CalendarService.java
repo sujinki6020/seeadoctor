@@ -19,4 +19,6 @@ public interface CalendarService {
 	void updateReserveStatus(int reserveSeq);
 
 	void updateCloseTime(Map<String, Object> closeMap);
+
+	List<ReservationTime> makeTimeList(ReservationTime reservationTime);
 }

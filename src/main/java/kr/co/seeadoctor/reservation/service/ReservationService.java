@@ -1,5 +1,6 @@
 package kr.co.seeadoctor.reservation.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +17,8 @@ public interface ReservationService {
 	List<ReservationTime> makeTimeList(ReservationTime reservationTime, int day);
 
 	void cancleReservation(int reserveSeq);
+
+	void ReservationNoShow(Date today);
 
 
 
