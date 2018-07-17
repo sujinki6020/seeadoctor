@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.seeadoctor.repository.vo.Doctor;
 import kr.co.seeadoctor.repository.vo.Reservation;
 import kr.co.seeadoctor.repository.vo.ReservationTime;
 import kr.co.seeadoctor.repository.vo.ScrollPaging;
@@ -19,6 +20,8 @@ public interface ReservationService {
 	void cancleReservation(int reserveSeq);
 
 	void ReservationNoShow(Date today);
+
+	List<Doctor> retrieveDoctor(int hospitalSeq);
 
 
 

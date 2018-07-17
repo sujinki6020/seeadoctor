@@ -48,7 +48,7 @@
 </div>
 
 <form action="${pageContext.request.contextPath}/reservation/reserve.do" method="post">
-<input type="hidden" name="hospitalSeq" value="${hospitalSeq}">
+<input type="hidden" name="hospitalSeq" value="${docList[0].hospitalSeq}">
 <div id="selectZone">
 <div class="select">
 <h2><img src="${pageContext.request.contextPath}/images/reservation/doctor.png" /> 진료실 선택</h2>

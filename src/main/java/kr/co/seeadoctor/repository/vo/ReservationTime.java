@@ -14,7 +14,7 @@ public class ReservationTime {
 	    private Integer hospitalSeq;
 
 	    // 의사코드 
-	    private Integer docCode;
+	    private Integer doctorSeq;
 
 	    // 날짜 
 	    @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -45,12 +45,12 @@ public class ReservationTime {
 	        this.hospitalSeq = hospitalSeq;
 	    }
 
-	    public Integer getDocCode() {
-	        return docCode;
+	    public Integer getdoctorSeq() {
+	        return doctorSeq;
 	    }
 
-	    public void setDocCode(Integer docCode) {
-	        this.docCode = docCode;
+	    public void setdoctorSeq(Integer doctorSeq) {
+	        this.doctorSeq = doctorSeq;
 	    }
 
 	    public Date getDate() {

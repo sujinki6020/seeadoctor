@@ -6,8 +6,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.seeadoctor.repository.mapper.DoctorMapper;
 import kr.co.seeadoctor.repository.mapper.HospitalMapper;
 import kr.co.seeadoctor.repository.mapper.ReservationMapper;
+import kr.co.seeadoctor.repository.vo.Doctor;
 import kr.co.seeadoctor.repository.vo.Hospital;
 import kr.co.seeadoctor.repository.vo.Reservation;
 import kr.co.seeadoctor.repository.vo.ReservationTime;
@@ -20,6 +22,8 @@ public class ReservationServiceImpl implements ReservationService {
 	private ReservationMapper mapper;
 	@Autowired
 	private HospitalMapper hospMapper;
+	@Autowired
+	private DoctorMapper docMapper;
 
 	@Override
 	public List<Reservation> selectReservationByUser(ScrollPaging scrollPaging) {
@@ -31,7 +35,7 @@ public class ReservationServiceImpl implements ReservationService {
 		
 	
 		//시간관리테이블
-		Integer timeSeq = mapper.selectTimeSeq(reservation); //hospCode, docCode, date, time에 해당하는 timeSeq 반환
+		Integer timeSeq = mapper.selectTimeSeq(reservation); //hospCode, doctorSeq, date, time에 해당하는 timeSeq 반환
 
 		mapper.checkedBookedStatus(timeSeq);	
 
@@ -132,6 +136,11 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public void ReservationNoShow(Date today) {
 		mapper.updateReserveStatusNoShow(today);
+	}
+
+	@Override
+	public List<Doctor> retrieveDoctor(int hospitalSeq) {
+		return docMapper.selectDoctorByHospSeq(hospitalSeq);
 	}
 
 

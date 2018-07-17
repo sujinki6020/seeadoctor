@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.seeadoctor.repository.mapper.DoctorMapper">
+	<resultMap id="doctorMap" type="doctor">
+		<result column="doctor_seq" property="doctorSeq" />
+		<result column="hospital_seq" property="hospitalSeq" />
+		<result column="doctor_name" property="doctorName" />
+		<result column="major_seq" property="majorSeq" />
+		<collection property="majorCode" resultMap="majorCodeMap"/>
+	</resultMap>
+	<resultMap id="majorCodeMap" type="majorCode">
+		<result column="major_seq" property="majorSeq" />
+		<result column="major_name" property="majorName" />
+	</resultMap>
+	
+	<select id="selectDoctorByHospSeq" parameterType="int" resultMap="doctorMap">
+	select *
+	  from tb_doctor d
+	  join tb_major_code c
+	    on d.major_seq = c.major_seq
+	 where d.hospital_seq = #{hospitalSeq}
+	</select>
+	
+</mapper>
+
+
+

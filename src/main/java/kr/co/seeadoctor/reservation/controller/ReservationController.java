@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import kr.co.seeadoctor.repository.vo.Doctor;
 import kr.co.seeadoctor.repository.vo.Reservation;
 import kr.co.seeadoctor.repository.vo.ReservationTime;
 import kr.co.seeadoctor.repository.vo.ScrollPaging;
@@ -32,9 +33,16 @@ public class ReservationController {
 		//세션에 있는 사용자 개인정보
 		model.addAttribute("user", session.getAttribute("user"));
 		
+		
+		
 		//<a>url파라미터로 넘어오는 hospital_seq
-		//이걸로 tb_doctor에서 의사정보 찾아오기 (추후작업)
-		model.addAttribute("hospitalSeq", hospitalSeq);
+		//이걸로 tb_doctor에서 의사정보 찾아오기
+		List<Doctor> docList = service.retrieveDoctor(hospitalSeq);
+//		model.addAttribute("hospitalSeq", hospitalSeq);
+		model.addAttribute("docList", docList);
+		
+		
+		
 	}
 	
 	//의사 + 날짜 선택되는 것에 따라 AJAX로 timeList만들어 줌

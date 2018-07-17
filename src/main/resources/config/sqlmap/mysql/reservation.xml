@@ -6,7 +6,7 @@
 		<result column="reserve_seq" property="reserveSeq" />
 		<result column="user_seq" property="userSeq" />
 		<result column="hospital_seq" property="hospitalSeq" />
-		<result column="doc_code" property="docCode" />
+		<result column="doctor_code" property="doctorSeq" />
 		<result column="reserve_date" property="reserveDate" />
 		<result column="reserve_time" property="reserveTime" />
 		<result column="symptom" property="symptom" />
@@ -17,7 +17,7 @@
 	<resultMap id="reservationTimeMap" type="reservationTime">
 		<result column="time_seq" property="timeSeq" />
 		<result column="hospital_seq" property="hospitalSeq" />
-		<result column="doc_code" property="docCode" />
+		<result column="doctor_code" property="doctorSeq" />
 		<result column="date" property="date" />
 		<result column="time" property="time" />
 		<result column="booked_status" property="bookedStatus" />
@@ -42,15 +42,15 @@
 	</resultMap>
 
 	<insert id="insertReservation" parameterType="reservation">
-	insert into tb_reservation (user_seq, hospital_seq, doc_code, reserve_date, reserve_time, symptom)
-	values (#{userSeq}, #{hospitalSeq}, #{docCode}, #{reserveDate}, #{reserveTime}, #{symptom})
+	insert into tb_reservation (user_seq, hospital_seq, doctor_code, reserve_date, reserve_time, symptom)
+	values (#{userSeq}, #{hospitalSeq}, #{doctorSeq}, #{reserveDate}, #{reserveTime}, #{symptom})
 	</insert>
 	
 	<select id="selectTimeSeq" parameterType="reservation" resultType="int">
 	select time_seq
 	  from tb_reservation_time
 	 where hospital_seq = #{hospitalSeq}
-	   and doc_code = #{docCode}
+	   and doctor_code = #{doctorSeq}
 	   and date = #{reserveDate}
 	   and time = #{reserveTime}
 	</select>
@@ -62,8 +62,8 @@
 	</update>
 	
 	<insert id="insertTimeManagement" parameterType="reservationTime">
-	insert into tb_reservation_time(hospital_seq, doc_code, date, time)
-	values(#{hospitalSeq}, #{docCode}, #{date}, #{time})
+	insert into tb_reservation_time(hospital_seq, doctor_code, date, time)
+	values(#{hospitalSeq}, #{doctorSeq}, #{date}, #{time})
 	</insert>
 	
 	<select id="selectReservationByUser" parameterType="scrollPaging" resultMap="reservationMap">
@@ -105,7 +105,7 @@
 	select *
 	  from tb_reservation_time
 	 where hospital_seq = #{hospitalSeq}
-	   and doc_code = #{docCode}
+	   and doctor_code = #{doctorSeq}
 	   and date = #{date}
 	 order by time_seq asc
 	</select>
@@ -114,7 +114,7 @@
 	update tb_reservation_time
 	   set blocked_status = 'f'
 	 where hospital_seq = #{hospitalSeq}
-	   and doc_code = #{docCode}
+	   and doctor_code = #{doctorSeq}
 	   and date = #{date}
 	</update>
 	
@@ -122,7 +122,7 @@
 	 update tb_reservation_time
 	    set blocked_status = 't'
 	  where hospital_seq = #{reserveTime.hospitalSeq}
-	    and doc_code = #{reserveTime.docCode}
+	    and doctor_code = #{reserveTime.doctorSeq}
 	    and date = #{reserveTime.date}
 	    and time in
 		<foreach collection="closeArr" item="closeTime" open="(" separator="," close=")">
