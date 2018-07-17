@@ -4,9 +4,10 @@ a:link, a:hover {
 	text-decoration: none;
 }
 .viewWrap {
-	width: 1300px;
-	padding: 10px 80px;
+	width: 1100px;
+	padding: 35px 80px;
 	box-sizing: border-box;
+	margin: 0 auto;
 }
 #lineCanvas {
 width: 55%;
