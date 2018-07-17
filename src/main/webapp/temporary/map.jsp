@@ -67,18 +67,8 @@
 	    display: block;
     	width: 100%;
 	}
-	#paging > li {
-		float: left;
-	}
-	#resultpage > ul > li:nth-of-type(2) {
-		width: 78%;
-		overflow: hidden;
-	}
-	#paging > li {
-		width: 25px;
-	}
-	#paging {
-		width: 600px;
+	.disabled {
+		
 	}
 </style>
 </head>
@@ -98,12 +88,6 @@
             </div>
             <div id="resultpage">
             	<ul>
-            		<li><a href="#1" class="prev"></a></li>
-            		<li>
-            			<ul id="paging">
-            			</ul>
-            		</li>
-            		<li><a href="#1" class="next"></a></li>
                 </ul>
             </div>
             <div id="ourinfo">
@@ -127,28 +111,38 @@ let map;
 let latitude;
 let longitude;
 let markers = [];
-let pageNo = 0;
 
-$('#paging').on('click', 'li ', function(){
-	$(this).find('a').addClass("circleActive");
-	pageNo = $(this).find('a').data("flag");
-	hospitalList(latitude, longitude , $(this).find('a').data("flag"))
-})
-$("#resultpage > ul >li:nth-of-type(1)").click(function(){
-	console.log("prev들어옴");
-	$("#resultpage > ul >li:nth-of-type(2)").css('width',"-100px")
-})
-
-function setPageNo(count, page){
-	$("#paging").empty();
-	let text = '';
-	var length = Math.ceil(count/10);
-	console.log('카운트',count)
-	console.log('길이',length);
-	for(var i = 1 ; i<= length  ; i++ ){
-		text += '<li><a href="#1" data-flag=' + (i-1) + ' class='+ ( ( ( ( ( page )? page: 0 ) + 1 ) === i)? 'circleActive' : '') + '>'+i+'</a></li>';
+$('#resultpage > ul').on('click', 'li', function(){
+	console.log('찍히는중')
+	console.log($(this).parent().find('li:nth-of-type(11) > a').text() + 1);
+	console.log('latutude',latitude);
+	console.log('longitude',longitude);
+	console.log($(this).parent().find('li:nth-of-type(2) > a').text() -1);
+	if($(this).find('a').hasClass('prev')){
+		if(!$(this).find('a').hasClass('disabled')){
+			hospitalList(latitude , longitude , parseInt($(this).parent().find('li:nth-of-type(2) > a').text()) -10)
+		}
+		return;
 	}
-	$("#paging").append(text);
+	if($(this).find('a').hasClass('next')){
+		if(!$(this).find('a').hasClass('disabled')){
+			hospitalList(latitude , longitude , parseInt($(this).parent().find('li:nth-of-type(11) > a').text()) + 1)
+		}
+		return;
+	}
+	$(this).find('a').addClass("circleActive");
+	let pageNo = $(this).find('a').text();
+	hospitalList(latitude, longitude , pageNo)
+})
+
+function setPageNo(page, currentPage){
+	$("#resultpage > ul").empty();
+	let text = '<li><a href="#1" class="prev ' + ( !page.prev ? 'disabled' : '') + '"></a></li>';
+	for(var i = page.beginTab ; i <= page.endTab  ; i++ ){
+		text += '<li><a href="#1" data-flag=' + i + ' class='+ ( page.currentTab === i ? 'circleActive' : '') + '>'+i+'</a></li>';
+	}
+	text += '<li><a href="#1" class="next ' + ( !page.next ? 'disabled' : '') + '"></a></li>';
+	$("#resultpage > ul").append(text);
 }
 
 function setLocationOnMap(){
@@ -164,7 +158,7 @@ function getLocation(position){
 	longitude = position.coords.longitude || 126.534361;
 	let mapOptions = {center : new naver.maps.LatLng( latitude , longitude )};
 	map = new naver.maps.Map('searchedmap',mapOptions);
-	hospitalList(latitude , longitude);
+	hospitalList(latitude , longitude,1);
 }
 
 window.onload = () => {
@@ -194,7 +188,7 @@ document.querySelector('#resultaddress ul').addEventListener('click',(e) => {
 		let items = result.items;
 		latitude = items[0].point.y;
 		longitude = items[0].point.x;
-		hospitalList( latitude , longitude );
+		hospitalList( latitude , longitude , 1 );
 		if(items){
 			latlng = new naver.maps.LatLng(items[0].point.y, items[0].point.x); 
 			map.setCenter(latlng);
@@ -246,21 +240,18 @@ document.querySelector('#searchaddress').addEventListener('keyup', () => {
 })
 
 function hospitalList( x , y , pageNo , qd){
-	console.log('pageNo',pageNo)
 	$.ajax({
 		url: "${pageContext.request.contextPath}/map/hospitalList.json",
-		data: {qd : qd , wgs84Lat : x , wgs84Lon: y , pageNo : ((pageNo)? pageNo * 10 : 0) },
+		data: {qd : qd , wgs84Lat : x , wgs84Lon: y , pageNo : pageNo },
 		dataType:'json'
 	})
 	.done( result => {
 		$("#resultlist").empty();
-		console.log('result  ',result)
-		if(!result[0]) return;
-		$('#count').text(result[0].count);
-		console.log('병원 리스트 ',pageNo);
-		setPageNo(result[0].count, pageNo);
+		if(!result) return;
+		$('#count').text(result.page.count);
+		setPageNo(result.page, pageNo);
 		markers.filter((item,index) => index !== 0).map( item => item.setMap(null) );
-		result.map( item => {
+		result.list.map( item => {
 			let latlng = new naver.maps.LatLng(item.wgs84Lat, item.wgs84Lon); 
 			let marker = new naver.maps.Marker({
 			    position: latlng,
