@@ -25,7 +25,7 @@
 
 <div id="monthStat">
 <br><h3>월간 예약자 정보</h3>
-<h4>　<span>성별</span> <span id="ageCanvasTitle">연령대</span> </h4>
+<h4>　<span id="sexCanvasTitle">성별</span> <span id="ageCanvasTitle">연령대</span> </h4>
 <canvas id="sexPieCanvas"></canvas>
 <canvas id="agePieCanvas"></canvas>
 
@@ -139,8 +139,8 @@ var options = {
 	    	xAxes : [
 	            {
 	                ticks: {
-	                    beginAtZero: false,
-	                    stepSize: 1
+	                    beginAtZero: true,
+	                    stepSize: 10
 	                }
 	            }
 	    	]

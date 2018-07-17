@@ -14,7 +14,7 @@ width: 55%;
 float: left;
 }
 #weekStat {
-margin-top: 30px;
+margin-top: 12px;
 }
 #barCanvas {
 float: left;
@@ -32,8 +32,11 @@ width: 50%;
 #monthStat {
 	margin-top: 270px;
 }
+#sexCanvasTitle {
+	margin-left:200px;
+}
 #ageCanvasTitle {
-	margin-left:550px;
+	margin-left:425px;
 }
 h2 {
 	color: #529dbc;
