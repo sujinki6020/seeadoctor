@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:websocket="http://www.springframework.org/schema/websocket"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans   
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context   
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/websocket   
+    http://www.springframework.org/schema/websocket/spring-websocket-4.1.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	<!--  
+		 xmlns:websocket="http://www.springframework.org/schema/websocket"
+		 
+		  http://www.springframework.org/schema/websocket   
+    	http://www.springframework.org/schema/websocket/spring-websocket-4.1.xsd
+    	을 추가 하면 된다.
+	-->
+		<!-- 
+		패스는 컨트롤러와 같은 개념 , 웹 소켓을 열때 사용할 url을 주는 것 
+		핸들러는 빈의 아이디를 넣는다. 그래서 컴포넌트를 만들어야한다.
+		-->
+	
+	
+	<websocket:handlers>
+		<websocket:mapping path="/test01.do" handler="test01"/>
+		<websocket:mapping path="/test02.do" handler="test02"/>
+		<websocket:mapping path="/test03.do" handler="test03"/>
+		<websocket:handshake-interceptors>
+			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+		</websocket:handshake-interceptors>
+	</websocket:handlers>
+
+	<bean class="org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean">
+		<property value="8192" name="maxTextMessageBufferSize"/>
+		<property value="819200" name="maxBinaryMessageBufferSize"/>
+	</bean>
+	
+	<!-- 웹소켓 객체가 사용자가 로그인 정보를 꺼낼수 있도록 세센을 꺼내 올수  있게 해준다.
+		사용자의 로그인정보가 필요하다거면 이게 필요하다 사용자의 세션정보를 
+	 -->
+	
+	<!-- 웹소켓과 관련된 빈 클래스이다.
+		사용자의 전송하는 메세지 사이즈를 정하는 것
+		사용자의 전송하는 이미지 사이즈를 정하는 것 
+		기본 8191 에러가 가는데 에러메세지가 안나온다.
+		사용자의 데이터 사이즈를 정하는 것이다.
+		
+	 -->
+	
+</beans>
