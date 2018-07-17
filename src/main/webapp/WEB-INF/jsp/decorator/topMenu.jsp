@@ -35,8 +35,16 @@
             		<li><a href="${pageContext.request.contextPath}/reservation/reservationList.do">내 접수현황</a></li>
             	</c:otherwise>
             </c:choose>
+
+            <c:choose>
+             	<c:when test="${sessionScope.user.admin eq 'Y'.charAt(0)}">
+            		<li><a href="${pageContext.request.contextPath}/admin/chat/chatBoard.do">1:1 채팅방</a></li>
+            	</c:when>
+            	<c:otherwise>
+		            <li><a href="${pageContext.request.contextPath}/mypage/myInfo.do">마이페이지</a></li>
+            	</c:otherwise>
+            </c:choose>
             
-            <li><a href="${pageContext.request.contextPath}/mypage/myInfo.do">마이페이지</a></li>
         </ul>
         
     </nav>
