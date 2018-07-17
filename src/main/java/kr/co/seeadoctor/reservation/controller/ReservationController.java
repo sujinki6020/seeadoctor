@@ -79,5 +79,13 @@ public class ReservationController {
 		
 		return "reservation/reservationList";
 	}
+	
+	@RequestMapping("/cancle.json")
+	@ResponseBody
+	public void cancle(int reserveSeq) {
+		
+		service.cancleReservation(reserveSeq);
+		
+	}
 
 }

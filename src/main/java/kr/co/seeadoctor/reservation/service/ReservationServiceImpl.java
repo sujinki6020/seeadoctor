@@ -122,6 +122,12 @@ public class ReservationServiceImpl implements ReservationService {
 		
 	}
 
+	@Override
+	public void cancleReservation(int reserveSeq) {
+		mapper.updateReservationCancle(reserveSeq);
+		
+	}
+
 
 
 }

@@ -134,6 +134,12 @@
 	   set reserve_status = 4
 	 where reserve_seq = #{reserveSeq}
 	</update>
+	
+	<update id="updateReservationCancle" parameterType="int">
+		update tb_reservation
+	       set reserve_status = 2
+     	 where reserve_seq = #{reserveSeq}
+	</update>
 </mapper>
 
 

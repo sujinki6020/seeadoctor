@@ -29,4 +29,6 @@ public interface ReservationMapper {
 
 	void updateCloseTime(Map<String, Object> closeMap);
 
+	void updateReservationCancle(int reserveSeq);
+
 }

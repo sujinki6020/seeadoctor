@@ -113,10 +113,10 @@ function lastPostFunc(name, val) {
 						appendData += '<div class="stateIcon state'+list[i].reserveStatus+'">'+status+'</div>';
 						appendData += '<span>　'+hour+':'+min+' | '+'병원코드'+list[i].hospitalSeq+' | '+'의사코드'+list[i].docCode+'</span>';
 						if(list[i].reserveStatus==1) {
-						appendData += '<button class="stateBnts">예약취소</button>';
+						appendData += '<button type="button" class="stateBnts" onclick="cancle('+list[i].reserveSeq+')">예약취소</button>';
 						}
 						if(list[i].reserveStatus==4 && list[i].reviewStatus=='f') {
-						appendData += '<button class="stateBnts">리뷰작성</button>';
+						appendData += '<button type="button" class="stateBnts">리뷰작성</button>';
 						}
 						appendData += '</div>';
 				};
@@ -124,7 +124,7 @@ function lastPostFunc(name, val) {
 						setTimeout(function () {
 							$("#loadingImg").remove();
 							$("#reservList").append(appendData);
-						},900);
+						},700);
 
 			
 			start += 7;
@@ -152,6 +152,27 @@ function selectCategory(name, val) {
 	start = 0;
 	end = 7;
 	lastPostFunc(name, val);
+}
+
+function cancle(reserveSeq) {
+	
+	if (confirm("예약을 취소하시겠습니까?") == true){    //확인
+	}else{   //취소
+	    return;
+	}
+
+	
+	$.ajax({
+		type: "POST",
+		url: "/seeadoctor/reservation/cancle.json",
+		data: {
+			reserveSeq: reserveSeq
+		},
+		success: function () {
+			alert("예약이 취소되었습니다. 감사합니다.");
+			location.reload();
+		}
+	});
 }
 
 
