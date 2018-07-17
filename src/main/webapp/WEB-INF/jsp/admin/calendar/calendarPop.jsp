@@ -17,35 +17,23 @@
 		<h2><font color="#529dbc">접수현황</font></h2><h3> | ${dateStr}
 		<a href="timeManagement.do?dateStr=${dateStr}" onclick="window.open(this.href, '팝업시간관리', 'width=650, height=500'); return false;"><button id="timeManageBnt">예약가능 시간 설정</button></a></h3>
 	</div>
-	
-	<div id="popList">
-		<div class="listBox">
-			<p class="detailInfo"><font size="3px"><strong>10:00 기수진원장 　 </strong></font> 김기영 1993.01.24(여) | 010-1234-5678　
-			<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
-			</p>
-			<div class="listBtns">
-				<p id="off">미방문</p>
-					<label class="switch">
-					  <input type="checkbox">
-					  <span class="slider round"></span>
-					</label>
-				<p id="on" style="display:none;">진료완료</p>
-			</div>
-			<p class="detailBox">└ 배아프고 열이 나면 어떡할까요?</p>
-		</div>
-		<div class="listBox">
-			<p class="detailInfo"><font size="3px"><strong>11:30 성중원원장 　</strong></font> 김기영 1993.01.24(여) | 010-1234-5781　
-			<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
-			</p>
-			<div class="listBtns">
-			<div id="cancleReserv">취소된 예약</div>
-			</div>
-			<p class="detailBox">└ 배아프고 열이 나면 어떡할까요?</p>
-		</div>
+
 
 		<c:forEach var="reservation" items="${reserveList}">
 			<div class="listBox">
-				<p class="detailInfo"><font size="3px"><strong>${reservation.reserveTime} ${reservation.docCode} 　</strong></font> ${reservation.userSeq} 1993.01.24(여) | 010-1234-5781　
+			
+				<c:choose>
+				<c:when test="${reservation.user.gender eq 'F'.charAt(0)}">
+				<c:set var="gender" value="여"/>
+				</c:when>
+				<c:otherwise>
+				<c:set var="gender" value="남"/>
+				</c:otherwise>
+				</c:choose>
+				
+				<c:set var="time" value="${reservation.reserveTime.substring(0,2)}:${reservation.reserveTime.substring(2)}" />
+			
+				<p class="detailInfo"><font size="3px"><strong>${time} ${reservation.docCode} 　</strong></font> ${reservation.user.name} ${reservation.user.birth}(${gender}) | ${reservation.user.phone}　
 				<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
 				</p>
 				<div class="listBtns">
@@ -80,7 +68,14 @@
 
 	</div>
 	
+</div>
+
+
+
+
+
 	<script>
+	
 	$(".messageImg").click(function () {
 		var message = $(this).parent().next().next();
 		if(message.css("display") == "none"){
@@ -107,13 +102,12 @@
 				  reserveSeq : $(this).prev().val()
 			  },
 			  sucess: function () {
-				
+				alert("정상적으로 완료처리 되었습니다.");
 		   	}
 		  });
 		}
 	});
 	</script>
 
-</div>
 </body>
 </html>

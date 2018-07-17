@@ -2,10 +2,12 @@ package kr.co.seeadoctor.admin.calendar.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,6 +65,8 @@ public class CalendarController {
 		Reservation reservation = new Reservation();
 		reservation.setHospitalSeq(user.getHospitalSeq());
 		
+		System.out.println(reservation.getDocCode());
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = sdf.parse(dateStr);
 		reservation.setReserveDate(date);
@@ -86,28 +90,26 @@ public class CalendarController {
 		
 	}
 	
-/*
+	
+	
 	@RequestMapping("/closeTime.json")
 	@ResponseBody
-	public void closeTime(ArrayList<String> closeArr, int docCode, String dateStr) throws ParseException {
-		
-		int hospCode = 1;
-		
-		System.out.println(docCode);
-		System.out.println(dateStr);
-		
+	public void closeTime(ArrayList<String> closeArr, ReservationTime reserveTime, String dateStr) throws ParseException {
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = sdf.parse(dateStr);
+		reserveTime.setDate(date);
 		
-		for(int i=0; i<closeArr.size(); i++) {
-			System.out.println(closeArr.get(i));
-		}
+		Map<String,Object> closeMap = new HashMap<String, Object>();
+		closeMap.put("reserveTime", reserveTime);
+		closeMap.put("closeArr", closeArr);
 		
-		ReserveService.updateCloseTime();
-		
+		service.updateCloseTime(closeMap);
 		
 	}
-*/
+	
+	
+	
 	
 	@RequestMapping("/updateReserveStatus.json")
 	public void updateReserveStatus(int reserveSeq) {

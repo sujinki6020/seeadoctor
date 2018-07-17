@@ -1,6 +1,8 @@
 package kr.co.seeadoctor.admin.calendar.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import kr.co.seeadoctor.repository.vo.CalendarInfo;
 import kr.co.seeadoctor.repository.vo.Reservation;
@@ -15,4 +17,6 @@ public interface CalendarService {
 	List<Reservation> selectReservationPop(Reservation reservation);
 
 	void updateReserveStatus(int reserveSeq);
+
+	void updateCloseTime(Map<String, Object> closeMap);
 }

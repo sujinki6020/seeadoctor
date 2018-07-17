@@ -1,8 +1,10 @@
 package kr.co.seeadoctor.admin.calendar.service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,6 +70,11 @@ public class CalendarServiceImpl implements CalendarService {
 	@Override
 	public void updateReserveStatus(int reserveSeq) {
 		mapper.updateReserveStatusFinish(reserveSeq);
+	}
+
+	@Override
+	public void updateCloseTime(Map<String, Object> closeMap) {
+		mapper.updateCloseTime(closeMap);
 	}
 
 }

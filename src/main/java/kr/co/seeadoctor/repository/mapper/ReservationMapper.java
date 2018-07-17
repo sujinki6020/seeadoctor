@@ -1,6 +1,7 @@
 package kr.co.seeadoctor.repository.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.seeadoctor.repository.vo.Reservation;
 import kr.co.seeadoctor.repository.vo.ReservationTime;
@@ -25,5 +26,7 @@ public interface ReservationMapper {
 	List<Reservation> selectRervationByUserSeq(int userSeq);
 
 	void updateReserveStatusFinish(int reserveSeq);
+
+	void updateCloseTime(Map<String, Object> closeMap);
 
 }

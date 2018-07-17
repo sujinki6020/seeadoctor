@@ -40,6 +40,9 @@ $(document).on("click", ".timeBnt", function () {
 });
 
 function timeList() {
+	console.log($(".activeDoc").attr("id"));
+	
+	
 	console.log(new Date("${dateStr}"));
 	var datetime = new Date("${dateStr}");
 $.ajax({
@@ -47,7 +50,7 @@ $.ajax({
 	url : "/seeadoctor/admin/calendar/timeList.json",
 	data : {
 		hospitalSeq : "${reservation.hospitalSeq}",
-		docCode : "${reservation.docCode}",
+		docCode : $(".activeDoc").attr("id"),
 		dateStr : "${dateStr}"
 	},
 	success : function (data) {
@@ -100,8 +103,9 @@ $.ajaxSettings.traditional = true;
 		type : "POST",
 		url : "/seeadoctor/admin/calendar/closeTime.json",
 		data : {
-			"closeArr" : closeArr,
+			"hospitalSeq" : "${reservation.hospitalSeq}",
 			"docCode" : $(".activeDoc").attr("id"),
+			"closeArr" : closeArr,
 			"dateStr" : "${dateStr}"
 		},
 		success : function (result) {
