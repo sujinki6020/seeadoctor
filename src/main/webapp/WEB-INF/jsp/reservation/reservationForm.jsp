@@ -16,7 +16,7 @@
 <div class="viewWrap">
 <div id="reservTitleArea">
 	<h2><img id="formTitleImg" src="${pageContext.request.contextPath}/images/reservation/appointment.png" /> 
-	예약 접수하기 <font color="#529dbc">| 비트병원</font></h2>
+	예약 접수하기 <font color="#529dbc">| ${docList[0].hospital.dutyName}</font></h2>
 </div>
 <div id="patientInfo">
 <hr>
@@ -53,11 +53,13 @@
 <div class="select">
 <h2><img src="${pageContext.request.contextPath}/images/reservation/doctor.png" /> 진료실 선택</h2>
 <div id="radioArea">
- 	<input type="radio" id="r1" name="docCode" value="1001" checked="checked" />
-    <label for="r1"><span></span><font size="4px"><strong>성중원 원장</strong></font> (소아청소년과)</label>
-    <p>
-    <input type="radio" id="r2" name="docCode" value="1002" />
-    <label for="r2"><span></span><font size="4px"><strong>기수진 원장</strong></font> (흉부외과)</label>
+
+<c:forEach items="${docList}" var="doc">
+ 	<input type="radio" id="${doc.doctorSeq}" name="docCode" value="${doc.doctorSeq}" checked="checked" />
+    <label for="${doc.doctorSeq}"><span></span><font size="4px"><strong>${doc.doctorName} 원장</strong></font> (${doc.majorCode.majorName})</label><br>
+</c:forEach>
+    
+    
 </div>
 </div>
 
@@ -125,7 +127,7 @@ function dayOfTheWeek(value) {
 		type : "POST",
 		url : "/seeadoctor/reservation/timeList.json",
         data: {
-        	hospitalSeq: "${hospitalSeq}",
+        	hospitalSeq: $("input[name='hospitalSeq']").val(),
         	docCode: $("input[name='docCode']").val(),
 //         	date: new Date($("input[name='date']").val()),
 			date: $("input[name='date']").val(),

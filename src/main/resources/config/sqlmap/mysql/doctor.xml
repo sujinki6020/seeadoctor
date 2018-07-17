@@ -8,18 +8,57 @@
 		<result column="doctor_name" property="doctorName" />
 		<result column="major_seq" property="majorSeq" />
 		<collection property="majorCode" resultMap="majorCodeMap"/>
+		<collection property="hospital" resultMap="hospitalMap"/>
 	</resultMap>
 	<resultMap id="majorCodeMap" type="majorCode">
 		<result column="major_seq" property="majorSeq" />
 		<result column="major_name" property="majorName" />
 	</resultMap>
+		<resultMap id="hospitalMap" type="hospital">
+		<result column="hospital_seq" property="hospitalSeq"/>
+		<result column="qd" property="qd"/>
+		<result column="rnum" property="rnum"/>
+		<result column="dutyAddr" property="dutyAddr"/>
+		<result column="dutyDiv" property="dutyDiv"/>
+		<result column="dutyDivNam" property="dutyDivNam"/>
+		<result column="dutyEmcls" property="dutyEmcls"/>
+		<result column="dutyEmclsName" property="dutyEmclsName"/>
+		<result column="dutyEryn" property="dutyEryn"/>
+		<result column="dutyEtc" property="dutyEtc"/>
+		<result column="dutyMapimg" property="dutyMapimg"/>
+		<result column="dutyName" property="dutyName"/>
+		<result column="dutyTel1" property="dutyTel1"/>
+		<result column="dutyTel3" property="dutyTel3"/>
+		<result column="dutyTime1c" property="dutyTime1c"/>
+		<result column="dutyTime2c" property="dutyTime2c"/>
+		<result column="dutyTime3c" property="dutyTime3c"/>
+		<result column="dutyTime4c" property="dutyTime4c"/>
+		<result column="dutyTime5c" property="dutyTime5c"/>
+		<result column="dutyTime6c" property="dutyTime6c"/>
+		<result column="dutyTime7c" property="dutyTime7c"/>
+		<result column="dutyTime8c" property="dutyTime8c"/>
+		<result column="dutyTime1s" property="dutyTime1s"/>
+		<result column="dutyTime2s" property="dutyTime2s"/>
+		<result column="dutyTime3s" property="dutyTime3s"/>
+		<result column="dutyTime4s" property="dutyTime4s"/>
+		<result column="dutyTime5s" property="dutyTime5s"/>
+		<result column="dutyTime6s" property="dutyTime6s"/>
+		<result column="dutyTime7s" property="dutyTime7s"/>
+		<result column="dutyTime8s" property="dutyTime8s"/>
+		<result column="hpid" property="hpid"/>
+		<result column="postCdn1" property="postCdn1"/>
+		<result column="postCdn2" property="postCdn2"/>
+		<result column="wgs84Lon" property="wgs84Lon"/>
+		<result column="wgs84Lat" property="wgs84Lat"/>
+		<result column="dutyInf" property="dutyInf"/>
+	</resultMap>
 	
 	<select id="selectDoctorByHospSeq" parameterType="int" resultMap="doctorMap">
-	select *
-	  from tb_doctor d
-	  join tb_major_code c
-	    on d.major_seq = c.major_seq
-	 where d.hospital_seq = #{hospitalSeq}
+	 	select  d.*, c.*, h.dutyName
+	  	  from tb_doctor d, tb_major_code c, tb_hospital_gangnam h
+         where d.major_seq = c.major_seq
+           and d.hospital_seq = h.hospital_seq
+	       and d.hospital_seq = #{hospitalSeq};
 	</select>
 	
 </mapper>

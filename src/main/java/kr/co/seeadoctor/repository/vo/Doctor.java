@@ -15,10 +15,19 @@ public class Doctor {
 	    private String majorSeq;
 	    
 	    private MajorCode majorCode;
+	    private Hospital hospital;
 	    
 	    
 
-	    public MajorCode getMajorCode() {
+	    public Hospital getHospital() {
+			return hospital;
+		}
+
+		public void setHospital(Hospital hospital) {
+			this.hospital = hospital;
+		}
+
+		public MajorCode getMajorCode() {
 			return majorCode;
 		}
 

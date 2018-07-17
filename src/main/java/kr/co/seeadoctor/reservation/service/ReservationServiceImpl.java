@@ -59,33 +59,48 @@ public class ReservationServiceImpl implements ReservationService {
 			case 1 : 
 				startTime = hosp.getDutyTime1s();
 				closeTime = hosp.getDutyTime1c();
+				if(startTime==null) startTime = "0000";
+				if(closeTime==null) closeTime = "0000";
 				break;
 			case 2 : 
 				startTime = hosp.getDutyTime2s();
 				closeTime = hosp.getDutyTime2c();
+				if(startTime==null) startTime = "0000";
+				if(closeTime==null) closeTime = "0000";
 				break;
 			case 3 : 
 				startTime = hosp.getDutyTime3s();
 				closeTime = hosp.getDutyTime3c();
+				if(startTime==null) startTime = "0000";
+				if(closeTime==null) closeTime = "0000";
 				break;
 			case 4 : 
 				startTime = hosp.getDutyTime4s();
 				closeTime = hosp.getDutyTime4c();
+				if(startTime==null) startTime = "0000";
+				if(closeTime==null) closeTime = "0000";
 				break;
 			case 5 : 
 				startTime = hosp.getDutyTime5s();
 				closeTime = hosp.getDutyTime5c();
+				if(startTime==null) startTime = "0000";
+				if(closeTime==null) closeTime = "0000";
 				break;
 			case 6 : 
 				startTime = hosp.getDutyTime6s();
 				closeTime = hosp.getDutyTime6c();
+				if(startTime==null) startTime = "0000";
+				if(closeTime==null) closeTime = "0000";
 				break;
 			case 7 : 
 				startTime = hosp.getDutyTime7s();
 				closeTime = hosp.getDutyTime7c();
+				if(startTime==null) startTime = "0000";
+				if(closeTime==null) closeTime = "0000";
 				break;
 			
 			}
+			
 
 			//만약 시간이 00,30단위가 아니라면
 			if(Integer.parseInt(startTime.substring(2)) < 30) {

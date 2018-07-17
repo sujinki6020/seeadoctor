@@ -33,10 +33,32 @@ public class Reservation {
 	    private String reviewStatus;
 	    
 	    private User user;
+	    private Doctor doctor;
 	    
 	    
 
-	    public User getUser() {
+	  
+
+	
+
+		public Doctor getDoctor() {
+			return doctor;
+		}
+
+		public void setDoctor(Doctor doctor) {
+			this.doctor = doctor;
+		}
+
+		public Integer getDoctorSeq() {
+			return doctorSeq;
+		}
+
+		public void setDoctorSeq(Integer doctorSeq) {
+			this.doctorSeq = doctorSeq;
+		}
+
+
+		public User getUser() {
 			return user;
 		}
 
@@ -68,13 +90,6 @@ public class Reservation {
 	        this.hospitalSeq = hospitalSeq;
 	    }
 
-	    public Integer getdoctorSeq() {
-	        return doctorSeq;
-	    }
-
-	    public void setdoctorSeq(Integer doctorSeq) {
-	        this.doctorSeq = doctorSeq;
-	    }
 
 	    public Date getReserveDate() {
 	        return reserveDate;

@@ -3,7 +3,7 @@ CREATE TABLE tb_reservation
     `reserve_seq`     INT           NOT NULL    AUTO_INCREMENT COMMENT '예약시퀀스', 
     `user_seq`        INT           NOT NULL    COMMENT '유저시퀀스', 
     `hospital_seq`       INT(10)           NOT NULL    COMMENT '병원코드', 
-    `doc_code`        INT           NOT NULL    COMMENT '의사코드', 
+    `doctor_seq`        INT           NOT NULL    COMMENT '의사코드', 
     `reserve_date`    DATE          NOT NULL    COMMENT '날짜', 
     `reserve_time`    VARCHAR(4)      NOT NULL    COMMENT '시간', 
     `symptom`         VARCHAR(600)       NOT NULL    COMMENT '증상', 
@@ -20,7 +20,7 @@ CREATE TABLE tb_reservation_time
 (
     `time_seq`        INT           NOT NULL    AUTO_INCREMENT COMMENT '타임시퀀스', 
     `hospital_seq`       INT(10)           NOT NULL    COMMENT '병원코드', 
-    `doc_code`        INT           NOT NULL    COMMENT '의사코드', 
+    `doctor_seq`        INT           NOT NULL    COMMENT '의사코드', 
     `date`            DATE          NOT NULL    COMMENT '날짜', 
     `time`            VARCHAR(4)    NOT NULL    COMMENT '시간', 
     `booked_status`   VARCHAR(1)    default 'f'    COMMENT '예약상태', 
