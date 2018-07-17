@@ -13,16 +13,24 @@
 <div class="viewWrap">
 
 <div id="resultTitle">
-<h2 id="searchKey"><img src="${pageContext.request.contextPath}/images/admin/search/search.png" /> <font color="#529dbc">김기영</font></h2><strong> 검색결과</strong>(3건)
+<h2 id="searchKey"><img src="${pageContext.request.contextPath}/images/admin/search/search.png" />${userList[0].name}<font color="#529dbc"></font></h2><strong> 검색결과</strong>(${userList.size()}건)
 </div>
 
 <div id="resultList">
 <ol>
 <c:forEach items="${userList}" var="user">
-<li class="resultIndex">${user.name}　/　${user.birth}(${user.gender})　/　${user.phone}<a class="detailBnt" href="<c:url value='/admin/search/nameDetail.do?userSeq=${user.userSeq}'/>">조회</a></li>
+
+	<c:choose>
+	<c:when test="${user.gender eq 'F'.charAt(0)}">
+	<c:set var="gender" value="여"/>
+	</c:when>
+	<c:otherwise>
+	<c:set var="gender" value="남"/>
+	</c:otherwise>
+	</c:choose>
+
+<li class="resultIndex">${user.name}　/　${user.birth}(${gender})　/　${user.phone}<a class="detailBnt" href="<c:url value='/admin/search/nameDetail.do?userSeq=${user.userSeq}'/>">조회</a></li>
 </c:forEach>
-<li class="resultIndex">김기영　/　1967.06.21(남)　/　010-3534-5785<a class="detailBnt" href="<c:url value='/search/nameDetail.do'/>">조회</a></li>
-<li class="resultIndex">김기영　/　2000.08.11(여)　/　010-3454-5555<a class="detailBnt" href="<c:url value='/search/nameDetail.do'/>">조회</a></li>
 </ol>
 </div>
 

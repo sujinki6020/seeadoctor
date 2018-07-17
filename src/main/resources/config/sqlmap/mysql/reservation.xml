@@ -12,6 +12,7 @@
 		<result column="symptom" property="symptom" />
 		<result column="reserve_status" property="reserveStatus" />
 		<result column="review_status" property="reviewStatus" />
+		<collection property="user" resultMap="userMap"/>
 	</resultMap>
 	<resultMap id="reservationTimeMap" type="reservationTime">
 		<result column="time_seq" property="timeSeq" />
@@ -21,6 +22,23 @@
 		<result column="time" property="time" />
 		<result column="booked_status" property="bookedStatus" />
 		<result column="blocked_status" property="blockedStatus" />
+	</resultMap>
+		<resultMap id="userMap" type="user">
+		<result column="user_seq" property="userSeq" />
+		<result column="id" property="id" />
+		<result column="pw" property="pw" />
+		<result column="name" property="name" />
+		<result column="gender" property="gender" />
+		<result column="birth" property="birth" />
+		<result column="email" property="email" />
+		<result column="phone" property="phone" />
+		<result column="tel" property="tel" />
+		<result column="hosp_name" property="hospName" />
+		<result column="addr1" property="addr1" />
+		<result column="addr2" property="addr2" />
+		<result column="admin" property="admin" />
+		<result column="zip" property="zip" />
+		<result column="hospital_seq" property="hospitalSeq" />
 	</resultMap>
 
 	<insert id="insertReservation" parameterType="reservation">
@@ -75,10 +93,12 @@
 
 	<select id="selectReservationPop" parameterType="reservation" resultMap="reservationMap">
 		select *
-		  from tb_reservation
-		 where hospital_seq = #{hospitalSeq}
-		   and reserve_date = #{reserveDate}
-		 order by cast(reserve_time as unsigned) asc
+		  from tb_reservation r
+		  join tb_user u
+		    on r.user_seq = u.user_seq
+		 where r.hospital_seq = #{hospitalSeq}
+		   and r.reserve_date = #{reserveDate}
+		 order by cast(r.reserve_time as unsigned) asc
 	</select>
 	
 	<select id="selectTimeList" parameterType="reservationTime" resultMap="reservationTimeMap">
@@ -93,9 +113,12 @@
 	<update id="updateCloseTime" parameterType="hashmap">
 	 update tb_reservation_time
 	    set blocked_status = "t"
-	 where time in 
-		 <foreach collection="closeArr" item="closeTime" index="index"  open="(" close=")" separator=",">
-            #{closeTime[index]}
+	  where hospital_seq = #{reserveTime.hospitalSeq}
+	    and doc_code = #{reserveTime.docCode}
+	    and date = #{reserveTime.date}
+	    and time in
+		<foreach collection="closeArr" item="closeTime" index="index"  open="(" close=")" separator=",">
+            #{closeTime}
         </foreach>
 	</update>
 	

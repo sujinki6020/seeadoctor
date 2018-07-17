@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,15 +11,20 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin/search/nameDetail.css">
 </head>
 <body>
-<script type="text/javascript">
-console.log("${reserveHistory.reserveList}");
-console.log("${reserveHistory.userInfo}");
-</script>
 
 <div class="viewWrap">
 
+	<c:choose>
+	<c:when test="${reserveHistory.userInfo.gender eq 'F'.charAt(0)}">
+	<c:set var="gender" value="여"/>
+	</c:when>
+	<c:otherwise>
+	<c:set var="gender" value="남"/>
+	</c:otherwise>
+	</c:choose>
+
 	<div id="detailTitle">
-		<h2><font color="#529dbc">${reserveHistory.userInfo.name}</font></h2><h3>　${reserveHistory.userInfo.birth}(${reserveHistory.userInfo.gender})　/　${reserveHistory.userInfo.phone}</h3>
+		<h2><font color="#529dbc">${reserveHistory.userInfo.name}</font></h2><h3>　${reserveHistory.userInfo.birth}(${gender})　/　${reserveHistory.userInfo.phone}</h3>
 	</div>
 	
 	<div id="privacyLaw">
@@ -30,31 +36,39 @@ console.log("${reserveHistory.userInfo}");
 
 	<div id="detailList">
 	
-		<div class="listBox">
-			<p class="detailInfo"><font size="3px"><strong>2018.07.06</strong>　10:00 기수진원장 　 </font>
-			<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
-			</p>
-			<div class="listBtns"><p id="off">미방문</p>
-				<label class="switch">
-				  <input type="checkbox">
-				  <span class="slider round"></span>
-				</label>
-				<p id="on" style="display:none;">진료완료</p>
-			</div>
-			<p class="detailBox">└ 배아프고 열이 나면 어떡할까요?</p>
-		</div>
-	
 <c:forEach var="reservation" items="${reserveHistory.reserveList}">	
 		<div class="listBox">
-			<p class="detailInfo"><font size="3px"><strong>${reservation.reserveDate}</strong>　${reservation.reserveTime} ${reservation.docCode} 　 </font>
+			<c:set var="time" value="${reservation.reserveTime.substring(0,2)}:${reservation.reserveTime.substring(2)}" />
+			<fmt:formatDate value="${reservation.reserveDate}" var="date" pattern="yyyy.MM.dd"/>
+			<p class="detailInfo"><font size="3px"><strong>${date}</strong>　${time} ${reservation.docCode} 　 </font>
 			<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
 			</p>
-			<div class="listBtns"><p id="off">미방문</p>
-				<label class="switch">
-				  <input type="checkbox">
-				  <span class="slider round"></span>
-				</label>
-				<p id="on" style="display:none;">진료완료</p>
+			<div class="listBtns">
+			
+			<c:choose>
+				<c:when test="${reservation.reserveStatus==2}">
+					<div id="cancleReserv">취소된 예약</div>
+				</c:when>
+				<c:when test="${reservation.reserveStatus==4}">
+					<p id="off" style="display:none;">미방문</p>
+						<label class="switch">
+						  <input type="checkbox" checked="checked">
+						  <span class="slider round"></span>
+						</label>
+					<p id="on">진료완료</p>
+				</c:when>
+				<c:otherwise>
+					<p id="off">미방문</p>
+						<label class="switch">
+						  <input type="hidden" value="${reservation.reserveSeq}">
+						  <input type="checkbox">
+						  <span class="slider round"></span>
+						</label>
+					<p id="on" style="display:none;">진료완료</p>
+				</c:otherwise>
+				</c:choose>
+				
+				
 			</div>
 			<p class="detailBox">└ 배아프고 열이 나면 어떡할까요?</p>
 		</div>
@@ -63,10 +77,6 @@ console.log("${reserveHistory.userInfo}");
 
 	</div>
 </div>
-
-
-
-
 
 	<script>
 	$(".messageImg").click(function () {
@@ -87,6 +97,17 @@ console.log("${reserveHistory.userInfo}");
 		}else {
 		  $(this).parent().next().toggle();
 		  $(this).parent().prev().toggle();
+		  /* 상태 업데이트 ajax하기 */
+		  $.ajax({
+			  type: "POST",
+			  url: "/seeadoctor/admin/calendar/updateReserveStatus.json",
+			  data: {
+				  reserveSeq : $(this).prev().val()
+			  },
+			  sucess: function () {
+				alert("정상적으로 완료처리 되었습니다.");
+		   	}
+		  });
 		}
 	});
 	</script>
