@@ -103,10 +103,10 @@ $.ajaxSettings.traditional = true;
 		type : "POST",
 		url : "/seeadoctor/admin/calendar/closeTime.json",
 		data : {
-			"hospitalSeq" : "${reservation.hospitalSeq}",
-			"docCode" : $(".activeDoc").attr("id"),
-			"closeArr" : closeArr,
-			"dateStr" : "${dateStr}"
+			hospitalSeq : "${reservation.hospitalSeq}",
+			docCode : $(".activeDoc").attr("id"),
+			closeArr : closeArr,
+			dateStr : "${dateStr}"
 		},
 		success : function (result) {
 			alert("시간설정이 정상적으로 완료되었습니다.");

@@ -65,8 +65,6 @@ public class CalendarController {
 		Reservation reservation = new Reservation();
 		reservation.setHospitalSeq(user.getHospitalSeq());
 		
-		System.out.println(reservation.getDocCode());
-		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = sdf.parse(dateStr);
 		reservation.setReserveDate(date);
@@ -94,7 +92,7 @@ public class CalendarController {
 	
 	@RequestMapping("/closeTime.json")
 	@ResponseBody
-	public void closeTime(ArrayList<String> closeArr, ReservationTime reserveTime, String dateStr) throws ParseException {
+	public void closeTime(ReservationTime reserveTime, String dateStr, String[] closeArr) throws ParseException {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = sdf.parse(dateStr);

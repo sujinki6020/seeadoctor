@@ -1,7 +1,6 @@
 package kr.co.seeadoctor.admin.calendar.service;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Map;
@@ -74,7 +73,10 @@ public class CalendarServiceImpl implements CalendarService {
 
 	@Override
 	public void updateCloseTime(Map<String, Object> closeMap) {
+		
+		mapper.updateOpenTime((ReservationTime)closeMap.get("reserveTime"));
 		mapper.updateCloseTime(closeMap);
+		
 	}
 
 }

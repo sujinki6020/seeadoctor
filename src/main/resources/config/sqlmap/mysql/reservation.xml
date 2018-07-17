@@ -57,7 +57,7 @@
 	
 	<update id="checkedBookedStatus" parameterType="int">
 	update tb_reservation_time
-	   set booked_status = "t"
+	   set booked_status = 't'
 	 where time_seq = #{timeSeq}
 	</update>
 	
@@ -110,14 +110,22 @@
 	 order by time_seq asc
 	</select>
 	
+	<update id="updateOpenTime" parameterType="reservationTime">
+	update tb_reservation_time
+	   set blocked_status = 'f'
+	 where hospital_seq = #{hospitalSeq}
+	   and doc_code = #{docCode}
+	   and date = #{date}
+	</update>
+	
 	<update id="updateCloseTime" parameterType="hashmap">
 	 update tb_reservation_time
-	    set blocked_status = "t"
+	    set blocked_status = 't'
 	  where hospital_seq = #{reserveTime.hospitalSeq}
 	    and doc_code = #{reserveTime.docCode}
 	    and date = #{reserveTime.date}
 	    and time in
-		<foreach collection="closeArr" item="closeTime" index="index"  open="(" close=")" separator=",">
+		<foreach collection="closeArr" item="closeTime" open="(" separator="," close=")">
             #{closeTime}
         </foreach>
 	</update>
