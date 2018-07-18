@@ -98,53 +98,15 @@
 
 						<ul class="small-block-grid-2 medium-block-grid-3 flip-cards">
 
+							<c:forEach var="like" items="${hList}">
 							<li ontouchstart="this.classList.toggle('hover');">
 								<div class="large button card-front">
-									<a href="#">즐겨찾기1</a> <i class="fa fa-code card-icon "></i>
+									<a href="#">${like.dutyName}</a> <i class="fa fa-code card-icon "></i>
 								</div>
-								<div class="panel card-back"><p>name ${like.name} </p> naaame</div>
+								<div class="panel card-back"><p>name</p></div>
+								<div class="panel card-back"><a href="#" onclick="chat();">관리자와 채팅하기</a></div>
 							</li>
-
-							<li ontouchstart="this.classList.toggle('hover');">
-								<div class="large button card-front">
-									<a href="#">즐겨찾기2</a> <i
-										class="fa fa-pencil-square-o card-icon"></i>
-								</div>
-
-								<div class="panel card-back"></div>
-							</li>
-
-							<li ontouchstart="this.classList.toggle('hover');">
-								<div class="large button card-front">
-									<a href="#">즐겨찾기3</a> <i class="fa fa-paper-plane-o card-icon"></i>
-								</div>
-
-								<div class="panel card-back"></div>
-							</li>
-
-							<li ontouchstart="this.classList.toggle('hover');">
-								<div class="large button card-front">
-									<a href="#">즐겨찾기4</a> <i class="fa fa-map-o card-icon"></i>
-								</div>
-
-								<div class="panel card-back"></div>
-							</li>
-
-							<li ontouchstart="this.classList.toggle('hover');">
-								<div class="large button card-front">
-									<a href="#">즐겨찾기5</a> <i class="fa fa-language card-icon"></i>
-								</div>
-
-								<div class="panel card-back"></div>
-							</li>
-
-							<li ontouchstart="this.classList.toggle('hover');">
-								<div class="large button card-front">
-									<a href="#">즐겨찾기6</a> <i class="fa fa-users card-icon"></i>
-								</div>
-
-								<div class="panel card-back"></div>
-							</li>
+							</c:forEach>
 
 						</ul>
 					</div>
@@ -217,6 +179,14 @@
 			$("#phonep").hide();
 		}
 	});
+	
+	function chat() {
+		// 팝업을 띄우기, width 300, height 400, 스크롤바, 툴바, 메뉴바를 모두 숨기는 경우
+		window.open('http://localhost:8001/seeadoctor/chat/chatWindow.do', 'popup01', 'width=400, height=500, scrollbars= 0, toolbar=0, menubar=no');
+	};
+	
+	alert('${hList}');
+
 	</script>
 </body>
 </html>
