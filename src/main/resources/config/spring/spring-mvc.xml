@@ -71,6 +71,8 @@
 			<mvc:exclude-mapping path="/join/searchHospName.do" />
 			<mvc:exclude-mapping path="/join/jusoPopup.do" />
 			<mvc:exclude-mapping path="/map/address.do" />
+			<mvc:exclude-mapping path="/header.do" />
+			<mvc:exclude-mapping path="/map/mapMain.do" />
 			<!--mvc 인터셉터 컨트롤러 빈객체 정의 -->
 			<bean class="kr.co.seeadoctor.interceptor.LoginInterceptor"></bean>
 		</mvc:interceptor>

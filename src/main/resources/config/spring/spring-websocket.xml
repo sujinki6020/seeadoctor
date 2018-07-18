@@ -25,14 +25,13 @@
 		-->
 	
 	
-	<!-- <websocket:handlers>
-		<websocket:mapping path="/test01.do" handler="test01"/>
-		<websocket:mapping path="/test02.do" handler="test02"/>
-		<websocket:mapping path="/test03.do" handler="test03"/>
+	<websocket:handlers>
+		<websocket:mapping path="/*/*.do" handler="realTime"/>
+		<websocket:mapping path="/chat.do" handler="chat"/>
 		<websocket:handshake-interceptors>
 			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
 		</websocket:handshake-interceptors>
-	</websocket:handlers> -->
+	</websocket:handlers>
 
 	<bean class="org.springframework.web.socket.server.standard.ServletServerContainerFactoryBean">
 		<property value="8192" name="maxTextMessageBufferSize"/>

@@ -3,6 +3,29 @@ let latitude;
 let longitude;
 let markers = [];
 
+(function () {
+	
+    var ws = new WebSocket('ws://localhost/seeadoctor/map/mapMain.do');
+	ws.onopen = function() {
+   	    console.log('웹소켓 서버 접속 성공');
+    };
+    // 메세지 받기
+    ws.onmessage = function(evt) {
+        //$("#result").prepend(evt.data + "<br>");
+    };
+    ws.onerror = function(evt) {
+    	console.log('웹소켓 에러')
+    	console.dir(evt);
+   	    //$("#result").prepend('웹소켓 에러 발생 : ' + evt.data)
+    };
+    ws.onclose = function(evt) {
+    	console.log('웹소켓 종료')
+    	console.dir(evt);
+   	    //$("#result").prepend("웹소켓 연결이 종료됨.");
+    };
+    
+})();
+
 function getContextPath() {
 	var hostIndex = location.href.indexOf( location.host ) + location.host.length;
 	return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
@@ -10,11 +33,6 @@ function getContextPath() {
 
 
 $('#resultpage > ul').on('click', 'li', function(){
-	console.log('찍히는중')
-	console.log($(this).parent().find('li:nth-of-type(11) > a').text() + 1);
-	console.log('latutude',latitude);
-	console.log('longitude',longitude);
-	console.log($(this).parent().find('li:nth-of-type(2) > a').text() -1);
 	if($(this).find('a').hasClass('prev')){
 		if(!$(this).find('a').hasClass('disabled')){
 			hospitalList(latitude , longitude , parseInt($(this).parent().find('li:nth-of-type(2) > a').text()) -10)
@@ -156,8 +174,6 @@ function hospitalList( x , y , pageNo , qd){
 			});
 			markers.push(marker);
 			setHospitalList( item.dutyName , item.dutyAddr);
-			console.log('seq', item.hospitalSeq);
-			console.log('name', item.dutyName);
 			var contentString = [
 		        '<div class="iw_inner">',
 		        '   <h3><a href="',
@@ -168,7 +184,6 @@ function hospitalList( x , y , pageNo , qd){
 		        '   <p>'+item.dutyAddr+'</p>',
 		        '</div>'
 		    ].join('');
-			console.log('내용',contentString)
 			infoWindow = new naver.maps.InfoWindow({
 		        content: ''
 		    });
