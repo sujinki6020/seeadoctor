@@ -122,14 +122,14 @@
     border: 1px solid #ccc;
     margin-left: 20px;
 }
+#in_out_photo{
+	height: 60px;
+	font-weight: bold;
+}
 #review_hr{
 	background: #ccc;
     width: 635px;
     margin: auto;
     height: 1px;
-}
-#in_out_photo{
-	height: 60px;
-	font-weight: bold;
 }
 

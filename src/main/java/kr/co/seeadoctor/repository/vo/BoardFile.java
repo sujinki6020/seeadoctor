@@ -8,9 +8,17 @@ public class BoardFile {
 	private String sysName;
 	private int hospCode;
 	private String oriName;
+	private int hospitalSeq;
 	
 	
 	
+	
+	public int getHospitalSeq() {
+		return hospitalSeq;
+	}
+	public void setHospitalSeq(int hospitalSeq) {
+		this.hospitalSeq = hospitalSeq;
+	}
 	public String getOriName() {
 		return oriName;
 	}

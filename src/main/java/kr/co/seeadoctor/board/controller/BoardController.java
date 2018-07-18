@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.seeadoctor.board.service.BoardService;
+import kr.co.seeadoctor.hospitalAbout.service.HospitalAboutService;
 import kr.co.seeadoctor.repository.vo.Board;
 import kr.co.seeadoctor.repository.vo.BoardFile;
 import kr.co.seeadoctor.repository.vo.Comment;
@@ -29,6 +30,9 @@ public class BoardController {
 	
 	@Autowired
 	private BoardService boardService;
+	
+	@Autowired
+	private HospitalAboutService hospService;
 	
 	//리뷰리스트
 //	@RequestMapping("/review.do")

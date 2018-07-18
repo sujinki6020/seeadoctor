@@ -19,7 +19,7 @@ public class Board extends Page {
 	private int depth;
 	private String name;
 	private MultipartFile[] files;
-	private int hospCode;
+	private int hospitalSeq;
 	
 	
 	public MultipartFile[] getFiles() {
@@ -28,11 +28,12 @@ public class Board extends Page {
 	public void setFiles(MultipartFile[] files) {
 		this.files = files;
 	}
-	public int getHospCode() {
-		return hospCode;
+	
+	public int getHospitalSeq() {
+		return hospitalSeq;
 	}
-	public void setHospCode(int hospCode) {
-		this.hospCode = hospCode;
+	public void setHospitalSeq(int hospitalSeq) {
+		this.hospitalSeq = hospitalSeq;
 	}
 	public String getName() {
 		return name;

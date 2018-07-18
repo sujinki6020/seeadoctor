@@ -8,11 +8,14 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<link rel="stylesheet" href="/seeadoctor/css/hospital/info.css">
 <link rel="stylesheet" href="/seeadoctor/css/board/review.css">
 <%-- <script src="${pageContext.request.contextPath}/js/jquery-3.3.1.min.js"></script> --%>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
 
 <style>
 
@@ -57,8 +60,8 @@ body {
 			
 			<div id="head_name_area">
 				<div id="head_name">
-					<span class="name">메디스캔의원</span>
-					<span class="category">내과</span>
+					<span class="name">${result.hospResult.dutyName}</span>
+					<span class="category">${result.hospResult.dutyDivNam}</span>
 				</div>
 			</div>	
 			
@@ -98,6 +101,39 @@ body {
 						</a>
 					</div>
 				<hr id="head_tap_hr">
+			</div>
+		</div>
+		
+		<div id="content_box">
+			<div id="content_area">
+				<div>
+					병원명
+					<span>${result.hospResult.dutyName}</span>
+				</div>
+				<div>
+					주소
+					<span>${result.hospResult.dutyAddr}</span>
+				</div>
+				<div>
+					전화번호
+					<span>${result.hospResult.dutyTel1}</span><br>
+					<span>${result.hospResult.dutyTel3}</span>
+				</div>
+				<div>
+					진료항목
+					<span>#내과#이비인후과#영상의학과#통증의학과#피부과#피부클리닉#통장클리닉</span>
+<%-- 					<span>${result.hospResult.addTreat}</span>//병원어드민이 상세정보 입력 시 가져올수있음 --%>
+				</div>
+				<div>
+<%-- 					<span style="padding: 0px;">${result.hospResult.time}</span> //차트--%>
+					<canvas id="myChart" width="700" height="300" style="display: block;height: 300px;width: 700px;margin-left: -30px;"></canvas>
+					<div id="time_help">점심시간은 통상 12시부터 1시30분까지이므로 방문시 미리 전화 주세요</div>
+				</div>
+				
+				
+			<div id="wrong_info">
+				<a href="${pageContext.request.contextPath}/hospital/wrongInfoForm.do">잘못된 정보 수정하기</a>
+			</div>
 			</div>
 		</div>
 		
@@ -243,6 +279,95 @@ body {
 	// 페이지 로딩시 목록 조회 ajax 호출
 	pageList();
 */
+var ctx = document.getElementById("myChart").getContext('2d');
+
+var myChart = new Chart(ctx, {
+    type: 'horizontalBar',
+    data: {
+        labels: ["일","월", "화", "수", "목", "금", "토"],
+        datasets: [{
+            label: '마감시간',
+            data: [24, 14, 21, 22, 23, 18, 15],
+            backgroundColor: [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 206, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+                'rgba(255, 159, 64, 0.2)'
+            ],
+            borderColor: [
+                'rgba(255,99,132,1)',
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 206, 86, 1)',
+                'rgba(75, 192, 192, 1)',
+                'rgba(153, 102, 255, 1)',
+                'rgba(255, 159, 64, 1)'
+            ],
+            borderWidth: 1
+        }]
+    },
+    options: {
+    	responsive: false,
+        scales: {
+           	xAxes: [{
+               	ticks: {
+                   	beginAtZero:false,
+                   	min:0,
+           			stepSize:1
+               	}
+           	}]
+    	}
+    }
+});
+var myCnt = ${result.myCnt};
+$("#btn_unlike").click(function(){
+	if($(this).data("flag")=="no"){
+		if(confirm("관심병원 등록 하시겠습니까?")){
+			plusStar($(this));
+		}
+	}else {
+		if(confirm("관심병원 취소 하시겠습니까?")){
+			minusStar($(this));
+		}
+	}
+})
+function plusStar(target){
+	 if(myCnt >= 6 ){
+		 alert("최대 관심병원 등록은 6개만 가능합니다.");
+		 return;
+	 }
+	 $.ajax({ //
+		url:"${pageContext.request.contextPath}/hospital/plusStar.json", //통신할url
+		data : {
+			id:'${result.hospAbout.id}',
+			hospCode:'${result.hospAbout.hospCode}',
+			name:'${result.hospAbout.name}',
+			mainTreat:'${result.hospAbout.mainTreat}'	
+		}
+	})
+	.done(function(result){
+		target.attr("src", "${pageContext.request.contextPath}/images/board/star.png");
+		target.data("flag","yes");
+	})
+}
+function minusStar(target){
+	$.ajax({ //
+		url:"${pageContext.request.contextPath}/hospital/minusStar.json", //통신할url
+		data : {
+			id:'${result.hospAbout.id}',
+			hospCode:'${result.hospAbout.hospCode}'
+		}
+	})
+	.done(function(result){
+		target.attr("src", "${pageContext.request.contextPath}/images/board/unstar.png");
+		target.data("flag","no");
+	})
+	.fail(function(result){
+		console.log(result);
+	})
+}
+
 </script>
 	
 

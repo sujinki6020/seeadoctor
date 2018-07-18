@@ -247,7 +247,6 @@ body {
 	float: right;
 }
 
->>>>>>> 16915064e8acde8a546560cace192e8b19045e39
 
 
 </style>
@@ -311,7 +310,7 @@ ${result.board.userSeq}
 			</div>
 		</div>
 		
-		<div id="content_start_box">
+		<div id="content_detail">
 			
 			<div id="content_area">
 				
@@ -325,17 +324,14 @@ ${result.board.userSeq}
 				</div>
 				
 				<div id="filearea">
-<<<<<<< HEAD
 						<c:forEach var="file" items="${result.files}">
 							<img src="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}" style="width:100%; height:100%; margin:0 auto;"/><br>
 							<button type="button" class="btn btn-default" style="margin:5px 0px 20px;"><a href="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}">다운로드</a></button><br> 
 						</c:forEach>
-=======
 					<c:forEach var="file" items="${files}">
 						<img src="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}" style="width:100%; height:100%; margin:0 auto;"/><br>
 						<button type="button" class="btn btn-default" style="margin:5px 0px 20px;"><a href="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}">다운로드</a></button><br> 
 					</c:forEach>
->>>>>>> 16915064e8acde8a546560cace192e8b19045e39
 				</div>
 				<div id="content_box">${result.board.content}</div>
 			</div>
@@ -464,12 +460,9 @@ ${result.board.userSeq}
 
 
 	//댓글등록
-<<<<<<< HEAD
 	$("#rForm").submit(function(e){
 // 		alert($("#rForm input[name='name']").val())
-=======
 	$("rForm").submit(function(e){
->>>>>>> 16915064e8acde8a546560cace192e8b19045e39
 		e.preventDefault();
 		
 		$.ajax({
@@ -477,15 +470,12 @@ ${result.board.userSeq}
 			type : "POST",
 			data : {
 				no: "${result.board.no}",
-<<<<<<< HEAD
 				content : $("#rForm textarea[name='content']").val(),
 				userSeq : $("#rForm input[name='userSeq']").val(),
-				name :$("#rForm input[name='name']").val()
-=======
+				name :$("#rForm input[name='name']").val(),
 				content : $("rForm textarea[name='content']").val(),
 	//			userSeq : $("rForm input[name='userSeq']").val(),
 				name :$("rForm input[name='name']").val()
->>>>>>> 16915064e8acde8a546560cace192e8b19045e39
 			},
 			dataType: "json"
 		}).done(function(result){

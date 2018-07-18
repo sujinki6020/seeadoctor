@@ -148,7 +148,7 @@ body {
 #review_row{
 	font-weight: bold;
 }
->>>>>>> 16915064e8acde8a546560cace192e8b19045e39
+
 
 textarea.form-control {
     height: 400px;
@@ -189,8 +189,8 @@ textarea.form-control {
 			
 			<div id="head_name_area">
 				<div id="head_name">
-					<span class="name">메디스캔의원</span>
-					<span class="category">내과</span>
+					<span class="name">${result.hospResult.dutyName}</span>
+					<span class="category">${result.hospResult.dutyDivNam}</span>
 				</div>
 			</div>	
 			
@@ -242,13 +242,13 @@ textarea.form-control {
 				
 				<div id="review_row">
 					<span id="review">리뷰쓰기</span>
-<<<<<<< HEAD
+
 					<input type="text" id="name" name="name" value="${sessionScope.user.name}">
 					<input type="hidden" name="userSeq" value="${sessionScope.user.userSeq}">
 <%-- 					<span id="name" name="name">${sessionScope.user.name}</span> --%>
-=======
+
 					<span id="nickName">${board.name}</span>
->>>>>>> 16915064e8acde8a546560cace192e8b19045e39
+
 					<hr id="review_hr">
 				</div>
 					<c:if test="${!empty board.no}">

@@ -12,19 +12,46 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=IutEeaTAqvux8P5IXvhG&submodules=geocoder"></script>
 <style>
 body { 
    font-family: 'NanumSquare', sans-serif; 
 }
+
+
+
+.table-bordered>tbody>tr>th,.table-bordered>tbody>tr>td,
+.table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, 
+.table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
+	border: 0px solid;
+	border-bottom: 1px solid #ddd;
+}
+.table>tbody>tr>td{
+	padding:10px;
+}
+.table > tbody {
+	border: 1px solid white;
+}
+.table{
+    width: 90%;
+    max-width: 100%;
+    margin-bottom: 35px;
+    margin-left: 35px;
+}
+
+textarea.form-control {
+    height: 400px;
+}
+
+
+
 </style>
 </head>
 <body>
 
 <div id="boardMain">
 
-	<div id="photo">
- 			지도  			 
-	</div>
+	<div id="map">지도</div>
 	
 	
 	<div id="main">
@@ -34,8 +61,10 @@ body {
 			
 			<div id="head_name_area">
 				<div id="head_name">
-					<span class="name">메디스캔의원</span>
-					<span class="category">내과</span>
+					<div id="head_name_s">
+						<span id="hosp_name">${result.hospResult.dutyName}</span>
+						<span class="category">${result.hospResult.dutyDivNam}</span>
+					</div>
 				</div>
 			</div>	
 			
@@ -45,7 +74,7 @@ body {
 						<img src="${pageContext.request.contextPath}/images/board/search.png" class="pull-right" id="btn_search"/><br>
 						<span>길찾기</span>
 					</a>
-					<a id="2" href="${pageContext.request.contextPath}/reservation/reservationForm.do">
+					<a id="2" href="${pageContext.request.contextPath}/reservation/reservationForm.do?hospitalSeq=${result.hospResult.hospitalSeq}">
 						<img src="${pageContext.request.contextPath}/images/board/booking.png" class="pull-right" id="btn_booking"/><br>
 						<span>예약하기</span>
 					</a>
@@ -65,13 +94,13 @@ body {
 			<div id="head_btn_tap">
 				<hr id="head_tap_hr">
 					<div id="head_taps">
-						<a href="${pageContext.request.contextPath}/hospital/info.do">
+						<a href="${pageContext.request.contextPath}/hospital/about.do?hospitalSeq=${param.hospitalSeq}">
 							<span>주요정보</span>
 						</a>	
-						<a href="${pageContext.request.contextPath}/board/photo.do">
+						<a href="#1" onclick="photo();">
 							<span>포토요약</span>
 						</a>
-						<a href="${pageContext.request.contextPath}/board/review.do">
+						<a href="#1" onclick="review(${param.hospitalSeq});">
 							<span>리뷰</span>
 						</a>
 					</div>
@@ -80,133 +109,242 @@ body {
 		</div>
 		
 		<div id="content_box">
-			<div id="content_area">
-				<div>
-					병원명
-					<span>매디스캔의원</span>
+			<div id="content_area_about">
+				<div id="about_s">
+					<div>
+						병원명
+						<span style="padding-left: 37px;">${result.hospResult.dutyName}</span>
+					</div>
+					<div>
+						주소
+						<span style="padding-left: 50px;">${result.hospResult.dutyAddr}</span>
+					</div>
+					<div>
+						진료항목
+						<span style="padding-left: 22px;">#내과#이비인후과#영상의학과#통증의학과#피부과#피부클리닉#통장클리닉</span>
+	<%-- 					<span>${result.hospResult.addTreat}</span>//병원어드민이 상세정보 입력 시 가져올수있음 --%>
+					</div>
+					<div style="height: 47px;">
+						전화번호
+						<span style="padding-left: 26px;">${result.hospResult.dutyTel1}</span><br>
+						<span style="padding-left: 80px;">${result.hospResult.dutyTel3}</span>
+					</div>
 				</div>
-				<div>
-					주소
-					<span>서울 서초구 강남ㄴ대로 369</span>
-				</div>
-				<div>
-					전화번호
-					<span>02-123-1234</span>
-				</div>
-				<div>
-					진료항목
-					<span>#내과#이비인후과#영상의학과#통증의학과#피부과#피부클리닉#통장클리닉</span>
-				</div>
-				<div>
-					<span style="padding: 0px;">영업시간</span>
-					<canvas id="myChart" width="700" height="300" style="display: block;height: 300px;width: 700px;margin-left: -30px;"></canvas>
+				<div style="width: 710px; margin: 28px 13px 0px -34px;">
+<%-- 					<span style="padding: 0px;">${result.hospResult.time}</span> //차트--%>
+					<canvas id="myChart" width="700" height="300"></canvas>
 					<div id="time_help">점심시간은 통상 12시부터 1시30분까지이므로 방문시 미리 전화 주세요</div>
 				</div>
-				
 				
 			<div id="wrong_info">
 				<a href="${pageContext.request.contextPath}/hospital/wrongInfoForm.do">잘못된 정보 수정하기</a>
 			</div>
 			</div>
 		</div>
+
+<!-- 		리뷰		 -->
+		<div id="content_review" style="display: none;">
+		
+			<div id="content_area1">
+				<div id="review_row">
+					<span id="review">리뷰<span id="reviewCount"></span>개의 글</span>
+					<span id="review1">${result.hospResult.dutyName}에 다녀온 후기를 남겨주세요!</span>
+					<hr id="review_hr">
+				</div>
+				
+				<div id="content_review">
+					<table summary="This table shows how to create responsive tables using Datatables' extended functionality" 
+	     					 class="table table-bordered table-hover dt-responsive gy">
+							<tbody></tbody>
+					</table>
+				</div>
+					
+				<nav>	
+					<ul class="pagination"></ul>
+				</nav>	
+					
+		   		<div id= search_area>
+					<form action="">
+		   				<input type="hidden" name="boardNo" value="">
+				   		<select name="selectBox" class="btn btn-default search-bar1" style="width:100px;">
+			   				<option value="title" name="title">제목</option>
+			   				<option value="nickName">닉네임</option>
+			   				<option value="content">내용</option>
+			   			</select>
+					   	<input type="text" name="search" class="search" placeholder="검색어를 입력하세요" style="height: 30px;"/>
+						<button type="submit" class="btn btn-default search-bar1">검색</button> 
+						<button type="button" id="writeid" class="btn btn-default pull-right"  
+							    onclick='writeForm();'>글쓰기</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+<!-- 포토요약 -->
+		<div id="content_photo" style="display: none;">
+			<div id="content_area_photo">
+				<div id="in_out_photo">
+					<span>"병원이름"</span> <span>내외부 사진(개수)</span>
+					<hr id="review_hr">
+				</div>
+				<div id="content_photo">
+					사진
+				</div>
+			</div>
+		</div>
+		
+		
+<!-- 	글쓰기 -->
+			<div id="content_area_writeForm" style="display: none;">
+				
+				<div id="form1">
+					<form id="form" enctype="multipart/form-data" method="post">
+<%-- 					<input type="hidden" name="hospitalSeq" value="${param.hospitalSeq}"> --%>
+					<input type="hidden" name="hospitalSeq" value="${param.hospitalSeq}">
+					<div id="review_row1">
+					<span id="review">리뷰쓰기</span>
+
+					<input type="text" id="name" name="name" value="${sessionScope.user.name}" 
+					style="border: 1px; width: 74px; margin-left: 510px;">
+					<input type="hidden" name="userSeq" value="${sessionScope.user.userSeq}">
+<%-- 					<span id="name" name="name">${sessionScope.user.name}</span> --%>
+
+<%-- 					<span id="nickName">${board.name}</span> --%>
+					<c:if test="${!empty board.name}">
+						<input type="text" id="name" name="name" value="${board.name}" 
+						style="border: 1px; width: 74px; margin-left: 510px;">
+					</c:if>
+					<hr id="review_hr">
+				</div>
+					<c:if test="${!empty board.no}">
+						<input type="text" name="no" value="${board.no}" hidden="hidden">
+					</c:if>
+					<div id="title">
+						<input type="text" class="form-control" name="title" placeholder="제목을 입력하세요" value="${board.title}">
+					</div>
+						
+					<div id="msg">
+						<textarea class="form-control" id="content" name="content" placeholder="내용을 입력해주세요">${board.content}</textarea>
+					</div>
+
+					<div id="filearea_detail">
+							<span id="file_span" >첨부파일</span>
+							<input type="file" multiple="multiple" name="files" id="file"
+									accept=".gif, .jpg, .png" placeholder="지원되는 파일 양식: jpg, png, gif">
+									
+							<div onchange="dropfile();">Drap and Drop here.</div>
+					</div>
+
+					<hr id="review_hr">
+					<div id="btn_adm">
+						<button type="button" class="btn btn-default" style="margin-bottom: 10px;" onclick="writeReview();">등록</button>
+						<button type="button" class="btn btn-default" style="margin-bottom: 10px;" 
+								onclick="review();">취소</button>
+					</div>
+				</form>
+				</div>
+			</div>
+		
+<!-- 디테일 -->
+		<div id="content_detail" style="display: none;">
+			
+			<div id="content_are_detail">
+				<div id="review_row">
+					<span id="title1"></span>
+					<span id="nickName1"></span>
+						<hr id="detail_hr">
+					<span id="view_cnt1"></span>
+					<span id="date1"></span>
+						<hr id="detail_hr">
+				</div>
+				
+				<div id="filearea">
+						<c:forEach var="file" items="${result.files}">
+							<img src="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}" style="width:100%; height:100%; margin:0 auto;"/><br>
+							<button type="button" class="btn btn-default" style="margin:5px 0px 20px;"><a href="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}">다운로드</a></button><br> 
+						</c:forEach>
+					<c:forEach var="file" items="${files}">
+						<img src="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}" style="width:100%; height:100%; margin:0 auto;"/><br>
+						<button type="button" class="btn btn-default" style="margin:5px 0px 20px;"><a href="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}">다운로드</a></button><br> 
+					</c:forEach>
+				</div>
+				<div id="detail_content">${result.board.content}</div>
+			</div>
+			
+			
+			<!-- 댓글파트 -->
+			<div id="allComment">
+				<form action="commentUpdate.json" method="post">
+					<input type="hidden" name="no" value="${result.board.no}"/>
+					<input type="hidden" name="commentNo" value=""/>
+					
+					<%-- 댓글 리스트--%>
+					<div id="commentList"></div>
+				</form>
+				
+				<div id="commentComment">
+					<%-- 댓글입력파트 --%>
+					<form role="form" id="rForm" class="clearfix" >
+						<div class="comment">
+							<div id="commentId">
+								<label class="sr-only" for="name" >아이디</label>
+								<input type="hidden" name="userSeq" id="id" value="${sessionScope.user.userSeq}" /> 
+								<input type="text" id="name" name="name" class="form-control" value="${sessionScope.user.name}" readonly />
+							</div>
+							<div id="commentWrite" style="height: 140px;">
+								<label class="sr-only" for="content">댓글내용입력</label>
+								<textarea class="form-control" id="content" name="content" placeholder="내용을 입력하세요"></textarea>
+								<button type="submit" id="btnCommentWrite" class="btn btn-primary btnCommentWrite">댓글쓰기</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			
+			<hr id="detail_hr">
+			<div id="buttons" style="display: none;">
+				<div id="btn_s">
+					<%-- 목록버튼 --%>
+					<button type="button" class="btn btn-default" onclick="review()">목록</button>
+					<%-- 글쓰기버튼 --%>
+					<button type="button" class="btn btn-default" id="writeid" onclick="writeForm();">글쓰기</button>
+					<%-- 수정삭제버튼--%>
+					<div id="btn_update_delete" style="display:none;">
+						<button type="button" class="btn btn-default" id="updateid" onclick="updateForm(result.board.no)">수정</button>
+						<button type="button" class="btn btn-default" id="deleteid" onclick="delete1(result.board.no)">삭제</button>
+					</div>
+				</div>	
+			</div>
+			
+		</div>
+		
+		
+		
 	</div>
+
+
 </div>
 
 <script>
+//탭 케이스 이름 줘서 각각 페이지로 들어갈 수 있도록 하는 코드
+// let param = ${param.page}
+// (function(){
+// 	if(!param) return;
+// 	switch(param){
+// 	case 1 : 
+// 		photo.show()
+// 		break;
+// 	}
+// })()
+
+//위에 지도맵코드
+// let map = new naver.maps.Map('map', {center : new naver.maps.LatLng( latitude , longitude )} );
+
+// let marker = new naver.maps.Marker( { position : {center : new naver.maps.LatLng(result.aboutResult.wgs84Lat, result.aboutResult.wgs84Lon)} ,  map:map });
+
+
 
 console.log( "${result.cnt}")
-
-
-
-// 		var barChartData = {
-// 			labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-// 			datasets: [{
-// 				label: 'Dataset 1',
-// 				backgroundColor: [
-// 					window.chartColors.red,
-// 					window.chartColors.orange,
-// 					window.chartColors.yellow,
-// 					window.chartColors.green,
-// 					window.chartColors.blue,
-// 					window.chartColors.purple,
-// 					window.chartColors.red
-// 				],
-// 				yAxisID: 'y-axis-1',
-// 				data: [
-// 					randomScalingFactor(),
-// 					randomScalingFactor(),
-// 					randomScalingFactor(),
-// 					randomScalingFactor(),
-// 					randomScalingFactor(),
-// 					randomScalingFactor(),
-// 					randomScalingFactor()
-// 				]
-// 			}, {
-// 				label: 'Dataset 2',
-// 				backgroundColor: window.chartColors.grey,
-// 				yAxisID: 'y-axis-2',
-// 				data: [
-// 					randomScalingFactor(),
-// 					randomScalingFactor(),
-// 					randomScalingFactor(),
-// 					randomScalingFactor(),
-// 					randomScalingFactor(),
-// 					randomScalingFactor(),
-// 					randomScalingFactor()
-// 				]
-// 			}]
-
-// 		};
-// 		window.onload = function() {
-// 			var ctx = document.getElementById('canvas').getContext('2d');
-// 			window.myBar = new Chart(ctx, {
-// 				type: 'bar',
-// 				data: barChartData,
-// 				options: {
-// 					responsive: true,
-// 					title: {
-// 						display: true,
-// 						text: 'Chart.js Bar Chart - Multi Axis'
-// 					},
-// 					tooltips: {
-// 						mode: 'index',
-// 						intersect: true
-// 					},
-// 					scales: {
-// 						yAxes: [{
-// 							type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-// 							display: true,
-// 							position: 'left',
-// 							id: 'y-axis-1',
-// 						}, {
-// 							type: 'linear', // only linear but allow scale type registration. This allows extensions to exist solely for log scale for instance
-// 							display: true,
-// 							position: 'right',
-// 							id: 'y-axis-2',
-// 							gridLines: {
-// 								drawOnChartArea: false
-// 							}
-// 						}],
-// 					}
-// 				}
-// 			});
-// 		};
-
-// 		document.getElementById('randomizeData').addEventListener('click', function() {
-// 			barChartData.datasets.forEach(function(dataset) {
-// 				dataset.data = dataset.data.map(function() {
-// 					return randomScalingFactor();
-// 				});
-// 			});
-// 			window.myBar.update();
-// 		});
-	
-		
-		
-		
-		
-		
-
 var ctx = document.getElementById("myChart").getContext('2d');
 
 var myChart = new Chart(ctx, {
@@ -269,10 +407,10 @@ function plusStar(target){
 	 $.ajax({ //
 		url:"${pageContext.request.contextPath}/hospital/plusStar.json", //통신할url
 		data : {
-			id:'${result.hospLike.id}',
-			hospCode:'${result.hospLike.hospCode}',
-			name:'${result.hospLike.name}',
-			mainTreat:'${result.hospLike.mainTreat}'	
+			id:'${result.hospAbout.id}',
+			hospCode:'${result.hospAbout.hospCode}',
+			name:'${result.hospAbout.name}',
+			mainTreat:'${result.hospAbout.mainTreat}'	
 		}
 	})
 	.done(function(result){
@@ -284,8 +422,8 @@ function minusStar(target){
 	$.ajax({ //
 		url:"${pageContext.request.contextPath}/hospital/minusStar.json", //통신할url
 		data : {
-			id:'${result.hospLike.id}',
-			hospCode:'${result.hospLike.hospCode}'
+			id:'${result.hospAbout.id}',
+			hospCode:'${result.hospAbout.hospCode}'
 		}
 	})
 	.done(function(result){
@@ -296,6 +434,301 @@ function minusStar(target){
 		console.log(result);
 	})
 }
+
+
+// 리뷰
+function review(hospitalSeq) {
+	$.ajax({ //
+		url:"review.json",
+		data : {
+			hospitalSeq: hospitalSeq
+		}
+		
+	})
+	.done(function(result){
+		$("#content_box").hide();
+		$("#content_photo").hide();
+		$("#content_review").show();
+		$("#content_area_writeForm").hide();
+		$("#content_detail").hide();
+		$("#buttons").hide();
+		
+		console.dir(result);
+		$("#reviewCount").text(result.count);
+		
+		var reviewListHtml = "";	
+		for(var i = 0; i < result.list.length; i++) {
+			var board = result.list[i];
+			reviewListHtml += "<tr>";
+// 			reviewListHtml += "<td><a href='detail.json?no=" + board.no + "'>" + board.title + "</a></td>";
+ 			reviewListHtml += "<td><a href='#1' onclick='detail("+ board.no +");'>" + board.title + "</a></td>";
+			var date = new Date(board.regDate);
+			var time = date.getFullYear()+"-"+(date.getMonth()+1)
+					+"-"+ date.getDate();
+			reviewListHtml += "<td>" +time + "</td>";
+			reviewListHtml += "<td>" + board.name + "</td>";
+			reviewListHtml += "</tr>";
+		}
+		if (result.list.length == 0) {
+			html += '<tr><td colspan="4">아직 글이 없습니다!</td></tr>';
+		}
+		$("#content_review > table > tbody").html(reviewListHtml);
+	
+	})
+	.fail(function(result){
+		console.log(result);
+	})	
+		
+}
+//사진
+function photo() {
+	
+	$("#content_box").hide();
+	$("#content_review").hide();
+	$("#content_photo").show();
+	$("#content_area_writeForm").hide();
+	$("#buttons").hide();
+	
+	/*
+	$.ajax({ //
+		url:"photo.json"
+	})
+	.done(function(result){
+		$("#content_box").hide();
+		$("#content_review").hide();
+		$("#content_photo").show();
+		
+	})
+	.fail(function(result){
+		console.log(result);
+	})	
+	*/
+}
+//글쓰기폼
+function writeForm(){
+	$("#content_box").hide();
+	$("#content_review").hide();
+	$("#content_photo").hide();
+	$("#content_area_writeForm").show();
+	$("#content_detail").hide();
+}
+
+//글쓰기
+function writeReview() {
+	alert("안녕")
+	var formData = new FormData($("#form")[0])
+	$.ajax({ 
+		url:"write.json",
+		data: formData,
+		type: "POST",
+		// 파일 업로드를 위한 속성 설정
+		processData: false,
+		contentType: false
+	})
+	.done(function(result){
+		if(result.success ==false){
+			alert(result.mag)
+		}
+		$("#content_box").hide();
+		$("#content_photo").hide();
+		$("#content_review").show();
+		$("#content_area_writeForm").hide();
+	});
+}
+
+//디테일
+function detail(no){
+	$("#content_box").hide();
+	$("#content_photo").hide();
+	$("#content_review").hide();
+	$("#content_area_writeForm").hide();
+	$("#content_detail").show();
+	$("#buttons").show();
+	
+	$.ajax({ 
+		url : "detail.json",
+		data : {
+			no: no
+		}
+	})
+	.done(function(result) {
+		console.dir(result);
+		
+		$("#content_detail > #content_are_detail > #review_row > #title1").html(result.board.title)
+		$("#content_detail > #content_are_detail > #review_row > #nickName1").html(result.board.name)
+		$("#content_detail > #content_are_detail > #review_row > #view_cnt1").html(result.board.viewCnt)
+		var date = new Date(result.board.regDate);
+		var time = date.getFullYear()+"-"+(date.getMonth()+1)
+					+"-"+ date.getDate();
+		$("#content_detail > #content_area > #review_row > #date1").html(time)
+		$("#detail_content").html(result.board.content)
+		$("#filearea_detail").html(result.board.files)
+		
+		if("${sessionScope.user.userSeq}" == result.board.userSeq){
+			$("#btn_update_delete").show()
+		}
+	});
+}
+
+//삭제
+function delete1(no){
+	$.ajax({
+		url : "delete.json",
+		data : {
+			no : no
+		}
+	});
+	
+	$("#content_box").hide();
+	$("#content_photo").hide();
+	$("#content_review").show();
+	$("#content_area_writeForm").hide();
+	$("#content_detail").hide();
+}
+
+/*
+
+//댓글 삭제
+function commentDelete(commentNo) {
+		$.ajax({
+			url : "<c:url value='/board/commentDelete.json'/>",
+			data : {
+				no : "${result.board.no}",
+				commentNo : commentNo
+			},
+			dataType : "json",
+			success : makeCommentList
+		});
+	}
+
+function commentUpdateForm(commentNo) {
+
+	$("#commentList tr[id^=row]").show();
+	$("#commentList tr[id^=modRow]").remove();
+
+	var modId = $("#row" + commentNo + " > td:eq(0)").text();
+	var modContent = $("#row" + commentNo + " > td:eq(1)").text();
+
+	var html = '';
+	html += '<tr id="modRow' + commentNo + '">';
+	html += '	<td>' + modId + '</td>';
+	html += '	<td>';
+	html += '		<div class="form-group">';
+	html += '			<input type="text" name="content" value="' + modContent + '" class="form-control input-wp2" placeholder="내용을 입력하세요">';
+	html += '		</div>';
+	html += '	</td>';
+	html += '	<td colspan="2">';
+	html += '		<a href="javascript:commentUpdate(' + commentNo
+			+ ');"  class="btn btn-success btn-sm" role="button">수정</a>';
+	html += '		<a href="javascript:commentCancel(' + commentNo
+			+ ');"  class="btn btn-warning btn-sm" role="button">취소</a>';
+	html += '	</td>';
+	html += '</tr>';
+	$("#row" + commentNo).after(html);
+	$("#row" + commentNo).hide();
+}
+
+function commentUpdate(commentNo) {
+	$.ajax({
+		url : "<c:url value='/board/commentUpdate.json'/>",
+		type : "POST",
+		data : {
+			no : "${result.board.no}",
+			content : $("#modRow" + commentNo + " input[name=content]")
+					.val(),
+			commentNo : commentNo
+		},
+		dataType : "json",
+		success : function(result) {
+			makeCommentList(result);
+		}
+	});
+}
+
+function commentCancel(commentNo){
+	$("#row" + commentNo).show();
+	$("#modRow" + commentNo).remove();
+}
+
+*/
+
+//댓글등록
+$("#rForm").submit(function(e){
+		alert(${result.board.no})
+	$.ajax({
+		url : "<c:url value='/board/commentRegist.json'/>",
+		type : "POST",
+		data : {
+			no: "${result.board.no}",
+			content : $("#rForm textarea[name='content']").val(),
+			userSeq : $("#rForm input[name='userSeq']").val(),
+			name :$("#rForm input[name='name']").val()
+		},
+		dataType: "json"
+	}).done(function(result){
+		if(!'${result.board.userSeq}'){
+			$("#rForm input[name='userSeq']").val("");
+		}
+		$("#rForm textarea[name='content']").val("");
+		makeCommentList(result);
+	});
+});
+
+//댓글목록
+function makeCommentList(result) {
+		console.dir(result);
+		var html = "";
+		html += '<table class="table table-bordered">';
+		html += '	<colgroup>';
+		html += '		<col width="10%">';
+		html += '		<col width="*">';
+		html += '		<col width="14%">';
+		html += '		<col width="10%">';
+		html += '	</colgroup>';
+	
+		for(var i=0; i<result.length; i++){
+			var comment = result[i];
+			html+='<tr id="row'+comment.commentNo+'" width="600px">';
+			html+='	<td width="150px">' + comment.name+'</td>';
+			html+='	<td width="300px">'+comment.content+'</td>';
+			var date = new Date(comment.regDate);
+			var time = date.getFullYear()+"-"+(date.getMonth()+1)
+					+"-"+ date.getDate();
+			html += '	<td width="150px">' +time+'</td>';
+			html += '	<td width="150px">';
+			if('${sessionScope.user.userSeq}'==comment.userSeq){
+				html += '	<a href="javascript:commentUpdateForm('
+						+comment.commentNo
+						+')" class="btn btn-success btn-sm" role="button">수정</a>';
+				html += '		<a href="javascript:commentDelete('
+					+ comment.commentNo
+					+ ')"  class="btn btn-danger btn-sm" role="button">삭제</a>';
+			}
+			html += '	</td>';
+			html += '</tr>';
+			}
+		if (result.length == 0) {
+			html += '<tr><td colspan="4">댓글이 존재하지 않습니다.</td></tr>';
+		}
+		html += "</title>";
+		$("#commentList").html(html);
+}
+
+// //댓글목록 조회
+// function commentList(){
+// 	$.ajax({
+// 		url : "<c:url value='/board/commentList.json'/>",
+// 		data:{
+// 			no : "${result.board.no}"
+// 		},
+// 		dateType:"json",
+// 		success:makeCommentList
+// 	});
+// }
+
+// //상세페이지 로딩시 댓글목록 조회 ajax 호출
+// commentList();
+
 
 
 

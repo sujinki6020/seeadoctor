@@ -106,7 +106,7 @@
  	width: auto;
 	height: auto;
 }
-#content_area{
+#content_area_writeForm{
  	width:88%;
 	height: auto;
 	margin:15px 0px 0px 48px;
@@ -130,8 +130,8 @@
 	height: auto;
 }
 
-#review_row{
-	    font-weight: bold;
+#review_row1{
+	font-weight: bold;
     width: 641px;
     margin-left: 32px;
 }

@@ -34,8 +34,8 @@ body {
 			
 			<div id="head_name_area">
 				<div id="head_name">
-					<span class="name">메디스캔의원</span>
-					<span class="category">내과</span>
+					<span class="name">${result.hospResult.dutyName}</span>
+					<span class="category">${result.hospResult.dutyDivNam}</span>
 				</div>
 			</div>	
 			
