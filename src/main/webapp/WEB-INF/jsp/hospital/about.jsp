@@ -526,8 +526,9 @@ function writeReview() {
 		contentType: false
 	})
 	.done(function(result){
-		if(result.success ==false){
-			alert(result.mag)
+			alert("글안올라갔다!")
+		if(result.success == false){
+			alert("글안올라갔다!")
 		}
 		$("#content_box").hide();
 		$("#content_photo").hide();
@@ -554,9 +555,9 @@ function detail(no){
 	.done(function(result) {
 		console.dir(result);
 		
-		$("#content_detail > #content_are_detail > #review_row > #title1").html(result.board.title)
-		$("#content_detail > #content_are_detail > #review_row > #nickName1").html(result.board.name)
-		$("#content_detail > #content_are_detail > #review_row > #view_cnt1").html(result.board.viewCnt)
+		$("#content_detail > #content_are_detail > #review_row > #title1").html(result.board.title);
+		$("#content_detail > #content_are_detail > #review_row > #nickName1").html(result.board.name);
+		$("#content_detail > #content_are_detail > #review_row > #view_cnt1").html(result.board.viewCnt);
 		var date = new Date(result.board.regDate);
 		var time = date.getFullYear()+"-"+(date.getMonth()+1)
 					+"-"+ date.getDate();

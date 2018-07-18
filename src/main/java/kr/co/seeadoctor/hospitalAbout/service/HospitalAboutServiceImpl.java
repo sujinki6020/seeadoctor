@@ -51,14 +51,11 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	
 	@Override
 	public void insertStar(HospitalAbout hospAbout) {
-		System.out.println("좋아요");
 		hospMapper.insertHospLike(hospAbout);
 	}
 	@Override
 	public void deleteStar(HospitalAbout hospAbout) {
-		System.out.println("싫어요");
 		hospMapper.deleteHospLike(hospAbout);
-		System.out.println("싫어요나옴");
 		
 	}
 	
@@ -122,7 +119,7 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 		hospMapper.updateReviewViewCnt(no);
 //		System.out.println("update -> 1");
 		Board board = hospMapper.detailReview(no);
-//		System.out.println("update -> 2");
+		System.out.println("board -> 2" + board);
 		
 		List<BoardFile> files = hospMapper.selectReviewFileByNo(no);
 //		System.out.println("update -> 3");

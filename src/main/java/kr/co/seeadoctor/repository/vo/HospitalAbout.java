@@ -2,7 +2,8 @@ package kr.co.seeadoctor.repository.vo;
 
 public class HospitalAbout {
 
-	private String id;
+	private String id; //유저아이디
+	private String adminId; 
 	private int hospitalSeq;
 	private String dutyName; //병원이름
 	private String dutyDivNam;//메인진료
@@ -34,6 +35,12 @@ public class HospitalAbout {
 	
 	
 	
+	public String getAdminId() {
+		return adminId;
+	}
+	public void setAdminId(String adminId) {
+		this.adminId = adminId;
+	}
 	public int getHospitalSeq() {
 		return hospitalSeq;
 	}
