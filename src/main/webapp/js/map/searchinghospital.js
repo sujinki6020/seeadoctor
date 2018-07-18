@@ -3,9 +3,32 @@ let latitude;
 let longitude;
 let markers = [];
 
-(function () {
+let ws = null;
+function startAlarm(){
+	ws = new WebSocket('ws://localhost/seeadoctor/map/mapMain.do');
+	ws.onopen = function() {
+   	    console.log('웹소켓 서버 접속 성공');
+    };
+    // 메세지 받기
+    ws.onmessage = function(evt) {
+        //$("#result").prepend(evt.data + "<br>");
+    };
+    ws.onerror = function(evt) {
+    	console.log('웹소켓 에러')
+    	console.dir(evt);
+   	    //$("#result").prepend('웹소켓 에러 발생 : ' + evt.data)
+    };
+    ws.onclose = function(evt) {
+    	console.log('웹소켓 종료')
+    	console.dir(evt);
+   	    //$("#result").prepend("웹소켓 연결이 종료됨.");
+    };
+}
+
+startAlarm();
+/*(function () {
 	
-    var ws = new WebSocket('ws://localhost/seeadoctor/map/mapMain.do');
+    var ws = new WebSocket('ws://localhost:80/seeadoctor/map/mapMain.do');
 	ws.onopen = function() {
    	    console.log('웹소켓 서버 접속 성공');
     };
@@ -24,7 +47,7 @@ let markers = [];
    	    //$("#result").prepend("웹소켓 연결이 종료됨.");
     };
     
-})();
+})();*/
 
 function getContextPath() {
 	var hostIndex = location.href.indexOf( location.host ) + location.host.length;

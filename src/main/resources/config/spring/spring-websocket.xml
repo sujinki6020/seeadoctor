@@ -26,8 +26,8 @@
 	
 	
 	<websocket:handlers>
-		<websocket:mapping path="/*/*.do" handler="realTime"/>
-		<websocket:mapping path="/chat.do" handler="chat"/>
+		<websocket:mapping path="/map/mapMain.do" handler="realTime"/>
+<!-- 		<websocket:mapping path="/chat.do" handler="chat"/> -->
 		<websocket:handshake-interceptors>
 			<bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
 		</websocket:handshake-interceptors>
