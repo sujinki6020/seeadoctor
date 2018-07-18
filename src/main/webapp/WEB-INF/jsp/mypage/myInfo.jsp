@@ -62,22 +62,23 @@
 				<fieldset class="row3">
 					<legend>Further Information </legend>
 					<p>
-						<label>Gender</label>  
-					${user.gender}
-<%-- 						<c:choose> --%>
-<%-- 						<c:when test="${user.gender == 'M'}"> --%>
-<!-- 							<input type="radio" name="gender" value="M" checked />  -->
-<!-- 							<label class="gender">Male</label>  -->
-<!-- 							<input type="radio" name="gender" value="F" />  -->
-<!-- 							<label class="gender">Female</label> -->
-<%-- 						</c:when> --%>
-<%-- 						<c:otherwise> --%>
-<!-- 							<input type="radio" name="gender" value="M"  />  -->
-<!-- 							<label class="gender">Male</label>  -->
-<!-- 							<input type="radio" name="gender" value="F" checked/>  -->
-<!-- 							<label class="gender">Female</label> -->
-<%-- 						</c:otherwise> --%>
-<%-- 						</c:choose> --%>
+					<c:set var="userGender">${user.gender}</c:set>
+						<c:choose>
+							<c:when test="${userGender eq 'M'}">
+							<label>Gender</label>  
+								<input type="radio" name="gender" value="M" checked /> 
+								<label class="gender">Male</label> 
+								<input type="radio" name="gender" value="F" /> 
+								<label class="gender">Female</label>
+							</c:when>
+							<c:otherwise>
+							<label>Gender</label>  
+								<input type="radio" name="gender" value="M"  /> 
+								<label class="gender">Male</label> 
+								<input type="radio" name="gender" value="F" checked/> 
+								<label class="gender">Female</label>
+							</c:otherwise>
+						</c:choose>
 					</p>
 					<p>
 						<label>Birthdate</label> 
