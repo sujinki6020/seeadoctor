@@ -55,7 +55,7 @@
 <div id="radioArea">
 
 <c:forEach items="${docList}" var="doc">
- 	<input type="radio" id="${doc.doctorSeq}" name="doctorSeq" value="${doc.doctorSeq}" checked="checked" />
+ 	<input type="radio" id="${doc.doctorSeq}" name="doctorSeq" value="${doc.doctorSeq}" onchange="dayOfTheWeek()" />
     <label for="${doc.doctorSeq}"><span></span><font size="4px"><strong>${doc.doctorName} 원장</strong></font> (${doc.majorCode.majorName})</label><br>
 </c:forEach>
     
@@ -65,7 +65,7 @@
 
 <div class="select">
 <h2><img src="${pageContext.request.contextPath}/images/reservation/appointment2.png" /> 날짜 선택
-<input type="text" id="datepicker" name="date" placeholder=" 클릭하세요." onchange="dayOfTheWeek(this.value)"></h2>
+<input type="text" id="datepicker" name="date" placeholder=" 클릭하세요." onchange="dayOfTheWeek()"></h2>
 </div>
 
 <div class="select">
@@ -118,17 +118,18 @@ $(document).on("click", ".timeBnt", function () {
 
 });
 
-function dayOfTheWeek(value) {
+function dayOfTheWeek() {
 	var date = new Date($("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' }).val());
 	//1월~6토, 0일
 	//db는 1월~7일
+	if($("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' }).val()=="") return;
 	$("#timeList").html("<img id='loadingImg' src='/seeadoctor/images/reservation/loading-rolling.gif'/>");
 	$.ajax({
 		type : "POST",
 		url : "/seeadoctor/reservation/timeList.json",
         data: {
         	hospitalSeq: $("input[name='hospitalSeq']").val(),
-        	doctorSeq: $("input[name='doctorSeq']").val(),
+        	doctorSeq: $(':radio[name="doctorSeq"]:checked').val(),
 //         	date: new Date($("input[name='date']").val()),
 			date: $("input[name='date']").val(),
         	day : date.getDay()
