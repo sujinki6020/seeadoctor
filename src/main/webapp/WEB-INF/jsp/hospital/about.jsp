@@ -390,7 +390,7 @@ var myCnt = ${result.myCnt};
 
 $("#btn_unlike").click(function(){
 	if($(this).data("flag")=="no"){
-		if(confirm("관심병원 등록 하시겠습니까?")){
+		if(confirm("관심병원 등록 하시겠습니까? (나의 관심병원 개수:"+ myCnt +"/6)" )){
 			plusStar($(this));
 		}
 	}else {
@@ -403,7 +403,8 @@ function plusStar(target){
 	 if(myCnt >= 6 ){
 		 alert("최대 관심병원 등록은 6개만 가능합니다.");
 		 return;
-	 }
+	 } 
+	 
 	 $.ajax({ 
 		url:"${pageContext.request.contextPath}/hospital/plusStar.json", //통신할url
 		data : {
@@ -422,8 +423,8 @@ function minusStar(target){
 	$.ajax({ //
 		url:"${pageContext.request.contextPath}/hospital/minusStar.json", //통신할url
 		data : {
-			id:'${result.hospResult.id}',
-			hospCode:'${result.hospResult.hospitalSeq}'
+			id:'${sessionScope.user.id}',
+			hospitalSeq:'${result.hospResult.hospitalSeq}'
 		}
 	})
 	.done(function(result){

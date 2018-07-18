@@ -58,6 +58,8 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	public void deleteStar(HospitalAbout hospAbout) {
 		System.out.println("싫어요");
 		hospMapper.deleteHospLike(hospAbout);
+		System.out.println("싫어요나옴");
+		
 	}
 	
 	@Override

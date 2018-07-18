@@ -195,6 +195,8 @@ public class HospitalAboutController {
 	@RequestMapping("/minusStar.json")
 	@ResponseBody
 	public void minusStar(HospitalAbout hospAbout) {
+		System.out.println("추천취소아이디" + hospAbout.getId());
+		System.out.println("추천취소할 병원시퀀:" + hospAbout.getHospitalSeq());
 		hospService.deleteStar(hospAbout);
 	}
 	
