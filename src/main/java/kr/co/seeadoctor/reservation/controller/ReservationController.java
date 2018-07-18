@@ -85,7 +85,7 @@ public class ReservationController {
 		
 		service.reserveHospital(reservation);
 		
-		return "reservation/reservationList";
+		return "redirect:/reservation/reservationList.do";
 	}
 	
 	@RequestMapping("/cancle.json")
