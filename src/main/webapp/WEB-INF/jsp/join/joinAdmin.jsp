@@ -24,6 +24,11 @@
 			<div
 				class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
 				<form role="form" name="form" id="form" method="post" action="insertAdmin.do">
+				
+				
+					<input type="hidden" name="admin" id="admin" value="Y" />
+					
+					
 					<h2>
 						회원가입 <small>Admin</small>
 					</h2>

@@ -6,5 +6,5 @@ $(window).on("load resize ", function() {
 
 function chat() {
 	// 팝업을 띄우기, width 300, height 400, 스크롤바, 툴바, 메뉴바를 모두 숨기는 경우
-	window.open('chat.jsp', 'popup01', 'width=400, height=600, scrollbars= 0, toolbar=0, menubar=no');
+	window.open('http://localhost:8001/seeadoctor/chat/chatWindow.do', 'popup01', 'width=400, height=600, scrollbars= 0, toolbar=0, menubar=no');
 };

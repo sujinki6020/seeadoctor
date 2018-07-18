@@ -63,23 +63,25 @@
 					<legend>Further Information </legend>
 					<p>
 						<label>Gender</label>  
-						<c:choose>
-						<c:when test="${user.gender} == 'M'">
-							<input type="radio" value="M" checked /> 
-							<label class="gender">Male</label> 
-							<input type="radio" value="F" /> 
-							<label class="gender">Female</label>
-						</c:when>
-						<c:otherwise>
-							<input type="radio" value="M"  /> 
-							<label class="gender">Male</label> 
-							<input type="radio" value="F"  checked/> 
-							<label class="gender">Female</label>
-						</c:otherwise>
-						</c:choose>
+					${user.gender}
+<%-- 						<c:choose> --%>
+<%-- 						<c:when test="${user.gender == 'M'}"> --%>
+<!-- 							<input type="radio" name="gender" value="M" checked />  -->
+<!-- 							<label class="gender">Male</label>  -->
+<!-- 							<input type="radio" name="gender" value="F" />  -->
+<!-- 							<label class="gender">Female</label> -->
+<%-- 						</c:when> --%>
+<%-- 						<c:otherwise> --%>
+<!-- 							<input type="radio" name="gender" value="M"  />  -->
+<!-- 							<label class="gender">Male</label>  -->
+<!-- 							<input type="radio" name="gender" value="F" checked/>  -->
+<!-- 							<label class="gender">Female</label> -->
+<%-- 						</c:otherwise> --%>
+<%-- 						</c:choose> --%>
 					</p>
 					<p>
-						<label>Birthdate</label> ${user.birth} 
+						<label>Birthdate</label> 
+<%-- 						${user.birth}  --%>
 						<input class="birth" type="text" size="6" maxlength="6" readonly value="${user.birth}" />
 					</p>
 				</fieldset>
@@ -185,7 +187,7 @@
 		window.open('http://localhost:8001/seeadoctor/chat/chatWindow.do', 'popup01', 'width=400, height=500, scrollbars= 0, toolbar=0, menubar=no');
 	};
 	
-	alert('${hList}');
+// 	alert('${hList}');
 
 	</script>
 </body>

@@ -2,6 +2,8 @@ package kr.co.seeadoctor.mypage.Controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,9 +33,10 @@ public class MyPageController {
 	}
 	
 	@RequestMapping("/updateUser.do")
-	public String update(User user) {
+	public String update(HttpSession session, User user) {
+		session.setAttribute("user", user);
 		myPageService.updateUser(user);
-		System.out.println("update????");
+//		System.out.println("update????");
 		return "redirect:/index.jsp";
 	}
 	
