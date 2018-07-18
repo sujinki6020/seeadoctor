@@ -10,8 +10,7 @@
 		<result column="dutyName" property="dutyName"/>
 		<result column="dutyDivNam" property="dutyDivNam"/>
 		<result column="dutyAddr" property="dutyAddr"/>
-		<result column="add_treat" property="addTreat"/>
-		<result column="addInfo" property="addInfo"/>
+		<result column="dutyEtc" property="dutyEtc"/>
 		<result column="dutyTel1" property="dutyTel1"/>
 		<result column="dutyTel3" property="dutyTel3"/>
 		<result column="wgs84Lon" property="wgs84Lon"/>

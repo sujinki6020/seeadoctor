@@ -20,6 +20,7 @@
     width: 800px;
     margin: 0 auto;
     margin-top: -150px;
+    margin-bottom: 10px;
 }
 
 #head_box{
@@ -113,11 +114,6 @@
 }
 #content_area span{
 	padding: 0px 25px;
-}
-#review_row{
-	margin-bottom: 20px;
-	font-weight: bold;
-	height: auto;
 }
 #map{
     width: 100%;
@@ -216,13 +212,19 @@
 /*사진폼*/
 #content_photo{
 	width: 600px;
-    height: 400px;
-    border: 1px solid #ccc;
-    margin-left: 20px;
+    height: 501px;
+    margin: 0 auto;
+    margin-top: 40px;
 }
 #in_out_photo{
-	height: 60px;
-	font-weight: bold;
+	height: 25px;
+    font-weight: bold;
+    width: 600px;
+}
+#content_area_photo{
+	height: 400px;
+    width: 605px;
+    border: 1px solid #ccc;
 }
 /* 디테일 */
 #content_box{
@@ -230,6 +232,12 @@
 }
 #content_detail{
 	height: auto;
+	margin-top: 45px;
+}
+#detail_row{
+	font-weight: bold;
+    margin-left: 38px;
+    width: 630px;
 }
 #title1{
 	float: left;
@@ -307,14 +315,17 @@
 }
 #detail_hr{
 	background: #ccc;
-    width: 686px;
     margin: auto;
     height: 1px;
     margin-bottom: 8px;
+    width: 632px;
 }
 #detail_content{
-	margin-left: 15px;
+	width: 610px;
+    margin: 25px 0px 30px 45px;
 }
 #filearea_detail{
 	margin-left: 40px;
+    width: 625px;
+    height: 100%;
 }

@@ -9,7 +9,7 @@ public class HospitalAbout {
 	private String dutyDivNam;//메인진료
 	private String dutyAddr;//병원주소
 	private String addTreat; // 기타진료항목
-	private String dutyInfo; //부가정보
+	private String dutyEtc; //부가정보
 	private String dutyTel1;
 	private String dutyTel3;
 	private String dutyTime1c;
@@ -183,13 +183,13 @@ public class HospitalAbout {
 	public void setAddTreat(String addTreat) {
 		this.addTreat = addTreat;
 	}
-	public String getDutyInfo() {
-		return dutyInfo;
-	}
-	public void setDutyInfo(String dutyInfo) {
-		this.dutyInfo = dutyInfo;
-	}
 	
+	public String getDutyEtc() {
+		return dutyEtc;
+	}
+	public void setDutyEtc(String dutyEtc) {
+		this.dutyEtc = dutyEtc;
+	}
 	public String getDutyTel1() {
 		return dutyTel1;
 	}

@@ -42,6 +42,7 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 		hospAbout.setHospitalSeq(Integer.parseInt(hospitalSeq));
 		int cnt = hospMapper.selectHospLikeCnt(hospAbout); //중복
 		
+		System.out.println("부가정보:" + hospResult.getDutyEtc());
 		result.put("hospResult", hospResult);
 		result.put("myCnt", myCnt);
 		result.put("cnt", cnt);
@@ -98,7 +99,7 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 						ext = file.getOriginalFilename().substring(index);
 					}
 					
-					int hospCode = 1; 
+//					int hospCode = 1; 
 					
 					String sysName = "final-"+UUID.randomUUID().toString()+ext;
 					file.transferTo(new File("c:/java-lec/upload/"+sysName));
@@ -107,7 +108,7 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 					fileVO.setNo(board.getNo());
 					fileVO.setFilePath("c:/java-lec/upload/");
 					fileVO.setSysName(sysName);
-					fileVO.setHospCode(hospCode);
+					fileVO.setHospitalSeq(board.getHospitalSeq());
 					hospMapper.insertReviewFiles(fileVO);
 			 }
 		}

@@ -124,10 +124,14 @@ textarea.form-control {
 						<span style="padding-left: 22px;">#내과#이비인후과#영상의학과#통증의학과#피부과#피부클리닉#통장클리닉</span>
 	<%-- 					<span>${result.hospResult.addTreat}</span>//병원어드민이 상세정보 입력 시 가져올수있음 --%>
 					</div>
-					<div style="height: 47px;">
+					<div>
 						전화번호
-						<span style="padding-left: 26px;">${result.hospResult.dutyTel1}</span><br>
-						<span style="padding-left: 80px;">${result.hospResult.dutyTel3}</span>
+						<span style="padding-left: 26px;">${result.hospResult.dutyTel1}</span>
+						<span style="padding-left: 26px;">${result.hospResult.dutyTel3}</span>
+					</div>
+					<div style="height: 47px;">
+						부가정보
+						<span style="padding-left: 26px;">${result.hospResult.dutyEtc}</span><br>
 					</div>
 				</div>
 				<div style="width: 710px; margin: 28px 13px 0px -34px;">
@@ -182,15 +186,13 @@ textarea.form-control {
 
 <!-- 포토요약 -->
 		<div id="content_photo" style="display: none;">
-			<div id="content_area_photo">
-				<div id="in_out_photo">
-					<span>"병원이름"</span> <span>내외부 사진(개수)</span>
-					<hr id="review_hr">
-				</div>
-				<div id="content_photo">
-					사진
-				</div>
+			
+			<div id="in_out_photo">
+				<span style="float: left;">"${result.hospResult.dutyName}"의 사진입니다.</span> 
+				<span style="float: right;">내외부 사진(개수)</span>
 			</div>
+			
+			<div id="content_area_photo"></div>
 		</div>
 		
 		
@@ -249,7 +251,7 @@ textarea.form-control {
 		<div id="content_detail" style="display: none;">
 			
 			<div id="content_are_detail">
-				<div id="review_row">
+				<div id="detail_row">
 					<span id="title1"></span>
 					<span id="nickName1"></span>
 						<hr id="detail_hr">
@@ -263,10 +265,6 @@ textarea.form-control {
 							<img src="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}" style="width:100%; height:100%; margin:0 auto;"/><br>
 							<button type="button" class="btn btn-default" style="margin:5px 0px 20px;"><a href="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}">다운로드</a></button><br> 
 						</c:forEach>
-					<c:forEach var="file" items="${files}">
-						<img src="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}" style="width:100%; height:100%; margin:0 auto;"/><br>
-						<button type="button" class="btn btn-default" style="margin:5px 0px 20px;"><a href="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}">다운로드</a></button><br> 
-					</c:forEach>
 				</div>
 				<div id="detail_content">${result.board.content}</div>
 			</div>
@@ -301,7 +299,7 @@ textarea.form-control {
 				</div>
 			</div>
 			
-			<hr id="detail_hr">
+<!-- 			<hr id="detail_hr"> -->
 			<div id="buttons" style="display: none;">
 				<div id="btn_s">
 					<%-- 목록버튼 --%>
@@ -368,10 +366,13 @@ var ctx = document.getElementById("myChart").getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'horizontalBar',
     data: {
-        labels: ["일","월", "화", "수", "목", "금", "토"],
+        labels: ["월", "화", "수", "목", "금", "토","일"],
         datasets: [{
             label: '마감시간',
-            data: [24, 14, 21, 22, 23, 18, 15],
+            data: ['${result.hospResult.dutyTime1c}', '${result.hospResult.dutyTime2c}',
+            		'${result.hospResult.dutyTime3c}', '${result.hospResult.dutyTime4c}',
+            		'${result.hospResult.dutyTime5c}', '${result.hospResult.dutyTime6c}',
+            		'${result.hospResult.dutyTime7c}'],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -398,7 +399,7 @@ var myChart = new Chart(ctx, {
                	ticks: {
                    	beginAtZero:false,
                    	min:0,
-           			stepSize:1
+           			stepSize:60
                	}
            	}]
     	}
@@ -565,6 +566,7 @@ function detail(no){
 	$("#content_review").hide();
 	$("#content_area_writeForm").hide();
 	$("#content_detail").show();
+	$("#buttons").show();
 	
 	$.ajax({ 
 		url : "detail.json",
@@ -576,15 +578,15 @@ function detail(no){
 	.done(function(result) {
 		console.dir(result);
 		
-		$("#content_detail > #content_are_detail > #review_row > #title1").html(result.board.title);
-		$("#content_detail > #content_are_detail > #review_row > #nickName1").html(result.board.name);
-		$("#content_detail > #content_are_detail > #review_row > #view_cnt1").html(result.board.viewCnt);
+		$("#content_detail > #content_are_detail > #detail_row > #title1").html(result.board.title);
+		$("#content_detail > #content_are_detail > #detail_row > #nickName1").html(result.board.name);
+		$("#content_detail > #content_are_detail > #detail_row > #view_cnt1").html(result.board.viewCnt);
 			var date = new Date(result.board.regDate);
 			var time = date.getFullYear()+"-"+(date.getMonth()+1)
 						+"-"+ date.getDate();
 		$("#content_detail > #content_area > #review_row > #date1").html(time)
 		$("#detail_content").html(result.board.content)
-		$("#filearea_detail").html(result.board.files)
+		$("#filearea_detail").html(result.files)
 		
 		if("${sessionScope.user.userSeq}" == result.board.userSeq){
 			$("#btn_update_delete").show()
