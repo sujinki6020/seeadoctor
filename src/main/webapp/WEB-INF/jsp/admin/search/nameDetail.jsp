@@ -40,7 +40,7 @@
 		<div class="listBox">
 			<c:set var="time" value="${reservation.reserveTime.substring(0,2)}:${reservation.reserveTime.substring(2)}" />
 			<fmt:formatDate value="${reservation.reserveDate}" var="date" pattern="yyyy.MM.dd"/>
-			<p class="detailInfo"><font size="3px"><strong>${date}</strong>　${time} ${reservation.doctor.doctorName} 　 </font>
+			<p class="detailInfo"><font size="3px"><strong>${date}</strong>　${time} ${reservation.doctor.doctorName} 원장 </font>
 			<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
 			</p>
 			<div class="listBtns">
