@@ -4,7 +4,8 @@
 <mapper namespace="kr.co.seeadoctor.repository.mapper.HospitalAboutMapper">
 
 	<resultMap id="hospAboutMap" type="hospitalAbout">
-		<result column="id" property="id"/>
+		<result column="user_id" property="id"/>
+		<result column="admin_id" property="adminId"/>
 		<result column="hospital_seq" property="hospitalSeq"/>
 		<result column="dutyName" property="dutyName"/>
 		<result column="dutyDivNam" property="dutyDivNam"/>
@@ -42,25 +43,25 @@
 		<select id="selectMyLikeCnt" parameterType="hospitalAbout" resultType="int">
 			select count(*)
 			  from tb_like
-			 where id = #{id} 
+			 where user_id = #{id} 
 		</select>
 		
 		<select id="selectHospLikeCnt" parameterType="hospitalAbout" resultType="int">
 			select count(*)
 			  from tb_like
-			 where id = #{id}
+			 where user_id = #{id}
 			   and hospital_seq = #{hospitalSeq}
 		</select>  
 		
 		<select id="selectAllHospLike" parameterType="string" resultMap="hospAboutMap">
 			select *
 			  from tb_like
-			 where id = #{id} 
+			 where user_id = #{id} 
 		</select>
 		
 		<insert id="insertHospLike" parameterType="hospitalAbout">
 			insert into tb_like(
-				id, hospital_seq, dutyName, dutyDivNam
+				user_id, hospital_seq, dutyName, dutyDivNam
 			) values(
 				#{id}, #{hospitalSeq}, #{dutyName}, #{dutyDivNam}
 			)
@@ -69,7 +70,7 @@
 		<delete id="deleteHospLike" parameterType="hospitalAbout">
 			delete
 			  from tb_like
-			 where id = #{id}
+			 where user_id = #{id}
 			   and hospital_seq = #{hospitalSeq}
 		</delete>
 		

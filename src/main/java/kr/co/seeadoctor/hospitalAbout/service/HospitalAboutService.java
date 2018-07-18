@@ -6,13 +6,12 @@ import java.util.Map;
 import kr.co.seeadoctor.repository.vo.Board;
 import kr.co.seeadoctor.repository.vo.BoardFile;
 import kr.co.seeadoctor.repository.vo.Comment;
-import kr.co.seeadoctor.repository.vo.Hospital;
 import kr.co.seeadoctor.repository.vo.HospitalAbout;
 
 public interface HospitalAboutService {
 
 	//병원정보가져오기
-	public Map<String, Object> loadHospAbout(String id, String hospitalSeq);
+	public Map<String, Object> loadHospAbout(String userId, String hospitalSeq);
 	
 	
 	//즐겨찾기

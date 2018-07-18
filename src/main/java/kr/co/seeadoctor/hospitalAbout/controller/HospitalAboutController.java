@@ -47,7 +47,6 @@ public class HospitalAboutController {
 	@RequestMapping("/review.json") 
 	@ResponseBody
 	public Map<String, Object> review(Model model, Board board) throws Exception {
-		System.out.println("해당리뷰시퀀스:" + board.getHospitalSeq());
 		return hospService.selectHospReview(board.getHospitalSeq());
 	}
 
@@ -195,8 +194,6 @@ public class HospitalAboutController {
 	@RequestMapping("/minusStar.json")
 	@ResponseBody
 	public void minusStar(HospitalAbout hospAbout) {
-		System.out.println("추천취소아이디" + hospAbout.getId());
-		System.out.println("추천취소할 병원시퀀:" + hospAbout.getHospitalSeq());
 		hospService.deleteStar(hospAbout);
 	}
 	
