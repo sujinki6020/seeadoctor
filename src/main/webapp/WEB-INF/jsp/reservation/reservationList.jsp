@@ -116,7 +116,7 @@ function lastPostFunc(name, val) {
 						appendData += '<button type="button" class="stateBnts" onclick="cancle('+list[i].reserveSeq+')">예약취소</button>';
 						}
 						if(list[i].reserveStatus==4 && list[i].reviewStatus=='f') {
-						appendData += '<button type="button" class="stateBnts">리뷰작성</button>';
+						appendData += '<a href="/seeadoctor/hospital/about.do?hospitalSeq='+list[i].hospitalSeq+'"><button type="button" class="stateBnts">리뷰작성</button></a>';
 						}
 						appendData += '</div>';
 				};
