@@ -14,6 +14,7 @@
 		<result column="review_status" property="reviewStatus" />
 		<collection property="user" resultMap="userMap"/>
 		<collection property="doctor" resultMap="doctorMap"/>
+		<collection property="hospital" resultMap="hospitalMap"/>
 	</resultMap>
 	<resultMap id="reservationTimeMap" type="reservationTime">
 		<result column="time_seq" property="timeSeq" />
@@ -47,6 +48,10 @@
 		<result column="doctor_name" property="doctorName" />
 		<result column="major_seq" property="majorSeq" />
 	</resultMap>
+	<resultMap id="hospitalMap" type="hospital">
+		<result column="hospital_seq" property="hospitalSeq"/>
+		<result column="dutyName" property="dutyName"/>
+	</resultMap>
 
 	<insert id="insertReservation" parameterType="reservation">
 	insert into tb_reservation (user_seq, hospital_seq, doctor_seq, reserve_date, reserve_time, symptom)
@@ -75,8 +80,10 @@
 	
 	<select id="selectReservationByUser" parameterType="scrollPaging" resultMap="reservationMap">
 	select *
-	  from tb_reservation
-	 where user_seq = #{userSeq}
+	 from tb_reservation r, tb_doctor d, tb_hospital_gangnam h
+	 where r.doctor_seq = d.doctor_seq
+       and r.hospital_seq = h.hospital_seq
+       and user_seq = #{userSeq}
    	 <if test="name !=null">
 	   	<choose>
 		   	<when test="name eq 'reserveStatus'">
@@ -100,10 +107,10 @@
 
 	<select id="selectReservationPop" parameterType="reservation" resultMap="reservationMap">
 		select *
-		  from tb_reservation r
-		  join tb_user u
-		    on r.user_seq = u.user_seq
-		 where r.hospital_seq = #{hospitalSeq}
+		  from tb_reservation r, tb_user u, tb_doctor d
+	     where r.user_seq = u.user_seq
+	       and r.doctor_seq = d.doctor_seq
+		   and r.hospital_seq = #{hospitalSeq}
 		   and r.reserve_date = #{reserveDate}
 		 order by cast(r.reserve_time as unsigned) asc
 	</select>

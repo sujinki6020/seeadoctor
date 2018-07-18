@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -18,7 +19,9 @@
 	
 	
 	<div id="doctorTab">
-	<button type="button" class="doctorBnt activeDoc" id="1001">성중원</button><button type="button" class="doctorBnt" id="1002">기수진</button>
+		<c:forEach items="${docList}" var="doctor">
+			<button type="button" class="doctorBnt" id="${doctor.doctorSeq}">${doctor.doctorName}</button>
+		</c:forEach>
 	</div>
 	
 	<div id="timeList">
@@ -36,6 +39,7 @@
 </div>
 <script>
 
+$("button:first").addClass("activeDoc");
 
 $(document).on("click", ".timeBnt", function () {	
 	$(this).toggleClass('closeTime');

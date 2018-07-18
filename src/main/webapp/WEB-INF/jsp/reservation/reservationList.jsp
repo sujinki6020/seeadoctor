@@ -111,7 +111,7 @@ function lastPostFunc(name, val) {
 						if(list[i].reserveStatus==3) {status = '미방문';}
 						if(list[i].reserveStatus==4) {status = '진료완료';}
 						appendData += '<div class="stateIcon state'+list[i].reserveStatus+'">'+status+'</div>';
-						appendData += '<span>　'+hour+':'+min+' | '+'병원코드'+list[i].hospitalSeq+' | '+'의사코드'+list[i].doctorSeq+'</span>';
+						appendData += '<span>　'+hour+':'+min+' | '+list[i].hospital.dutyName+' | '+list[i].doctor.doctorName+' 원장</span>';
 						if(list[i].reserveStatus==1) {
 						appendData += '<button type="button" class="stateBnts" onclick="cancle('+list[i].reserveSeq+')">예약취소</button>';
 						}

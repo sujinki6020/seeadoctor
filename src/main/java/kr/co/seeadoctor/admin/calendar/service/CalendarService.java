@@ -1,10 +1,10 @@
 package kr.co.seeadoctor.admin.calendar.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import kr.co.seeadoctor.repository.vo.CalendarInfo;
+import kr.co.seeadoctor.repository.vo.Doctor;
 import kr.co.seeadoctor.repository.vo.Reservation;
 import kr.co.seeadoctor.repository.vo.ReservationTime;
 
@@ -21,4 +21,6 @@ public interface CalendarService {
 	void updateCloseTime(Map<String, Object> closeMap);
 
 	List<ReservationTime> makeTimeList(ReservationTime reservationTime);
+
+	List<Doctor> getDoctorByHospSeq(int hospitalSeq);
 }

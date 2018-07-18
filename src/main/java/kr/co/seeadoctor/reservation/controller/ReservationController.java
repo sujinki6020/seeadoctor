@@ -73,7 +73,6 @@ public class ReservationController {
 		return service.selectReservationByUser(scrollPaging);
 	}
 	
-	
 	@RequestMapping("/reserve.do")
 	public String reserve(HttpSession session, Reservation reservation, String date) throws ParseException {
 

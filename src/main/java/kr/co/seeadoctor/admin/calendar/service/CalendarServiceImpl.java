@@ -8,9 +8,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import kr.co.seeadoctor.repository.mapper.DoctorMapper;
 import kr.co.seeadoctor.repository.mapper.HospitalMapper;
 import kr.co.seeadoctor.repository.mapper.ReservationMapper;
 import kr.co.seeadoctor.repository.vo.CalendarInfo;
+import kr.co.seeadoctor.repository.vo.Doctor;
 import kr.co.seeadoctor.repository.vo.Hospital;
 import kr.co.seeadoctor.repository.vo.Reservation;
 import kr.co.seeadoctor.repository.vo.ReservationTime;
@@ -22,6 +24,8 @@ public class CalendarServiceImpl implements CalendarService {
 	private ReservationMapper mapper;
 	@Autowired
 	private HospitalMapper hospMapper;
+	@Autowired
+	private DoctorMapper docMapper;
 
 	@Override
 	public CalendarInfo setCalendarDate(CalendarInfo calParam) {
@@ -153,6 +157,12 @@ public class CalendarServiceImpl implements CalendarService {
 		
 		
 		return mapper.selectTimeList(reservationTime);
+	}
+
+	@Override
+	public List<Doctor> getDoctorByHospSeq(int hospitalSeq) {
+		return docMapper.selectDoctorByHospSeq(hospitalSeq);
+		
 	}
 
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.seeadoctor.admin.calendar.service.CalendarService;
 import kr.co.seeadoctor.repository.vo.CalendarInfo;
+import kr.co.seeadoctor.repository.vo.Doctor;
 import kr.co.seeadoctor.repository.vo.Reservation;
 import kr.co.seeadoctor.repository.vo.ReservationTime;
 import kr.co.seeadoctor.repository.vo.User;
@@ -60,14 +61,15 @@ public class CalendarController {
 	@RequestMapping("/timeManagement.do")
 	public void timePop(HttpSession session, String dateStr, Model model) throws ParseException {
 		User user = (User) session.getAttribute("user");
-		
+		int hospitalSeq = user.getHospitalSeq();
 		Reservation reservation = new Reservation();
-		reservation.setHospitalSeq(user.getHospitalSeq());
-		
+		reservation.setHospitalSeq(hospitalSeq);
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = sdf.parse(dateStr);
 		reservation.setReserveDate(date);
 		
+		List<Doctor> docList = service.getDoctorByHospSeq(hospitalSeq);
+		model.addAttribute("docList", docList);
 		model.addAttribute("reservation", reservation);
 		model.addAttribute("dateStr", dateStr);
 		

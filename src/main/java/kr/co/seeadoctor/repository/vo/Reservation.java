@@ -34,12 +34,21 @@ public class Reservation {
 	    
 	    private User user;
 	    private Doctor doctor;
+	    private Hospital hospital;
 	    
 	    
 
 	  
 
 	
+
+		public Hospital getHospital() {
+			return hospital;
+		}
+
+		public void setHospital(Hospital hospital) {
+			this.hospital = hospital;
+		}
 
 		public Doctor getDoctor() {
 			return doctor;

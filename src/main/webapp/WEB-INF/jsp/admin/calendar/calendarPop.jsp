@@ -33,7 +33,7 @@
 				
 				<c:set var="time" value="${reservation.reserveTime.substring(0,2)}:${reservation.reserveTime.substring(2)}" />
 			
-				<p class="detailInfo"><font size="3px"><strong>${time} ${reservation.doctorSeq} 　</strong></font> ${reservation.user.name} ${reservation.user.birth}(${gender}) | ${reservation.user.phone}　
+				<p class="detailInfo"><font size="3px"><strong>${time} ${reservation.doctor.doctorName} 원장 　</strong></font> ${reservation.user.name} ${reservation.user.birth}(${gender}) | ${reservation.user.phone}　
 				<img class="messageImg" src="${pageContext.request.contextPath}/images/admin/calendar/symptom.png" />
 				</p>
 				<div class="listBtns">
