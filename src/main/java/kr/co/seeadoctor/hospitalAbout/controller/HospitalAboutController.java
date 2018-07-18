@@ -69,7 +69,7 @@ public class HospitalAboutController {
 	@ResponseBody
 	public Map<String, Object> detail(Board board) throws Exception {
 		System.out.println("no : " + board.getNo());
-		Map<String, Object> result = hospService.detailReview(board.getNo());
+		Map<String, Object> result = hospService.detailReview(board);
 		System.out.println("result:" + result);
 		return result;
 	}
@@ -198,7 +198,7 @@ public class HospitalAboutController {
 	}
 	
 	//병원잘못된정보수정
-	@RequestMapping("wrongInfoForm.do")
+	@RequestMapping("/wrongInfoForm.do")
 	public void wrongInfoForm() {
 	}
 	

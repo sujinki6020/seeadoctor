@@ -114,11 +114,11 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	}
 	
 	@Override
-	public Map<String, Object> detailReview(int no) throws Exception{
+	public Map<String, Object> detailReview(Board b) throws Exception{
+		int no = b.getNo();
 		Map<String, Object> result = new HashMap<>();
 		hospMapper.updateReviewViewCnt(no);
-//		System.out.println("update -> 1");
-		Board board = hospMapper.detailReview(no);
+		Board board = hospMapper.detailReview(b);
 		System.out.println("board -> 2" + board);
 		
 		List<BoardFile> files = hospMapper.selectReviewFileByNo(no);

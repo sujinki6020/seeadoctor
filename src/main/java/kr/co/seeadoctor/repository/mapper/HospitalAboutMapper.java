@@ -29,7 +29,8 @@ public interface HospitalAboutMapper {
 	int selectReviewCount(int hospitalSeq);
 	void insertReview(Board board);
 	void updateReviewViewCnt(int no);
-	Board detailReview(int no);
+	Board detailReview(Board board);
+//	Board detailReview(int no);
 	void deleteReview(int no);
 	Board selectReviewUpdate(int no);
 	//파일첨부

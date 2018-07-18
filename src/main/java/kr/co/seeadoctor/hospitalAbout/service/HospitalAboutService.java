@@ -23,7 +23,7 @@ public interface HospitalAboutService {
 	
 	//글리뷰가져오기
 	public Map<String, Object> selectHospReview(int hospitalSeq) throws Exception;
-	public Map<String, Object> detailReview(int no) throws Exception;
+	public Map<String, Object> detailReview(Board b) throws Exception;
 	public Board selectReviewUpdate(int no)throws Exception;
 	public void insertReview(Board board)throws Exception;
 	public void deleteReview(int no);

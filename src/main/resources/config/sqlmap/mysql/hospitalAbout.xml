@@ -119,7 +119,7 @@
 			 where no = #{no}  
 		</update>
 		
-		<select id="detailReview" resultMap="reviewMap" parameterType="int">
+		<select id="detailReview" resultMap="reviewMap" parameterType="board">
 			select *
 			  from tb_board
 			 where hospital_seq = #{hospitalSeq}

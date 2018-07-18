@@ -94,7 +94,7 @@ textarea.form-control {
 			<div id="head_btn_tap">
 				<hr id="head_tap_hr">
 					<div id="head_taps">
-						<a href="${pageContext.request.contextPath}/hospital/about.do?hospitalSeq=${param.hospitalSeq}">
+						<a href="${pageContext.request.contextPath}/hospital/about.do?hospitalSeq=${param.hospitalSeq}&tab=1">
 							<span>주요정보</span>
 						</a>	
 						<a href="#1" onclick="photo();">
@@ -315,7 +315,7 @@ textarea.form-control {
 					</div>
 				</div>	
 			</div>
-			
+			 
 		</div>
 		
 		
@@ -327,22 +327,40 @@ textarea.form-control {
 
 <script>
 //탭 케이스 이름 줘서 각각 페이지로 들어갈 수 있도록 하는 코드
-// let param = ${param.page}
+// let param = ${param.tab}
 // (function(){
 // 	if(!param) return;
 // 	switch(param){
 // 	case 1 : 
-// 		photo.show()
+// 		$("#content_box").show();
+// 		$("#content_photo").hide();
+// 		$("#content_area_writeForm").hide();
+// 		$("#content_detail").hide();
+// 		$("#buttons").hide();
+// 		$("#content_review").hide();
+// 		break;
+// 	case 2 :
+// 		$("#content_box").hide();
+// 		$("#content_photo").show();
+// 		$("#content_area_writeForm").hide();
+// 		$("#content_detail").hide();
+// 		$("#buttons").hide();
+// 		$("#content_review").hide();
+// 		break;
+// 	case 3 :
+// 		$("#content_box").hide();
+// 		$("#content_photo").hide();
+// 		$("#content_area_writeForm").hide();
+// 		$("#content_detail").hide();s
+// 		$("#buttons").hide();
+// 		$("#content_review").show();
 // 		break;
 // 	}
 // })()
 
 //위에 지도맵코드
-// let map = new naver.maps.Map('map', {center : new naver.maps.LatLng( latitude , longitude )} );
-
-// let marker = new naver.maps.Marker( { position : {center : new naver.maps.LatLng(result.aboutResult.wgs84Lat, result.aboutResult.wgs84Lon)} ,  map:map });
-
-
+let map = new naver.maps.Map('map', {center : new naver.maps.LatLng( ${result.hospResult.wgs84Lat} , ${result.hospResult.wgs84Lon})} );
+let marker = new naver.maps.Marker( { position : new naver.maps.LatLng( ${result.hospResult.wgs84Lat} , ${result.hospResult.wgs84Lon}) ,  map:map });
 
 console.log( "${result.cnt}")
 var ctx = document.getElementById("myChart").getContext('2d');
@@ -453,7 +471,7 @@ function review(hospitalSeq) {
 		$("#content_area_writeForm").hide();
 		$("#content_detail").hide();
 		$("#buttons").hide();
-		
+		console.log("111")
 		console.dir(result);
 		$("#reviewCount").text(result.count);
 		
@@ -486,6 +504,7 @@ function photo() {
 	$("#content_box").hide();
 	$("#content_review").hide();
 	$("#content_photo").show();
+	$("#content_detail").hide();
 	$("#content_area_writeForm").hide();
 	$("#buttons").hide();
 	
@@ -515,25 +534,27 @@ function writeForm(){
 
 //글쓰기
 function writeReview() {
-	alert("안녕")
 	var formData = new FormData($("#form")[0])
 	$.ajax({ 
 		url:"write.json",
 		data: formData,
 		type: "POST",
 		// 파일 업로드를 위한 속성 설정
+		dataType: "text",
 		processData: false,
 		contentType: false
 	})
 	.done(function(result){
-			alert("글안올라갔다!")
-		if(result.success == false){
-			alert("글안올라갔다!")
+		if(result != "success"){
+			alert("글안올라갔다!");
 		}
 		$("#content_box").hide();
 		$("#content_photo").hide();
-		$("#content_review").show();
 		$("#content_area_writeForm").hide();
+		$("#content_detail").hide();
+		$("#content_review").show();
+		$("#buttons").show();
+		review('${param.hospitalSeq}');
 	});
 }
 
@@ -544,12 +565,12 @@ function detail(no){
 	$("#content_review").hide();
 	$("#content_area_writeForm").hide();
 	$("#content_detail").show();
-	$("#buttons").show();
 	
 	$.ajax({ 
 		url : "detail.json",
 		data : {
-			no: no
+			no: no,
+			hospitalSeq: ${param.hospitalSeq}
 		}
 	})
 	.done(function(result) {
@@ -558,9 +579,9 @@ function detail(no){
 		$("#content_detail > #content_are_detail > #review_row > #title1").html(result.board.title);
 		$("#content_detail > #content_are_detail > #review_row > #nickName1").html(result.board.name);
 		$("#content_detail > #content_are_detail > #review_row > #view_cnt1").html(result.board.viewCnt);
-		var date = new Date(result.board.regDate);
-		var time = date.getFullYear()+"-"+(date.getMonth()+1)
-					+"-"+ date.getDate();
+			var date = new Date(result.board.regDate);
+			var time = date.getFullYear()+"-"+(date.getMonth()+1)
+						+"-"+ date.getDate();
 		$("#content_detail > #content_area > #review_row > #date1").html(time)
 		$("#detail_content").html(result.board.content)
 		$("#filearea_detail").html(result.board.files)

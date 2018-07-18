@@ -32,9 +32,6 @@ public class HospitalAbout {
 	private String wgs84Lat;
 	
 	
-	
-	
-	
 	public String getAdminId() {
 		return adminId;
 	}
