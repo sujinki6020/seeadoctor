@@ -41,7 +41,7 @@
             		<li><a href="${pageContext.request.contextPath}/admin/chat/chatBoard.do">1:1 채팅방</a></li>
             	</c:when>
             	<c:otherwise>
-		            <li><a href="${pageContext.request.contextPath}/mypage/myInfo.do">마이페이지</a></li>
+		            <li><a href="${pageContext.request.contextPath}/mypage/myInfo.do?id=${sessionScope.user.id}">마이페이지</a></li>
             	</c:otherwise>
             </c:choose>
             
