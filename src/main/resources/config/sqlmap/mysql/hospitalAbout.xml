@@ -60,9 +60,9 @@
 		
 		<insert id="insertHospLike" parameterType="hospitalAbout">
 			insert into tb_like(
-				id, hospital_seq, name, main_treat
+				id, hospital_seq, dutyName, dutyDivNam
 			) values(
-				#{id}, #{hospital_seq}, #{name}, #{mainTreat}
+				#{id}, #{hospitalSeq}, #{dutyName}, #{dutyDivNam}
 			)
 		</insert>
 		
@@ -72,8 +72,6 @@
 			 where id = #{id}
 			   and hospital_seq = #{hospitalSeq}
 		</delete>
-		
-		
 		
 		
 	<resultMap id="reviewMap" type="board">

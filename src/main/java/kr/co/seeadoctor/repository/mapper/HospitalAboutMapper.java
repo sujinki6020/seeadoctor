@@ -26,7 +26,7 @@ public interface HospitalAboutMapper {
 	//리뷰
 	List<Board> selectReview(int hospitalSeq);
 	//총게시글수
-		int selectReviewCount(int hospitalSeq);
+	int selectReviewCount(int hospitalSeq);
 	void insertReview(Board board);
 	void updateReviewViewCnt(int no);
 	Board detailReview(int no);

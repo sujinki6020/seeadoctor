@@ -151,7 +151,6 @@ public class HospitalAboutController {
 	    }
 	}
 	
-	
 	//댓글리스트
 	@RequestMapping("/commentList.json")
 	@ResponseBody
@@ -185,10 +184,6 @@ public class HospitalAboutController {
 	@RequestMapping("/photo.do")
 	public void photo() {
 	}
-	
-	
-	
-	
 	
 	//추천하기
 	@RequestMapping("/plusStar.json")

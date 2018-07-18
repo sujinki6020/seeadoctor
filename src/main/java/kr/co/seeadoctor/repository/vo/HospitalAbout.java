@@ -34,6 +34,12 @@ public class HospitalAbout {
 	
 	
 	
+	public int getHospitalSeq() {
+		return hospitalSeq;
+	}
+	public void setHospitalSeq(int hospitalSeq) {
+		this.hospitalSeq = hospitalSeq;
+	}
 	public String getDutyTime1c() {
 		return dutyTime1c;
 	}
@@ -148,12 +154,7 @@ public class HospitalAbout {
 	public void setId(String id) {
 		this.id = id;
 	}
-	public int getHospitalSeq() {
-		return hospitalSeq;
-	}
-	public void setHospitalSeq(int hospitalSeq) {
-		this.hospitalSeq = hospitalSeq;
-	}
+
 	public String getDutyName() {
 		return dutyName;
 	}
