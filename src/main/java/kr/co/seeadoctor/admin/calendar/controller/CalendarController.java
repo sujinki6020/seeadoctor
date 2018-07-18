@@ -114,16 +114,5 @@ public class CalendarController {
 	public void updateReserveStatus(int reserveSeq) {
 		service.updateReserveStatus(reserveSeq);
 	}
-	
-	@RequestMapping("/makeTime.json")
-	@ResponseBody
-	public List<ReservationTime> makeTime(ReservationTime reservationTime, String dateStr) throws ParseException {
-		
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = sdf.parse(dateStr);
-		reservationTime.setDate(date);
-		
-		return service.makeTimeList(reservationTime);
-	}
 
 }

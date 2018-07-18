@@ -55,7 +55,7 @@
 <div id="radioArea">
 
 <c:forEach items="${docList}" var="doc">
- 	<input type="radio" id="${doc.doctorSeq}" name="docCode" value="${doc.doctorSeq}" checked="checked" />
+ 	<input type="radio" id="${doc.doctorSeq}" name="doctorSeq" value="${doc.doctorSeq}" checked="checked" />
     <label for="${doc.doctorSeq}"><span></span><font size="4px"><strong>${doc.doctorName} 원장</strong></font> (${doc.majorCode.majorName})</label><br>
 </c:forEach>
     
@@ -128,13 +128,14 @@ function dayOfTheWeek(value) {
 		url : "/seeadoctor/reservation/timeList.json",
         data: {
         	hospitalSeq: $("input[name='hospitalSeq']").val(),
-        	docCode: $("input[name='docCode']").val(),
+        	doctorSeq: $("input[name='doctorSeq']").val(),
 //         	date: new Date($("input[name='date']").val()),
 			date: $("input[name='date']").val(),
         	day : date.getDay()
         },
 		success : function(reserveTimeList) {
 			var timeBnt = "";
+			if(reserveTimeList.length == 0) timeBnt += "<h4>휴무일입니다.</h4>"
 			for(var i = 0; i < reserveTimeList.length; i++) {
 				timeBnt += '<button type="button" id="'+reserveTimeList[i].time+'" class="timeBnt';
 				if(reserveTimeList[i].bookedStatus=="t" || reserveTimeList[i].blockedStatus=="t") {

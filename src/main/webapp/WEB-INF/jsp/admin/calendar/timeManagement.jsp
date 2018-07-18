@@ -52,7 +52,7 @@ function makeTime() {
 		url : "/seeadoctor/admin/calendar/makeTime.json",
 		data : {
 			hospitalSeq : "${reservation.hospitalSeq}",
-			docCode : $(".activeDoc").attr("id"),
+			doctorSeq : $(".activeDoc").attr("id"),
 			dateStr : "${dateStr}"
 		},
 		success : function (data) {
@@ -84,29 +84,23 @@ $.ajax({
 	url : "/seeadoctor/admin/calendar/timeList.json",
 	data : {
 		hospitalSeq : "${reservation.hospitalSeq}",
-		docCode : $(".activeDoc").attr("id"),
+		doctorSeq : $(".activeDoc").attr("id"),
 		dateStr : "${dateStr}"
 	},
 	success : function (data) {
 		
-		if(data.length == 0) {
-			makeTime();
-			return;
-		}
-		
 		$("#timeList").html("");
+		
+		var bnt = "";
+		if(data.length == 0) bnt += "<h4>휴무일입니다.</h4>"
 		for(var i=0; i<data.length; i++) {
-			
-			
-			var bnt = "";
 			bnt += "<button id='"+data[i].time+"' class='timeBnt";
 			if(data[i].blockedStatus=='t') {
 				bnt += " closeTime";
 			}
 			bnt += "'>"+data[i].time.substr(0,2)+":"+data[i].time.substr(2,2)+"</button>";
-			
-			$("#timeList").append(bnt);
 		}
+			$("#timeList").html(bnt);
 		
 	}
 });
@@ -137,7 +131,7 @@ $.ajaxSettings.traditional = true;
 		url : "/seeadoctor/admin/calendar/closeTime.json",
 		data : {
 			hospitalSeq : "${reservation.hospitalSeq}",
-			docCode : $(".activeDoc").attr("id"),
+			doctorSeq : $(".activeDoc").attr("id"),
 			closeArr : closeArr,
 			dateStr : "${dateStr}"
 		},
