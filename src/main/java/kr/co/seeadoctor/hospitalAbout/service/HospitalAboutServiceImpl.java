@@ -141,9 +141,8 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 		hospMapper.deleteReview(no);
 	}
 	@Override
-	public Board selectReviewUpdate(int no) throws Exception{
-		return hospMapper.selectReviewUpdate(no);
-		 
+	public void updateReview(Board board) throws Exception{
+		hospMapper.updateReview(board);
 	}
 		
 	@Override

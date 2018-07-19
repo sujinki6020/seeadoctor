@@ -64,7 +64,7 @@ public class BoardServiceImpl implements BoardService{
 					fileVO.setNo(board.getNo());
 					fileVO.setFilePath("c:/java-lec/upload/");
 					fileVO.setSysName(sysName);
-					fileVO.setHospCode(hospCode);
+//					fileVO.setHospCode(hospCode);
 					boardMapper.insertBoardFiles(fileVO);
 			 }
 		}
