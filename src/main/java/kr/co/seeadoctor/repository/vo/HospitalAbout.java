@@ -3,13 +3,15 @@ package kr.co.seeadoctor.repository.vo;
 public class HospitalAbout {
 
 	private String id; //유저아이디
+	private String userName;//유저이름
 	private String adminId; 
 	private int hospitalSeq;
 	private String dutyName; //병원이름
-	private String dutyDivNam;//메인진료
+	private String dutyDivNam;//병원분류
 	private String dutyAddr;//병원주소
 	private String addTreat; // 기타진료항목
-	private String dutyInfo; //부가정보
+	private String dutyEtc; //부가정보
+	private String dutyInf; //부가정보
 	private String dutyTel1;
 	private String dutyTel3;
 	private String dutyTime1c;
@@ -32,6 +34,19 @@ public class HospitalAbout {
 	private String wgs84Lat;
 	
 	
+	
+	public String getDutyInf() {
+		return dutyInf;
+	}
+	public void setDutyInf(String dutyInf) {
+		this.dutyInf = dutyInf;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 	public String getAdminId() {
 		return adminId;
 	}
@@ -183,13 +198,13 @@ public class HospitalAbout {
 	public void setAddTreat(String addTreat) {
 		this.addTreat = addTreat;
 	}
-	public String getDutyInfo() {
-		return dutyInfo;
-	}
-	public void setDutyInfo(String dutyInfo) {
-		this.dutyInfo = dutyInfo;
-	}
 	
+	public String getDutyEtc() {
+		return dutyEtc;
+	}
+	public void setDutyEtc(String dutyEtc) {
+		this.dutyEtc = dutyEtc;
+	}
 	public String getDutyTel1() {
 		return dutyTel1;
 	}

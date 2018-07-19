@@ -12,12 +12,16 @@
 		<result column="email" property="email" />
 		<result column="phone" property="phone" />
 		<result column="tel" property="tel" />
-		<result column="hosp_name" property="hospName" />
+		<result column="duty_name" property="dutyName" />
 		<result column="addr1" property="addr1" />
 		<result column="addr2" property="addr2" />
 		<result column="admin" property="admin" />
 		<result column="zip" property="zip" />
 		<result column="hospital_seq" property="hospitalSeq" />
+	</resultMap>
+	
+	<resultMap id="hospitalMap" type="hospital">
+		<result column="hospital_seq" property="hospitalSeq"/>
 	</resultMap>
 	
 	<select id="selectByUser" parameterType="string" resultMap="userMap">
@@ -48,14 +52,21 @@
     		where id=#{id}
 	</select>
 	
-	<select id="searchHospName" parameterType="string" resultType="hospital">
-		select dutyName, dutyTel1, dutyAddr
+	<select id="searchHospName" parameterType="string" resultMap="hospitalMap">
+		select dutyName, dutyTel1, dutyAddr, hospital_seq
 			from tb_hospital_gangnam
 			group by dutyName
 			having dutyName like concat('%', #{dutyName}, '%')
 			limit 10;
 	</select>
 	
+	<insert id="insertAdmin" parameterType="user">
+		insert into tb_user (
+			id, pw, dutyName, tel, addr1, name, email, phone, admin, hospital_seq
+		) values (
+			#{id}, #{pw}, #{dutyName}, #{tel}, #{addr1}, #{name}, #{email}, #{phone}, 'Y', #{hospitalSeq}
+ 		)
+	</insert>
 	
 	<!-- 예약파트 -->
 	

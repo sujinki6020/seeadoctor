@@ -67,6 +67,9 @@ input[type='text'] {
 #call1{
 	width: 200px;
 }
+#call3{
+	width: 200px;
+}
 #day{
 	width: 900px;
     height: 80px;
@@ -111,7 +114,7 @@ input[type='text'] {
     left: 323px;
 }
 #times{
-	width: 90px;
+	width: 127px;
 	display: inline;
 }
 #major input{

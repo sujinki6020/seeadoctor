@@ -64,10 +64,9 @@ public class BoardController {
 	@RequestMapping("/write.do")
 	public String write(Board board)throws Exception {//들어온다4
 		System.out.println("들어오니");
-		board.setUserSeq(3); //세션에있는 유저객체를 받아와서 셋해줌
-		board.setName("체리혜리");
-		System.out.println("널체크"+(board.getTitle()==null)+"title의 길이"+ board.getTitle().length());
-		//아무값도 없는데 무언가가 넘어가는것같다.
+//		board.setUserSeq(3); //세션에있는 유저객체를 받아와서 셋해줌
+//		board.setName("체리혜리");
+//		System.out.println("널체크"+(board.getTitle()==null)+"title의 길이"+ board.getTitle().length());
 		
 		//mysql셀렉트키를 이용하면 매개변수board에 입력된 글 번호가 설정된다(설정함)
 		boardService.insertBoard(board); //가져간다

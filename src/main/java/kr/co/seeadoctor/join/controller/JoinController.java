@@ -54,4 +54,11 @@ public class JoinController {
 		return joinService.searchHospName(dutyName);
 	}
 	
+	@RequestMapping("/insertAdmin.do")
+	public String registAdmin(User user) {
+		System.out.println("admin regist in");
+		joinService.registAdmin(user);
+		return "redirect:/index.jsp";
+	}
+	
 }

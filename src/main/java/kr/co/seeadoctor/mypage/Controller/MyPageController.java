@@ -36,7 +36,6 @@ public class MyPageController {
 	public String update(HttpSession session, User user) {
 		session.setAttribute("user", user);
 		myPageService.updateUser(user);
-//		System.out.println("update????");
 		return "redirect:/index.jsp";
 	}
 	

@@ -24,11 +24,6 @@
 			<div
 				class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
 				<form role="form" name="form" id="form" method="post" action="insertAdmin.do">
-				
-				
-					<input type="hidden" name="admin" id="admin" value="Y" />
-					
-					
 					<h2>
 						회원가입 <small>Admin</small>
 					</h2>
@@ -38,31 +33,25 @@
 						<span id = "chkMsg"></span> 
 						<p id="idp"></p>
 					</div>
-					<div class="row">
-						<div class="col-xs-6 col-sm-6 col-md-6">
-							<div class="form-group">
-								<input type="password" name="pw" id="password" class="form-control input-lg" placeholder="비밀번호" tabindex="2">
-								<p id="pwp"></p>
-							</div>
-						</div>
-						<div class="col-xs-6 col-sm-6 col-md-6">
-							<div class="form-group">
-								<input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-lg"
-									placeholder="비밀번호 확인" tabindex="3">
-								<p id="pwConfirm"></p>
-							</div>
-						</div>
+					<div class="form-group">
+						<input type="password" name="pw" id="password"
+						    	class="form-control input-lg" placeholder="비밀번호" tabindex="2">
+						<p id="pwp"></p>
+					</div>
+					<div class="form-group">
+						<input type="password" name="password_confirmation"
+								id="password_confirmation" class="form-control input-lg"
+								placeholder="비밀번호 확인" tabindex="3">
+						<p id="pwConfirm"></p>
 					</div>
 
 					<h4>병원 정보</h4>
 					<div class="form-group">
-						<input type="text" name="hospName" id="searchHospitalName"
+						<input type="text" name="dutyName" id="searchHospitalName"
 							class="form-control input-lg" placeholder="병원이름(DB 검색)" tabindex="4">
 					</div>
 					
-					
 					<div id="results"></div> 
-					
 					
 					<div class="form-group">
 						<input type="text" name="tel" id="tel"
@@ -71,6 +60,9 @@
 					<div class="form-group">
 						<input type="text" name="addr1" id="addr1"
 							class="form-control input-lg" placeholder="병원주소"
+							tabindex="9">
+						<input type="hidden" name="hospitalSeq" id="hospitalSeq"
+							class="form-control input-lg" placeholder="hospitalSeq"
 							tabindex="9">
 					</div>
 					<div class="row"></div>
@@ -179,19 +171,13 @@ function checkId(){
         }
     });
 };
-
-
-$("#save").on("submit", function(event) {
-    event.preventDefault();
-    console.log("addr1", addr1);
-    console.log("pw", pw);
- });
  
  $("#searchHospitalName").on("focus", function (event) {
 	searchHospName();
  })
  
  // 병원이름 검색
+var hospitals = null;
 function searchHospName() {
 	$("#searchHospitalName").keyup(function () {
 		var words = $("#searchHospitalName").val();
@@ -201,19 +187,20 @@ function searchHospName() {
 				url: "${pageContext.request.contextPath}/join/searchHospName.do",
 				data: {dutyName : words},
 				success: function(result) {
-					console.log("search result : ", result);
+					var html = "";
 					if(result.length==0) {
 						str = "";
 						$("#results").html(str);
 					} else if(result.length > 0) {
-						var html = "";
+						hospitals = result;
 							html += "<ul>";
-						for(var i=0; i<result.length; i++) {
-// 							html += "<span>" + result[i].dutyName + "</span><br>";
-							html += "	<li><a href='#'>" + result[i].dutyName + "</a></li>";
+						for(let i=0; i<result.length; i++) {
+							html += "	<li id='hospInfoLi'><a href='#' onclick='hospInfo(" + i + ");'>" + result[i].dutyName + "</a></li>";
 						}
 							html += "</ul>";
 						$("#results").html(html);
+						
+						
 					} else {
 						$("#results").html("검색결과가 없습니다.");
 					}
@@ -226,6 +213,26 @@ function searchHospName() {
 	}); 
  };
  
+ 
+ function hospInfo(index) {
+	 var dutyName = hospitals[index].dutyName; 
+	 var tel = hospitals[index].dutyTel1; 
+	 var addr1 = hospitals[index].dutyAddr; 
+	 var hospitalSeq = hospitals[index].hospitalSeq; 
+	 console.log("hospInfo", dutyName)
+	 console.log("hospInfo", tel)
+	 console.log("hospInfo", addr1)
+	 console.log("hospInfo", hospitalSeq)
+	 $("input[name='dutyName']").val(dutyName);
+	 $("input[name='tel']").val(tel);
+	 $("input[name='addr1']").val(addr1);
+	 $("input[name='hospitalSeq']").val(hospitalSeq);
+ };
+ 
+ $("#save").on("submit", function(event) {
+	    event.preventDefault();
+});
+	 
  
 </script>
 </body>

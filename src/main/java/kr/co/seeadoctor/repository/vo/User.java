@@ -10,7 +10,7 @@ public class User {
 	private String email;
 	private String phone;
 	private String tel;
-	private String hospName;
+	private String dutyName;
 	private String addr1;
 	private String addr2;
 	private char admin;
@@ -70,11 +70,11 @@ public class User {
 	public void setTel(String tel) {
 		this.tel = tel;
 	}
-	public String getHospName() {
-		return hospName;
+	public String getDutyName() {
+		return dutyName;
 	}
-	public void setHospName(String hospName) {
-		this.hospName = hospName;
+	public void setDutyName(String dutyName) {
+		this.dutyName = dutyName;
 	}
 	public String getAddr1() {
 		return addr1;
@@ -109,8 +109,8 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userSeq=" + userSeq + ", id=" + id + ", pw=" + pw + ", name=" + name + ", gender=" + gender
-				+ ", birth=" + birth + ", email=" + email + ", phone=" + phone + ", tel=" + tel + ", hospName="
-				+ hospName + ", addr1=" + addr1 + ", addr2=" + addr2 + ", admin=" + admin + ", zip=" + zip
+				+ ", birth=" + birth + ", email=" + email + ", phone=" + phone + ", tel=" + tel + ", dutyName="
+				+ dutyName + ", addr1=" + addr1 + ", addr2=" + addr2 + ", admin=" + admin + ", zip=" + zip
 				+ ", hospitalSeq=" + hospitalSeq + "]";
 	}
 }

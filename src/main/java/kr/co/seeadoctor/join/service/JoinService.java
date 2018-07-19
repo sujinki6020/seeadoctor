@@ -12,4 +12,6 @@ public interface JoinService {
 	public int idDuplChk(String id);
 	
 	public List<Hospital> searchHospName(String dutyName);
+	
+	public void registAdmin(User user);
 }

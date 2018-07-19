@@ -20,4 +20,6 @@ public interface UserMapper {
 	public int idDuplChk(String id);
 	
 	public List<Hospital> searchHospName(String dutyName);
+	
+	public void insertAdmin(User user);
 }

@@ -124,10 +124,14 @@ textarea.form-control {
 						<span style="padding-left: 22px;">#내과#이비인후과#영상의학과#통증의학과#피부과#피부클리닉#통장클리닉</span>
 	<%-- 					<span>${result.hospResult.addTreat}</span>//병원어드민이 상세정보 입력 시 가져올수있음 --%>
 					</div>
-					<div style="height: 47px;">
+					<div>
 						전화번호
-						<span style="padding-left: 26px;">${result.hospResult.dutyTel1}</span><br>
-						<span style="padding-left: 80px;">${result.hospResult.dutyTel3}</span>
+						<span style="padding-left: 26px;">${result.hospResult.dutyTel1}</span>
+						<span style="padding-left: 26px;">${result.hospResult.dutyTel3}</span>
+					</div>
+					<div style="height: 47px;">
+						부가정보
+						<span style="padding-left: 26px;">${result.hospResult.dutyEtc}, ${result.hospResult.dutyInf}</span><br>
 					</div>
 				</div>
 				<div style="width: 710px; margin: 28px 13px 0px -34px;">
@@ -182,15 +186,13 @@ textarea.form-control {
 
 <!-- 포토요약 -->
 		<div id="content_photo" style="display: none;">
-			<div id="content_area_photo">
-				<div id="in_out_photo">
-					<span>"병원이름"</span> <span>내외부 사진(개수)</span>
-					<hr id="review_hr">
-				</div>
-				<div id="content_photo">
-					사진
-				</div>
+			
+			<div id="in_out_photo">
+				<span style="float: left;">"${result.hospResult.dutyName}"의 사진입니다.</span> 
+				<span style="float: right;">내외부 사진(개수)</span>
 			</div>
+			
+			<div id="content_area_photo"></div>
 		</div>
 		
 		
@@ -227,7 +229,7 @@ textarea.form-control {
 						<textarea class="form-control" id="content" name="content" placeholder="내용을 입력해주세요">${board.content}</textarea>
 					</div>
 
-					<div id="filearea_detail">
+					<div id="filearea_write">
 							<span id="file_span" >첨부파일</span>
 							<input type="file" multiple="multiple" name="files" id="file"
 									accept=".gif, .jpg, .png" placeholder="지원되는 파일 양식: jpg, png, gif">
@@ -239,7 +241,7 @@ textarea.form-control {
 					<div id="btn_adm">
 						<button type="button" class="btn btn-default" style="margin-bottom: 10px;" onclick="writeReview();">등록</button>
 						<button type="button" class="btn btn-default" style="margin-bottom: 10px;" 
-								onclick="review();">취소</button>
+								onclick="review(${param.hospitalSeq});">취소</button>
 					</div>
 				</form>
 				</div>
@@ -249,7 +251,7 @@ textarea.form-control {
 		<div id="content_detail" style="display: none;">
 			
 			<div id="content_are_detail">
-				<div id="review_row">
+				<div id="detail_row">
 					<span id="title1"></span>
 					<span id="nickName1"></span>
 						<hr id="detail_hr">
@@ -258,16 +260,7 @@ textarea.form-control {
 						<hr id="detail_hr">
 				</div>
 				
-				<div id="filearea">
-						<c:forEach var="file" items="${result.files}">
-							<img src="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}" style="width:100%; height:100%; margin:0 auto;"/><br>
-							<button type="button" class="btn btn-default" style="margin:5px 0px 20px;"><a href="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}">다운로드</a></button><br> 
-						</c:forEach>
-					<c:forEach var="file" items="${files}">
-						<img src="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}" style="width:100%; height:100%; margin:0 auto;"/><br>
-						<button type="button" class="btn btn-default" style="margin:5px 0px 20px;"><a href="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}">다운로드</a></button><br> 
-					</c:forEach>
-				</div>
+				<div id="filearea"></div>
 				<div id="detail_content">${result.board.content}</div>
 			</div>
 			
@@ -301,17 +294,17 @@ textarea.form-control {
 				</div>
 			</div>
 			
-			<hr id="detail_hr">
+<!-- 			<hr id="detail_hr"> -->
 			<div id="buttons" style="display: none;">
 				<div id="btn_s">
 					<%-- 목록버튼 --%>
-					<button type="button" class="btn btn-default" onclick="review()">목록</button>
+					<button type="button" class="btn btn-default" onclick="review(${param.hospitalSeq})">목록</button>
 					<%-- 글쓰기버튼 --%>
 					<button type="button" class="btn btn-default" id="writeid" onclick="writeForm();">글쓰기</button>
 					<%-- 수정삭제버튼--%>
 					<div id="btn_update_delete" style="display:none;">
-						<button type="button" class="btn btn-default" id="updateid" onclick="updateForm(result.board.no)">수정</button>
-						<button type="button" class="btn btn-default" id="deleteid" onclick="delete1(result.board.no)">삭제</button>
+						<button type="button" class="btn btn-default" id="updateid" onclick="updateForm()">수정</button>
+						<button type="button" class="btn btn-default" id="deleteid" onclick='delete1()'>삭제</button>
 					</div>
 				</div>	
 			</div>
@@ -359,8 +352,8 @@ textarea.form-control {
 // })()
 
 //위에 지도맵코드
-let map = new naver.maps.Map('map', {center : new naver.maps.LatLng( ${result.hospResult.wgs84Lat} , ${result.hospResult.wgs84Lon})} );
-let marker = new naver.maps.Marker( { position : new naver.maps.LatLng( ${result.hospResult.wgs84Lat} , ${result.hospResult.wgs84Lon}) ,  map:map });
+let map = new naver.maps.Map('map', {center : new naver.maps.LatLng( "${result.hospResult.wgs84Lat}" , "${result.hospResult.wgs84Lon}")} );
+let marker = new naver.maps.Marker( { position : new naver.maps.LatLng( "${result.hospResult.wgs84Lat}" , "${result.hospResult.wgs84Lon}") ,  map:map });
 
 console.log( "${result.cnt}")
 var ctx = document.getElementById("myChart").getContext('2d');
@@ -368,10 +361,13 @@ var ctx = document.getElementById("myChart").getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'horizontalBar',
     data: {
-        labels: ["일","월", "화", "수", "목", "금", "토"],
+        labels: ["월", "화", "수", "목", "금", "토","일"],
         datasets: [{
             label: '마감시간',
-            data: [24, 14, 21, 22, 23, 18, 15],
+            data: ['${result.hospResult.dutyTime1c}', '${result.hospResult.dutyTime2c}',
+            		'${result.hospResult.dutyTime3c}', '${result.hospResult.dutyTime4c}',
+            		'${result.hospResult.dutyTime5c}', '${result.hospResult.dutyTime6c}',
+            		'${result.hospResult.dutyTime7c}'],
             backgroundColor: [
                 'rgba(255, 99, 132, 0.2)',
                 'rgba(54, 162, 235, 0.2)',
@@ -398,7 +394,7 @@ var myChart = new Chart(ctx, {
                	ticks: {
                    	beginAtZero:false,
                    	min:0,
-           			stepSize:1
+           			stepSize:60
                	}
            	}]
     	}
@@ -429,7 +425,8 @@ function plusStar(target){
 			id:'${sessionScope.user.id}',
 			hospitalSeq:'${result.hospResult.hospitalSeq}',
 			dutyName:'${result.hospResult.dutyName}',
-			dutyDivNam:'${result.hospResult.dutyDivNam}'	
+			dutyDivNam:'${result.hospResult.dutyDivNam}',
+			userName: '${sessionScope.user.name}'
 		}
 	})
 	.done(function(result){
@@ -457,6 +454,7 @@ function minusStar(target){
 
 // 리뷰
 function review(hospitalSeq) {
+	console.log(hospitalSeq)
 	$.ajax({ //
 		url:"review.json",
 		data : {
@@ -558,6 +556,7 @@ function writeReview() {
 	});
 }
 
+var detailNo = 0;
 //디테일
 function detail(no){
 	$("#content_box").hide();
@@ -565,26 +564,36 @@ function detail(no){
 	$("#content_review").hide();
 	$("#content_area_writeForm").hide();
 	$("#content_detail").show();
+	$("#buttons").show();
 	
 	$.ajax({ 
 		url : "detail.json",
 		data : {
 			no: no,
-			hospitalSeq: ${param.hospitalSeq}
+			hospitalSeq: "${param.hospitalSeq}"
 		}
 	})
-	.done(function(result) {
+	.done(function(result) { //가지고온 result에 접근해서 result.board.no 이렇게 쓸 수 있는것.
 		console.dir(result);
 		
-		$("#content_detail > #content_are_detail > #review_row > #title1").html(result.board.title);
-		$("#content_detail > #content_are_detail > #review_row > #nickName1").html(result.board.name);
-		$("#content_detail > #content_are_detail > #review_row > #view_cnt1").html(result.board.viewCnt);
+		detailNo = result.board.no;
+		
+		$("#content_detail > #content_are_detail > #detail_row > #title1").html(result.board.title);
+		$("#content_detail > #content_are_detail > #detail_row > #nickName1").html(result.board.name);
+		$("#content_detail > #content_are_detail > #detail_row > #view_cnt1").html(result.board.viewCnt);
 			var date = new Date(result.board.regDate);
 			var time = date.getFullYear()+"-"+(date.getMonth()+1)
 						+"-"+ date.getDate();
 		$("#content_detail > #content_area > #review_row > #date1").html(time)
 		$("#detail_content").html(result.board.content)
-		$("#filearea_detail").html(result.board.files)
+						
+		
+		var filearea = ""
+		for(let i=0; i< result.files.length; i++){
+			
+			filearea +="<img class='imgFile' src='${pageContext.request.contextPath}/board/fileOutPut.do?filePath="+result.files[i].filePath+"&sysName="+result.files[i].sysName+"'/><br>"
+		}
+		$("#filearea").html(filearea)
 		
 		if("${sessionScope.user.userSeq}" == result.board.userSeq){
 			$("#btn_update_delete").show()
@@ -593,19 +602,24 @@ function detail(no){
 }
 
 //삭제
-function delete1(no){
+function delete1(){
 	$.ajax({
 		url : "delete.json",
-		data : {
-			no : no
-		}
-	});
+		data : "no="+detailNo,
+		dataType: "text" //데이타타입을 객체로 넘겨줄땐 dataType이 "json"인데 객체로 넘겨주지 않으니 dataType이 "text"임
+	})
+	.done(function(result){
+		$("#content_box").hide();
+		$("#content_photo").hide();
+		$("#content_review").show();
+		$("#content_area_writeForm").hide();
+		$("#content_detail").hide();
+ 		review('${param.hospitalSeq}');
+		
+	})
+		
 	
-	$("#content_box").hide();
-	$("#content_photo").hide();
-	$("#content_review").show();
-	$("#content_area_writeForm").hide();
-	$("#content_detail").hide();
+	
 }
 
 /*

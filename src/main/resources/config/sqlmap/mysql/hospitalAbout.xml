@@ -5,13 +5,14 @@
 
 	<resultMap id="hospAboutMap" type="hospitalAbout">
 		<result column="user_id" property="id"/>
+		<result column="user_name" property="userName"/>
 		<result column="admin_id" property="adminId"/>
 		<result column="hospital_seq" property="hospitalSeq"/>
 		<result column="dutyName" property="dutyName"/>
 		<result column="dutyDivNam" property="dutyDivNam"/>
 		<result column="dutyAddr" property="dutyAddr"/>
-		<result column="add_treat" property="addTreat"/>
-		<result column="addInfo" property="addInfo"/>
+		<result column="dutyEtc" property="dutyEtc"/>
+		<result column="dutyInf" property="dutyInf"/>
 		<result column="dutyTel1" property="dutyTel1"/>
 		<result column="dutyTel3" property="dutyTel3"/>
 		<result column="wgs84Lon" property="wgs84Lon"/>
@@ -61,9 +62,9 @@
 		
 		<insert id="insertHospLike" parameterType="hospitalAbout">
 			insert into tb_like(
-				user_id, hospital_seq, dutyName, dutyDivNam
+				user_id, hospital_seq, dutyName, dutyDivNam, user_name
 			) values(
-				#{id}, #{hospitalSeq}, #{dutyName}, #{dutyDivNam}
+				#{id}, #{hospitalSeq}, #{dutyName}, #{dutyDivNam}, #{userName}
 			)
 		</insert>
 		
@@ -73,6 +74,19 @@
 			 where user_id = #{id}
 			   and hospital_seq = #{hospitalSeq}
 		</delete>
+		
+		<update id="updateHospInfo" parameterType="hospitalAbout">
+			update tb_hospital_gangnam
+			   set dutyName = #{dutyName},
+			   	   dutyAddr = #{dutyAddr},
+			   	   dutyTel1 = #{dutyTel1},
+			   	   dutyTel3 = #{dutyTel3},
+			   	   dutyDivNam = #{dutyDivNam},
+			   	   dutyEtc = #{dutyEtc}
+			 where hospital_seq = #{hospitalSeq}	
+		</update>
+			
+		
 		
 		
 	<resultMap id="reviewMap" type="board">
@@ -129,16 +143,17 @@
 		<delete id="deleteReview" parameterType="int">
 			delete
 			  from tb_board
-		     where hospital_seq = #{hospitalSeq}
-			   and no = #{no}
+		     where no = #{no}
 		</delete>
 		
-		<select id="selectReviewUpdate" parameterType="int" resultType="board">
-			select *
-			  from tb_board
-			 where hospital_seq = #{hospitalSeq}
-			   and no = #{no}
-		</select>
+		<update id="updateReview" parameterType="board">
+			update tb_board
+			   set title = #{title},
+    	           content = #{content}
+			 where no = #{no}
+		</update>
+	
+	  
 	
 	
 	<resultMap id="reviewFileMap" type="boardFile">
@@ -157,7 +172,7 @@
 			)
 		</insert>
 		
-		<select id="selectReviewFileByNo" parameterType="int" resultMap="reviewFileMap">
+		<select id="selectReviewFileByNo" parameterType="board" resultMap="reviewFileMap">
 			select *
 			  from tb_board_file
 			  where hospital_seq = #{hospitalSeq}

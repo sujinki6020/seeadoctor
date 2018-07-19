@@ -6,7 +6,6 @@ public class BoardFile {
 	private int no;
 	private String filePath;
 	private String sysName;
-	private int hospCode;
 	private String oriName;
 	private int hospitalSeq;
 	
@@ -49,13 +48,5 @@ public class BoardFile {
 	public void setSysName(String sysName) {
 		this.sysName = sysName;
 	}
-	public int getHospCode() {
-		return hospCode;
-	}
-	public void setHospCode(int hospCode) {
-		this.hospCode = hospCode;
-	}
-	
-	
 	
 }

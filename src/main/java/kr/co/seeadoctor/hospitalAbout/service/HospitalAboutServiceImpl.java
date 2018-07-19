@@ -42,6 +42,7 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 		hospAbout.setHospitalSeq(Integer.parseInt(hospitalSeq));
 		int cnt = hospMapper.selectHospLikeCnt(hospAbout); //중복
 		
+		System.out.println("부가정보:" + hospResult.getDutyEtc());
 		result.put("hospResult", hospResult);
 		result.put("myCnt", myCnt);
 		result.put("cnt", cnt);
@@ -91,14 +92,14 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 			 for(MultipartFile file: board.getFiles()) {
 				 
 				 System.out.println(file.getName());
-				 System.out.println("들어왔니?:"+file.getOriginalFilename());
+//				 System.out.println("들어왔니?:"+file.getOriginalFilename());
 				 String ext="";
 				 int index = file.getOriginalFilename().lastIndexOf(".");
 					if(index != -1) {
 						ext = file.getOriginalFilename().substring(index);
 					}
 					
-					int hospCode = 1; 
+//					int hospCode = 1; 
 					
 					String sysName = "final-"+UUID.randomUUID().toString()+ext;
 					file.transferTo(new File("c:/java-lec/upload/"+sysName));
@@ -107,7 +108,7 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 					fileVO.setNo(board.getNo());
 					fileVO.setFilePath("c:/java-lec/upload/");
 					fileVO.setSysName(sysName);
-					fileVO.setHospCode(hospCode);
+					fileVO.setHospitalSeq(board.getHospitalSeq());
 					hospMapper.insertReviewFiles(fileVO);
 			 }
 		}
@@ -121,8 +122,8 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 		Board board = hospMapper.detailReview(b);
 		System.out.println("board -> 2" + board);
 		
-		List<BoardFile> files = hospMapper.selectReviewFileByNo(no);
-//		System.out.println("update -> 3");
+		List<BoardFile> files = hospMapper.selectReviewFileByNo(b);
+		System.out.println("files: " + files);
 		List<Comment> commentList = hospMapper.selectCommentByNo(no);
 		
 		result.put("board", board);
@@ -140,14 +141,13 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 		hospMapper.deleteReview(no);
 	}
 	@Override
-	public Board selectReviewUpdate(int no) throws Exception{
-		return hospMapper.selectReviewUpdate(no);
-		 
+	public void updateReview(Board board) throws Exception{
+		hospMapper.updateReview(board);
 	}
 		
 	@Override
-	public List<BoardFile> selectReviewFileByNo(int no) {
-		return hospMapper.selectReviewFileByNo(no);
+	public List<BoardFile> selectReviewFileByNo(Board board) {
+		return hospMapper.selectReviewFileByNo(board);
 	}
 	
 	//댓글리스트

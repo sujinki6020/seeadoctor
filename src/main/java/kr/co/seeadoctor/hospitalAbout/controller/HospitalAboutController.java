@@ -61,24 +61,32 @@ public class HospitalAboutController {
 	@RequestMapping("/updateForm.json")
 	@ResponseBody
 	public String updateForm(Board board, Model model)throws Exception {
-		model.addAttribute("board", hospService.selectReviewUpdate(board.getNo())); 
+		model.addAttribute("board", hospService.detailReview(board)); 
 		return "board/writeForm";
+	}
+	
+	@RequestMapping("/update.json")
+	@ResponseBody
+	public String update(Board board)throws Exception {
+		hospService.updateReview(board);
+		return "success";
 	}
 	
 	@RequestMapping("/detail.json")
 	@ResponseBody
 	public Map<String, Object> detail(Board board) throws Exception {
-		System.out.println("no : " + board.getNo());
 		Map<String, Object> result = hospService.detailReview(board);
-		System.out.println("result:" + result);
+		Board b=(Board)result.get("board");
+		System.out.println("글번호:"+ b.getNo());
 		return result;
 	}
 	
-	@RequestMapping("/delete.do")
+	@RequestMapping("/delete.json")
 	@ResponseBody
 	public String delete(int no) {
+		System.out.println("딜리트:"+no);
 		hospService.deleteReview(no);
-		return "redirect:/board/review.do";
+		return "success";
 	}
 	
 	
