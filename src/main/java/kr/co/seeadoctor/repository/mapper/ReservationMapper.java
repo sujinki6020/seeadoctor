@@ -8,6 +8,7 @@ import kr.co.seeadoctor.repository.vo.Doctor;
 import kr.co.seeadoctor.repository.vo.Reservation;
 import kr.co.seeadoctor.repository.vo.ReservationTime;
 import kr.co.seeadoctor.repository.vo.ScrollPaging;
+import kr.co.seeadoctor.repository.vo.Statistics;
 
 public interface ReservationMapper {
 	
@@ -35,6 +36,13 @@ public interface ReservationMapper {
 	void updateReservationCancle(int reserveSeq);
 
 	void updateReserveStatusNoShow(Date today);
+
+	/*통계*/
+	Integer selectReservationCntByMonth(Map<String, Object> paramMap);
+	Integer selectReservationCntBySex(Map<String, Object> paramMap);
+	Integer selectReservationCntByAge(Map<String, Object> paramMap);
+
+	List<Statistics> selectReservationCntAll(Map<String, Object> paramMap);
 
 
 	

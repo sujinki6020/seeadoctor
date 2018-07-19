@@ -52,6 +52,10 @@
 		<result column="hospital_seq" property="hospitalSeq"/>
 		<result column="dutyName" property="dutyName"/>
 	</resultMap>
+	<resultMap id="statisticsMap" type="statistics">
+		<result column="month" property="month"/>
+		<result column="cnt" property="cnt"/>
+	</resultMap>
 
 	<insert id="insertReservation" parameterType="reservation">
 	insert into tb_reservation (user_seq, hospital_seq, doctor_seq, reserve_date, reserve_time, symptom)
@@ -170,6 +174,51 @@
 	       set reserve_status = 2
      	 where reserve_seq = #{reserveSeq}
 	</update>
+	
+	<!-- 통계쿼리 -->
+	<select id="selectReservationCntByMonth" parameterType="hashmap" resultType="int">
+	select stat.cnt
+	  from 
+	(select date_format(reserve_date,'%Y-%m') month, count(*) cnt
+	  from tb_reservation
+	 where hospital_seq = #{hospitalSeq}
+	 group by month) stat
+	 where stat.month = #{dateStr}
+	</select>
+	<select id="selectReservationCntAll" parameterType="hashmap" resultType="statistics">
+	select *
+	  from 
+    (select date_format(reserve_date,'%Y-%m') month, count(*) cnt
+	  from tb_reservation
+	 where hospital_seq = #{hospitalSeq}
+	 group by month) stat
+	 where stat.month between #{startMonth} and #{endMonth}
+	</select>
+	
+	<select id="selectReservationCntBySex" parameterType="hashmap" resultType="int">
+	select stat.cnt
+	  from 
+	(select date_format(reserve_date,'%Y-%m') month, count(*) cnt
+	  from tb_reservation r, tb_user u
+   	 where r.user_seq = u.user_seq
+	   and r.hospital_seq = #{hospitalSeq}
+	   and u.gender = #{sex}
+	 group by month) stat
+	 where stat.month = #{dateStr}
+	</select>
+	
+	<select id="selectReservationCntByAge" parameterType="hashmap" resultType="int">
+	select ifnull(stat.cnt, 0)
+	  from 
+		   (select date_format(reserve_date,'%Y-%m') month, count(*) cnt
+			  from tb_reservation r, tb_user u
+			 where r.user_seq = u.user_seq
+			   and r.hospital_seq = #{hospitalSeq}
+			   and (year(now()) - (mid(u.birth, 1, 2)+1900))
+		   between #{start} and #{end}) stat
+  	 where stat.month = #{dateStr}
+	</select>
+	
 </mapper>
 
 
