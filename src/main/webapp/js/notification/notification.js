@@ -44,3 +44,8 @@ $(document).on("click","#notification",function(){
 	console.log("알림 실행중")
 	$("#notifList").toggle();
 });
+
+$(document).on('click','#userOut',function(){
+	console.log("로그아웃중...");
+	ws.send("logout");
+})

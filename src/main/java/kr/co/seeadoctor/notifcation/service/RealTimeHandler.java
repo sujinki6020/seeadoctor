@@ -1,7 +1,6 @@
 package kr.co.seeadoctor.notifcation.service;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -56,6 +55,10 @@ public class RealTimeHandler extends TextWebSocketHandler  {
 			String result = toJson.writeValueAsString(notifs);
 			session.sendMessage(new TextMessage(result));
 			return;
+		}else if(rcvMsg.startsWith("logout")) {
+			System.out.println();
+			mapper.updateNotification(user.getId());
+			return;
 		}
 		String rcvId = rcvMsg.substring(0,rcvMsg.indexOf(":"));
 		String sendMsg = rcvMsg.substring(rcvMsg.indexOf(":") + 1);
@@ -66,9 +69,10 @@ public class RealTimeHandler extends TextWebSocketHandler  {
 		notif.setMessage(sendMsg);
 		mapper.insertNotification(notif);
 		if(findUser(rcvId) == null) {
+			System.out.println("해당 유저가 접속중이 아닙니다.");
 			return;
 		} 
-		findUser(user.getId()).sendMessage(new TextMessage(user.getId() + ":" + sendMsg));
+		findUser(rcvId).sendMessage(new TextMessage(user.getId() + ":" + sendMsg));
 		System.out.println("sendId :" +  rcvId);
 		System.out.println("sendMsg : " + sendMsg);
 		System.out.println("users : " + connectedUser);

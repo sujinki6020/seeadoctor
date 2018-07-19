@@ -14,6 +14,7 @@
 		select *
 		from tb_notif
 		where receive_id = #{id}
+		and past != 'T'
 	</select>
 	
 	<insert id="insertNotification">
@@ -30,8 +31,8 @@
 	
 	<update id="updateNotification" parameterType="string">
 		update tb_notif
-		set read = 'T'
-		where receive_id = #{od}
+		set past = 'T'
+		where receive_id = #{id}
 	</update>
 
 </mapper>

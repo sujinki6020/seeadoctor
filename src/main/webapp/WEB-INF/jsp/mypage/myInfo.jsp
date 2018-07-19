@@ -184,7 +184,7 @@
 	});
 	
 	$(document).on("click",".chat",function(){
-		ws.send("${sessionScope.user.id}"+":테스트중..")
+		//ws.send("admin99"+":테스트중..")
 	})
 	
 	function chat(id) {

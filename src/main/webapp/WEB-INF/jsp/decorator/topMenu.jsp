@@ -3,8 +3,10 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <header>
     <h1 id="logo"><a href="${pageContext.request.contextPath}/index.jsp"><img src="${pageContext.request.contextPath}/images/header/title1.JPG" alt=""></a></h1>
-    <img id="notification" src="${pageContext.request.contextPath}/temporary/notification.png"></img>
-	<span id="count">0</span>
+    <c:if test="${not empty sessionScope.user}">
+	    <img id="notification" src="${pageContext.request.contextPath}/temporary/notification.png"></img>
+		<span id="count">0</span>
+    </c:if>
     <p id="userBox">
 	    <c:choose>
 		    <c:when test="${empty sessionScope.user}">
@@ -13,7 +15,7 @@
 		    </c:when>
 		    <c:otherwise>
 	        <span id="greeting">${user.name}님 환영합니다.</span>
-		    <a href="${pageContext.request.contextPath}/login/logout.do" >로그아웃</a>
+		    <a href="${pageContext.request.contextPath}/login/logout.do" id="userOut" >로그아웃</a>
 		    </c:otherwise>
 	    </c:choose>
     </p>
