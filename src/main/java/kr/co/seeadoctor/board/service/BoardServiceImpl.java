@@ -55,7 +55,7 @@ public class BoardServiceImpl implements BoardService{
 						ext = file.getOriginalFilename().substring(index);
 					}
 					
-					int hospCode = 1; 
+//					int hospCode = 1; 
 					
 					String sysName = "final-"+UUID.randomUUID().toString()+ext;
 					file.transferTo(new File("c:/java-lec/upload/"+sysName));

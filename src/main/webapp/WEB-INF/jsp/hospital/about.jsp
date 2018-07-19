@@ -591,7 +591,9 @@ function detail(no){
 		var filearea = ""
 		for(let i=0; i< result.files.length; i++){
 			
+			let file = result.files[i];
 			filearea +="<img class='imgFile' src='${pageContext.request.contextPath}/board/fileOutPut.do?filePath="+result.files[i].filePath+"&sysName="+result.files[i].sysName+"'/><br>"
+			filearea += "<button type='button' class='btn btn default' style='margin: 5px 0px 20px;'><a href='${pageContext.request.contextPath}/board/fileOutPut.do?filepath='"+${file.filePath}+"&sysName="+${file.sysName}+">"다운로드'</a></button><br>'
 		}
 		$("#filearea").html(filearea)
 		
@@ -615,12 +617,30 @@ function delete1(){
 		$("#content_area_writeForm").hide();
 		$("#content_detail").hide();
  		review('${param.hospitalSeq}');
-		
 	})
-		
-	
-	
 }
+
+function updateForm(){
+	$.ajax({
+		url : "updateForm.json",
+		data: { 
+			no : detailNo,
+			content: board.content,
+			title : board.title
+		}
+	})
+	.done(function(result){
+		$("#content_box").hide();
+		$("#content_photo").hide();
+		$("#content_review").show();
+		$("#content_area_writeForm").hide();
+		$("#content_detail").hide();
+ 		review('${param.hospitalSeq}');
+	})
+}
+
+
+
 
 /*
 

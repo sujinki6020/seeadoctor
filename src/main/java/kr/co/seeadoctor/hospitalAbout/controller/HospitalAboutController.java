@@ -84,7 +84,6 @@ public class HospitalAboutController {
 	@RequestMapping("/delete.json")
 	@ResponseBody
 	public String delete(int no) {
-		System.out.println("딜리트:"+no);
 		hospService.deleteReview(no);
 		return "success";
 	}

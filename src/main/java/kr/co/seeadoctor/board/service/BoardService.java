@@ -6,7 +6,7 @@ import java.util.Map;
 import kr.co.seeadoctor.repository.vo.Board;
 import kr.co.seeadoctor.repository.vo.BoardFile;
 import kr.co.seeadoctor.repository.vo.Comment;
-
+ 
 public interface BoardService {
 	public Map<String, Object> selectBoard(Board board) throws Exception;
 	public Map<String, Object> detailBoard(int no) throws Exception;

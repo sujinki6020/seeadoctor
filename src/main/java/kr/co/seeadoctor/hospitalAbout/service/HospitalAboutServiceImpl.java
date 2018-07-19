@@ -87,19 +87,15 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	public void insertReview(Board board)throws Exception {
 		hospMapper.insertReview(board);
 		
-		if(board.getFiles() !=null) {
+		if(board.getFiles()[0].getOriginalFilename() !=null) {
 			
 			 for(MultipartFile file: board.getFiles()) {
 				 
-				 System.out.println(file.getName());
-//				 System.out.println("들어왔니?:"+file.getOriginalFilename());
 				 String ext="";
 				 int index = file.getOriginalFilename().lastIndexOf(".");
 					if(index != -1) {
 						ext = file.getOriginalFilename().substring(index);
 					}
-					
-//					int hospCode = 1; 
 					
 					String sysName = "final-"+UUID.randomUUID().toString()+ext;
 					file.transferTo(new File("c:/java-lec/upload/"+sysName));
