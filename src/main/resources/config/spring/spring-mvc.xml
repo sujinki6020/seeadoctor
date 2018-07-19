@@ -71,6 +71,7 @@
 			<mvc:exclude-mapping path="/join/idDuplChk.do" />
 			<mvc:exclude-mapping path="/join/searchHospName.do" />
 			<mvc:exclude-mapping path="/join/jusoPopup.do" />
+			<mvc:exclude-mapping path="/admin/chatboard/addMemo.do" />
 			<mvc:exclude-mapping path="/map/address.do" />
 			<mvc:exclude-mapping path="/notification.do" />
 			<!--mvc 인터셉터 컨트롤러 빈객체 정의 -->

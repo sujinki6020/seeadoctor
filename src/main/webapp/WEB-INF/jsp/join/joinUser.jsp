@@ -198,7 +198,7 @@ function checkId(){
         type:'post',
         data:{id:id},
         success:function(data){
-        	console.log("data",data);
+//         	console.log("data",data);
             if($.trim(data)==0){
                 $('#chkMsg').html("<p style='color:blue;'>사용가능한 ID입니다.</p>");
             }else{

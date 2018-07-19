@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.seeadoctor.admin.chatboard.service.ChatBoardService;
 import kr.co.seeadoctor.repository.vo.ChatBoard;
@@ -32,20 +33,24 @@ public class ChatBoardController {
 		return "chat/chatWindow";
 	}
 	
-	@RequestMapping("admin/chatboard/insertChatBoard.do")
+	@RequestMapping("/admin/chatboard/insertChatBoard.do")
 	public String insertChatBoard(ChatBoard ChatBoard) {
 		chatBoardService.insertChatBoard(ChatBoard);
 		return "admin/chatboard/chatBoard";
 	}
 	
-	// @Responsebody (ajax?로 업데이트)
-	@RequestMapping("admin/chatboard/addMemo.do") 
-	public String addMemo(ChatBoard chatBoard) {
+	@ResponseBody
+	@RequestMapping("/admin/chatboard/addMemo.do") 
+	public void addMemo(ChatBoard chatBoard) {
+//		String adminId = ((User)session.getAttribute("user")).getId();
+//		System.out.println("addmemo controller IN" + adminId);
+		System.out.println("getmemo : " + chatBoard.getMemo());
 		chatBoardService.addMemo(chatBoard);
-		return "admin/chatboard/chatBoard";
+//		List<ChatBoard> cbList = chatBoardService.retrieveChatBoard(adminId);
+//		return cbList;
 	}
 	
-	@RequestMapping("admin/chatboard/deleteChatBoard.do") 
+	@RequestMapping("/admin/chatboard/deleteChatBoard.do") 
 	public String deleteChatBoard(String adminId) {
 		chatBoardService.deleteChatBoard(adminId);
 		return "admin/chatboard/chatBoard";

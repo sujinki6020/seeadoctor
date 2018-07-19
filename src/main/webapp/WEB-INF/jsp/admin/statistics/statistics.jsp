@@ -14,7 +14,7 @@
 <div class="viewWrap">
 
 <div id="yearStat">
-<h3>연간 예약건수<span id="lineDateStr"></span></h3>
+<h3><button onclick="setPrevYear()">prev</button>연간 예약건수<span id="lineDateStr"></span><button onclick="setNextYear()">next</button></h3>
 <div id="lineCanvasBox"></div>
 </div>
 
@@ -24,7 +24,7 @@
 </div>
 
 <div id="monthStat">
-<br><h3><button onclick="setPrevDate()">prev</button><span id="pieDateStr"></span> 예약자 정보<button onclick="setNextDate()">next</button></h3>
+<br><h3><button onclick="setPrevMonth()">prev</button><span id="pieDateStr"></span> 예약자 정보<button onclick="setNextMonth()">next</button></h3>
 <h4>　<span id="sexCanvasTitle">성별</span> <span id="ageCanvasTitle">연령대</span> </h4>
 <div id="sexPieCanvasBox"></div>
 <div id="agePieCanvasBox"></div>
@@ -37,27 +37,40 @@
 var date = new Date();
 var thisYear = date.getFullYear();
 var thisMonth = date.getMonth()+1;
+var thisLineYear = date.getFullYear();
+var thisLineMonth = date.getMonth()+1;
 
-function setPrevDate() {
+function setPrevMonth() {
 	if(thisMonth==1) {
 		thisYear = thisYear-1;
 		thisMonth = 12;
 	}else {
 	thisMonth = thisMonth - 1;
 	}
-	console.log(thisMonth);
 	getPieData();
 }
 
-function setNextDate() {
+function setNextMonth() {
 	if(thisMonth==12) {
 		thisYear = thisYear+1;
 		thisMonth = 1;
 	}else {
 	thisMonth = thisMonth + 1;
 	}
-	console.log(thisMonth);
 	getPieData();
+}
+function setPrevYear() {
+	thisLineYear = thisLineYear - 1;
+	thisLineMonth = 12;
+	getLineData();
+}
+
+function setNextYear() {
+	thisLineYear = thisLineYear + 1;
+	if(thisLineYear== date.getFullYear()) {
+		thisLineMonth = date.getMonth()+1;
+	}
+	getLineData();
 }
 
 
@@ -67,13 +80,14 @@ function getLineData() {
 		url: "/seeadoctor/admin/statistics/getLineData.json",
 		data: {
 			hospitalSeq : "${user.hospitalSeq}",
-			thisYear : thisYear,
-			thisMonth : thisMonth
+			thisYear : thisLineYear,
+			thisMonth : thisLineMonth
 		},
-		success: function (lineData) {
+		success: function (lineArr) {
 			
-			$("#lineDateStr").text("("+thisYear+"년)");
+			$("#lineDateStr").text("("+thisLineYear+"년)");
 			
+			/*
 			var lineMonthArr = [];
 			var lineCntArr = [];
 			for(let i=0; i<lineData.lineMonth.length; i++) {
@@ -83,25 +97,30 @@ function getLineData() {
 //		 	console.log(lineMonthArr);
 //		 	console.log(lineCntArr);
 
-			setLineCanvas(lineMonthArr, lineCntArr);
+			setLineCanvas(lineMonthArr, lineCntArr);*/
+			var monthArr = new Array();
+			for(var i=0; i<thisLineMonth; i++) {
+				monthArr[i] = i+1;
+			}
+			setLineCanvas(monthArr, lineArr);
 		}
 	});
 }
 
 getLineData();
 
-function setLineCanvas(lineMonthArr, lineCntArr){
+function setLineCanvas(monthArr, lineArr){
 	
 var data = {
 	    labels: 
-	    	lineMonthArr
+	    	monthArr
 	    , 
 	    datasets: [
 	        {
 	    		fill: false,
 	            label: '예약건수',
 	            data: 
-	            	lineCntArr
+	            	lineArr
 	            ,
 	            backgroundColor: [
 	                'rgba(255, 99, 132, 0.2)',
@@ -150,9 +169,25 @@ var myBarChart = new Chart(ctx, {
     options: options
 });
 }
-setLineCanvas();
 
-function setBarCanvas(){
+
+function getBarData() {
+	$.ajax({
+		type: "POST",
+		url: "/seeadoctor/admin/statistics/getBarData.json",
+		data: {
+			hospitalSeq : "${user.hospitalSeq}"
+		},
+		success: function (visitArr) {
+			setBarCanvas(visitArr);
+		}
+	});
+}
+
+getBarData();
+
+
+function setBarCanvas(visitArr){
 var data = {
 	    labels: [
 	    	'월', '화', '수', '목', '금', '토', '일'
@@ -160,9 +195,7 @@ var data = {
 	    datasets: [
 	        {
 	            label: '페이지방문자수',
-	            data: [
-	            	50, 56, 58, 54, 50, 49, 52
-	            ],
+	            data: visitArr,
 	            backgroundColor: [
 	                'rgba(255, 99, 132, 0.2)',
 	                'rgba(54, 162, 235, 0.2)',
@@ -210,7 +243,7 @@ var myBarChart = new Chart(ctx, {
     options: options
 });
 }
-setBarCanvas();
+
 
 function getPieData() {
 
