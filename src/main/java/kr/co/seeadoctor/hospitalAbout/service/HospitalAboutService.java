@@ -28,7 +28,7 @@ public interface HospitalAboutService {
 	public void insertReview(Board board)throws Exception;
 	public void deleteReview(int no);
 	//디테일 파일
-	public List<BoardFile> selectReviewFileByNo(int no);
+	public List<BoardFile> selectReviewFileByNo(Board board);
 	
 	//댓글리스트
 	public List<Comment> selectCommentByNo(int no);

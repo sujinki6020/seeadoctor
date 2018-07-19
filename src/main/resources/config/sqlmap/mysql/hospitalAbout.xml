@@ -157,7 +157,7 @@
 			)
 		</insert>
 		
-		<select id="selectReviewFileByNo" parameterType="int" resultMap="reviewFileMap">
+		<select id="selectReviewFileByNo" parameterType="board" resultMap="reviewFileMap">
 			select *
 			  from tb_board_file
 			  where hospital_seq = #{hospitalSeq}

@@ -77,7 +77,7 @@ body {
 						
 						
 				<div id="major">
-					<span>대표진료</span>
+					<span>병원분류</span>
 					<input type="text" class="form-control" name="major" placeholder="대표진료항목">
 				</div>
 				<div id="treat">

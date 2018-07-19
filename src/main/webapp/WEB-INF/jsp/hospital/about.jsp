@@ -260,12 +260,7 @@ textarea.form-control {
 						<hr id="detail_hr">
 				</div>
 				
-				<div id="filearea">
-						<c:forEach var="file" items="${result.files}">
-							<img src="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}" style="width:100%; height:100%; margin:0 auto;"/><br>
-							<button type="button" class="btn btn-default" style="margin:5px 0px 20px;"><a href="${pageContext.request.contextPath}/board/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}">다운로드</a></button><br> 
-						</c:forEach>
-				</div>
+				<div id="filearea"></div>
 				<div id="detail_content">${result.board.content}</div>
 			</div>
 			
@@ -573,7 +568,7 @@ function detail(no){
 		url : "detail.json",
 		data : {
 			no: no,
-			hospitalSeq: ${param.hospitalSeq}
+			hospitalSeq: "${param.hospitalSeq}"
 		}
 	})
 	.done(function(result) {
@@ -587,7 +582,14 @@ function detail(no){
 						+"-"+ date.getDate();
 		$("#content_detail > #content_area > #review_row > #date1").html(time)
 		$("#detail_content").html(result.board.content)
-		$("#filearea").html(result.board.files)
+						
+		
+		var filearea = ""
+		for(let i=0; i< result.files.length; i++){
+			
+			filearea +="<img class='imgFile' src='${pageContext.request.contextPath}/board/fileOutPut.do?filePath="+result.files[i].filePath+"&sysName="+result.files[i].sysName+"'/><br>"
+		}
+		$("#filearea").html(filearea)
 		
 		if("${sessionScope.user.userSeq}" == result.board.userSeq){
 			$("#btn_update_delete").show()

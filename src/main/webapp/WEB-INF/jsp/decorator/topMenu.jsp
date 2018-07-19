@@ -45,6 +45,10 @@
             	</c:otherwise>
             </c:choose>
             
+            <c:if test="${sessionScope.user.admin eq 'Y'.charAt(0)}">
+            		<li><a href="${pageContext.request.contextPath}/admin/info/infoUpdateForm.do">병원정보수정</a></li>
+            </c:if>
+            
         </ul>
         
     </nav>

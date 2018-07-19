@@ -35,7 +35,7 @@ public interface HospitalAboutMapper {
 	Board selectReviewUpdate(int no);
 	//파일첨부
 	void insertReviewFiles(BoardFile fileVO);
-	List<BoardFile> selectReviewFileByNo(int no);
+	List<BoardFile> selectReviewFileByNo(Board board);
 	
 	
 	//댓글

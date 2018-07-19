@@ -70,7 +70,6 @@ public class HospitalAboutController {
 	public Map<String, Object> detail(Board board) throws Exception {
 		System.out.println("no : " + board.getNo());
 		Map<String, Object> result = hospService.detailReview(board);
-		System.out.println("result.board.files:" + result.board.get);
 		return result;
 	}
 	

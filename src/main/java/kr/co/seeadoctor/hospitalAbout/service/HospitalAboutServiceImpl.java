@@ -122,7 +122,7 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 		Board board = hospMapper.detailReview(b);
 		System.out.println("board -> 2" + board);
 		
-		List<BoardFile> files = hospMapper.selectReviewFileByNo(no);
+		List<BoardFile> files = hospMapper.selectReviewFileByNo(b);
 		System.out.println("files: " + files);
 		List<Comment> commentList = hospMapper.selectCommentByNo(no);
 		
@@ -147,8 +147,8 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	}
 		
 	@Override
-	public List<BoardFile> selectReviewFileByNo(int no) {
-		return hospMapper.selectReviewFileByNo(no);
+	public List<BoardFile> selectReviewFileByNo(Board board) {
+		return hospMapper.selectReviewFileByNo(board);
 	}
 	
 	//댓글리스트
