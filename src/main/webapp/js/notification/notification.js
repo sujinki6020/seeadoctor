@@ -42,7 +42,9 @@ startAlarm();
 
 $(document).on("click","#notification",function(){
 	console.log("알림 실행중")
-	$("#notifList").toggle();
+	if($("#count") != 0){
+		$("#notifList").toggle();
+	}
 });
 
 $(document).on('click','#userOut',function(){
