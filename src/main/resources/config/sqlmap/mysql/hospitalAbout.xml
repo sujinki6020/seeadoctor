@@ -5,6 +5,7 @@
 
 	<resultMap id="hospAboutMap" type="hospitalAbout">
 		<result column="user_id" property="id"/>
+		<result column="user_name" property="userName"/>
 		<result column="admin_id" property="adminId"/>
 		<result column="hospital_seq" property="hospitalSeq"/>
 		<result column="dutyName" property="dutyName"/>
@@ -60,9 +61,9 @@
 		
 		<insert id="insertHospLike" parameterType="hospitalAbout">
 			insert into tb_like(
-				user_id, hospital_seq, dutyName, dutyDivNam
+				user_id, hospital_seq, dutyName, dutyDivNam, user_name
 			) values(
-				#{id}, #{hospitalSeq}, #{dutyName}, #{dutyDivNam}
+				#{id}, #{hospitalSeq}, #{dutyName}, #{dutyDivNam}, #{userName}
 			)
 		</insert>
 		

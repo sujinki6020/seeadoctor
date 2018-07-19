@@ -92,7 +92,7 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 			 for(MultipartFile file: board.getFiles()) {
 				 
 				 System.out.println(file.getName());
-				 System.out.println("들어왔니?:"+file.getOriginalFilename());
+//				 System.out.println("들어왔니?:"+file.getOriginalFilename());
 				 String ext="";
 				 int index = file.getOriginalFilename().lastIndexOf(".");
 					if(index != -1) {
@@ -123,7 +123,7 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 		System.out.println("board -> 2" + board);
 		
 		List<BoardFile> files = hospMapper.selectReviewFileByNo(no);
-//		System.out.println("update -> 3");
+		System.out.println("files: " + files);
 		List<Comment> commentList = hospMapper.selectCommentByNo(no);
 		
 		result.put("board", board);

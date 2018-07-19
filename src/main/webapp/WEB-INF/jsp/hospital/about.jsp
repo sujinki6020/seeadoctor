@@ -229,7 +229,7 @@ textarea.form-control {
 						<textarea class="form-control" id="content" name="content" placeholder="내용을 입력해주세요">${board.content}</textarea>
 					</div>
 
-					<div id="filearea_detail">
+					<div id="filearea_write">
 							<span id="file_span" >첨부파일</span>
 							<input type="file" multiple="multiple" name="files" id="file"
 									accept=".gif, .jpg, .png" placeholder="지원되는 파일 양식: jpg, png, gif">
@@ -357,8 +357,8 @@ textarea.form-control {
 // })()
 
 //위에 지도맵코드
-let map = new naver.maps.Map('map', {center : new naver.maps.LatLng( ${result.hospResult.wgs84Lat} , ${result.hospResult.wgs84Lon})} );
-let marker = new naver.maps.Marker( { position : new naver.maps.LatLng( ${result.hospResult.wgs84Lat} , ${result.hospResult.wgs84Lon}) ,  map:map });
+let map = new naver.maps.Map('map', {center : new naver.maps.LatLng( "${result.hospResult.wgs84Lat}" , "${result.hospResult.wgs84Lon}")} );
+let marker = new naver.maps.Marker( { position : new naver.maps.LatLng( "${result.hospResult.wgs84Lat}" , "${result.hospResult.wgs84Lon}") ,  map:map });
 
 console.log( "${result.cnt}")
 var ctx = document.getElementById("myChart").getContext('2d');
@@ -430,7 +430,8 @@ function plusStar(target){
 			id:'${sessionScope.user.id}',
 			hospitalSeq:'${result.hospResult.hospitalSeq}',
 			dutyName:'${result.hospResult.dutyName}',
-			dutyDivNam:'${result.hospResult.dutyDivNam}'	
+			dutyDivNam:'${result.hospResult.dutyDivNam}',
+			userName: '${sessionScope.user.name}'
 		}
 	})
 	.done(function(result){
@@ -586,7 +587,7 @@ function detail(no){
 						+"-"+ date.getDate();
 		$("#content_detail > #content_area > #review_row > #date1").html(time)
 		$("#detail_content").html(result.board.content)
-		$("#filearea_detail").html(result.files)
+		$("#filearea").html(result.board.files)
 		
 		if("${sessionScope.user.userSeq}" == result.board.userSeq){
 			$("#btn_update_delete").show()
