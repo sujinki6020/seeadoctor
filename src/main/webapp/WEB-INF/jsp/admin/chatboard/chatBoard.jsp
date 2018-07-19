@@ -39,7 +39,7 @@
           <td id="td1"><input type="checkbox" name="check" id="checkedOrNot" /></td>
           <td id="td2"><a href="#" onclick="chat()")>${chatBoard.userId}</a> - ${chatBoard.userName}</td>
           <td id="td3">${chatBoard.date}</td>
-          <td id="td4"><textarea rows="2" cols="75" style="resize:none; color:black; font-size:14px;">${chatBoard.memo}</textarea></td>
+          <td id="td4"><textarea id="memo" name="memo" rows="2" cols="75" style="resize:none; color:black; font-size:14px;">${chatBoard.memo}</textarea></td>
         </tr>
       </c:forEach>
  
@@ -49,6 +49,19 @@
 </section>
 
 <script>
+
+$("#td4").on("keyup", function () {
+// 	alert("keyup");
+	var memo = $("#memo").val();
+	var adminId = "${sessionScope.user.id}";
+	console.log("memo : ", memo);
+	console.log("adminId : ", adminId);
+	$.ajax({
+		url: "${pageContext.request.contextPath}/admin/chatboard/addMemo.do",
+		type: "post",
+		data: {"adminId":adminId,"memo":memo}
+	});
+});
 </script>
 </body>
 </html>
