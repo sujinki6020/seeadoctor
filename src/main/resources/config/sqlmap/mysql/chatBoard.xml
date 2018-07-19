@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.co.seeadoctor.repository.mapper.ChatBoardMapper">
+	<resultMap id="chatBoardMap" type="chatBoard">
+		<result column="chat_board_seq" property="chatBoardSeq" />
+		<result column="admin_id" property="adminId" />
+		<result column="user_id" property="userId" />
+		<result column="user_name" property="userName" />
+		<result column="date" property="date" />
+		<result column="memo" property="memo" />
+		<result column="quit" property="quit" />
+		<result column="check" property="check" />
+	</resultMap>
+	
+	<select id="selectChatBoard" parameterType="string" resultMap="chatBoardMap">
+		select * from tb_chat_board
+			where admin_id = #{adminId}
+	</select>
+	
+	<insert id="insertChatBoard" parameterType="chatBoard">
+		insert into tb_chat_board(admin_id, user_id, user_name)
+		select (admin_id, user_id, user_name) from tb_like 
+		where admin_id=#{adminId}
+	</insert>
+	
+	<update id="addMemo" parameterType="chatBoard">
+		update tb_chat_board
+			set memo = #{memo}
+			where admin_id = #{adminId} 
+	</update>
+	
+	<delete id="deleteChat" parameterType="string">
+		delete from tb_chat_board
+			where admin_id = #{adminId}
+				and quit = 'T'
+	</delete>
+	
+</mapper>

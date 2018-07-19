@@ -1,5 +1,15 @@
-package kr.co.seeadoctor.admin.chat.service;
+package kr.co.seeadoctor.admin.chatboard.service;
 
-public interface ChatService {
+import java.util.List;
 
+import kr.co.seeadoctor.repository.vo.ChatBoard;
+
+public interface ChatBoardService {
+	public List<ChatBoard> retrieveChatBoard(String adminId);
+	
+	public void insertChatBoard(ChatBoard ChatBoard);
+
+	public void addMemo(ChatBoard ChatBoard);
+	
+	public void deleteChatBoard(String adminId);
 }
