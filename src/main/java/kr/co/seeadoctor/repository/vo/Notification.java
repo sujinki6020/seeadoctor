@@ -1,21 +1,28 @@
 package kr.co.seeadoctor.repository.vo;
 
 public class Notification {
-	private String id;
-	private String eventName;
+	private Integer notifSeq;
+	private String sendId;
+	private String receiveId;
 	private String message;
-	
-	public String getId() {
-		return id;
+	private char past;
+	public Integer getNotifSeq() {
+		return notifSeq;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setNotifSeq(Integer notifSeq) {
+		this.notifSeq = notifSeq;
 	}
-	public String getEventName() {
-		return eventName;
+	public String getSendId() {
+		return sendId;
 	}
-	public void setEventName(String eventName) {
-		this.eventName = eventName;
+	public void setSendId(String sendId) {
+		this.sendId = sendId;
+	}
+	public String getReceiveId() {
+		return receiveId;
+	}
+	public void setReceiveId(String receiveId) {
+		this.receiveId = receiveId;
 	}
 	public String getMessage() {
 		return message;
@@ -23,6 +30,19 @@ public class Notification {
 	public void setMessage(String message) {
 		this.message = message;
 	}
+	public char getPast() {
+		return past;
+	}
+	public void setPast(char past) {
+		this.past = past;
+	}
+	@Override
+	public String toString() {
+		return "Notification [notifSeq=" + notifSeq + ", sendId=" + sendId + ", receiveId=" + receiveId + ", message="
+				+ message + ", past=" + past + "]";
+	}
+	
+	
 	
 	
 }

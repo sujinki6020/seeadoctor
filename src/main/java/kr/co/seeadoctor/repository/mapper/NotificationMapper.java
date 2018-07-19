@@ -6,6 +6,7 @@ import kr.co.seeadoctor.repository.vo.Notification;
 
 
 public interface NotificationMapper {
-	public List<Notification> selectNotification();
+	public List<Notification> selectNotification(String id);
 	public void updateNotification(String id);
+	public void insertNotification(Notification notification);
 }

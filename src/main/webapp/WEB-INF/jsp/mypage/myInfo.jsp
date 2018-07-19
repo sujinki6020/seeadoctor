@@ -186,6 +186,7 @@
 	function chat() {
 		// 팝업을 띄우기, width 300, height 400, 스크롤바, 툴바, 메뉴바를 모두 숨기는 경우
 		window.open('http://localhost:8001/seeadoctor/chat/chatWindow.do', 'popup01', 'width=400, height=500, scrollbars= 0, toolbar=0, menubar=no');
+		ws.send("${sessionScope.user.id}"+ ":채팅을 보냈습니다.")
 	};
 	
 // 	alert('${hList}');

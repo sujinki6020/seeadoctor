@@ -3,10 +3,18 @@ function startAlarm(){
 	ws = new WebSocket('ws://localhost/seeadoctor/notification.do');
 	ws.onopen = function() {
    	    console.log('웹소켓 서버 접속 성공');
+   	    ws.send("login");
     };
     // 메세지 받기
     ws.onmessage = function(evt) {
         //$("#result").prepend(evt.data + "<br>");
+    	var alarm = JSON.parse(evt.data);
+    	$("#count").text(alarm.length);
+    	let text = "";
+    	for(let i = 0 ; i < alarm.length ; i++){
+    		text += '<div class="notif"><p><span>' + alarm[i].sendId + '</span>님이 채팅을 보냈습니다.</p></div>';
+    	}
+    	$("#notifList").append(text);
     };
     ws.onerror = function(evt) {
     	console.log('웹소켓 에러')
@@ -18,8 +26,11 @@ function startAlarm(){
     	console.dir(evt);
    	    //$("#result").prepend("웹소켓 연결이 종료됨.");
     };
+   
 }
 startAlarm();
-$("#mainMenu > li").click(function(){
-	ws.send("웹소켓 이벤트 발생중");
-})
+
+$(document).on("click","#notification",function(){
+	console.log("알림 실행중")
+	$("#notifList").toggle();
+});

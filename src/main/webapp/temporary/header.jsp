@@ -18,31 +18,93 @@
 		margin-bottom: 10px;
 	}
 	#notification {
-		position: absolute;
-		top: 0%;
-		right: 0%;
+		position: fixed;
+		top: 5%;
+		right: 2%;
+		width: 3%;
 	}
+	#notification:hover {
+		cursor: pointer;
+	}
+	#count {
+		position: fixed;
+	    display: inline-block;
+	    width: 19px;
+	    height: 19px;
+	    background-color: #f22727;
+	    border-radius: 50%;
+	    color: white;
+	    text-align: center;
+	    right: 31px;
+	    top: 42px;
+	    line-height: 19px;
+	    font-family: sans-serif;
+	}
+	#notifList {
+		position: fixed;
+		top: 13%;
+    	right: 2%;
+    	width: 20%;
+    	height: auto;
+    	max-height: 50%;
+    	border: 1px solid rgba(100, 100, 100, .4);
+    	overflow: auto;
+    	box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+	}
+	.notif {
+		width: 100%;
+		background-color: #c3fdff;
+		height: 50px;
+		font-size: 1.5em;
+	}
+	.success {
+		background-color: #28a745;
+		color: white;
+	}
+	.info {
+		background-color: #17a2b8;
+		color: white;
+	}
+	.warning {
+		background-color:  #ffc107;
+		color : black;
+	}
+	.danger {
+		background-color: #dc3545;
+		color: white;
+	}
+	.notif > p {
+		padding: 10px;
+	}
+	::-webkit-scrollbar{width: 10px;}
+	::-webkit-scrollbar-track{background-color:transparent;}
+	::-webkit-scrollbar-thumb{background-color:#eee ;border-radius:10px;}
+	::-webkit-scrollbar-thumb:hover{bacground:#555;}
+	::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
+		width:10px; height:10px; bacground:#f1ef79;
+	}
+	
 </style>
 </head>
 <body>
 <header>
     <h1 id="logo"><a href="${pageContext.request.contextPath}/index.jsp"><img src="${pageContext.request.contextPath}/images/header/title1.JPG" alt=""></a></h1>
+	<img id="notification" src="${pageContext.request.contextPath}/temporary/notification.png"></img>
+	<span id="count">0</span>
     <p id="userBox">
-        <span id="greeting">${user.name}님 환영합니다.</span><img id="notification" src="${pageContext.request.contextPath}/temporary/send1.png"></img>
+        <span id="greeting">${user.name}님 환영합니다.</span>
 	    <a href="${pageContext.request.contextPath}/login/logout.do" >로그아웃</a>
     </p>
     <nav>
         <ul id="mainMenu">
             <c:choose>
             	<c:when test="${sessionScope.user.admin eq 'Y'.charAt(0)}">
-            	
 		            <li><a href="${pageContext.request.contextPath}/admin/statistics/statistics.do">고객 통계</a></li>
             	</c:when>
             	<c:otherwise>
 		            <li><a href="${pageContext.request.contextPath}/map/mapMain.do">병원 찾기</a></li>
             	</c:otherwise>
             </c:choose>
-            
             <c:choose>
              	<c:when test="${sessionScope.user.admin eq 'Y'.charAt(0)}">
             		<li><a href="${pageContext.request.contextPath}/admin/calendar/calendar.do">예약자 현황</a></li>
@@ -51,7 +113,6 @@
             		<li><a href="${pageContext.request.contextPath}/reservation/reservationList.do">내 접수현황</a></li>
             	</c:otherwise>
             </c:choose>
-
             <c:choose>
              	<c:when test="${sessionScope.user.admin eq 'Y'.charAt(0)}">
             		<li><a href="${pageContext.request.contextPath}/admin/chat/chatBoard.do">1:1 채팅방</a></li>
@@ -60,9 +121,7 @@
 		            <li><a href="${pageContext.request.contextPath}/mypage/myInfo.do">마이페이지</a></li>
             	</c:otherwise>
             </c:choose>
-            
         </ul>
-        
     </nav>
     <div id="bottomArea">
         <ul class="etcInfo">
@@ -76,89 +135,78 @@
         <address>서울특별시 강남구 강남동 비트캠프 3층 1강의실</address>
         <div class="copyright">ⓒ 2018 See a doctor All rights reserved.</div>
     </div>
-    
 </header>
-<script>
-	$("#notification").hover(
-			function(){
-					
-			}, 
-			function(){
-			}
-	);
+<div id="notifList" style="display:none;">
+	<div class="notif">
+		<p><span>id</span>님이 채팅을 보냈습니다.</p>
+	</div>
+	<div class="notif success">
+		<p><span>id</span>님이 채팅을 보냈습니다.</p>
+	</div>
+	<div class="notif info">
+		<p><span>id</span>님이 예약을 했습니다.</p>
+	</div>
+	<div class="notif warning">
+		<p><span>id</span>님이 예약을 취소했습니다.</p>
+	</div>
+	<div class="notif danger">
+		<p><span>id</span>님이 댓글을 작성했습니다.</p>
+	</div>
+	<div class="notif">
+		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	</div>
+	<div class="notif">
+		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	</div>
+	<div class="notif">
+		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	</div>
+	<div class="notif">
+		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	</div>
+	<div class="notif">
+		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	</div>
+	<div class="notif">
+		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	</div>
+	<div class="notif">
+		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	</div>
+	<div class="notif">
+		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	</div>
+	<div class="notif">
+		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	</div>
+	<div class="notif">
+		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	</div>
+	<div class="notif">
+		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	</div>
+	<div class="notif">
+		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	</div>
+	<div class="notif">
+		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	</div>
+	<div class="notif">
+		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	</div>
+	<div class="notif">
+		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	</div>
+	<div class="notif">
+		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	</div>
+	<div class="notif">
+		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	</div>
 	
-	var ws = null;
-	var loginId = null;
-
-	$(function () {
-		
-	    ws = new WebSocket('ws://localhost/seeadoctor/header.do');
-		ws.onopen = function() {
-	   	    console.log('웹소켓 서버 접속 성공');
-	    };
-	    // 메세지 받기
-	    ws.onmessage = function(evt) {
-	        $("#result").prepend(evt.data + "<br>");
-	    };
-	    ws.onerror = function(evt) {
-	   	    $("#result").prepend('웹소켓 에러 발생 : ' + evt.data)
-	    };
-	    ws.onclose = function() {
-	   	    $("#result").prepend("웹소켓 연결이 종료됨.");
-	    };
-	    
-	    $("#msgBox, #logoutBox").hide();
-	    
-	});
-
-	$('#loginBtn').click(function() { 
-		$.ajax({
-			url: "<c:url value='/websocket/login.do' />",
-			type: "POST",
-			data: {
-				id: $("#id").val(),
-				pass: $("#pass").val()
-			}
-		})
-		.done(function (result) {
-			
-			loginId = $("#id").val();
-			
-			$("#logoutBox > span").text(loginId);
-			
-			ws.send("login:" + loginId);
-			
-			$("#id").val("");
-			$("#pass").val("");
-			
-			$("#loginBox, #msgBox, #logoutBox").toggle();
-			
-		}); // 실제 로그인이 성공하면 login
-	});
-
-
-	$('#sendBtn').click(function() { 
-	    var $msg = $("#message");
-	    // 웹소켓 서버에 데이터 전송하기
-	    ws.send(loginId + ":" + $msg.val());
-	    $msg.val(""); 
-	});
-
-	$('#logoutBtn').click(function() { 
-		$.ajax({
-			url: "<c:url value='/websocket/logout.do' />"
-		})
-		.done(function (result) {
-			
-			ws.send("logout:" + loginId);
-			
-			$("#loginBox, #msgBox, #logoutBox").toggle();
-			
-			loginId = null;
-			
-			$("#result").html("");
-		});
-	});
+	
+</div>
+<script type="text/javascript">
 	
 </script>
 </body>

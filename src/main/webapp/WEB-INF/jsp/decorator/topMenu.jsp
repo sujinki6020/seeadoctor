@@ -3,17 +3,19 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <header>
     <h1 id="logo"><a href="${pageContext.request.contextPath}/index.jsp"><img src="${pageContext.request.contextPath}/images/header/title1.JPG" alt=""></a></h1>
-    <p>
-    <c:choose>
-	    <c:when test="${empty sessionScope.user}">
-	    <a href="${pageContext.request.contextPath}/login/loginForm.do" id="login" onchange="changeUI();">로그인</a>
-	    /<a href="${pageContext.request.contextPath}/join/joinUser.do" id="joinUser">회원가입</a><br>
-	    </c:when>
-	    <c:otherwise>
-        ${user.name}님 환영합니다. <br><br>
-	    <a href="${pageContext.request.contextPath}/login/logout.do" >로그아웃</a>
-	    </c:otherwise>
-    </c:choose>
+    <img id="notification" src="${pageContext.request.contextPath}/temporary/notification.png"></img>
+	<span id="count">0</span>
+    <p id="userBox">
+	    <c:choose>
+		    <c:when test="${empty sessionScope.user}">
+		    <a href="${pageContext.request.contextPath}/login/loginForm.do" id="login" onchange="changeUI();">로그인</a>
+		    /<a href="${pageContext.request.contextPath}/join/joinUser.do" id="joinUser">회원가입</a><br>
+		    </c:when>
+		    <c:otherwise>
+	        <span id="greeting">${user.name}님 환영합니다.</span>
+		    <a href="${pageContext.request.contextPath}/login/logout.do" >로그아웃</a>
+		    </c:otherwise>
+	    </c:choose>
     </p>
     <nav>
         <ul id="mainMenu">
@@ -62,3 +64,5 @@
     </div>
     
 </header>
+<div id="notifList" style="display:none;">
+</div>
