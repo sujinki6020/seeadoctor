@@ -8,13 +8,23 @@ function startAlarm(){
     // 메세지 받기
     ws.onmessage = function(evt) {
         //$("#result").prepend(evt.data + "<br>");
-    	var alarm = JSON.parse(evt.data);
-    	$("#count").text(alarm.length);
-    	let text = "";
-    	for(let i = 0 ; i < alarm.length ; i++){
-    		text += '<div class="notif"><p><span>' + alarm[i].sendId + '</span>님이 채팅을 보냈습니다.</p></div>';
+    	console.log("메세지 데이터", evt.data);
+    	var alarm = "";
+    	try{
+    		alarm = JSON.parse(evt.data);
+    		$("#count").text(alarm.length);
+    		let text = "";
+    		for(let i = 0 ; i < alarm.length ; i++){
+    			text += '<div class="notif"><p><span>' + alarm[i].sendId + '</span>님이 채팅을 보냈습니다.</p></div>';
+    		}
+    		$("#notifList").append(text);
+    	}catch(e){
+    		alarm = evt.data;
+    		$("#count").text(parseInt($("#count").text()) + 1);
+    		let text = "<div class='notif'><p><span>" + alarm + '</span>님이 채팅을 보냈습니다</p></div>';
+    		$("#notifList").append(text);
+    		$("#notification, #count").animate({"left":"-=5"},100).animate({"left":"+=10"},100).animate({"left":"-=5"},100);
     	}
-    	$("#notifList").append(text);
     };
     ws.onerror = function(evt) {
     	console.log('웹소켓 에러')

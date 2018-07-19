@@ -68,7 +68,8 @@ public class RealTimeHandler extends TextWebSocketHandler  {
 		if(findUser(rcvId) == null) {
 			return;
 		} 
-		findUser(rcvId).sendMessage(new TextMessage(sendMsg));
+		findUser(user.getId()).sendMessage(new TextMessage(user.getId() + ":" + sendMsg));
+		System.out.println("sendId :" +  rcvId);
 		System.out.println("sendMsg : " + sendMsg);
 		System.out.println("users : " + connectedUser);
 	}

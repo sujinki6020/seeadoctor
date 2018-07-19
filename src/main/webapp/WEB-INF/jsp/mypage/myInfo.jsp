@@ -107,7 +107,7 @@
 									<a href="#">${like.dutyName}</a> <i class="fa fa-code card-icon "></i>
 								</div>
 								<div class="panel card-back"><p>name</p></div>
-								<div class="panel card-back"><a href="#" onclick="chat();">관리자와 채팅하기</a></div>
+								<div class="panel card-back"><a href="#" class="chat" data-flag="${like.adminId}">관리자와 채팅하기</a></div>
 							</li>
 							</c:forEach>
 
@@ -183,10 +183,15 @@
 		}
 	});
 	
-	function chat() {
+	$(document).on("click",".chat",function(){
+		ws.send("${sessionScope.user.id}"+":테스트중..")
+	})
+	
+	function chat(id) {
+		console.log('아아디',id);
+		//ws.send(""+ ":채팅을 보냈습니다.")
 		// 팝업을 띄우기, width 300, height 400, 스크롤바, 툴바, 메뉴바를 모두 숨기는 경우
-		window.open('http://localhost:8001/seeadoctor/chat/chatWindow.do', 'popup01', 'width=400, height=500, scrollbars= 0, toolbar=0, menubar=no');
-		ws.send("${sessionScope.user.id}"+ ":채팅을 보냈습니다.")
+		//window.open('http://localhost:8001/seeadoctor/chat/chatWindow.do', 'popup01', 'width=400, height=500, scrollbars= 0, toolbar=0, menubar=no');
 	};
 	
 // 	alert('${hList}');
