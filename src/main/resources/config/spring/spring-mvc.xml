@@ -67,6 +67,7 @@
 			<mvc:exclude-mapping path="/join/joinUser.do" />
 			<mvc:exclude-mapping path="/join/joinAdmin.do" />
 			<mvc:exclude-mapping path="/join/insertUser.do" />
+			<mvc:exclude-mapping path="/join/insertAdmin.do" />
 			<mvc:exclude-mapping path="/join/idDuplChk.do" />
 			<mvc:exclude-mapping path="/join/searchHospName.do" />
 			<mvc:exclude-mapping path="/join/jusoPopup.do" />

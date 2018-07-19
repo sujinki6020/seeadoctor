@@ -38,7 +38,7 @@
 					<legend>Personal Details </legend>
 					<p>
 						<label>Name </label> 
-						<input type="text" class="long" name="name" id="name" readonly value="${user.name}님" />
+						<input type="text" class="long" name="name" id="name" readonly value="${user.name}" />
 					</p>
 					<p>
 						<label>Phone </label> 

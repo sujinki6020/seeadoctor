@@ -26,6 +26,16 @@ public class JoinServiceImpl implements JoinService {
 
 	@Override
 	public List<Hospital> searchHospName(String dutyName) {
+		List<Hospital> hList = umapper.searchHospName(dutyName);
+		for(Hospital hosp : hList) {
+			System.out.println(hosp.getHospitalSeq());
+		}
 		return umapper.searchHospName(dutyName);
 	}
+
+	@Override
+	public void registAdmin(User user) {
+		umapper.insertAdmin(user);
+	}
+	
 }
