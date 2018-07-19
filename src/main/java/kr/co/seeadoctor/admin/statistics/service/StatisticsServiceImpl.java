@@ -1,6 +1,5 @@
 package kr.co.seeadoctor.admin.statistics.service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import kr.co.seeadoctor.repository.mapper.ReservationMapper;
 import kr.co.seeadoctor.repository.vo.Statistics;
+import kr.co.seeadoctor.repository.vo.VisitCnt;
 
 @Service
 public class StatisticsServiceImpl implements StatisticsService {
@@ -64,10 +64,34 @@ public class StatisticsServiceImpl implements StatisticsService {
 
 
 	@Override
-	public Map<String, Object> getLineData(String thisYear, String thisMonth, int hospitalSeq) {
+	public Integer[] getLineData(String thisYear, String thisMonth, int hospitalSeq) {
+		
+		int endArr = Integer.parseInt(thisMonth);
+		Integer[] lineArr = new Integer[endArr];
 		
 		String startMonth = thisYear+"-01";
 		String endMonth = thisYear+"-"+thisMonth;
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("hospitalSeq", hospitalSeq);
+		paramMap.put("startMonth", startMonth);
+		paramMap.put("endMonth", endMonth);
+		
+		List<Statistics> statList = mapper.selectReservationCntAll(paramMap);
+		
+		for(int i=0; i<statList.size(); i++) {
+			int month = Integer.parseInt(statList.get(i).getMonth().substring(5, 7));
+			lineArr[month-1] = statList.get(i).getCnt();
+		}
+		
+		return lineArr;
+		
+		
+		/*
+		if(Integer.parseInt(thisMonth) < 10) thisMonth = "0"+thisMonth;
+		
+		String startMonth = thisYear+"-01";
+		String endMonth = thisYear+"-"+thisMonth;
+		
 		
 
 		Map<String, Object> paramMap = new HashMap<String, Object>();
@@ -80,9 +104,7 @@ public class StatisticsServiceImpl implements StatisticsService {
 		ArrayList<String> lineMonth = new ArrayList<String>();
 		ArrayList<Integer> lineCnt = new ArrayList<Integer>();
 		for(int i = 0; i < statList.size(); i++) {
-			System.out.println(statList.get(i).getMonth().substring(5, 7));
 			lineMonth.add(statList.get(i).getMonth().substring(5, 7));
-			System.out.println(statList.get(i).getCnt());
 			lineCnt.add(statList.get(i).getCnt());
 		}
 		
@@ -90,7 +112,31 @@ public class StatisticsServiceImpl implements StatisticsService {
 		lineData.put("lineMonth", lineMonth);
 		lineData.put("lineCnt", lineCnt);
 		return lineData;
-         
+         */
+		
+	}
+
+
+	@Override
+	public Integer[] getBarData(int hospitalSeq) {
+		
+		
+		List<VisitCnt> visitList =  mapper.selectVisitCnt(hospitalSeq);
+		
+		Integer[] visitArr = new Integer[7];
+		for(int i=0; i<visitList.size(); i++) {
+			int day = visitList.get(i).getVisitDate().getDay();
+			visitArr[day-1] = visitList.get(i).getVisitCnt();
+		}
+		
+		for(int i=0; i<visitArr.length; i++) {
+			if(visitArr[i]==null) {
+				visitArr[i] = 0;
+			}
+		}
+		
+		return visitArr;
+		
 		
 	}
 

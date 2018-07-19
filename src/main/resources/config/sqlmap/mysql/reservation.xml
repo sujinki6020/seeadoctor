@@ -56,6 +56,11 @@
 		<result column="month" property="month"/>
 		<result column="cnt" property="cnt"/>
 	</resultMap>
+	<resultMap id="visitCntMap" type="visitCnt">
+		<result column="hospital_seq" property="hospitalSeq"/>
+		<result column="visit_date" property="visitDate"/>
+		<result column="visit_cnt" property="visitCnt"/>
+	</resultMap>
 
 	<insert id="insertReservation" parameterType="reservation">
 	insert into tb_reservation (user_seq, hospital_seq, doctor_seq, reserve_date, reserve_time, symptom)
@@ -208,7 +213,7 @@
 	</select>
 	
 	<select id="selectReservationCntByAge" parameterType="hashmap" resultType="int">
-	select ifnull(stat.cnt, 0)
+	select stat.cnt
 	  from 
 		   (select date_format(reserve_date,'%Y-%m') month, count(*) cnt
 			  from tb_reservation r, tb_user u
@@ -217,6 +222,15 @@
 			   and (year(now()) - (mid(u.birth, 1, 2)+1900))
 		   between #{start} and #{end}) stat
   	 where stat.month = #{dateStr}
+	</select>
+	
+	<select id="selectVisitCnt" parameterType="int" resultMap="visitCntMap">
+	select visit_cnt, visit_date
+	  from tb_visit_cnt
+	 where hospital_seq = #{hospitalSeq}
+	   and date(visit_date) between subdate(curdate(),date_format(curdate(),'%w')-1) 
+	   and subdate(curdate(),date_format(curdate(),'%w')-7)
+	 order by visit_date asc;
 	</select>
 	
 </mapper>

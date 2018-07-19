@@ -1,5 +1,8 @@
 package kr.co.seeadoctor.admin.statistics.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,12 +36,19 @@ public class StatisticsController {
 	
 	@RequestMapping("/getLineData.json")
 	@ResponseBody
-	public Map<String, Object> getLineData(String thisYear, String thisMonth, int hospitalSeq) {
-		
-		if(Integer.parseInt(thisMonth) < 10) thisMonth = "0"+thisMonth;
+	public Integer[] getLineData(String thisYear, String thisMonth, int hospitalSeq) {
 		
 		return service.getLineData(thisYear, thisMonth, hospitalSeq);
 		
 	}
+	
+	@RequestMapping("/getBarData.json")
+	@ResponseBody
+	public Integer[] getBarData(int hospitalSeq, String todayStr) throws ParseException {
+		
+		return service.getBarData(hospitalSeq);
+		
+	}
+
 
 }
