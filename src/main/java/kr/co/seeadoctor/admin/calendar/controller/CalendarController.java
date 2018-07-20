@@ -10,9 +10,11 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.seeadoctor.admin.calendar.service.CalendarService;
@@ -28,8 +30,8 @@ public class CalendarController {
 	
 	@Autowired
 	private CalendarService service;
-    
-    
+	
+	
 	@RequestMapping("/calendar.do")
 	public void setCalendar(CalendarInfo calParam, Model model) {
 		
@@ -77,8 +79,8 @@ public class CalendarController {
 	
 	@RequestMapping("/timeList.json")
 	@ResponseBody
-	public List<ReservationTime> timeList(ReservationTime reserveTime , String dateStr) throws ParseException {
-
+	public List<ReservationTime> timeList(ReservationTime reserveTime, String dateStr) throws ParseException{
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = sdf.parse(dateStr);
 		reserveTime.setDate(date);
