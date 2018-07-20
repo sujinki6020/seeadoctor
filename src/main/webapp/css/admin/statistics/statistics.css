@@ -44,3 +44,13 @@ h2 {
 h3 {
 	color: #3d829e;
 }
+#mask {  
+  position:absolute;  
+  left:0;
+  top:0;
+  z-index:9000;  
+  background-color:#fff;  
+  display:none;  
+}
+#maskImg {
+	margin: 350px 0px 0px 850px;
