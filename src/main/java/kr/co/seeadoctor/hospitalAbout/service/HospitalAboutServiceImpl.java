@@ -160,6 +160,7 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	//댓글리스트
 	@Override
 	public List<Comment> selectCommentByNo(int no){
+		System.out.println("임플의 넘버:" + no);
 		return hospMapper.selectCommentByNo(no);
 	}
 	
@@ -183,8 +184,6 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	public List<BoardFile> outPutPhoto(int hospitalSeq) {
 		System.out.println("임플에서병원시퀀스 가져옴:" + hospitalSeq);
 		List<BoardFile> files = hospMapper.outPutPhoto(hospitalSeq);
-		System.out.println("files 호출:" + files.get(0).getSysName());
-		System.out.println("files 호출:" + files.get(1).getSysName());
 		return files;
 				
 	}

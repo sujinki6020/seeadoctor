@@ -164,17 +164,17 @@ public class HospitalAboutController {
 	@ResponseBody
 	public List<Comment> commentList(int no){
 		System.out.println("no -> " + no);
-		List<Comment> commentList = hospService.selectCommentByNo(no);
-//		System.out.println("왔니");
-		return commentList;
+		return hospService.selectCommentByNo(no);
 	}
+	
 	//댓글 등록: 등록 후 등록된 댓글 까지 리스트 불러오기
 	@RequestMapping("/commentRegist.json")
 	@ResponseBody
 	public List<Comment> commentRegist(Comment comment){
 		hospService.insertComment(comment);
-		List<Comment> commentList = hospService.selectCommentByNo(comment.getNo());
-		return commentList;
+		System.out.println("커멘트" + comment.getNo());
+//		System.out.println("왔니");
+		return hospService.selectCommentByNo(comment.getNo());
 	}
 	//댓글삭제
 	@RequestMapping("/commentDelete.json")
