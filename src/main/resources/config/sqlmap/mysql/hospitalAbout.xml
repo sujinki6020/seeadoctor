@@ -62,9 +62,9 @@
 		
 		<insert id="insertHospLike" parameterType="hospitalAbout">
 			insert into tb_like(
-				user_id, hospital_seq, dutyName, dutyDivNam, user_name
+				user_id, hospital_seq, dutyName, dutyDivNam, user_name, admin_id
 			) values(
-				#{id}, #{hospitalSeq}, #{dutyName}, #{dutyDivNam}, #{userName}
+				#{id}, #{hospitalSeq}, #{dutyName}, #{dutyDivNam}, #{userName},#{adminId}
 			)
 		</insert>
 		

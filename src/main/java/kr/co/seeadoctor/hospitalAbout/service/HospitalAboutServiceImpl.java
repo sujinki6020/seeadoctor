@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.seeadoctor.repository.mapper.DoctorMapper;
 import kr.co.seeadoctor.repository.mapper.HospitalAboutMapper;
+import kr.co.seeadoctor.repository.mapper.UserMapper;
 import kr.co.seeadoctor.repository.mapper.VisitCntMapper;
 import kr.co.seeadoctor.repository.vo.Board;
 import kr.co.seeadoctor.repository.vo.BoardFile;
@@ -26,6 +27,8 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	private VisitCntMapper visitMapper;
 	@Autowired
 	private DoctorMapper docMapper;
+	@Autowired
+	private UserMapper userMapper;
 
 	// 아래의 정보를 가져오기 위한 서비스 필요한
 	// 병원 정보 가져오기
@@ -58,6 +61,8 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	
 	@Override
 	public void insertStar(HospitalAbout hospAbout) {
+		String adminId = userMapper.selectAdminId(hospAbout.getHospitalSeq());
+		hospAbout.setAdminId(adminId);
 		hospMapper.insertHospLike(hospAbout);
 	}
 	@Override
@@ -192,6 +197,11 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 		if(result==0) visitMapper.insertVisitCnt(hospitalSeq);
 		
 		
+	}
+
+	@Override
+	public int selectMyCnt(String id) {
+		return hospMapper.selectMyLikeCnt(id);
 	}	
 
 

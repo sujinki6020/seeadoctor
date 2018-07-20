@@ -443,19 +443,30 @@ var myChart = new Chart(ctx, {
     	}
     }
 });
-var myCnt = ${result.myCnt};
+var myCnt = 0;
 
 $("#btn_unlike").click(function(){
-	if($(this).data("flag")=="no"){
-		if(confirm("관심병원 등록 하시겠습니까? (나의 관심병원 개수:"+ myCnt +"/6)" )){
-			plusStar($(this));
+	
+	$.ajax({
+		url : "myCnt.json",
+		data : {
+			id: '${sessionScope.user.id}'
+		},
+		success : function(data){
+			myCnt = data;
+			
+			if($("#btn_unlike").data("flag")=="no"){
+				if(confirm("관심병원 등록 하시겠습니까? (나의 관심병원 개수:"+ myCnt +"/6)" )){
+					plusStar($("#btn_unlike"));
+				}
+			}else {
+				if(confirm("관심병원 취소 하시겠습니까?")){
+					minusStar($("#btn_unlike"));
+				}
+			}
 		}
-	}else {
-		if(confirm("관심병원 취소 하시겠습니까?")){
-			minusStar($(this));
-		}
-	}
-})
+	});
+});
 function plusStar(target){
 	 if(myCnt >= 6 ){
 		 alert("최대 관심병원 등록은 6개만 가능합니다.");

@@ -44,7 +44,8 @@ public interface HospitalAboutService {
 	
 	public void visitCnt(int hospitalSeq);
 
-
+	//myCnt
+	public int selectMyCnt(String id);
 	
 
 }

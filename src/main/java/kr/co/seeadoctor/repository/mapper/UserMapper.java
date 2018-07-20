@@ -22,4 +22,6 @@ public interface UserMapper {
 	public List<Hospital> searchHospName(String dutyName);
 	
 	public void insertAdmin(User user);
+
+	public String selectAdminId(int hospitalSeq);
 }

@@ -201,6 +201,13 @@ public class HospitalAboutController {
 		hospService.deleteStar(hospAbout);
 	}
 	
+	//내좋아요 세기
+	@RequestMapping("/myCnt.json")
+	@ResponseBody
+	public int myCnt(String id) {
+		return hospService.selectMyCnt(id);
+	}
+	
 	//병원잘못된정보수정
 	@RequestMapping("/wrongInfoForm.do")
 	public void wrongInfoForm() {
