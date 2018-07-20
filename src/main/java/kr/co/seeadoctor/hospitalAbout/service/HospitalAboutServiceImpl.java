@@ -14,9 +14,7 @@ import kr.co.seeadoctor.repository.mapper.HospitalAboutMapper;
 import kr.co.seeadoctor.repository.vo.Board;
 import kr.co.seeadoctor.repository.vo.BoardFile;
 import kr.co.seeadoctor.repository.vo.Comment;
-import kr.co.seeadoctor.repository.vo.Hospital;
 import kr.co.seeadoctor.repository.vo.HospitalAbout;
-import kr.co.seeadoctor.repository.vo.PageResult;
 @Service
 public class HospitalAboutServiceImpl implements HospitalAboutService{
 	
@@ -86,8 +84,8 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	@Override
 	public void insertReview(Board board)throws Exception {
 		hospMapper.insertReview(board);
-		
-		if(board.getFiles()[0].getOriginalFilename() !=null) {
+//		System.out.println("보드파일의 오리네임:" + board.getFiles()[0].getOriginalFilename());
+		if(!board.getFiles()[0].getOriginalFilename().equals("")) { //오리지날네임이 공백이 아닐 때
 			
 			 for(MultipartFile file: board.getFiles()) {
 				 
@@ -116,7 +114,7 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 		Map<String, Object> result = new HashMap<>();
 		hospMapper.updateReviewViewCnt(no);
 		Board board = hospMapper.detailReview(b);
-		System.out.println("board -> 2" + board);
+//		System.out.println("board -> 2" + board.getContent());
 		
 		List<BoardFile> files = hospMapper.selectReviewFileByNo(b);
 		System.out.println("files: " + files);

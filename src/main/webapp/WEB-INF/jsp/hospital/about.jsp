@@ -48,7 +48,6 @@ textarea.form-control {
 </style>
 </head>
 <body>
-
 <div id="boardMain">
 
 	<div id="map">지도</div>
@@ -206,27 +205,17 @@ textarea.form-control {
 					<div id="review_row1">
 					<span id="review">리뷰쓰기</span>
 
-					<input type="text" id="name" name="name" value="${sessionScope.user.name}" 
-					style="border: 1px; width: 74px; margin-left: 510px;">
+					<input type="text" id="name" name="name" style="border: 1px; width: 74px; margin-left: 510px;">
 					<input type="hidden" name="userSeq" value="${sessionScope.user.userSeq}">
-<%-- 					<span id="name" name="name">${sessionScope.user.name}</span> --%>
-
-<%-- 					<span id="nickName">${board.name}</span> --%>
-					<c:if test="${!empty board.name}">
-						<input type="text" id="name" name="name" value="${board.name}" 
-						style="border: 1px; width: 74px; margin-left: 510px;">
-					</c:if>
 					<hr id="review_hr">
 				</div>
-					<c:if test="${!empty board.no}">
-						<input type="text" name="no" value="${board.no}" hidden="hidden">
-					</c:if>
+					<input type="hidden" name="no" >
 					<div id="title">
-						<input type="text" class="form-control" name="title" placeholder="제목을 입력하세요" value="${board.title}">
+						<input type="text" class="form-control" name="title" placeholder="제목을 입력하세요">
 					</div>
 						
 					<div id="msg">
-						<textarea class="form-control" id="content" name="content" placeholder="내용을 입력해주세요">${board.content}</textarea>
+						<textarea class="form-control" id="content" name="content" placeholder="내용을 입력해주세요"></textarea>
 					</div>
 
 					<div id="filearea_write">
@@ -239,7 +228,8 @@ textarea.form-control {
 
 					<hr id="review_hr">
 					<div id="btn_adm">
-						<button type="button" class="btn btn-default" style="margin-bottom: 10px;" onclick="writeReview();">등록</button>
+						<button type="button" id="updateBtn" class="btn btn-default" style="display:none; margin-bottom: 10px;" onclick="updateReview();">수정</button>
+						<button type="button" id="registBtn" class="btn btn-default" style="display:none; margin-bottom: 10px;" onclick="writeReview();">등록</button>
 						<button type="button" class="btn btn-default" style="margin-bottom: 10px;" 
 								onclick="review(${param.hospitalSeq});">취소</button>
 					</div>
@@ -528,6 +518,14 @@ function writeForm(){
 	$("#content_photo").hide();
 	$("#content_area_writeForm").show();
 	$("#content_detail").hide();
+	
+	$("#registBtn").show();
+	$("#updateBtn").hide();
+
+	$("#form input[name='name']").val("${sessionScope.user.name}");
+	$("#form input[name='no']").val("0");
+	$("#form input[name='title']").val("");
+	$("#form textarea[name='content']").val("");
 }
 
 //글쓰기
@@ -557,6 +555,8 @@ function writeReview() {
 }
 
 var detailNo = 0;
+var detailContent = "";
+var detailTitle ="";
 //디테일
 function detail(no){
 	$("#content_box").hide();
@@ -577,6 +577,8 @@ function detail(no){
 		console.dir(result);
 		
 		detailNo = result.board.no;
+		detailContent = result.board.content;
+		detailTitle = result.board.title;
 		
 		$("#content_detail > #content_are_detail > #detail_row > #title1").html(result.board.title);
 		$("#content_detail > #content_are_detail > #detail_row > #nickName1").html(result.board.name);
@@ -593,7 +595,7 @@ function detail(no){
 			
 			let file = result.files[i];
 			filearea +="<img class='imgFile' src='${pageContext.request.contextPath}/board/fileOutPut.do?filePath="+result.files[i].filePath+"&sysName="+result.files[i].sysName+"'/><br>"
-			filearea += "<button type='button' class='btn btn default' style='margin: 5px 0px 20px;'><a href='${pageContext.request.contextPath}/board/fileOutPut.do?filepath='"+${file.filePath}+"&sysName="+${file.sysName}+">"다운로드'</a></button><br>'
+// 			filearea += "<button type='button' class='btn btn default' style='margin: 5px 0px 20px;'><a href='${pageContext.request.contextPath}/board/fileOutPut.do?filepath="+file.filePath+"&sysName="+file.sysName+'">다운로드</a></button><br>"
 		}
 		$("#filearea").html(filearea)
 		
@@ -605,31 +607,63 @@ function detail(no){
 
 //삭제
 function delete1(){
+		alert("ㅇㅇㅇ")
 	$.ajax({
 		url : "delete.json",
-		data : "no="+detailNo,
-		dataType: "text" //데이타타입을 객체로 넘겨줄땐 dataType이 "json"인데 객체로 넘겨주지 않으니 dataType이 "text"임
+		data : "no="+detailNo
+// 		dataType넘겨준 데이터타입의 데이터타입을ㅈ 정해주는것: "text" //데이타타입을 객체로 넘겨줄땐 dataType이 "json"인데 객체로 넘겨주지 않으니 dataType이 "text"임
 	})
 	.done(function(result){
+		alert("리절트")
 		$("#content_box").hide();
 		$("#content_photo").hide();
 		$("#content_review").show();
 		$("#content_area_writeForm").hide();
 		$("#content_detail").hide();
  		review('${param.hospitalSeq}');
+	})
+	.fail(function(err){
+		console.dir(err)
 	})
 }
 
 function updateForm(){
+	alert("emfdjdda")
 	$.ajax({
 		url : "updateForm.json",
-		data: { 
-			no : detailNo,
-			content: board.content,
-			title : board.title
-		}
+		data : {
+			no: detailNo,
+			hospitalSeq: "${param.hospitalSeq}"
+		},
+		dataType: "json"
 	})
 	.done(function(result){
+		
+		console.dir("------------result")
+		console.dir(result)
+		$("#content_detail").hide();
+		$("#content_area_writeForm").show();
+		
+		$("#registBtn").hide();
+		$("#updateBtn").show();
+		
+		$("#form input[name='name']").val(result.board.name);
+		$("#form input[name='no']").val(result.board.no);
+		$("#form input[name='title']").val(result.board.title);
+		$("#form textarea[name='content']").val(result.board.content);
+	})
+}
+
+function updateReview(board){
+	alert("asd")
+	var formData = new FormData($("#form")[0])
+	//var fd = new FormData();
+	/*
+	$.ajax({
+		url : "update.json",
+		data : formData
+	)}	
+	.done(function(){
 		$("#content_box").hide();
 		$("#content_photo").hide();
 		$("#content_review").show();
@@ -637,9 +671,9 @@ function updateForm(){
 		$("#content_detail").hide();
  		review('${param.hospitalSeq}');
 	})
+	})
+	*/
 }
-
-
 
 
 /*

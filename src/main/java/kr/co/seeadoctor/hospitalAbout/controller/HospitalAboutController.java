@@ -60,10 +60,10 @@ public class HospitalAboutController {
 	
 	@RequestMapping("/updateForm.json")
 	@ResponseBody
-	public String updateForm(Board board, Model model)throws Exception {
-		model.addAttribute("board", hospService.detailReview(board)); 
-		return "board/writeForm";
+	public Map<String, Object> updateForm(Board board)throws Exception {
+		return hospService.detailReview(board); 
 	}
+	
 	
 	@RequestMapping("/update.json")
 	@ResponseBody
@@ -83,9 +83,10 @@ public class HospitalAboutController {
 	
 	@RequestMapping("/delete.json")
 	@ResponseBody
-	public String delete(int no) {
+	public void delete(int no) {
+		System.out.println("들어왔니");
 		hospService.deleteReview(no);
-		return "success";
+		System.out.println("들어왔옴");
 	}
 	
 	
