@@ -12,18 +12,19 @@ function startAlarm(){
     	var alarm = "";
     	try{
     		alarm = JSON.parse(evt.data);
-    		$("#count").text(alarm.length);
+    		$("#notifCount").text(alarm.length);
     		let text = "";
     		for(let i = 0 ; i < alarm.length ; i++){
     			text += '<div class="notif"><p><span>' + alarm[i].sendId + '</span>님이 채팅을 보냈습니다.</p></div>';
     		}
     		$("#notifList").append(text);
+    		$("#notification, #notifCount").animate({"left":"-=5"},100).animate({"left":"+=10"},100).animate({"left":"-=5"},100);
     	}catch(e){
     		alarm = evt.data;
-    		$("#count").text(parseInt($("#count").text()) + 1);
+    		$("#notifCount").text(parseInt($("#notifCount").text()) + 1);
     		let text = "<div class='notif'><p><span>" + alarm + '</span>님이 채팅을 보냈습니다</p></div>';
     		$("#notifList").append(text);
-    		$("#notification, #count").animate({"left":"-=5"},100).animate({"left":"+=10"},100).animate({"left":"-=5"},100);
+    		$("#notification, #notifCount").animate({"left":"-=5"},100).animate({"left":"+=10"},100).animate({"left":"-=5"},100);
     	}
     };
     ws.onerror = function(evt) {
@@ -42,11 +43,16 @@ startAlarm();
 
 $(document).on("click","#notification",function(){
 	console.log("알림 실행중")
-	if($("#count") != 0){
+	if($("#notifCount").text() != 0){
 		$("#notifList").toggle();
 	}
 });
 
+$(document).on("click",".xIcon",function(){
+	$(this).parent().animate({"opacity":0, "height": 0 }, "slow" ,function(){
+		$(this).remove();
+	});
+})
 $(document).on('click','#userOut',function(){
 	console.log("로그아웃중...");
 	ws.send("logout");

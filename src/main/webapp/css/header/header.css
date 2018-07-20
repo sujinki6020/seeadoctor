@@ -115,11 +115,12 @@ header address::after {
 	top: 5%;
 	right: 2%;
 	width: 3%;
+	z-index: 100;
 }
 #notification:hover {
 	cursor: pointer;
 }
-#count {
+#notifCount {
 	position: fixed;
     display: inline-block;
     width: 19px;
@@ -132,6 +133,7 @@ header address::after {
     top: 42px;
     line-height: 19px;
     font-family: sans-serif;
+    z-index: 100;
 }
 #notifList {
 	position: fixed;
@@ -140,15 +142,15 @@ header address::after {
    	width: 20%;
    	height: auto;
    	max-height: 50%;
-   	border: 1px solid rgba(100, 100, 100, .4);
+   	/* border: 1px solid rgba(100, 100, 100, .4); */
    	overflow: auto;
-   	box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+   	/* box-shadow: 0 3px 8px rgba(0, 0, 0, .25); */
+   	z-index: 100;
 }
-.notif {
-	width: 100%;
-	background-color: #c3fdff;
-	height: 50px;
-	font-size: 1.5em;
+.notif	{
+	position: relative;
+	background-color: white;
+	border-radius: 5px;
 }
 .success {
 	background-color: #28a745;
@@ -167,7 +169,11 @@ header address::after {
 	color: white;
 }
 .notif > p {
-	padding: 10px;
+	margin-left: 17%;
+    box-sizing: border-box;
+    height: 100%;
+    line-height: 50px;
+    font-size: 1.5em;
 }
 ::-webkit-scrollbar{width: 10px;}
 ::-webkit-scrollbar-track{background-color:#f1f1f1;}
@@ -176,5 +182,69 @@ header address::after {
 ::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
 	width:10px; height:10px; bacground:#d1d1d1;
 }
-
+.checkIcon {
+	width: 20%;
+	height: 100%;
+	background-image: url("http://localhost/seeadoctor/temporary/error1.png");
+	box-sizing: border-box;
+	position: absolute;
+	background-position: center;
+   	background-size: 60%;
+   	background-repeat: no-repeat;
+}
+.cancelIcon {
+	width: 50px;
+	height: 100%;
+	background-image: url("http://localhost/seeadoctor/temporary/error1.png");
+	box-sizing: border-box;
+	position: absolute;
+	background-position: center;
+   	background-size: 50%;
+   	background-repeat: no-repeat;
+}
+.successIcon {
+	width: 50px;
+	height: 100%;
+	background-image: url("http://localhost/seeadoctor/temporary/success.png");
+	box-sizing: border-box;
+	position: absolute;
+	background-position: center;
+   	background-size: 50%;
+   	background-repeat: no-repeat;
+}
+.questionIcon {
+	width: 50px;
+	height: 100%;
+	background-image: url("http://localhost/seeadoctor/temporary/question.png");
+	box-sizing: border-box;
+	position: absolute;
+	background-position: center;
+   	background-size: 50%;
+   	background-repeat: no-repeat;
+}
+.infoIcon {
+	width: 50px;
+	height: 100%;
+	background-image: url("http://localhost/seeadoctor/temporary/icon.png");
+	box-sizing: border-box;
+	position: absolute;
+	background-position: center;
+   	background-size: 50%;
+   	background-repeat: no-repeat;
+}
+.xIcon {
+	background-image: url("http://localhost/seeadoctor/temporary/cancel-music.png");
+	box-sizing: border-box;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-position: center;
+    background-size: 50%;
+    background-repeat: no-repeat;
+    right: 1%;
+    top: 5%;
+}
+.xIcon:hover {
+	cursor: pointer;
+}
 

@@ -9,53 +9,79 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header/header.css">
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <style>
-	#userBox {
+	.notif	{
 		position: relative;
+		background-color: white;
+		border-radius: 5px;
 	}
-	#greeting {
-		display : block;
-		width : 100%;
-		margin-bottom: 10px;
+	.notif > p {
+		margin-left: 17%;
+	    box-sizing: border-box;
+	    height: 100%;
+	    line-height: 50px;
+	    padding: 0px;
 	}
-	#notification {
-		position: fixed;
-		top: 5%;
-		right: 2%;
-		width: 3%;
+	.checkIcon {
+		width: 20%;
+		height: 100%;
+		background-image: url("http://localhost/seeadoctor/temporary/error1.png");
+		box-sizing: border-box;
+		position: absolute;
+		background-position: center;
+    	background-size: 60%;
+    	background-repeat: no-repeat;
 	}
-	#notification:hover {
-		cursor: pointer;
+	.cancelIcon {
+		width: 50px;
+		height: 100%;
+		background-image: url("http://localhost/seeadoctor/temporary/error1.png");
+		box-sizing: border-box;
+		position: absolute;
+		background-position: center;
+    	background-size: 50%;
+    	background-repeat: no-repeat;
 	}
-	#count {
-		position: fixed;
-	    display: inline-block;
-	    width: 19px;
-	    height: 19px;
-	    background-color: #f22727;
-	    border-radius: 50%;
-	    color: white;
-	    text-align: center;
-	    right: 31px;
-	    top: 42px;
-	    line-height: 19px;
-	    font-family: sans-serif;
+	.successIcon {
+		width: 50px;
+		height: 100%;
+		background-image: url("http://localhost/seeadoctor/temporary/success.png");
+		box-sizing: border-box;
+		position: absolute;
+		background-position: center;
+    	background-size: 50%;
+    	background-repeat: no-repeat;
 	}
-	#notifList {
-		position: fixed;
-		top: 13%;
-    	right: 2%;
-    	width: 20%;
-    	height: auto;
-    	max-height: 50%;
-    	border: 1px solid rgba(100, 100, 100, .4);
-    	overflow: auto;
-    	box-shadow: 0 3px 8px rgba(0, 0, 0, .25);
+	.questionIcon {
+		width: 50px;
+		height: 100%;
+		background-image: url("http://localhost/seeadoctor/temporary/question.png");
+		box-sizing: border-box;
+		position: absolute;
+		background-position: center;
+    	background-size: 50%;
+    	background-repeat: no-repeat;
 	}
-	.notif {
-		width: 100%;
-		background-color: #c3fdff;
-		height: 50px;
-		font-size: 1.5em;
+	.infoIcon {
+		width: 50px;
+		height: 100%;
+		background-image: url("http://localhost/seeadoctor/temporary/icon.png");
+		box-sizing: border-box;
+		position: absolute;
+		background-position: center;
+    	background-size: 50%;
+    	background-repeat: no-repeat;
+	}
+	.xIcon {
+		background-image: url("http://localhost/seeadoctor/temporary/cancel-music.png");
+		box-sizing: border-box;
+	    position: absolute;
+	    width: 20px;
+	    height: 20px;
+	    background-position: center;
+	    background-size: 50%;
+	    background-repeat: no-repeat;
+	    right: 1%;
+	    top: 5%;
 	}
 	.success {
 		background-color: #28a745;
@@ -73,24 +99,13 @@
 		background-color: #dc3545;
 		color: white;
 	}
-	.notif > p {
-		padding: 10px;
-	}
-	::-webkit-scrollbar{width: 10px;}
-	::-webkit-scrollbar-track{background-color:transparent;}
-	::-webkit-scrollbar-thumb{background-color:#eee ;border-radius:10px;}
-	::-webkit-scrollbar-thumb:hover{bacground:#555;}
-	::-webkit-scrollbar-button:start:decrement,::-webkit-scrollbar-button:end:increment {
-		width:10px; height:10px; bacground:#f1ef79;
-	}
-	
 </style>
 </head>
 <body>
 <header>
     <h1 id="logo"><a href="${pageContext.request.contextPath}/index.jsp"><img src="${pageContext.request.contextPath}/images/header/title1.JPG" alt=""></a></h1>
 	<img id="notification" src="${pageContext.request.contextPath}/temporary/notification.png"></img>
-	<span id="count">0</span>
+	<span id="notifCount">0</span>
     <p id="userBox">
         <span id="greeting">${user.name}님 환영합니다.</span>
 	    <a href="${pageContext.request.contextPath}/login/logout.do" >로그아웃</a>
@@ -137,77 +152,86 @@
     </div>
 </header>
 <div id="notifList" style="display:none;">
-	<div class="notif">
+	<div class="notif info">
+		<div class="infoIcon"></div>
+		<div class="xIcon"></div>
+		<p><span>id</span>님이 채팅을 보냈습니다.</p>
+	</div>
+	<div class="notif warning">
+		<div class="questionIcon"></div>
+		<div class="xIcon"></div>
 		<p><span>id</span>님이 채팅을 보냈습니다.</p>
 	</div>
 	<div class="notif success">
-		<p><span>id</span>님이 채팅을 보냈습니다.</p>
+		<div class="successIcon"></div>
+		<div class="xIcon"></div>
+		<p title="2018-07-20"><span>id</span>님이 예약을 했습니다.</p>
 	</div>
-	<div class="notif info">
-		<p><span>id</span>님이 예약을 했습니다.</p>
-	</div>
-	<div class="notif warning">
+	<div class="notif danger">
+		<div class="cancelIcon"></div>
+		<div class="xIcon"></div>
 		<p><span>id</span>님이 예약을 취소했습니다.</p>
 	</div>
 	<div class="notif danger">
-		<p><span>id</span>님이 댓글을 작성했습니다.</p>
+		<div class="cancelIcon"></div>
+		<div class="xIcon"></div>
+		<p><span>id</span>님이 예약을 취소했습니다.</p>
 	</div>
-	<div class="notif">
-		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	<div class="notif danger">
+		<div class="cancelIcon"></div>
+		<div class="xIcon"></div>
+		<p><span>id</span>님이 예약을 취소했습니다.</p>
 	</div>
-	<div class="notif">
-		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	<div class="notif danger">
+		<div class="cancelIcon"></div>
+		<div class="xIcon"></div>
+		<p><span>id</span>님이 예약을 취소했습니다.</p>
 	</div>
-	<div class="notif">
-		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	<div class="notif danger">
+		<div class="cancelIcon"></div>
+		<div class="xIcon"></div>
+		<p><span>id</span>님이 예약을 취소했습니다.</p>
 	</div>
-	<div class="notif">
-		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	<div class="notif danger">
+		<div class="cancelIcon"></div>
+		<div class="xIcon"></div>
+		<p><span>id</span>님이 예약을 취소했습니다.</p>
 	</div>
-	<div class="notif">
-		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	<div class="notif danger">
+		<div class="cancelIcon"></div>
+		<div class="xIcon"></div>
+		<p><span>id</span>님이 예약을 취소했습니다.</p>
 	</div>
-	<div class="notif">
-		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	<div class="notif danger">
+		<div class="cancelIcon"></div>
+		<div class="xIcon"></div>
+		<p><span>id</span>님이 예약을 취소했습니다.</p>
 	</div>
-	<div class="notif">
-		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	<div class="notif danger">
+		<div class="cancelIcon"></div>
+		<div class="xIcon"></div>
+		<p><span>id</span>님이 예약을 취소했습니다.</p>
 	</div>
-	<div class="notif">
-		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	<div class="notif danger">
+		<div class="cancelIcon"></div>
+		<div class="xIcon"></div>
+		<p><span>id</span>님이 예약을 취소했습니다.</p>
 	</div>
-	<div class="notif">
-		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
+	<div class="notif danger">
+		<div class="cancelIcon"></div>
+		<div class="xIcon"></div>
+		<p><span>id</span>님이 예약을 취소했습니다.</p>
 	</div>
-	<div class="notif">
-		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
-	</div>
-	<div class="notif">
-		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
-	</div>
-	<div class="notif">
-		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
-	</div>
-	<div class="notif">
-		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
-	</div>
-	<div class="notif">
-		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
-	</div>
-	<div class="notif">
-		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
-	</div>
-	<div class="notif">
-		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
-	</div>
-	<div class="notif">
-		<p><span>id</span>님이 리뷰를 작성했습니다.</p>
-	</div>
-	
-	
 </div>
 <script type="text/javascript">
-	
+$(document).on("click","#notification",function(){
+	$("#notifList").toggle();
+});
+$(document).on("click",".xIcon",function(){
+	$(this).parent().animate({"opacity":0, "height": 0 }, "slow" ,function(){
+		$(this).remove();
+	});
+})
 </script>
 </body>
 </html>

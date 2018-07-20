@@ -5,7 +5,7 @@
     <h1 id="logo"><a href="${pageContext.request.contextPath}/index.jsp"><img src="${pageContext.request.contextPath}/images/header/title1.JPG" alt=""></a></h1>
     <c:if test="${not empty sessionScope.user}">
 	    <img id="notification" src="${pageContext.request.contextPath}/temporary/notification.png"></img>
-		<span id="count">0</span>
+		<span id="notifCount">0</span>
     </c:if>
     <p id="userBox">
 	    <c:choose>

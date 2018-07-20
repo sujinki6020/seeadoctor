@@ -17,6 +17,7 @@
 		<pattern>/admin/calendar/calendarPop*</pattern>
 		<pattern>/admin/calendar/timeManagement*</pattern>
 		<pattern>/board/commentList.json</pattern>
+		<pattern>/temporary/header.jsp</pattern>
 	</excludes>
 </decorators>
 

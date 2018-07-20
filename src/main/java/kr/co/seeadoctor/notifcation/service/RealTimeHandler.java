@@ -56,12 +56,13 @@ public class RealTimeHandler extends TextWebSocketHandler  {
 			session.sendMessage(new TextMessage(result));
 			return;
 		}else if(rcvMsg.startsWith("logout")) {
-			System.out.println();
 			mapper.updateNotification(user.getId());
 			return;
 		}
-		String rcvId = rcvMsg.substring(0,rcvMsg.indexOf(":"));
-		String sendMsg = rcvMsg.substring(rcvMsg.indexOf(":") + 1);
+		String[] datas = rcvMsg.split(":");
+		String rcvId = datas[0];
+		String css = datas[1];
+		String sendMsg = datas[2];
 		System.out.println(rcvId);
 		Notification notif = new Notification();
 		notif.setSendId(user.getId());
@@ -72,7 +73,7 @@ public class RealTimeHandler extends TextWebSocketHandler  {
 			System.out.println("해당 유저가 접속중이 아닙니다.");
 			return;
 		} 
-		findUser(rcvId).sendMessage(new TextMessage(user.getId() + ":" + sendMsg));
+		findUser(rcvId).sendMessage(new TextMessage(user.getId() + ":"+ css + ":" + sendMsg));
 		System.out.println("sendId :" +  rcvId);
 		System.out.println("sendMsg : " + sendMsg);
 		System.out.println("users : " + connectedUser);
