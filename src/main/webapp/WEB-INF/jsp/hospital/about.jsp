@@ -13,13 +13,12 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=IutEeaTAqvux8P5IXvhG&submodules=geocoder"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.6/css/swiper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.6/js/swiper.min.js"></script>
 <style>
 body { 
    font-family: 'NanumSquare', sans-serif; 
 }
-
-
-
 .table-bordered>tbody>tr>th,.table-bordered>tbody>tr>td,
 .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, 
 .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
@@ -38,15 +37,37 @@ body {
     margin-bottom: 35px;
     margin-left: 35px;
 }
-
 textarea.form-control {
     height: 400px;
 }
-
 #btn_booking_blocked {
  cursor: not-allowed;
 }
-
+.swiper-container {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 95px;
+}
+.swiper-slide {
+    	width: 600px;
+      heght: 400px;
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      /* Center slide text vertically */
+      display: -webkit-box;
+      display: -ms-flexbox; /*내용중앙정렬*/
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center; /*좌우기준 중앙정렬*/
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center; /*위아래기준 중앙정렬*/
+    }
 
 
 </style>
@@ -73,24 +94,28 @@ textarea.form-control {
 			
 			<div id="head_btn_area">
 				<div id="head_btns">
+				
 					<a href="">
 						<img src="${pageContext.request.contextPath}/images/board/search.png" class="pull-right" id="btn_search"/><br>
 						<span>길찾기</span>
 					</a>
-						<c:choose>
-							<c:when test="${result.docCnt==0}">
+					
+					<c:choose>
+						<c:when test="${result.docCnt==0}">
 					<a href="#1">
-							<img src="${pageContext.request.contextPath}/images/board/booking-blocked.png" class="pull-right" id="btn_booking_blocked"/><br>
-						<span>예약하기</span>
-						</a>
-							</c:when>
-							<c:otherwise>
-					<a id="2" href="${pageContext.request.contextPath}/reservation/reservationForm.do?hospitalSeq=${result.hospResult.hospitalSeq}">
-							<img src="${pageContext.request.contextPath}/images/board/booking.png" class="pull-right" id="btn_booking"/><br>
+						<img src="${pageContext.request.contextPath}/images/board/booking-blocked.png" class="pull-right" id="btn_booking_blocked"/><br>
 						<span>예약하기</span>
 					</a>
-							</c:otherwise>
-						</c:choose>
+						</c:when>
+						
+					<c:otherwise>
+					<a id="2" href="${pageContext.request.contextPath}/reservation/reservationForm.do?hospitalSeq=${result.hospResult.hospitalSeq}">
+						<img src="${pageContext.request.contextPath}/images/board/booking.png" class="pull-right" id="btn_booking"/><br>
+						<span>예약하기</span>
+					</a>
+					</c:otherwise>
+					</c:choose>
+					
 					<a>
 						<c:if test="${result.cnt ==0}">
 							<img src="${pageContext.request.contextPath}/images/board/unstar.png" data-flag="no" class="pull-right" id="btn_unlike"/><br>
@@ -100,18 +125,22 @@ textarea.form-control {
 						</c:if>
 						<span>즐겨찾기</span>
 					</a>	
+					
 				</div>
 			</div>
 			
 			<div id="head_btn_tap">
 				<hr id="head_tap_hr">
 					<div id="head_taps">
+						
 						<a href="${pageContext.request.contextPath}/hospital/about.do?hospitalSeq=${param.hospitalSeq}&tab=1">
 							<span>주요정보</span>
 						</a>	
+						
 						<a href="#1" onclick="photo(${param.hospitalSeq});">
 							<span>포토요약</span>
 						</a>
+						
 						<a href="#1" onclick="review(${param.hospitalSeq});">
 							<span>리뷰</span>
 						</a>
@@ -201,18 +230,21 @@ textarea.form-control {
 			
 			<div id="in_out_photo">
 				<span style="float: left;">"${result.hospResult.dutyName}"의 사진입니다.</span> 
-				<span style="float: right;">내외부 사진(개수)</span>
+				<span style="float: right;">내외부 사진(<span id="picCnt"></span>개)</span>
 			</div>
 			
-			<div id="next">
-				<img id="next" src="${pageContext.request.contextPath}/images/board/next.png" />
-				<img id="next1" src="${pageContext.request.contextPath}/images/board/next1.png"/>
-			</div>
-			
-			<div class="container">
-				<div class="area">
-					<img class="img" src="${pageContext.request.contextPath}/hospital/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}"/><br>
-				</div>
+			<div class="swiper-container">
+			  
+			  <div class="swiper-wrapper">
+<!-- 			    <div class="swiper-slide">Slide 10</div> -->
+			  </div>
+			  
+			  <!-- Add Pagination -->
+			  <div class="swiper-pagination"></div>
+			  <!-- Add Arrows -->
+			  <div class="swiper-button-next"></div>
+			  <div class="swiper-button-prev"></div>
+			  
 			</div>
 			
 		</div>
@@ -508,48 +540,47 @@ function review(hospitalSeq) {
 }
 //사진
 function photo(hospitalSeq) {
- alert("포토에이작스들어옴")	
+
 	$.ajax({ 
 		url:"photo.json",
 		data : {
 			hospitalSeq : hospitalSeq
 		}
 	})
-	.done(function(result){
+	.done(function(files){
+ alert("done")	
 		$("#content_box").hide();
 		$("#content_review").hide();
 		$("#content_photo").show();
 		$("#content_detail").hide();
 		$("#content_area_writeForm").hide();
 		$("#buttons").hide();
-		console.dir(result);
-		var reviewListHtml = "";	
-	})
+		console.dir(files);
+		
+	
+		var fileList ="";
+		for(var i=0; i< files.length; i++) {
+			var file = files[i];
+			fileList += " <div class='swiper-slide'><img width='600px' height='400px' src='${pageContext.request.contextPath}/hospital/fileOutPut.do?filePath="+file.filePath+"&sysName="+file.sysName+"'/></div>"
+			}
+		$("#picCnt").html(files.length);
+		$(".swiper-wrapper").html(fileList);
+			var swiper = new Swiper('.swiper-container', {
+			    pagination: { //페이징 설정
+			      el: '.swiper-pagination',
+			      type: 'progressbar',
+			      clickable:true //페이징클릭 시 해당영역으로 이동
+			    },
+			    navigation: { //네비게이션 설정
+			      nextEl: '.swiper-button-next', //다음
+			      prevEl: '.swiper-button-prev'//이전
+			    }
+			  });
+		})
 	.fail(function(result){
 		console.log(result);
 	})	
 }
-
-//포토요약 슬라이더 넘기기
-var index = 0;
-function moveSlide(){
-	var move = -(index * 600);
-	$(".area").animate({left:move},"slow");
-}
-
-$("#next").click(function(){
-	if(index == 0) index = 4;
-	else index--;
-	
-	moveSlide();
-});
-$("#next1").click(function(){
-	if(index ==4) index=0;
-	else index++;
-	
-	moveSlide();
-})
-
 
 
 
@@ -620,8 +651,6 @@ function detail(no){
 		console.dir(result);
 		
 		detailNo = result.board.no;
-		detailContent = result.board.content;
-		detailTitle = result.board.title;
 		
 		$("#content_detail > #content_are_detail > #detail_row > #title1").html(result.board.title);
 		$("#content_detail > #content_are_detail > #detail_row > #nickName1").html(result.board.name);

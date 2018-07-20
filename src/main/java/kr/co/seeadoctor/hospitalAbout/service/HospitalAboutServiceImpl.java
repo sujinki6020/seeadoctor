@@ -177,7 +177,11 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	//포토요약
 	public List<BoardFile> outPutPhoto(int hospitalSeq) {
 		System.out.println("임플에서병원시퀀스 가져옴:" + hospitalSeq);
-		return hospMapper.outPutPhoto(hospitalSeq);
+		List<BoardFile> files = hospMapper.outPutPhoto(hospitalSeq);
+		System.out.println("files 호출:" + files.get(0).getSysName());
+		System.out.println("files 호출:" + files.get(1).getSysName());
+		return files;
+				
 	}
 
 
