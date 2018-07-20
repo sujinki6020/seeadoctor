@@ -185,11 +185,6 @@ public class HospitalAboutController {
 	//댓글수정
 	
 	
-		
-	//포토요약
-	@RequestMapping("/photo.do")
-	public void photo() {
-	}
 	
 	//추천하기
 	@RequestMapping("/plusStar.json")
@@ -215,5 +210,13 @@ public class HospitalAboutController {
 //		User user = (User)session.getAttribute("user");
 //		return hospService.selectAllHospLike(user.getId());
 //	}
+	
+		
+	//포토요약
+	@RequestMapping("/photo.do")
+	public void photo() {
+		
+	}
+	
 	
 }
