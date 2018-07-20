@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.seeadoctor.repository.mapper.HospitalAboutMapper;
+import kr.co.seeadoctor.repository.mapper.VisitCntMapper;
 import kr.co.seeadoctor.repository.vo.Board;
 import kr.co.seeadoctor.repository.vo.BoardFile;
 import kr.co.seeadoctor.repository.vo.Comment;
@@ -20,6 +21,8 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	
 	@Autowired
 	private HospitalAboutMapper hospMapper;
+	@Autowired
+	private VisitCntMapper visitMapper;
 
 	// 아래의 정보를 가져오기 위한 서비스 필요한
 	// 병원 정보 가져오기
@@ -28,16 +31,16 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	
 	
 	@Override
-	public Map<String, Object> loadHospAbout(String id , String hospitalSeq) {
+	public Map<String, Object> loadHospAbout(String id , int hospitalSeq) {
 		Map<String, Object> result = new HashMap<>();
 		
 		// 병원 자체 정보 추가해야 함...
-		HospitalAbout hospResult = hospMapper.loadHospital(Integer.parseInt(hospitalSeq));
+		HospitalAbout hospResult = hospMapper.loadHospital(hospitalSeq);
 		
 		int myCnt = hospMapper.selectMyLikeCnt(id); //내 총 즐찾개수
 		HospitalAbout hospAbout = new HospitalAbout();
 		hospAbout.setId(id);
-		hospAbout.setHospitalSeq(Integer.parseInt(hospitalSeq));
+		hospAbout.setHospitalSeq(hospitalSeq);
 		int cnt = hospMapper.selectHospLikeCnt(hospAbout); //중복
 		
 		System.out.println("부가정보:" + hospResult.getDutyEtc());
@@ -164,6 +167,15 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	//댓수정
 	public void updateComment(Comment comment) {
 		hospMapper.updateComment(comment);
+	}
+
+
+	@Override
+	public void visitCnt(int hospitalSeq) {
+		int result = visitMapper.updateVisitCnt(hospitalSeq);
+		if(result==0) visitMapper.insertVisitCnt(hospitalSeq);
+		
+		
 	}	
 
 

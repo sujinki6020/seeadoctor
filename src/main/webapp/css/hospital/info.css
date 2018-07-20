@@ -344,7 +344,7 @@
     height: 64px;
     position: relative;
     top: 240px;
-/*     z-index: 2; */
+    z-index: 2;
 }
 #area{
 	height: 400px;

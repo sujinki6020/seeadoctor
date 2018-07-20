@@ -197,7 +197,7 @@ textarea.form-control {
 			</div>
 			
 			<div id="area">
-				<img class="img" src="${pageContext.request.contextPath}/hospital/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}" style="width:100%; height:100%; margin:0 auto;"/><br>
+				<img class="img" src="${pageContext.request.contextPath}/hospital/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}"/><br>
 			</div>
 			
 			
