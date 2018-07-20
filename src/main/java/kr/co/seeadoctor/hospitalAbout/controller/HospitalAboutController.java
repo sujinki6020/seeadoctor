@@ -61,15 +61,15 @@ public class HospitalAboutController {
 	@RequestMapping("/updateForm.json")
 	@ResponseBody
 	public Map<String, Object> updateForm(Board board)throws Exception {
+		System.out.println("업데이트폼");
 		return hospService.detailReview(board); 
 	}
 	
 	
 	@RequestMapping("/update.json")
 	@ResponseBody
-	public String update(Board board)throws Exception {
+	public void update(Board board)throws Exception {
 		hospService.updateReview(board);
-		return "success";
 	}
 	
 	@RequestMapping("/detail.json")
@@ -84,9 +84,8 @@ public class HospitalAboutController {
 	@RequestMapping("/delete.json")
 	@ResponseBody
 	public void delete(int no) {
-		System.out.println("들어왔니");
 		hospService.deleteReview(no);
-		System.out.println("들어왔옴");
+		//원래 반환타입이 String으로 문자열을 리턴해주면 제이슨 형태로 자동 파싱하려고 하기때문에 에러를 찍어보니 파싱에러가 났다. 보이드로해서 반환을 해주지 않으니 오류 수정 됨
 	}
 	
 	

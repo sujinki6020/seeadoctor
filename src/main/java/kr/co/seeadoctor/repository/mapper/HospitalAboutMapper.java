@@ -30,7 +30,7 @@ public interface HospitalAboutMapper {
 	void updateReviewViewCnt(int no);
 	Board detailReview(Board board);
 	void deleteReview(int no);
-	Board updateReview(Board board); //수정
+	void updateReview(Board board); //수정
 
 	//파일첨부
 	void insertReviewFiles(BoardFile fileVO);

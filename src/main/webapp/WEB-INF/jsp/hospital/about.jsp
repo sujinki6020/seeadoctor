@@ -607,14 +607,11 @@ function detail(no){
 
 //삭제
 function delete1(){
-		alert("ㅇㅇㅇ")
 	$.ajax({
 		url : "delete.json",
 		data : "no="+detailNo
-// 		dataType넘겨준 데이터타입의 데이터타입을ㅈ 정해주는것: "text" //데이타타입을 객체로 넘겨줄땐 dataType이 "json"인데 객체로 넘겨주지 않으니 dataType이 "text"임
 	})
 	.done(function(result){
-		alert("리절트")
 		$("#content_box").hide();
 		$("#content_photo").hide();
 		$("#content_review").show();
@@ -656,23 +653,26 @@ function updateForm(){
 
 function updateReview(board){
 	alert("asd")
+	
 	var formData = new FormData($("#form")[0])
-	//var fd = new FormData();
-	/*
+	
 	$.ajax({
 		url : "update.json",
-		data : formData
-	)}	
-	.done(function(){
-		$("#content_box").hide();
-		$("#content_photo").hide();
-		$("#content_review").show();
+		data : formData,
+		type: "POST",
+		// 파일 업로드를 위한 속성 설정
+		dataType: "text",
+		processData: false,
+		contentType: false
+	})	
+	.done(function(result){
 		$("#content_area_writeForm").hide();
-		$("#content_detail").hide();
+		$("#content_review").show();
  		review('${param.hospitalSeq}');
 	})
+	.fail(function(err){
+		console.dir(err)
 	})
-	*/
 }
 
 
