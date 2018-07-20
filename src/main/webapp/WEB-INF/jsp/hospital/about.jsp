@@ -191,16 +191,23 @@ textarea.form-control {
 				<span style="float: right;">내외부 사진(개수)</span>
 			</div>
 			
-			<div id="content_area_photo"></div>
+			<div id="next">
+				<img id="next" src="${pageContext.request.contextPath}/images/board/next.png" class="pull-right" />
+				<img id="next1" src="${pageContext.request.contextPath}/images/board/next1.png" class="pull-left" />
+			</div>
+			
+			<div id="area">
+				<img class="img" src="${pageContext.request.contextPath}/hospital/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}" style="width:100%; height:100%; margin:0 auto;"/><br>
+			</div>
+			
+			
 		</div>
-		
 		
 <!-- 	글쓰기 -->
 			<div id="content_area_writeForm" style="display: none;">
 				
 				<div id="form1">
 					<form id="form" enctype="multipart/form-data" method="post">
-<%-- 					<input type="hidden" name="hospitalSeq" value="${param.hospitalSeq}"> --%>
 					<input type="hidden" name="hospitalSeq" value="${param.hospitalSeq}">
 					<div id="review_row1">
 					<span id="review">리뷰쓰기</span>
@@ -594,8 +601,8 @@ function detail(no){
 		for(let i=0; i< result.files.length; i++){
 			
 			let file = result.files[i];
-			filearea +="<img class='imgFile' src='${pageContext.request.contextPath}/board/fileOutPut.do?filePath="+result.files[i].filePath+"&sysName="+result.files[i].sysName+"'/><br>"
-// 			filearea += "<button type='button' class='btn btn default' style='margin: 5px 0px 20px;'><a href='${pageContext.request.contextPath}/board/fileOutPut.do?filepath="+file.filePath+"&sysName="+file.sysName+'">다운로드</a></button><br>"
+			filearea += "<img class='imgFile' src='${pageContext.request.contextPath}/hospital/fileOutPut.do?filePath="+result.files[i].filePath+"&sysName="+result.files[i].sysName+"'/><br>"
+			filearea += "<button type='button' class='btn btn default' style='margin: 5px 0px 20px;'><a href='${pageContext.request.contextPath}/hospital/fileOutPut.do?filepath="+file.filePath+"&sysName="+file.sysName+"'>다운로드</a></button><br>"
 		}
 		$("#filearea").html(filearea)
 		
@@ -674,6 +681,29 @@ function updateReview(board){
 		console.dir(err)
 	})
 }
+
+//포토요약
+
+var index = 0;
+function moveSlide(){
+	var move = -(index * 600);
+	$(".area").animate({left:move},"slow");
+}
+
+$("#next").click(function(){
+	if(index == 0) index = 4;
+	else index--;
+	
+	moveSlide();
+});
+$("#next1").click(function(){
+	if(index ==4) index=0;
+	else index++;
+	
+	moveSlide();
+})
+
+
 
 
 /*

@@ -218,23 +218,7 @@
     margin-left: 32px;
     margin-bottom: 30px;
 }
-/*사진폼*/
-#content_photo{
-	width: 600px;
-    height: 501px;
-    margin: 0 auto;
-    margin-top: 40px;
-}
-#in_out_photo{
-	height: 25px;
-    font-weight: bold;
-    width: 600px;
-}
-#content_area_photo{
-	height: 400px;
-    width: 605px;
-    border: 1px solid #ccc;
-}
+
 /* 디테일 */
 #content_box{
 	height: auto;
@@ -338,3 +322,40 @@
 	height:100%; 
 	margin:0 auto;
 }
+/* 포토요약 */
+#content_photo{
+/* 	컨테이너 */
+	width: 600px;
+    height: 501px;
+    margin: 0 auto;
+    margin-top: 40px;
+    overflow:hidden;
+    position:relative;
+}
+#in_out_photo{
+	height: 25px;
+    font-weight: bold;
+    width: 600px;
+}
+#next{
+/*     width: 700px; */
+/*     height: 70px; */
+    width: 605px;
+    height: 64px;
+    position: relative;
+    top: 240px;
+/*     z-index: 2; */
+}
+#area{
+	height: 400px;
+/*     width: 600px; */
+	width:3000px;
+    border: 1px solid #ccc;
+    position: relative;  
+	z-index: 1;
+}
+.img { 
+	float:left; width:600px; height:400px; 
+	}
+
+
