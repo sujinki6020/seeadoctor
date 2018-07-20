@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>See A Doctor</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin/calendar/calendar.css">
 </head>
@@ -166,18 +166,12 @@
 </c:forEach>  
 
 
-	
-	
 	</tr>
 	
 	</tbody>
 	</table>
 
 </div>
-
-<script> 
-
-</script>
 
 </body>
 </html>

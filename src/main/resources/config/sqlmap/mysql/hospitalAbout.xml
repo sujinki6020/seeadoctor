@@ -178,6 +178,13 @@
 			  where hospital_seq = #{hospitalSeq}
 			    and no = #{no}  
 		</select>
+		
+		<select id="outPutPhoto" parameterType="int" resultMap="reviewFileMap">
+			select *
+			  from tb_board_file
+			 where hospital_seq = #{hospitalSeq} 
+		</select>
+		
 	
 	<resultMap id="commentMap" type="comment">
 		<result column="no" property="no"/>

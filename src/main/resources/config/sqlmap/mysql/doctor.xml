@@ -61,6 +61,12 @@
 	       and d.hospital_seq = #{hospitalSeq};
 	</select>
 	
+	<select id="countDoctorByHospSeq" parameterType="int" resultType="int">
+	   select count(*)
+         from tb_doctor
+		where hospital_seq = #{hospitalSeq};
+	</select>
+	
 </mapper>
 
 

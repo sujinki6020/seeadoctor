@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.seeadoctor.repository.mapper.ReservationMapper;
+import kr.co.seeadoctor.repository.mapper.VisitCntMapper;
 import kr.co.seeadoctor.repository.vo.Statistics;
 import kr.co.seeadoctor.repository.vo.VisitCnt;
 
@@ -16,6 +17,8 @@ public class StatisticsServiceImpl implements StatisticsService {
 	
 	@Autowired
 	private ReservationMapper mapper;
+	@Autowired
+	private VisitCntMapper visitMapper;
 
 	
 	@Override
@@ -120,8 +123,7 @@ public class StatisticsServiceImpl implements StatisticsService {
 	@Override
 	public Integer[] getBarData(int hospitalSeq) {
 		
-		
-		List<VisitCnt> visitList =  mapper.selectVisitCnt(hospitalSeq);
+		List<VisitCnt> visitList =  visitMapper.selectVisitCnt(hospitalSeq);
 		
 		Integer[] visitArr = new Integer[7];
 		for(int i=0; i<visitList.size(); i++) {

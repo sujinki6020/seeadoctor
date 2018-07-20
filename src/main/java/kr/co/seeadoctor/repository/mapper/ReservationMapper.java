@@ -31,7 +31,6 @@ public interface ReservationMapper {
 	Integer selectReservationCntBySex(Map<String, Object> paramMap);
 	Integer selectReservationCntByAge(Map<String, Object> paramMap);
 	List<Statistics> selectReservationCntAll(Map<String, Object> paramMap);
-	List<VisitCnt> selectVisitCnt(int hospitalSeq);
 
 
 	

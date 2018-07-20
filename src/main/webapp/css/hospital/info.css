@@ -20,7 +20,8 @@
     width: 800px;
     margin: 0 auto;
     margin-top: -150px;
-    margin-bottom: 10px;
+    margin-bottom: 70px;
+    height: 100%;
 }
 
 #head_box{
@@ -218,23 +219,7 @@
     margin-left: 32px;
     margin-bottom: 30px;
 }
-/*사진폼*/
-#content_photo{
-	width: 600px;
-    height: 501px;
-    margin: 0 auto;
-    margin-top: 40px;
-}
-#in_out_photo{
-	height: 25px;
-    font-weight: bold;
-    width: 600px;
-}
-#content_area_photo{
-	height: 400px;
-    width: 605px;
-    border: 1px solid #ccc;
-}
+
 /* 디테일 */
 #content_box{
 	height: auto;
@@ -338,3 +323,18 @@
 	height:100%; 
 	margin:0 auto;
 }
+/* 포토요약 */
+#content_photo{
+	width: 600px;
+    height: 100%;
+    margin: 0 auto;
+    margin-top: 40px;
+    position:relative;
+}
+#in_out_photo{
+	height: 25px;
+    font-weight: bold;
+    width: 600px;
+}
+
+

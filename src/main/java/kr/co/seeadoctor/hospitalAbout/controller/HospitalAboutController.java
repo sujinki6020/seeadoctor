@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.seeadoctor.hospitalAbout.service.HospitalAboutService;
 import kr.co.seeadoctor.repository.vo.Board;
+import kr.co.seeadoctor.repository.vo.BoardFile;
 import kr.co.seeadoctor.repository.vo.Comment;
 import kr.co.seeadoctor.repository.vo.HospitalAbout;
 import kr.co.seeadoctor.repository.vo.User;
@@ -33,10 +34,13 @@ public class HospitalAboutController {
 	
 	//병원정보 가져오기
 	@RequestMapping("/about.do")
-	public void hospAbout(String hospitalSeq ,HttpSession session,  Model model) {
+	public void hospAbout(int hospitalSeq ,HttpSession session,  Model model) {
 		
 		// 아래의 정보를 가져오기 위한 서비스 필요한 병원정보 가져오기
 		// 전체 좋아요 개수, 해당병원 좋아요 여부(cnt), 중복 좋아요 안되게 막기
+		
+		//페이지 방문수 카운트
+		hospService.visitCnt(hospitalSeq);
 	
 		//Map<String, Object> result = hospService.loadHospAbout(hospAbout, hospital);//해당병원 좋아요했는지
 		User user = (User)session.getAttribute("user");
@@ -53,23 +57,21 @@ public class HospitalAboutController {
 	@RequestMapping("/write.json") 
 	@ResponseBody
 	public String write(Board board)throws Exception {
-		System.out.println("board:" + board);
 		hospService.insertReview(board); //가져간다
 		return "success";
 	}
 	
 	@RequestMapping("/updateForm.json")
 	@ResponseBody
-	public String updateForm(Board board, Model model)throws Exception {
-		model.addAttribute("board", hospService.detailReview(board)); 
-		return "board/writeForm";
+	public Map<String, Object> updateForm(Board board)throws Exception {
+		return hospService.detailReview(board); 
 	}
+	
 	
 	@RequestMapping("/update.json")
 	@ResponseBody
-	public String update(Board board)throws Exception {
+	public void update(Board board)throws Exception {
 		hospService.updateReview(board);
-		return "success";
 	}
 	
 	@RequestMapping("/detail.json")
@@ -83,9 +85,9 @@ public class HospitalAboutController {
 	
 	@RequestMapping("/delete.json")
 	@ResponseBody
-	public String delete(int no) {
+	public void delete(int no) {
 		hospService.deleteReview(no);
-		return "success";
+		//원래 반환타입이 String으로 문자열을 리턴해주면 제이슨 형태로 자동 파싱하려고 하기때문에 에러를 찍어보니 파싱에러가 났다. 보이드로해서 반환을 해주지 않으니 오류 수정 됨
 	}
 	
 	
@@ -95,9 +97,9 @@ public class HospitalAboutController {
 		
 
 		String filePath = request.getParameter("filePath");
-		//System.out.println("파일패쓰"+filePath);
+		System.out.println("파일패쓰"+filePath);
 		String sysName = request.getParameter("sysName");
-		//System.out.println("실제파일명"+sysName);
+		System.out.println("실제파일명"+sysName);
 	
 		File file = new File(filePath,sysName);
 		//System.out.println("f:파일객체생성"+file);
@@ -185,11 +187,6 @@ public class HospitalAboutController {
 	//댓글수정
 	
 	
-		
-	//포토요약
-	@RequestMapping("/photo.do")
-	public void photo() {
-	}
 	
 	//추천하기
 	@RequestMapping("/plusStar.json")
@@ -215,5 +212,16 @@ public class HospitalAboutController {
 //		User user = (User)session.getAttribute("user");
 //		return hospService.selectAllHospLike(user.getId());
 //	}
+	
+		
+	//포토요약
+	@RequestMapping("/photo.json")
+	@ResponseBody
+	public List<BoardFile> photo(int hospitalSeq) {
+		List<BoardFile> files = hospService.outPutPhoto(hospitalSeq);
+		System.out.println("컨트롤러파일스: " + files.get(0).getSysName());
+		return files;
+	}
+	
 	
 }

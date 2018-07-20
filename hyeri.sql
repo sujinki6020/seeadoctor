@@ -55,7 +55,7 @@ CREATE TABLE tb_visit_cnt
 (
     `hospital_seq`  INT     NOT NULL    COMMENT '병원시퀀스', 
     `visit_date`    DATE    NOT NULL    COMMENT '날짜', 
-    `visit_cnt`     INT     NULL        COMMENT '조회수', 
+    `visit_cnt`     INT     NULL default 1        COMMENT '조회수', 
     PRIMARY KEY (hospital_seq, visit_date)
 );
 ALTER TABLE tb_visit_cnt COMMENT '방문자수 통계용';

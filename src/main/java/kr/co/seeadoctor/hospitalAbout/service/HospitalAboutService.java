@@ -11,7 +11,7 @@ import kr.co.seeadoctor.repository.vo.HospitalAbout;
 public interface HospitalAboutService {
 
 	//병원정보가져오기
-	public Map<String, Object> loadHospAbout(String userId, String hospitalSeq);
+	public Map<String, Object> loadHospAbout(String userId, int hospitalSeq);
 	
 	
 	//즐겨찾기
@@ -38,6 +38,11 @@ public interface HospitalAboutService {
 	public void deleteComment(int commentNo);
 	//댓수정
 	public void updateComment(Comment comment);
+
+	//포토요약
+	public List<BoardFile> outPutPhoto(int hospitalSeq);
+	
+	public void visitCnt(int hospitalSeq);
 
 
 	

@@ -7,14 +7,14 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin/statistics/statistics.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin/statistics/statistics.css?ver=1">
 </head>
 <body>
 
 <div class="viewWrap">
 
 <div id="yearStat">
-<h3><button onclick="setPrevYear()">prev</button>연간 예약건수<span id="lineDateStr"></span><button onclick="setNextYear()">next</button></h3>
+<h3><img src="${pageContext.request.contextPath}/images/admin/statistics/left-arrow.png" onclick="setPrevYear()" /> 연간 예약건수<span id="lineDateStr"> </span> <img src="${pageContext.request.contextPath}/images/admin/statistics/right-arrow.png" onclick="setNextYear()" /></h3>
 <div id="lineCanvasBox"></div>
 </div>
 
@@ -24,16 +24,33 @@
 </div>
 
 <div id="monthStat">
-<br><h3><button onclick="setPrevMonth()">prev</button><span id="pieDateStr"></span> 예약자 정보<button onclick="setNextMonth()">next</button></h3>
+<br><h3><img src="${pageContext.request.contextPath}/images/admin/statistics/left-arrow.png" onclick="setPrevMonth()" /> <span id="pieDateStr"> </span> 예약자 정보 <img src="${pageContext.request.contextPath}/images/admin/statistics/right-arrow.png" onclick="setNextMonth()" /></h3>
 <h4>　<span id="sexCanvasTitle">성별</span> <span id="ageCanvasTitle">연령대</span> </h4>
 <div id="sexPieCanvasBox"></div>
 <div id="agePieCanvasBox"></div>
 </div>
 
-
+<div id="mask">
+<img id="maskImg" src="/seeadoctor/images/admin/calendar/loading-ellipsis.gif"/>
+</div>
 
 </div>
 <script>
+
+function wrapWindowByMask(){
+    //화면의 높이와 너비를 구한다.
+    var maskHeight = $(document).height();  
+    var maskWidth = $(window).width();  
+
+    //마스크의 높이와 너비를 화면 것으로 만들어 전체 화면을 채운다.
+    $('#mask').css({'width':maskWidth,'height':maskHeight});  
+
+    //애니메이션 효과
+    $('#mask').fadeTo("slow",0.7);    
+}
+
+
+
 var date = new Date();
 var thisYear = date.getFullYear();
 var thisMonth = date.getMonth()+1;
@@ -41,6 +58,7 @@ var thisLineYear = date.getFullYear();
 var thisLineMonth = date.getMonth()+1;
 
 function setPrevMonth() {
+	
 	if(thisMonth==1) {
 		thisYear = thisYear-1;
 		thisMonth = 12;
@@ -51,6 +69,10 @@ function setPrevMonth() {
 }
 
 function setNextMonth() {
+	if(thisYear == date.getFullYear() && thisMonth == date.getMonth()+1) {
+		alert("가장 최신 통계 입니다.");
+		return;
+	}
 	if(thisMonth==12) {
 		thisYear = thisYear+1;
 		thisMonth = 1;
@@ -66,10 +88,14 @@ function setPrevYear() {
 }
 
 function setNextYear() {
-	thisLineYear = thisLineYear + 1;
-	if(thisLineYear== date.getFullYear()) {
+	if(thisLineYear == date.getFullYear()){
+		alert("가장 최신 통계 입니다.");
+		return;
+	}
+	if(thisLineYear == date.getFullYear()-1) {
 		thisLineMonth = date.getMonth()+1;
 	}
+	thisLineYear = thisLineYear + 1;
 	getLineData();
 }
 
@@ -247,6 +273,7 @@ var myBarChart = new Chart(ctx, {
 
 function getPieData() {
 
+	wrapWindowByMask();
 
 	$.ajax({
 		type: "POST",
@@ -259,10 +286,9 @@ function getPieData() {
 		success: function (pieData) {
 			
 			$("#pieDateStr").text(thisYear+"년 "+thisMonth+"월 ");
-			console.log(pieData.sexArr);
-			console.log(pieData.ageArr);
 			setSexPieCanvas(pieData.sexArr);
 			setAgePieCanvas(pieData.ageArr);
+			$('#mask, .window').hide(); 
 		}
 	});
 
@@ -270,7 +296,6 @@ function getPieData() {
 getPieData();
 
 function setSexPieCanvas(dataArr){
-$("#sexPieCanvas").html("");
 var data = {
 	    labels: [
 	    	'여', '남'

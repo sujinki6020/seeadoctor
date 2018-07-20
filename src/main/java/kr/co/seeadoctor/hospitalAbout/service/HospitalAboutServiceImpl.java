@@ -10,18 +10,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.seeadoctor.repository.mapper.DoctorMapper;
 import kr.co.seeadoctor.repository.mapper.HospitalAboutMapper;
+import kr.co.seeadoctor.repository.mapper.VisitCntMapper;
 import kr.co.seeadoctor.repository.vo.Board;
 import kr.co.seeadoctor.repository.vo.BoardFile;
 import kr.co.seeadoctor.repository.vo.Comment;
-import kr.co.seeadoctor.repository.vo.Hospital;
 import kr.co.seeadoctor.repository.vo.HospitalAbout;
-import kr.co.seeadoctor.repository.vo.PageResult;
 @Service
 public class HospitalAboutServiceImpl implements HospitalAboutService{
 	
 	@Autowired
 	private HospitalAboutMapper hospMapper;
+	@Autowired
+	private VisitCntMapper visitMapper;
+	@Autowired
+	private DoctorMapper docMapper;
 
 	// 아래의 정보를 가져오기 위한 서비스 필요한
 	// 병원 정보 가져오기
@@ -30,22 +34,24 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	
 	
 	@Override
-	public Map<String, Object> loadHospAbout(String id , String hospitalSeq) {
+	public Map<String, Object> loadHospAbout(String id , int hospitalSeq) {
 		Map<String, Object> result = new HashMap<>();
 		
 		// 병원 자체 정보 추가해야 함...
-		HospitalAbout hospResult = hospMapper.loadHospital(Integer.parseInt(hospitalSeq));
+		HospitalAbout hospResult = hospMapper.loadHospital(hospitalSeq);
 		
 		int myCnt = hospMapper.selectMyLikeCnt(id); //내 총 즐찾개수
 		HospitalAbout hospAbout = new HospitalAbout();
 		hospAbout.setId(id);
-		hospAbout.setHospitalSeq(Integer.parseInt(hospitalSeq));
+		hospAbout.setHospitalSeq(hospitalSeq);
 		int cnt = hospMapper.selectHospLikeCnt(hospAbout); //중복
+		int docCnt = docMapper.countDoctorByHospSeq(hospitalSeq); //예약가능여부 확인
 		
 		System.out.println("부가정보:" + hospResult.getDutyEtc());
 		result.put("hospResult", hospResult);
 		result.put("myCnt", myCnt);
 		result.put("cnt", cnt);
+		result.put("docCnt", docCnt); //예약가능여부 확인
 		return result;
 	}
 	
@@ -86,8 +92,8 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	@Override
 	public void insertReview(Board board)throws Exception {
 		hospMapper.insertReview(board);
-		
-		if(board.getFiles()[0].getOriginalFilename() !=null) {
+//		System.out.println("보드파일의 오리네임:" + board.getFiles()[0].getOriginalFilename());
+		if(!board.getFiles()[0].getOriginalFilename().equals("")) { //오리지날네임이 공백이 아닐 때
 			
 			 for(MultipartFile file: board.getFiles()) {
 				 
@@ -116,7 +122,7 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 		Map<String, Object> result = new HashMap<>();
 		hospMapper.updateReviewViewCnt(no);
 		Board board = hospMapper.detailReview(b);
-		System.out.println("board -> 2" + board);
+//		System.out.println("board -> 2" + board.getContent());
 		
 		List<BoardFile> files = hospMapper.selectReviewFileByNo(b);
 		System.out.println("files: " + files);
@@ -166,6 +172,26 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	//댓수정
 	public void updateComment(Comment comment) {
 		hospMapper.updateComment(comment);
+	}
+	
+	//포토요약
+	public List<BoardFile> outPutPhoto(int hospitalSeq) {
+		System.out.println("임플에서병원시퀀스 가져옴:" + hospitalSeq);
+		List<BoardFile> files = hospMapper.outPutPhoto(hospitalSeq);
+		System.out.println("files 호출:" + files.get(0).getSysName());
+		System.out.println("files 호출:" + files.get(1).getSysName());
+		return files;
+				
+	}
+
+
+	//방문수 카운트
+	@Override
+	public void visitCnt(int hospitalSeq) {
+		int result = visitMapper.updateVisitCnt(hospitalSeq);
+		if(result==0) visitMapper.insertVisitCnt(hospitalSeq);
+		
+		
 	}	
 
 

@@ -13,13 +13,12 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=IutEeaTAqvux8P5IXvhG&submodules=geocoder"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.6/css/swiper.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.6/js/swiper.min.js"></script>
 <style>
 body { 
    font-family: 'NanumSquare', sans-serif; 
 }
-
-
-
 .table-bordered>tbody>tr>th,.table-bordered>tbody>tr>td,
 .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, 
 .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
@@ -38,17 +37,42 @@ body {
     margin-bottom: 35px;
     margin-left: 35px;
 }
-
 textarea.form-control {
     height: 400px;
 }
-
+#btn_booking_blocked {
+ cursor: not-allowed;
+}
+.swiper-container {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 95px;
+}
+.swiper-slide {
+    	width: 600px;
+      heght: 400px;
+      text-align: center;
+      font-size: 18px;
+      background: #fff;
+      /* Center slide text vertically */
+      display: -webkit-box;
+      display: -ms-flexbox; /*내용중앙정렬*/
+      display: -webkit-flex;
+      display: flex;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+      -webkit-justify-content: center;
+      justify-content: center; /*좌우기준 중앙정렬*/
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+      -webkit-align-items: center;
+      align-items: center; /*위아래기준 중앙정렬*/
+    }
 
 
 </style>
 </head>
 <body>
-
 <div id="boardMain">
 
 	<div id="map">지도</div>
@@ -70,16 +94,29 @@ textarea.form-control {
 			
 			<div id="head_btn_area">
 				<div id="head_btns">
+				
 					<a href="">
 						<img src="${pageContext.request.contextPath}/images/board/search.png" class="pull-right" id="btn_search"/><br>
 						<span>길찾기</span>
 					</a>
+					
+					<c:choose>
+						<c:when test="${result.docCnt==0}">
+					<a href="#1">
+						<img src="${pageContext.request.contextPath}/images/board/booking-blocked.png" class="pull-right" id="btn_booking_blocked"/><br>
+						<span>예약하기</span>
+					</a>
+						</c:when>
+						
+					<c:otherwise>
 					<a id="2" href="${pageContext.request.contextPath}/reservation/reservationForm.do?hospitalSeq=${result.hospResult.hospitalSeq}">
 						<img src="${pageContext.request.contextPath}/images/board/booking.png" class="pull-right" id="btn_booking"/><br>
 						<span>예약하기</span>
 					</a>
-					<a>
+					</c:otherwise>
+					</c:choose>
 					
+					<a>
 						<c:if test="${result.cnt ==0}">
 							<img src="${pageContext.request.contextPath}/images/board/unstar.png" data-flag="no" class="pull-right" id="btn_unlike"/><br>
 						</c:if>
@@ -88,18 +125,22 @@ textarea.form-control {
 						</c:if>
 						<span>즐겨찾기</span>
 					</a>	
+					
 				</div>
 			</div>
 			
 			<div id="head_btn_tap">
 				<hr id="head_tap_hr">
 					<div id="head_taps">
+						
 						<a href="${pageContext.request.contextPath}/hospital/about.do?hospitalSeq=${param.hospitalSeq}&tab=1">
 							<span>주요정보</span>
 						</a>	
-						<a href="#1" onclick="photo();">
+						
+						<a href="#1" onclick="photo(${param.hospitalSeq});">
 							<span>포토요약</span>
 						</a>
+						
 						<a href="#1" onclick="review(${param.hospitalSeq});">
 							<span>리뷰</span>
 						</a>
@@ -189,44 +230,45 @@ textarea.form-control {
 			
 			<div id="in_out_photo">
 				<span style="float: left;">"${result.hospResult.dutyName}"의 사진입니다.</span> 
-				<span style="float: right;">내외부 사진(개수)</span>
+				<span style="float: right;">내외부 사진(<span id="picCnt"></span>개)</span>
 			</div>
 			
-			<div id="content_area_photo"></div>
+			<div class="swiper-container">
+			  
+			  <div class="swiper-wrapper">
+<!-- 			    <div class="swiper-slide">Slide 10</div> -->
+			  </div>
+			  
+			  <!-- Add Pagination -->
+			  <div class="swiper-pagination"></div>
+			  <!-- Add Arrows -->
+			  <div class="swiper-button-next"></div>
+			  <div class="swiper-button-prev"></div>
+			  
+			</div>
+			
 		</div>
-		
 		
 <!-- 	글쓰기 -->
 			<div id="content_area_writeForm" style="display: none;">
 				
 				<div id="form1">
 					<form id="form" enctype="multipart/form-data" method="post">
-<%-- 					<input type="hidden" name="hospitalSeq" value="${param.hospitalSeq}"> --%>
 					<input type="hidden" name="hospitalSeq" value="${param.hospitalSeq}">
 					<div id="review_row1">
 					<span id="review">리뷰쓰기</span>
 
-					<input type="text" id="name" name="name" value="${sessionScope.user.name}" 
-					style="border: 1px; width: 74px; margin-left: 510px;">
+					<input type="text" id="name" name="name" style="border: 1px; width: 74px; margin-left: 510px;">
 					<input type="hidden" name="userSeq" value="${sessionScope.user.userSeq}">
-<%-- 					<span id="name" name="name">${sessionScope.user.name}</span> --%>
-
-<%-- 					<span id="nickName">${board.name}</span> --%>
-					<c:if test="${!empty board.name}">
-						<input type="text" id="name" name="name" value="${board.name}" 
-						style="border: 1px; width: 74px; margin-left: 510px;">
-					</c:if>
 					<hr id="review_hr">
 				</div>
-					<c:if test="${!empty board.no}">
-						<input type="text" name="no" value="${board.no}" hidden="hidden">
-					</c:if>
+					<input type="hidden" name="no" >
 					<div id="title">
-						<input type="text" class="form-control" name="title" placeholder="제목을 입력하세요" value="${board.title}">
+						<input type="text" class="form-control" name="title" placeholder="제목을 입력하세요">
 					</div>
 						
 					<div id="msg">
-						<textarea class="form-control" id="content" name="content" placeholder="내용을 입력해주세요">${board.content}</textarea>
+						<textarea class="form-control" id="content" name="content" placeholder="내용을 입력해주세요"></textarea>
 					</div>
 
 					<div id="filearea_write">
@@ -239,7 +281,8 @@ textarea.form-control {
 
 					<hr id="review_hr">
 					<div id="btn_adm">
-						<button type="button" class="btn btn-default" style="margin-bottom: 10px;" onclick="writeReview();">등록</button>
+						<button type="button" id="updateBtn" class="btn btn-default" style="display:none; margin-bottom: 10px;" onclick="updateReview();">수정</button>
+						<button type="button" id="registBtn" class="btn btn-default" style="display:none; margin-bottom: 10px;" onclick="writeReview();">등록</button>
 						<button type="button" class="btn btn-default" style="margin-bottom: 10px;" 
 								onclick="review(${param.hospitalSeq});">취소</button>
 					</div>
@@ -460,7 +503,6 @@ function review(hospitalSeq) {
 		data : {
 			hospitalSeq: hospitalSeq
 		}
-		
 	})
 	.done(function(result){
 		$("#content_box").hide();
@@ -497,30 +539,52 @@ function review(hospitalSeq) {
 		
 }
 //사진
-function photo() {
-	
-	$("#content_box").hide();
-	$("#content_review").hide();
-	$("#content_photo").show();
-	$("#content_detail").hide();
-	$("#content_area_writeForm").hide();
-	$("#buttons").hide();
-	
-	/*
-	$.ajax({ //
-		url:"photo.json"
+function photo(hospitalSeq) {
+
+	$.ajax({ 
+		url:"photo.json",
+		data : {
+			hospitalSeq : hospitalSeq
+		}
 	})
-	.done(function(result){
+	.done(function(files){
+ alert("done")	
 		$("#content_box").hide();
 		$("#content_review").hide();
 		$("#content_photo").show();
+		$("#content_detail").hide();
+		$("#content_area_writeForm").hide();
+		$("#buttons").hide();
+		console.dir(files);
 		
-	})
+	
+		var fileList ="";
+		for(var i=0; i< files.length; i++) {
+			var file = files[i];
+			fileList += " <div class='swiper-slide'><img width='600px' height='400px' src='${pageContext.request.contextPath}/hospital/fileOutPut.do?filePath="+file.filePath+"&sysName="+file.sysName+"'/></div>"
+			}
+		$("#picCnt").html(files.length);
+		$(".swiper-wrapper").html(fileList);
+			var swiper = new Swiper('.swiper-container', {
+			    pagination: { //페이징 설정
+			      el: '.swiper-pagination',
+			      type: 'progressbar',
+			      clickable:true //페이징클릭 시 해당영역으로 이동
+			    },
+			    navigation: { //네비게이션 설정
+			      nextEl: '.swiper-button-next', //다음
+			      prevEl: '.swiper-button-prev'//이전
+			    }
+			  });
+		})
 	.fail(function(result){
 		console.log(result);
 	})	
-	*/
 }
+
+
+
+
 //글쓰기폼
 function writeForm(){
 	$("#content_box").hide();
@@ -528,6 +592,14 @@ function writeForm(){
 	$("#content_photo").hide();
 	$("#content_area_writeForm").show();
 	$("#content_detail").hide();
+	
+	$("#registBtn").show();
+	$("#updateBtn").hide();
+
+	$("#form input[name='name']").val("${sessionScope.user.name}");
+	$("#form input[name='no']").val("0");
+	$("#form input[name='title']").val("");
+	$("#form textarea[name='content']").val("");
 }
 
 //글쓰기
@@ -557,6 +629,8 @@ function writeReview() {
 }
 
 var detailNo = 0;
+var detailContent = "";
+var detailTitle ="";
 //디테일
 function detail(no){
 	$("#content_box").hide();
@@ -592,8 +666,8 @@ function detail(no){
 		for(let i=0; i< result.files.length; i++){
 			
 			let file = result.files[i];
-			filearea +="<img class='imgFile' src='${pageContext.request.contextPath}/board/fileOutPut.do?filePath="+result.files[i].filePath+"&sysName="+result.files[i].sysName+"'/><br>"
-			filearea += "<button type='button' class='btn btn default' style='margin: 5px 0px 20px;'><a href='${pageContext.request.contextPath}/board/fileOutPut.do?filepath='"+${file.filePath}+"&sysName="+${file.sysName}+">"다운로드'</a></button><br>'
+			filearea += "<img class='imgFile' src='${pageContext.request.contextPath}/hospital/fileOutPut.do?filePath="+result.files[i].filePath+"&sysName="+result.files[i].sysName+"'/><br>"
+			filearea += "<button type='button' class='btn btn default' style='margin: 5px 0px 20px;'><a href='${pageContext.request.contextPath}/hospital/fileOutPut.do?filepath="+file.filePath+"&sysName="+file.sysName+"'>다운로드</a></button><br>"
 		}
 		$("#filearea").html(filearea)
 		
@@ -607,8 +681,7 @@ function detail(no){
 function delete1(){
 	$.ajax({
 		url : "delete.json",
-		data : "no="+detailNo,
-		dataType: "text" //데이타타입을 객체로 넘겨줄땐 dataType이 "json"인데 객체로 넘겨주지 않으니 dataType이 "text"임
+		data : "no="+detailNo
 	})
 	.done(function(result){
 		$("#content_box").hide();
@@ -617,27 +690,62 @@ function delete1(){
 		$("#content_area_writeForm").hide();
 		$("#content_detail").hide();
  		review('${param.hospitalSeq}');
+	})
+	.fail(function(err){
+		console.dir(err)
 	})
 }
 
 function updateForm(){
 	$.ajax({
 		url : "updateForm.json",
-		data: { 
-			no : detailNo,
-			content: board.content,
-			title : board.title
-		}
+		data : {
+			no: detailNo,
+			hospitalSeq: "${param.hospitalSeq}"
+		},
+		dataType: "json"
 	})
 	.done(function(result){
-		$("#content_box").hide();
-		$("#content_photo").hide();
-		$("#content_review").show();
-		$("#content_area_writeForm").hide();
+		
+		console.dir("------------result")
+		console.dir(result)
 		$("#content_detail").hide();
- 		review('${param.hospitalSeq}');
+		$("#content_area_writeForm").show();
+		
+		$("#registBtn").hide();
+		$("#updateBtn").show();
+		
+		$("#form input[name='name']").val(result.board.name);
+		$("#form input[name='no']").val(result.board.no);
+		$("#form input[name='title']").val(result.board.title);
+		$("#form textarea[name='content']").val(result.board.content);
 	})
 }
+
+function updateReview(board){
+	
+	var formData = new FormData($("#form")[0])
+	
+	$.ajax({
+		url : "update.json",
+		data : formData,
+		type: "POST",
+		// 파일 업로드를 위한 속성 설정
+		dataType: "text",
+		processData: false,
+		contentType: false
+	})	
+	.done(function(result){
+		$("#content_area_writeForm").hide();
+		$("#content_review").show();
+ 		review('${param.hospitalSeq}');
+	})
+	.fail(function(err){
+		console.dir(err)
+	})
+}
+
+
 
 
 
