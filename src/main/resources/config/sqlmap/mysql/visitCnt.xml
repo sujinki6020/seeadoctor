@@ -7,6 +7,18 @@
 		<result column="visit_date" property="visitDate"/>
 		<result column="visit_cnt" property="visitCnt"/>
 	</resultMap>
+	
+	<insert id="insertVisitCnt" parameterType="int">
+	insert into tb_visit_cnt(hospital_seq, visit_date)
+	values(#{hospitalSeq}, curdate())
+	</insert>
+	
+	<update id="updateVisitCnt" parameterType="int">
+	update tb_visit_cnt
+	   set visit_cnt = visit_cnt+1
+	 where hospital_seq = #{hospitalSeq}
+	   and visit_date = curdate()
+	</update>
 
 	<!-- 통계 -->
 	<select id="selectVisitCnt" parameterType="int" resultMap="visitCntMap">

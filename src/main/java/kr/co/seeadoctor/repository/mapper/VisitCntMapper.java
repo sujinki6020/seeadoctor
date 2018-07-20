@@ -6,10 +6,11 @@ import kr.co.seeadoctor.repository.vo.VisitCnt;
 
 public interface VisitCntMapper {
 	
+	int updateVisitCnt(int hospitalSeq);
+	void insertVisitCnt(int hospitalSeq);
+	
+	
 	/*통계*/
 	List<VisitCnt> selectVisitCnt(int hospitalSeq);
-
-
-	
 
 }
