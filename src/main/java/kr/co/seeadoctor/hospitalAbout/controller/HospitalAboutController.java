@@ -218,8 +218,9 @@ public class HospitalAboutController {
 	@RequestMapping("/photo.json")
 	@ResponseBody
 	public List<BoardFile> photo(int hospitalSeq) {
-		System.out.println("컨트롤러병원시퀀스 가져옴:" + hospitalSeq);
-		return hospService.outPutPhoto(hospitalSeq);
+		List<BoardFile> files = hospService.outPutPhoto(hospitalSeq);
+		System.out.println("컨트롤러파일스: " + files.get(0).getSysName());
+		return files;
 	}
 	
 	

@@ -21,6 +21,7 @@
     margin: 0 auto;
     margin-top: -150px;
     margin-bottom: 70px;
+    height: 100%;
 }
 
 #head_box{
@@ -325,7 +326,7 @@
 /* 포토요약 */
 #content_photo{
 	width: 600px;
-    height: auto;
+    height: 100%;
     margin: 0 auto;
     margin-top: 40px;
     position:relative;
@@ -334,31 +335,6 @@
 	height: 25px;
     font-weight: bold;
     width: 600px;
-}
-#next{
-/*     width: 700px; */
-/*     height: 70px; */
-    width: 605px;
-    height: 64px;
-    position: relative;
-    top: 240px;
-    z-index: 2;
-}
-.area{
-/* 	height: 400px; */
-/*     width: 600px; */
-	width:3000px;
-    border: 1px solid #ccc;
-    position: relative;  
-	z-index: 1;
-}
-.img { 
-	float:left; width:600px; height:400px; 
-}
- .container{
-   overflow:hidden;
-   position:relative;           
-   width:600px; height:400px;
 }
 
 
