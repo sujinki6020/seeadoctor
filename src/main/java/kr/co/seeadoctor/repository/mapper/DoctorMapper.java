@@ -7,6 +7,6 @@ import kr.co.seeadoctor.repository.vo.Doctor;
 public interface DoctorMapper {
 
 	List<Doctor> selectDoctorByHospSeq(int hospitalSeq);
-	
+	int countDoctorByHospSeq(int hospitalSeq);
 
 }
