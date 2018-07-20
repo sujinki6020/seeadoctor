@@ -10,6 +10,7 @@
 <!-- 	decorators를 적용시키지 않을 url 패턴 -->
 	<excludes>
 		<pattern>/chat/chatWindow.do</pattern>
+		<pattern>/chat/chatWindow.do*</pattern>
 		<pattern>/join/jusoPopup.do</pattern>
 		<pattern>/join/idDuplChk.do</pattern>
 		<pattern>/login/findId.do</pattern>
