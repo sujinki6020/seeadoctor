@@ -43,6 +43,10 @@ textarea.form-control {
     height: 400px;
 }
 
+#btn_booking_blocked {
+ cursor: not-allowed;
+}
+
 
 
 </style>
@@ -73,12 +77,21 @@ textarea.form-control {
 						<img src="${pageContext.request.contextPath}/images/board/search.png" class="pull-right" id="btn_search"/><br>
 						<span>길찾기</span>
 					</a>
+						<c:choose>
+							<c:when test="${result.docCnt==0}">
+					<a href="#1">
+							<img src="${pageContext.request.contextPath}/images/board/booking-blocked.png" class="pull-right" id="btn_booking_blocked"/><br>
+						<span>예약하기</span>
+						</a>
+							</c:when>
+							<c:otherwise>
 					<a id="2" href="${pageContext.request.contextPath}/reservation/reservationForm.do?hospitalSeq=${result.hospResult.hospitalSeq}">
-						<img src="${pageContext.request.contextPath}/images/board/booking.png" class="pull-right" id="btn_booking"/><br>
+							<img src="${pageContext.request.contextPath}/images/board/booking.png" class="pull-right" id="btn_booking"/><br>
 						<span>예약하기</span>
 					</a>
+							</c:otherwise>
+						</c:choose>
 					<a>
-					
 						<c:if test="${result.cnt ==0}">
 							<img src="${pageContext.request.contextPath}/images/board/unstar.png" data-flag="no" class="pull-right" id="btn_unlike"/><br>
 						</c:if>
@@ -96,7 +109,7 @@ textarea.form-control {
 						<a href="${pageContext.request.contextPath}/hospital/about.do?hospitalSeq=${param.hospitalSeq}&tab=1">
 							<span>주요정보</span>
 						</a>	
-						<a href="#1" onclick="photo();">
+						<a href="#1" onclick="photo(${param.hospitalSeq});">
 							<span>포토요약</span>
 						</a>
 						<a href="#1" onclick="review(${param.hospitalSeq});">
@@ -192,14 +205,15 @@ textarea.form-control {
 			</div>
 			
 			<div id="next">
-				<img id="next" src="${pageContext.request.contextPath}/images/board/next.png" class="pull-right" />
-				<img id="next1" src="${pageContext.request.contextPath}/images/board/next1.png" class="pull-left" />
+				<img id="next" src="${pageContext.request.contextPath}/images/board/next.png" />
+				<img id="next1" src="${pageContext.request.contextPath}/images/board/next1.png"/>
 			</div>
 			
-			<div id="area">
-				<img class="img" src="${pageContext.request.contextPath}/hospital/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}"/><br>
+			<div class="container">
+				<div class="area">
+					<img class="img" src="${pageContext.request.contextPath}/hospital/fileOutPut.do?filePath=${file.filePath}&sysName=${file.sysName}"/><br>
+				</div>
 			</div>
-			
 			
 		</div>
 		
@@ -457,7 +471,6 @@ function review(hospitalSeq) {
 		data : {
 			hospitalSeq: hospitalSeq
 		}
-		
 	})
 	.done(function(result){
 		$("#content_box").hide();
@@ -494,30 +507,53 @@ function review(hospitalSeq) {
 		
 }
 //사진
-function photo() {
-	
-	$("#content_box").hide();
-	$("#content_review").hide();
-	$("#content_photo").show();
-	$("#content_detail").hide();
-	$("#content_area_writeForm").hide();
-	$("#buttons").hide();
-	
-	/*
-	$.ajax({ //
-		url:"photo.json"
+function photo(hospitalSeq) {
+ alert("포토에이작스들어옴")	
+	$.ajax({ 
+		url:"photo.json",
+		data : {
+			hospitalSeq : hospitalSeq
+		}
 	})
 	.done(function(result){
 		$("#content_box").hide();
 		$("#content_review").hide();
 		$("#content_photo").show();
-		
+		$("#content_detail").hide();
+		$("#content_area_writeForm").hide();
+		$("#buttons").hide();
+		console.dir(result);
+		var reviewListHtml = "";	
 	})
 	.fail(function(result){
 		console.log(result);
 	})	
-	*/
 }
+
+//포토요약 슬라이더 넘기기
+var index = 0;
+function moveSlide(){
+	var move = -(index * 600);
+	$(".area").animate({left:move},"slow");
+}
+
+$("#next").click(function(){
+	if(index == 0) index = 4;
+	else index--;
+	
+	moveSlide();
+});
+$("#next1").click(function(){
+	if(index ==4) index=0;
+	else index++;
+	
+	moveSlide();
+})
+
+
+
+
+
 //글쓰기폼
 function writeForm(){
 	$("#content_box").hide();
@@ -632,7 +668,6 @@ function delete1(){
 }
 
 function updateForm(){
-	alert("emfdjdda")
 	$.ajax({
 		url : "updateForm.json",
 		data : {
@@ -659,7 +694,6 @@ function updateForm(){
 }
 
 function updateReview(board){
-	alert("asd")
 	
 	var formData = new FormData($("#form")[0])
 	
@@ -682,26 +716,7 @@ function updateReview(board){
 	})
 }
 
-//포토요약
 
-var index = 0;
-function moveSlide(){
-	var move = -(index * 600);
-	$(".area").animate({left:move},"slow");
-}
-
-$("#next").click(function(){
-	if(index == 0) index = 4;
-	else index--;
-	
-	moveSlide();
-});
-$("#next1").click(function(){
-	if(index ==4) index=0;
-	else index++;
-	
-	moveSlide();
-})
 
 
 

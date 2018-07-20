@@ -173,8 +173,15 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	public void updateComment(Comment comment) {
 		hospMapper.updateComment(comment);
 	}
+	
+	//포토요약
+	public List<BoardFile> outPutPhoto(int hospitalSeq) {
+		System.out.println("임플에서병원시퀀스 가져옴:" + hospitalSeq);
+		return hospMapper.outPutPhoto(hospitalSeq);
+	}
 
 
+	//방문수 카운트
 	@Override
 	public void visitCnt(int hospitalSeq) {
 		int result = visitMapper.updateVisitCnt(hospitalSeq);

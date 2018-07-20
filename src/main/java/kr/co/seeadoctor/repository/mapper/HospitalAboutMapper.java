@@ -2,11 +2,10 @@ package kr.co.seeadoctor.repository.mapper;
 
 import java.util.List;
 
-import kr.co.seeadoctor.repository.vo.HospitalAbout;
 import kr.co.seeadoctor.repository.vo.Board;
 import kr.co.seeadoctor.repository.vo.BoardFile;
 import kr.co.seeadoctor.repository.vo.Comment;
-import kr.co.seeadoctor.repository.vo.Hospital;
+import kr.co.seeadoctor.repository.vo.HospitalAbout;
 
 public interface HospitalAboutMapper {
 	
@@ -35,6 +34,9 @@ public interface HospitalAboutMapper {
 	//파일첨부
 	void insertReviewFiles(BoardFile fileVO);
 	List<BoardFile> selectReviewFileByNo(Board board);
+	
+	//포토요약
+	List<BoardFile> outPutPhoto(int hospSeq);
 	
 	
 	//댓글

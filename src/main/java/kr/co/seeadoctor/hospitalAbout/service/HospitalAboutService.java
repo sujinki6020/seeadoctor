@@ -39,7 +39,9 @@ public interface HospitalAboutService {
 	//댓수정
 	public void updateComment(Comment comment);
 
-
+	//포토요약
+	public List<BoardFile> outPutPhoto(int hospitalSeq);
+	
 	public void visitCnt(int hospitalSeq);
 
 

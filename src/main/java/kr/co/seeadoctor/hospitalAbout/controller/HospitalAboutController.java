@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.seeadoctor.hospitalAbout.service.HospitalAboutService;
 import kr.co.seeadoctor.repository.vo.Board;
+import kr.co.seeadoctor.repository.vo.BoardFile;
 import kr.co.seeadoctor.repository.vo.Comment;
 import kr.co.seeadoctor.repository.vo.HospitalAbout;
 import kr.co.seeadoctor.repository.vo.User;
@@ -56,7 +57,6 @@ public class HospitalAboutController {
 	@RequestMapping("/write.json") 
 	@ResponseBody
 	public String write(Board board)throws Exception {
-		System.out.println("board:" + board);
 		hospService.insertReview(board); //가져간다
 		return "success";
 	}
@@ -64,7 +64,6 @@ public class HospitalAboutController {
 	@RequestMapping("/updateForm.json")
 	@ResponseBody
 	public Map<String, Object> updateForm(Board board)throws Exception {
-		System.out.println("업데이트폼");
 		return hospService.detailReview(board); 
 	}
 	
@@ -98,9 +97,9 @@ public class HospitalAboutController {
 		
 
 		String filePath = request.getParameter("filePath");
-		//System.out.println("파일패쓰"+filePath);
+		System.out.println("파일패쓰"+filePath);
 		String sysName = request.getParameter("sysName");
-		//System.out.println("실제파일명"+sysName);
+		System.out.println("실제파일명"+sysName);
 	
 		File file = new File(filePath,sysName);
 		//System.out.println("f:파일객체생성"+file);
@@ -216,9 +215,11 @@ public class HospitalAboutController {
 	
 		
 	//포토요약
-	@RequestMapping("/photo.do")
-	public void photo() {
-		
+	@RequestMapping("/photo.json")
+	@ResponseBody
+	public List<BoardFile> photo(int hospitalSeq) {
+		System.out.println("컨트롤러병원시퀀스 가져옴:" + hospitalSeq);
+		return hospService.outPutPhoto(hospitalSeq);
 	}
 	
 	
