@@ -63,6 +63,7 @@
 						  <input type="hidden" value="${reservation.reserveSeq}">
 						  <input type="checkbox">
 						  <span class="slider round"></span>
+						  <input type="hidden" value="${reservation.reserveStatus}">
 						</label>
 					<p id="on" style="display:none;">진료완료</p>
 				</c:otherwise>
@@ -94,6 +95,10 @@
 			alert("이미 진료가 끝난 예약입니다.");
 			$(this).prop("checked", true);
 			return;
+		}else if($(this).next().next().val()==3) {
+			alert("날짜가 지난 예약은 수정할 수 없습니다.");
+			$(this).prop("checked", false);
+			return;
 		}else {
 		  $(this).parent().next().toggle();
 		  $(this).parent().prev().toggle();
@@ -104,7 +109,7 @@
 			  data: {
 				  reserveSeq : $(this).prev().val()
 			  },
-			  sucess: function () {
+			  success: function () {
 				alert("정상적으로 완료처리 되었습니다.");
 		   	}
 		  });

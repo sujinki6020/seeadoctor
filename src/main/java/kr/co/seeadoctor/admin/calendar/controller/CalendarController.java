@@ -111,6 +111,7 @@ public class CalendarController {
 	
 	
 	@RequestMapping("/updateReserveStatus.json")
+	@ResponseBody
 	public void updateReserveStatus(int reserveSeq) {
 		service.updateReserveStatus(reserveSeq);
 	}
