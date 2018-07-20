@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import kr.co.seeadoctor.repository.mapper.DoctorMapper;
 import kr.co.seeadoctor.repository.mapper.HospitalAboutMapper;
 import kr.co.seeadoctor.repository.mapper.VisitCntMapper;
 import kr.co.seeadoctor.repository.vo.Board;
@@ -23,6 +24,8 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	private HospitalAboutMapper hospMapper;
 	@Autowired
 	private VisitCntMapper visitMapper;
+	@Autowired
+	private DoctorMapper docMapper;
 
 	// 아래의 정보를 가져오기 위한 서비스 필요한
 	// 병원 정보 가져오기
@@ -42,11 +45,13 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 		hospAbout.setId(id);
 		hospAbout.setHospitalSeq(hospitalSeq);
 		int cnt = hospMapper.selectHospLikeCnt(hospAbout); //중복
+		int docCnt = docMapper.countDoctorByHospSeq(hospitalSeq); //예약가능여부 확인
 		
 		System.out.println("부가정보:" + hospResult.getDutyEtc());
 		result.put("hospResult", hospResult);
 		result.put("myCnt", myCnt);
 		result.put("cnt", cnt);
+		result.put("docCnt", docCnt); //예약가능여부 확인
 		return result;
 	}
 	
