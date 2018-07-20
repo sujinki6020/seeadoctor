@@ -73,8 +73,6 @@ public class CalendarController {
 		model.addAttribute("reservation", reservation);
 		model.addAttribute("dateStr", dateStr);
 		
-		//병원seq로 얻은 의사정보를 add해준다.
-		
 	}
 	
 	@RequestMapping("/timeList.json")

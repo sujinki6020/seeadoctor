@@ -167,7 +167,7 @@
 	update tb_reservation
 	   set reserve_status = 3
 	 where reserve_status = 1
-	   and reserve_date <![CDATA[<]]> now()
+	   and reserve_date <![CDATA[<]]> curdate()
 	</update>
 	
 	<update id="updateReservationCancle" parameterType="int">
