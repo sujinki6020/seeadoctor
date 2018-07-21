@@ -82,4 +82,15 @@
 		  from tb_user
 		 where user_seq = #{userSeq}
 	</select>
+	
+	<!-- 어드민id -->
+	
+	<select id="selectAdminId" parameterType="int" resultType="string">
+		select id
+		  from tb_user
+		 where hospital_seq = #{hospitalSeq} 
+	</select>
+	
+	
+	
 </mapper>

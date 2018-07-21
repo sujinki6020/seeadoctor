@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.seeadoctor.repository.mapper.DoctorMapper;
 import kr.co.seeadoctor.repository.mapper.HospitalAboutMapper;
+import kr.co.seeadoctor.repository.mapper.UserMapper;
 import kr.co.seeadoctor.repository.mapper.VisitCntMapper;
 import kr.co.seeadoctor.repository.vo.Board;
 import kr.co.seeadoctor.repository.vo.BoardFile;
@@ -26,6 +27,8 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	private VisitCntMapper visitMapper;
 	@Autowired
 	private DoctorMapper docMapper;
+	@Autowired
+	private UserMapper userMapper;
 
 	// 아래의 정보를 가져오기 위한 서비스 필요한
 	// 병원 정보 가져오기
@@ -58,6 +61,8 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	
 	@Override
 	public void insertStar(HospitalAbout hospAbout) {
+		String adminId = userMapper.selectAdminId(hospAbout.getHospitalSeq());
+		hospAbout.setAdminId(adminId);
 		hospMapper.insertHospLike(hospAbout);
 	}
 	@Override
@@ -135,9 +140,6 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 		return result;
 	}
 	
-	
-	
-	
 	@Override
 	public void deleteReview(int no) {
 		hospMapper.deleteReview(no);
@@ -155,6 +157,8 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	//댓글리스트
 	@Override
 	public List<Comment> selectCommentByNo(int no){
+		System.out.println("임플의 넘버:" + no);
+		System.out.println(hospMapper.selectCommentByNo(no));
 		return hospMapper.selectCommentByNo(no);
 	}
 	
@@ -166,7 +170,6 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	//댓삭
 	public void deleteComment(int commentNo) {
 		hospMapper.deleteComment(commentNo);
-//					System.out.println("댓삭되니");
 	}
 	
 	//댓수정
@@ -176,22 +179,20 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	
 	//포토요약
 	public List<BoardFile> outPutPhoto(int hospitalSeq) {
-		System.out.println("임플에서병원시퀀스 가져옴:" + hospitalSeq);
 		List<BoardFile> files = hospMapper.outPutPhoto(hospitalSeq);
-		System.out.println("files 호출:" + files.get(0).getSysName());
-		System.out.println("files 호출:" + files.get(1).getSysName());
 		return files;
-				
 	}
-
 
 	//방문수 카운트
 	@Override
 	public void visitCnt(int hospitalSeq) {
 		int result = visitMapper.updateVisitCnt(hospitalSeq);
 		if(result==0) visitMapper.insertVisitCnt(hospitalSeq);
-		
-		
+	}
+
+	@Override
+	public int selectMyCnt(String id) {
+		return hospMapper.selectMyLikeCnt(id);
 	}	
 
 

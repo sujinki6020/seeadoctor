@@ -327,9 +327,11 @@ textarea.form-control {
 								<input type="hidden" name="userSeq" id="id" value="${sessionScope.user.userSeq}" /> 
 								<input type="text" id="name" name="name" class="form-control" value="${sessionScope.user.name}" readonly />
 							</div>
+							
 							<div id="commentWrite" style="height: 140px;">
 								<label class="sr-only" for="content">댓글내용입력</label>
 								<textarea class="form-control" id="content" name="content" placeholder="내용을 입력하세요"></textarea>
+								
 								<button type="submit" id="btnCommentWrite" class="btn btn-primary btnCommentWrite">댓글쓰기</button>
 							</div>
 						</div>
@@ -443,25 +445,35 @@ var myChart = new Chart(ctx, {
     	}
     }
 });
-var myCnt = ${result.myCnt};
+var myCnt = 0;
 
 $("#btn_unlike").click(function(){
-	if($(this).data("flag")=="no"){
-		if(confirm("관심병원 등록 하시겠습니까? (나의 관심병원 개수:"+ myCnt +"/6)" )){
-			plusStar($(this));
+	
+	$.ajax({
+		url : "myCnt.json",
+		data : {
+			id: '${sessionScope.user.id}'
+		},
+		success : function(data){
+			myCnt = data;
+			
+			if($("#btn_unlike").data("flag")=="no"){
+				if(confirm("관심병원 등록 하시겠습니까? (나의 관심병원 개수:"+ myCnt +"/6)" )){
+					plusStar($("#btn_unlike"));
+				}
+			}else {
+				if(confirm("관심병원 취소 하시겠습니까?")){
+					minusStar($("#btn_unlike"));
+				}
+			}
 		}
-	}else {
-		if(confirm("관심병원 취소 하시겠습니까?")){
-			minusStar($(this));
-		}
-	}
-})
+	});
+});
 function plusStar(target){
 	 if(myCnt >= 6 ){
 		 alert("최대 관심병원 등록은 6개만 가능합니다.");
 		 return;
 	 } 
-	 
 	 $.ajax({ 
 		url:"${pageContext.request.contextPath}/hospital/plusStar.json", //통신할url
 		data : {
@@ -511,8 +523,6 @@ function review(hospitalSeq) {
 		$("#content_area_writeForm").hide();
 		$("#content_detail").hide();
 		$("#buttons").hide();
-		console.log("111")
-		console.dir(result);
 		$("#reviewCount").text(result.count);
 		
 		var reviewListHtml = "";	
@@ -629,8 +639,7 @@ function writeReview() {
 }
 
 var detailNo = 0;
-var detailContent = "";
-var detailTitle ="";
+
 //디테일
 function detail(no){
 	$("#content_box").hide();
@@ -674,6 +683,7 @@ function detail(no){
 		if("${sessionScope.user.userSeq}" == result.board.userSeq){
 			$("#btn_update_delete").show()
 		}
+		makeCommentList();
 	});
 }
 
@@ -750,25 +760,25 @@ function updateReview(board){
 
 
 
-/*
+
 
 //댓글 삭제
 function commentDelete(commentNo) {
 		$.ajax({
-			url : "<c:url value='/board/commentDelete.json'/>",
+			url : "commentDelete.json",
 			data : {
 				no : "${result.board.no}",
 				commentNo : commentNo
 			},
 			dataType : "json",
-			success : makeCommentList
+			success : makeCommentList()
 		});
 	}
 
 function commentUpdateForm(commentNo) {
 
-	$("#commentList tr[id^=row]").show();
-	$("#commentList tr[id^=modRow]").remove();
+// 	$("#commentList tr[id^=row]").show();
+// 	$("#commentList tr[id^=modRow]").remove(); //수정폼
 
 	var modId = $("#row" + commentNo + " > td:eq(0)").text();
 	var modContent = $("#row" + commentNo + " > td:eq(1)").text();
@@ -794,104 +804,104 @@ function commentUpdateForm(commentNo) {
 
 function commentUpdate(commentNo) {
 	$.ajax({
-		url : "<c:url value='/board/commentUpdate.json'/>",
+		url : "commentUpdate.json",
 		type : "POST",
 		data : {
-			no : "${result.board.no}",
-			content : $("#modRow" + commentNo + " input[name=content]")
-					.val(),
-			commentNo : commentNo
+			no : detailNo,
+			commentNo : commentNo,
+			content : $("#modRow" + commentNo + " input[name=content]").val()
 		},
-		dataType : "json",
-		success : function(result) {
-			makeCommentList(result);
+		success : function() {
+			console.log("안녕");
+			makeCommentList();
 		}
 	});
 }
 
+
+//수정중 취소버튼
 function commentCancel(commentNo){
 	$("#row" + commentNo).show();
 	$("#modRow" + commentNo).remove();
 }
 
-*/
 
 //댓글등록
-// $("#rForm").submit(function(e){
-// 		alert(${result.board.no})
-// 	$.ajax({
-// 		url : "<c:url value='/board/commentRegist.json'/>",
-// 		type : "POST",
-// 		data : {
-// 			no: "${result.board.no}",
-// 			content : $("#rForm textarea[name='content']").val(),
-// 			userSeq : $("#rForm input[name='userSeq']").val(),
-// 			name :$("#rForm input[name='name']").val()
-// 		},
-// 		dataType: "json"
-// 	}).done(function(result){
-// 		if(!'${result.board.userSeq}'){
-// 			$("#rForm input[name='userSeq']").val("");
-// 		}
-// 		$("#rForm textarea[name='content']").val("");
-// 		makeCommentList(result);
-// 	})
-// });
+$("#rForm").submit(function(e){
+		e.preventDefault();
+		alert(detailNo);
+	$.ajax({
+		url : "commentRegist.json",
+		type : "POST",
+		data : {
+			no: detailNo,
+			content : $("#rForm textarea[name='content']").val(),
+			userSeq : $("#rForm input[name='userSeq']").val(),
+			name :$("#rForm input[name='name']").val()
+		}
+	}).done(function(){
+		/*
+		if(!'${result.board.userSeq}'){
+			$("#rForm input[name='userSeq']").val("");
+		}
+		*/
+		$("#rForm textarea[name='content']").val("");
+		makeCommentList();
+	})
+});
 
-//댓글목록
-// function makeCommentList(result) {
-// 		console.dir(result);
-// 		var html = "";
-// 		html += '<table class="table table-bordered">';
-// 		html += '	<colgroup>';
-// 		html += '		<col width="10%">';
-// 		html += '		<col width="*">';
-// 		html += '		<col width="14%">';
-// 		html += '		<col width="10%">';
-// 		html += '	</colgroup>';
+//댓글목록 그리기
+function makeCommentList() {
 	
-// 		for(var i=0; i<result.length; i++){
-// 			var comment = result[i];
-// 			html+='<tr id="row'+comment.commentNo+'" width="600px">';
-// 			html+='	<td width="150px">' + comment.name+'</td>';
-// 			html+='	<td width="300px">'+comment.content+'</td>';
-// 			var date = new Date(comment.regDate);
-// 			var time = date.getFullYear()+"-"+(date.getMonth()+1)
-// 					+"-"+ date.getDate();
-// 			html += '	<td width="150px">' +time+'</td>';
-// 			html += '	<td width="150px">';
-// 			if('${sessionScope.user.userSeq}'==comment.userSeq){
-// 				html += '	<a href="javascript:commentUpdateForm('
-// 						+comment.commentNo
-// 						+')" class="btn btn-success btn-sm" role="button">수정</a>';
-// 				html += '		<a href="javascript:commentDelete('
-// 					+ comment.commentNo
-// 					+ ')"  class="btn btn-danger btn-sm" role="button">삭제</a>';
-// 			}
-// 			html += '	</td>';
-// 			html += '</tr>';
-// 			}
-// 		if (result.length == 0) {
-// 			html += '<tr><td colspan="4">댓글이 존재하지 않습니다.</td></tr>';
-// 		}
-// 		html += "</title>";
-// 		$("#commentList").html(html);
-// }
+	$.ajax({
+		url : "commentList.json",
+		type : "POST",
+		data : {
+			no: detailNo
+		}
+	}).done(function(result){
 
-// //댓글목록 조회
-// function commentList(){
-// 	$.ajax({
-// 		url : "<c:url value='/board/commentList.json'/>",
-// 		data:{
-// 			no : "${result.board.no}"
-// 		},
-// 		dateType:"json",
-// 		success:makeCommentList
-// 	});
-// }
+		var html = "";
+		html += '<table class="table table-bordered">';
+		html += '	<colgroup>';
+		html += '		<col width="10%">';
+		html += '		<col width="*">';
+		html += '		<col width="14%">';
+		html += '		<col width="10%">';
+		html += '	</colgroup>';
+	
+		for(var i=0; i<result.length; i++){
+			var comment = result[i];
+			console.log(comment.content);
+			html+='<tr id="row'+comment.commentNo+'" width="600px">';
+			html+='	<td width="150px">' + comment.name+'</td>';
+			html+='	<td width="300px">'+comment.content+'</td>';
+			var date = new Date(comment.regDate);
+			var time = date.getFullYear()+"-"+(date.getMonth()+1)
+					+"-"+ date.getDate();
+			html += '	<td width="150px">' +time+'</td>';
+			html += '	<td width="150px">';
+			if('${sessionScope.user.userSeq}'==comment.userSeq){
+				html += '	<a href="javascript:commentUpdateForm('
+						+comment.commentNo
+						+')" class="btn btn-success btn-sm" role="button">수정</a>';
+				html += '		<a href="javascript:commentDelete('
+					+ comment.commentNo
+					+ ')"  class="btn btn-danger btn-sm" role="button">삭제</a>';
+			}
+			html += '	</td>';
+			html += '</tr>';
+			}
+		if (result.length == 0) {
+			html += '<tr><td colspan="4">댓글이 존재하지 않습니다.</td></tr>';
+		}
+		html += "</title>";
+		$("#commentList").html(html);
+	});
+	
+	
+}
 
-// //상세페이지 로딩시 댓글목록 조회 ajax 호출
-// commentList();
 
 
 
