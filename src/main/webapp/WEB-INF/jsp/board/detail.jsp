@@ -204,9 +204,10 @@ body {
     width: 628px;
 }
 #commentList {
-	position: relative;
-	top: 30px;
-	width: 880px;
+    position: relative;
+    top: 30px;
+    width: 706px;
+    margin-left: 52px;
 }
 .comment{
 	margin-top: 30px;

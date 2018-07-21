@@ -8,7 +8,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/seeadoctor/css/hospital/info.css">
+<link rel="stylesheet" href="/seeadoctor/css/hospital/info.css?ver=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
@@ -141,7 +141,7 @@ textarea.form-control {
 							<span>포토요약</span>
 						</a>
 						
-						<a href="#1" onclick="review(${param.hospitalSeq});">
+						<a href="#1" onclick="review();">
 							<span>리뷰</span>
 						</a>
 					</div>
@@ -171,7 +171,7 @@ textarea.form-control {
 						<span style="padding-left: 26px;">${result.hospResult.dutyTel3}</span>
 					</div>
 					<div style="height: 47px;">
-						부가정보
+						<span id="info1">부가정보</span>
 						<span style="padding-left: 26px;">${result.hospResult.dutyEtc}, ${result.hospResult.dutyInf}</span><br>
 					</div>
 				</div>
@@ -209,17 +209,15 @@ textarea.form-control {
 				</nav>	
 					
 		   		<div id= search_area>
-					<form action="">
-		   				<input type="hidden" name="boardNo" value="">
-				   		<select name="selectBox" class="btn btn-default search-bar1" style="width:100px;">
-			   				<option value="title" name="title">제목</option>
-			   				<option value="nickName">닉네임</option>
-			   				<option value="content">내용</option>
-			   			</select>
-					   	<input type="text" name="search" class="search" placeholder="검색어를 입력하세요" style="height: 30px;"/>
-						<button type="submit" class="btn btn-default search-bar1">검색</button> 
-						<button type="button" id="writeid" class="btn btn-default pull-right"  
-							    onclick='writeForm();'>글쓰기</button>
+					<form id="search">
+					   		<select name="selectCategory" class="btn btn-default search-bar1" style="width:100px;">
+				   				<option value="1">글쓴이</option>
+				   				<option value="2">제목+내용</option>
+				   			</select>
+					   	
+					   	<input type="text" name="searchKeyWord" class="search" placeholder="검색어를 입력하세요" style="height: 30px;"/>
+						<button type="button" class="btn btn-default search-bar1" onclick="review()">검색</button> 
+						<button type="button" id="writeid" class="btn btn-default pull-right"onclick='writeForm()'>글쓰기</button>
 					</form>
 				</div>
 			</div>
@@ -310,13 +308,13 @@ textarea.form-control {
 			
 			<!-- 댓글파트 -->
 			<div id="allComment">
-				<form action="commentUpdate.json" method="post">
-					<input type="hidden" name="no" value="${result.board.no}"/>
-					<input type="hidden" name="commentNo" value=""/>
+<!-- 				<form action="commentUpdate.json" method="post"> -->
+<%-- 					<input type="hidden" name="no" value="${result.board.no}"/> --%>
+<!-- 					<input type="hidden" name="commentNo" value=""/> -->
+<!-- 				</form> -->
 					
 					<%-- 댓글 리스트--%>
 					<div id="commentList"></div>
-				</form>
 				
 				<div id="commentComment">
 					<%-- 댓글입력파트 --%>
@@ -365,36 +363,34 @@ textarea.form-control {
 
 <script>
 //탭 케이스 이름 줘서 각각 페이지로 들어갈 수 있도록 하는 코드
-// let param = ${param.tab}
-// (function(){
-// 	if(!param) return;
-// 	switch(param){
-// 	case 1 : 
-// 		$("#content_box").show();
-// 		$("#content_photo").hide();
-// 		$("#content_area_writeForm").hide();
-// 		$("#content_detail").hide();
-// 		$("#buttons").hide();
-// 		$("#content_review").hide();
-// 		break;
-// 	case 2 :
-// 		$("#content_box").hide();
-// 		$("#content_photo").show();
-// 		$("#content_area_writeForm").hide();
-// 		$("#content_detail").hide();
-// 		$("#buttons").hide();
-// 		$("#content_review").hide();
-// 		break;
-// 	case 3 :
-// 		$("#content_box").hide();
-// 		$("#content_photo").hide();
-// 		$("#content_area_writeForm").hide();
-// 		$("#content_detail").hide();s
-// 		$("#buttons").hide();
-// 		$("#content_review").show();
-// 		break;
-// 	}
-// })()
+
+$(function () {
+	   if ("${param.tabNo}" == 1) {
+	      $("#content_box").show();
+	      $("#content_photo").hide();
+	      $("#content_area_writeForm").hide();
+	      $("#content_detail").hide();
+	      $("#buttons").hide();
+	      $("#content_review").hide();
+	   }else if("${param.tabNo}" == 2) {
+	      $("#content_box").hide();
+	      $("#content_photo").show();
+	      $("#content_area_writeForm").hide();
+	      $("#content_detail").hide();
+	      $("#buttons").hide();
+	      $("#content_review").hide();
+	      photo("${param.hospitalSeq}");
+	   }else {
+	      $("#content_box").hide();
+	      $("#content_photo").hide();
+	      $("#content_area_writeForm").hide();
+	      $("#content_detail").hide();
+	      $("#buttons").hide();
+	      $("#content_review").show();
+	      review();
+	   }
+	});
+
 
 //위에 지도맵코드
 let map = new naver.maps.Map('map', {center : new naver.maps.LatLng( "${result.hospResult.wgs84Lat}" , "${result.hospResult.wgs84Lon}")} );
@@ -508,45 +504,75 @@ function minusStar(target){
 
 
 // 리뷰
-function review(hospitalSeq) {
-	console.log(hospitalSeq)
-	$.ajax({ //
+function review() {
+	
+	console.log($("select[name='selectCategory']").val());
+	console.log($("input[name='searchKeyWord']").val());
+	$.ajax({
 		url:"review.json",
 		data : {
-			hospitalSeq: hospitalSeq
+			hospitalSeq: "${param.hospitalSeq}",
+			selectCategory : $("select[name='selectCategory']").val(),
+			searchKeyWord : $("input[name='searchKeyWord']").val()
 		}
 	})
 	.done(function(result){
-		$("#content_box").hide();
-		$("#content_photo").hide();
-		$("#content_review").show();
-		$("#content_area_writeForm").hide();
-		$("#content_detail").hide();
-		$("#buttons").hide();
-		$("#reviewCount").text(result.count);
-		
-		var reviewListHtml = "";	
-		for(var i = 0; i < result.list.length; i++) {
-			var board = result.list[i];
-			reviewListHtml += "<tr>";
- 			reviewListHtml += "<td><a href='#1' onclick='detail("+ board.no +");'>" + board.title + "</a></td>";
-			var date = new Date(board.regDate);
-			var time = date.getFullYear()+"-"+(date.getMonth()+1)
-					+"-"+ date.getDate();
-			reviewListHtml += "<td>" +time + "</td>";
-			reviewListHtml += "<td>" + board.name + "</td>";
-			reviewListHtml += "</tr>";
-		}
-		if (result.list.length == 0) {
-			reviewListHtml += '<tr><td colspan="4">아직 작성된 리뷰가 없습니다!</td></tr>';
-		}
-		$("#content_review > table > tbody").html(reviewListHtml);
-	
+		console.log("던");
+		makeReviewList(result);
 	})
 	.fail(function(result){
-		console.log(result);
+// 		console.log(result);
 	})	
 		
+}
+
+/*
+//검색
+function search(){
+	$.ajax({
+		type : "POST",
+		url : "search.json",
+		data : {
+			hospitalSeq : "${param.hospitalSeq}",
+			selectCategory : $("select[name='selectCategory']").val(),
+			searchKeyWord : $("input[name='searchKeyWord']").val()
+		}
+	})
+	.done(function (result) {
+		makeReviewList(result);
+	})
+}
+*/
+
+function makeReviewList(result) {
+	console.log("메이크함수");
+	console.log(result.list);
+	
+	$("#content_box").hide();
+	$("#content_photo").hide();
+	$("#content_review").show();
+	$("#content_area_writeForm").hide();
+	$("#content_detail").hide();
+	$("#buttons").hide();
+	$("#reviewCount").text(result.count);
+	
+	var reviewListHtml = "";	
+	for(var i = 0; i < result.list.length; i++) {
+		var board = result.list[i];
+		reviewListHtml += "<tr>";
+			reviewListHtml += "<td><a href='#1' onclick='detail("+ board.no +");'>" + board.title + "</a></td>";
+		var date = new Date(board.regDate);
+		var time = date.getFullYear()+"-"+(date.getMonth()+1)
+				+"-"+ date.getDate();
+		reviewListHtml += "<td>" +time + "</td>";
+		reviewListHtml += "<td>" + board.name + "</td>";
+		reviewListHtml += "</tr>";
+	}
+	if (result.list.length == 0) {
+		reviewListHtml += '<tr><td colspan="4">아직 작성된 리뷰가 없습니다!</td></tr>';
+	}
+	$("#content_review > table > tbody").html(reviewListHtml);
+
 }
 //사진
 function photo(hospitalSeq) {
@@ -898,8 +924,6 @@ function makeCommentList() {
 		html += "</title>";
 		$("#commentList").html(html);
 	});
-	
-	
 }
 
 

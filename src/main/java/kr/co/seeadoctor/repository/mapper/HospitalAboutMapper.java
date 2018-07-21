@@ -6,6 +6,7 @@ import kr.co.seeadoctor.repository.vo.Board;
 import kr.co.seeadoctor.repository.vo.BoardFile;
 import kr.co.seeadoctor.repository.vo.Comment;
 import kr.co.seeadoctor.repository.vo.HospitalAbout;
+import kr.co.seeadoctor.repository.vo.Search;
 
 public interface HospitalAboutMapper {
 	
@@ -23,8 +24,8 @@ public interface HospitalAboutMapper {
 	List<HospitalAbout> selectAllHospLike(String id); //내가 좋아요 한 병원의 모든 정보
 
 	//리뷰
-	List<Board> selectReview(int hospitalSeq);
-	int selectReviewCount(int hospitalSeq);//총게시글수
+	List<Board> selectReview(Search search);
+	int selectReviewCount(Search search);//총게시글수
 	void insertReview(Board board);
 	void updateReviewViewCnt(int no);
 	Board detailReview(Board board);
@@ -44,7 +45,6 @@ public interface HospitalAboutMapper {
 	void insertComment(Comment comment);
 	void deleteComment(int commentNo);
 	void updateComment(Comment comment);
-	
 	
 	
 }

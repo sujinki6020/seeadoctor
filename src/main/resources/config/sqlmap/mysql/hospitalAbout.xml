@@ -103,17 +103,32 @@
 		<result column="hospital_seq" property="hospitalSeq"/>
 	</resultMap>
 	
-		<select id="selectReview" resultMap="reviewMap" parameterType="int">
+		<select id="selectReview" resultMap="reviewMap" parameterType="search">
 			select *
 			  from tb_board
-			 where hospital_seq = #{hospitalSeq} 
+			 where hospital_seq = #{hospitalSeq}
+		 		<if test="selectCategory == 1 ">
+		 			and name like concat('%', #{searchKeyWord} , '%')
+		 		</if>
+		 		<if test="selectCategory == 2 "> 
+		 			and title like concat('%' , #{searchKeyWord} , '%')
+		 			 or content like concat('%' , #{searchKeyWord} , '%' ) 
+		 		</if>
 			 order by no desc 
 		</select>
 		
-		<select id="selectReviewCount" resultType="int" parameterType="int">
+		<select id="selectReviewCount" resultType="int" parameterType="search">
 			select count(*)
 			  from tb_board
-			 where hospital_seq = #{hospitalSeq} 
+			 where hospital_seq = #{hospitalSeq}
+		 		<if test="selectCategory == 1 ">
+		 			and name like concat('%', #{searchKeyWord} , '%')
+		 		</if>
+		 		<if test="selectCategory == 2 "> 
+		 			and title like concat('%' , #{searchKeyWord} , '%')
+		 			 or content like concat('%' , #{searchKeyWord} , '%' ) 
+		 		</if>
+			 order by no desc
 		</select>
 		
 		<insert id="insertReview" parameterType="board" >
@@ -222,8 +237,8 @@
 			update tb_comment
 			   set  content = #{content}
 			 where comment_no = #{commentNo}
-			 
-		
 		</update>
+		
+		
 		
 </mapper>

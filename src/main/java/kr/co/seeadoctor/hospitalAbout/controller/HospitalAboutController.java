@@ -23,6 +23,7 @@ import kr.co.seeadoctor.repository.vo.Board;
 import kr.co.seeadoctor.repository.vo.BoardFile;
 import kr.co.seeadoctor.repository.vo.Comment;
 import kr.co.seeadoctor.repository.vo.HospitalAbout;
+import kr.co.seeadoctor.repository.vo.Search;
 import kr.co.seeadoctor.repository.vo.User;
 
 @Controller
@@ -50,8 +51,11 @@ public class HospitalAboutController {
 	
 	@RequestMapping("/review.json") 
 	@ResponseBody
-	public Map<String, Object> review(Model model, Board board) throws Exception {
-		return hospService.selectHospReview(board.getHospitalSeq());
+	public Map<String, Object> review(Search search) throws Exception {
+		System.out.println(search.getHospitalSeq());
+		System.out.println(search.getSelectCategory());
+		System.out.println(search.getSearchKeyWord());
+		return hospService.selectHospReview(search);
 	}
 
 	@RequestMapping("/write.json") 
@@ -234,5 +238,20 @@ public class HospitalAboutController {
 		return files;
 	}
 	
-	
+	/*
+	//검색
+	@RequestMapping("/search.json")
+	@ResponseBody
+	public List<Board> search(Search search){
+		System.out.println("aa");
+		List<Board> searchBoard = hospService.searchKeyWord(search);
+		System.out.println(searchBoard.get(0).getContent());
+		return searchBoard;
+	}
+	*/
 }
+
+
+
+
+

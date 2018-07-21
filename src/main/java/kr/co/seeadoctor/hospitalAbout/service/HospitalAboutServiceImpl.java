@@ -18,6 +18,7 @@ import kr.co.seeadoctor.repository.vo.Board;
 import kr.co.seeadoctor.repository.vo.BoardFile;
 import kr.co.seeadoctor.repository.vo.Comment;
 import kr.co.seeadoctor.repository.vo.HospitalAbout;
+import kr.co.seeadoctor.repository.vo.Search;
 @Service
 public class HospitalAboutServiceImpl implements HospitalAboutService{
 	
@@ -78,15 +79,15 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 
 
 	@Override
-	public Map<String, Object> selectHospReview(int hospitalSeq) throws Exception {
+	public Map<String, Object> selectHospReview(Search search) throws Exception {
 		Map<String, Object> result = new HashMap<>();
 		
-		List<Board> list = hospMapper.selectReview(hospitalSeq);
+		List<Board> list = hospMapper.selectReview(search);
 
 //		int sPageNo = board.getPageNo(); //탭시작번호
 //		board.setPageNo(sPageNo == 0 ? 1 : sPageNo); //시작번호가0이면 1로, 그게아니면 그걸로
 
-		int count = hospMapper.selectReviewCount(hospitalSeq); //총 게시글수
+		int count = hospMapper.selectReviewCount(search); //총 게시글수
 		
 		result.put("list", list);
 		result.put("count", count);
@@ -195,7 +196,21 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 		return hospMapper.selectMyLikeCnt(id);
 	}	
 
+	/*
+	@Override
+	public List<Board> searchKeyWord(Search search){
+		
+Map<String, Object> result = new HashMap<>();
+		
+		List<Board> list = hospMapper.selectReview(search);
 
+		int count = hospMapper.selectReviewCount(search.getHospitalSeq()); //총 게시글수
+		
+		result.put("list", list);
+		result.put("count", count);
+		return result;
+	}
+	*/
 
 	
 	
