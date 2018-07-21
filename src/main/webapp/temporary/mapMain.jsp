@@ -7,33 +7,7 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/map/searchinghospital.css" />
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=IutEeaTAqvux8P5IXvhG&submodules=geocoder"></script>
 <style>
-	#category > li {
-         float: left;
-         width: 50%;
-         border-bottom: 1px solid #d7d7d7;
-         box-sizing: border-box;
-     }
-     #category > li:nth-of-type(odd){
-         border-right: 1px solid #d7d7d7;
-     }
-     #category > li > a {
-         display: block;
-         position: relative;
-         line-height: 42px;
-         height: 42px;
-         font-size: 13px;
-         padding-left: 45px;
-         color: #2c3744;
-     }
-     #categorybox {
-         height: 82%;
-         overflow: auto;
-         position: absolute;
-         z-index: 100;
-     }
-     #hospiDept {
-     	margin-left: 15%;
-     }
+	
 </style>
 </head>
 <body>
@@ -105,24 +79,7 @@
 	
 <script src="${pageContext.request.contextPath}/js/map/searchinghospital.js"></script>
 <script>
-	$("#searchForName").click(function(){
-		$("#categorybox").toggle();
-		$("#resultlist").toggle();
-	})
-	$("#category > li >  a").click(function(){
-		console.log(getContextPath())
-		$("#hospiDept").text($(this).text());
-		hospitalList( latitude , longitude , 1 , $(this).text());
-		$("#categorybox").toggle();
-		$("#resultlist").toggle();
-	})
-	$("#resultlist").on("click","div",function(){
-		let that = $(this);
-		let hospName = $(this).find('h3').text();
-		let hospIndex = $(this).find('h3').data("flag");
-		let hospMarker = markers[hospIndex];
-		infowindowArr[hospIndex].open(map, hospMarker);
-	})
+	
 </script>
 </body>
 </html>

@@ -25,6 +25,7 @@ $('#resultpage > ul').on('click', 'li', function(){
 	}
 	$(this).find('a').addClass("circleActive");
 	let pageNo = $(this).find('a').text();
+	infowindowArr.map(item => item.close());
 	hospitalList(latitude, longitude , pageNo)
 })
 
@@ -158,23 +159,35 @@ function hospitalList( x , y , pageNo , qd){
 			markers.push(marker);
 			setHospitalList( item.dutyName , item.dutyAddr, index );
 			let contentString = [
-		        '<div class="iw_inner">',
-		        '   <h3><a href="',
-		        getContextPath(),
-		        '/hospital/about.do?hospitalSeq='+ item.hospitalSeq + '">',
-		        item.dutyName,
-		        '</a></h3>',
-		        '   <p>'+item.dutyTel1+'</p>',
-		        '</div>'
-		    ].join('');
+				'<div class="hospiDetailBox">',
+				'<ul>',
+				'<li><span><a href="',
+				getContextPath(),
+				'/hospital/about.do?hospitalSeq='+ item.hospitalSeq + '">',
+				 item.dutyName,
+				 '</a><span class="hospikind">',
+				 item.dutyDivNam,
+				 '</span></span></li>',
+				 '<li>월요일 : ' + nullCheck(item.dutyTime1s) + '~' + nullCheck(item.dutyTime1c) + '</li>',
+				 '<li>화요일 : ' + nullCheck(item.dutyTime2s) + '~' + nullCheck(item.dutyTime2c) + '</li>',
+				 '<li>수요일 : ' + nullCheck(item.dutyTime3s) + '~' + nullCheck(item.dutyTime3c) + '</li>',
+				 '<li>목요일 : ' + nullCheck(item.dutyTime4s) + '~' + nullCheck(item.dutyTime4c) + '</li>',
+				 '<li>금요일 : ' + nullCheck(item.dutyTime5s) + '~' + nullCheck(item.dutyTime5c) + '</li>',
+				 '<li>토요일 : ' + nullCheck(item.dutyTime6s) + '~' + nullCheck(item.dutyTime6c) + '</li>',
+				 '<li>일요일 : ' + nullCheck(item.dutyTime7s) + '~' + nullCheck(item.dutyTime7c) + '</li>',
+				 '<li>공휴일 : ' + nullCheck(item.dutyTime8s) + '~' + nullCheck(item.dutyTime8c) + '</li>',
+				 '<li>전화번호: ' + nullCheck(item.dutyTel1) + '</li>',
+				 '<ul>',
+				 '</div>'
+			].join('');
+			item.dutyTime1s ? item.dutyTime1s : ''
 			let infoWindow = new naver.maps.InfoWindow({
 		        content: ''
 		    });
-
+			
 			infowindow = new naver.maps.InfoWindow({
 			    content: contentString
 			});
-			infowindow.close();
 			infowindowArr.push(infowindow);
 			naver.maps.Event.addListener(marker, "click", function(e) {
 			    if (infowindow.getMap()) {
@@ -186,10 +199,31 @@ function hospitalList( x , y , pageNo , qd){
 		})
 	})
 }
-
+function nullCheck(text){
+	return text? text : '운영안함';
+}
 
 
 function setHospitalList(name ,address, index){
 	let content = '<div><h3 data-flag="' + index +'">'+ name +'</h3><p>' + address + '</p></div>';
 	$("#resultlist").append(content);
 }
+
+$("#searchForName").click(function(){
+	$("#categorybox").toggle();
+	$("#resultlist").toggle();
+})
+$("#category > li >  a").click(function(){
+	console.log(getContextPath())
+	$("#hospiDept").text($(this).text());
+	hospitalList( latitude , longitude , 1 , $(this).text());
+	$("#categorybox").toggle();
+	$("#resultlist").toggle();
+})
+$("#resultlist").on("click","div",function(){
+	let that = $(this);
+	let hospName = $(this).find('h3').text();
+	let hospIndex = $(this).find('h3').data("flag");
+	let hospMarker = markers[hospIndex];
+	infowindowArr[hospIndex].open(map, hospMarker);
+})

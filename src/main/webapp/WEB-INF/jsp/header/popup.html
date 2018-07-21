@@ -10,7 +10,7 @@
             padding: 0;
             margin: 0;
         }
-        div{
+        .hospiDetailBox{
             width: 334px;
             padding: 0 21px;
             border: 1px solid #c0c0c0;
@@ -19,15 +19,40 @@
             box-sizing: border-box;
         }
 
-        ul {
+        .hospiDetailBox > ul {
             list-style-type: none;
+            min-height: 70px;
+            padding: 19px 0 18px;
+            border-bottom: 0;
+        }
+        .hospiDetailBox > ul > li {
+            line-height: 25px;
+        }
+        .hospiDetailBox > ul > li:nth-of-type(1){
+            margin-bottom: 6px;
+        }
+        .hospiDetailBox > ul > li:not(:nth-of-type(1)) {
+            font-size: 13px;
+            color: #424242;
+        }
+        .hospiDetailBox > ul > li > span > a {
+            font-weight: bold;
+            color: #000;
+            text-decoration: none;
+            margin-right: 6px;
+            font-size: 16px;
+        }
+        .hospikind {
+            font-size: 13px;
+            color: #8f8f8f;
+            vertical-align: top;
         }
     </style>
 </head>
 <body>
-    <div>
+    <div class="hospiDetailBox">
         <ul>
-            <li><span><a href="#1">강남병원</a><span>병원</span></span></li>
+            <li><span><a href="#1">강남병원</a><span class="hospikind">병원</span></span></li>
             <li>월요일: 123</li>
             <li>화요일: 1231</li>
             <li>수요일: 12312</li>
@@ -36,6 +61,7 @@
             <li>토요일: 123</li>
             <li>일요일: 123</li>
             <li>공휴일: 123</li>
+            <li>02-443-3451</li>
         </ul>
     </div>
 
