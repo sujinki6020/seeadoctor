@@ -683,6 +683,7 @@ function detail(no){
 		if("${sessionScope.user.userSeq}" == result.board.userSeq){
 			$("#btn_update_delete").show()
 		}
+		makeCommentList();
 	});
 }
 
@@ -759,7 +760,7 @@ function updateReview(board){
 
 
 
-/*
+
 
 //댓글 삭제
 function commentDelete(commentNo) {
@@ -770,14 +771,14 @@ function commentDelete(commentNo) {
 				commentNo : commentNo
 			},
 			dataType : "json",
-			success : makeCommentList
+			success : makeCommentList()
 		});
 	}
 
 function commentUpdateForm(commentNo) {
 
-	$("#commentList tr[id^=row]").show();
-	$("#commentList tr[id^=modRow]").remove();
+// 	$("#commentList tr[id^=row]").show();
+// 	$("#commentList tr[id^=modRow]").remove(); //수정폼
 
 	var modId = $("#row" + commentNo + " > td:eq(0)").text();
 	var modContent = $("#row" + commentNo + " > td:eq(1)").text();
@@ -806,19 +807,18 @@ function commentUpdate(commentNo) {
 		url : "commentUpdate.json",
 		type : "POST",
 		data : {
-			no : "${result.board.no}",
-			content : $("#modRow" + commentNo + " input[name=content]")
-					.val(),
-			commentNo : commentNo
+			no : detailNo,
+			commentNo : commentNo,
+			content : $("#modRow" + commentNo + " input[name=content]").val()
 		},
-		dataType : "json",
-		success : function(result) {
-			makeCommentList(result);
+		success : function() {
+			console.log("안녕");
+			makeCommentList();
 		}
 	});
 }
 
-*/
+
 //수정중 취소버튼
 function commentCancel(commentNo){
 	$("#row" + commentNo).show();
@@ -838,20 +838,29 @@ $("#rForm").submit(function(e){
 			content : $("#rForm textarea[name='content']").val(),
 			userSeq : $("#rForm input[name='userSeq']").val(),
 			name :$("#rForm input[name='name']").val()
-		},
-		dataType: "text"
-	}).done(function(result){
+		}
+	}).done(function(){
+		/*
 		if(!'${result.board.userSeq}'){
 			$("#rForm input[name='userSeq']").val("");
 		}
+		*/
 		$("#rForm textarea[name='content']").val("");
-		makeCommentList(result);
+		makeCommentList();
 	})
 });
 
 //댓글목록 그리기
-function makeCommentList(result) {
-		console.dir(result);
+function makeCommentList() {
+	
+	$.ajax({
+		url : "commentList.json",
+		type : "POST",
+		data : {
+			no: detailNo
+		}
+	}).done(function(result){
+
 		var html = "";
 		html += '<table class="table table-bordered">';
 		html += '	<colgroup>';
@@ -863,6 +872,7 @@ function makeCommentList(result) {
 	
 		for(var i=0; i<result.length; i++){
 			var comment = result[i];
+			console.log(comment.content);
 			html+='<tr id="row'+comment.commentNo+'" width="600px">';
 			html+='	<td width="150px">' + comment.name+'</td>';
 			html+='	<td width="300px">'+comment.content+'</td>';
@@ -887,22 +897,11 @@ function makeCommentList(result) {
 		}
 		html += "</title>";
 		$("#commentList").html(html);
-}
-
-//댓글목록 조회
-function commentList(){
-	$.ajax({
-		url : "commentList.json",
-		data:{
-			no : detailNo
-		},
-		dateType:"json",
-		success:makeCommentList
 	});
+	
+	
 }
 
-// //상세페이지 로딩시 댓글목록 조회 ajax 호출
-commentList();
 
 
 

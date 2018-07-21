@@ -140,9 +140,6 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 		return result;
 	}
 	
-	
-	
-	
 	@Override
 	public void deleteReview(int no) {
 		hospMapper.deleteReview(no);
@@ -161,6 +158,7 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	@Override
 	public List<Comment> selectCommentByNo(int no){
 		System.out.println("임플의 넘버:" + no);
+		System.out.println(hospMapper.selectCommentByNo(no));
 		return hospMapper.selectCommentByNo(no);
 	}
 	
@@ -172,7 +170,6 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	//댓삭
 	public void deleteComment(int commentNo) {
 		hospMapper.deleteComment(commentNo);
-//					System.out.println("댓삭되니");
 	}
 	
 	//댓수정
@@ -182,20 +179,15 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	
 	//포토요약
 	public List<BoardFile> outPutPhoto(int hospitalSeq) {
-		System.out.println("임플에서병원시퀀스 가져옴:" + hospitalSeq);
 		List<BoardFile> files = hospMapper.outPutPhoto(hospitalSeq);
 		return files;
-				
 	}
-
 
 	//방문수 카운트
 	@Override
 	public void visitCnt(int hospitalSeq) {
 		int result = visitMapper.updateVisitCnt(hospitalSeq);
 		if(result==0) visitMapper.insertVisitCnt(hospitalSeq);
-		
-		
 	}
 
 	@Override

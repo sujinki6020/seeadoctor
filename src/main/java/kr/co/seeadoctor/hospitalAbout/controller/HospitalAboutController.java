@@ -185,7 +185,11 @@ public class HospitalAboutController {
 	}
 	
 	//댓글수정
-	
+	@RequestMapping("/commentUpdate.json")
+	@ResponseBody
+	public void commentUpdate(Comment comment) {
+		hospService.updateComment(comment);
+	}
 	
 	
 	//추천하기

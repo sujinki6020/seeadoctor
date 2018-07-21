@@ -13,7 +13,6 @@ public interface HospitalAboutService {
 	//병원정보가져오기
 	public Map<String, Object> loadHospAbout(String userId, int hospitalSeq);
 	
-	
 	//즐겨찾기
 	public void insertStar(HospitalAbout hospAbout);
 	public void deleteStar(HospitalAbout hospAbout);
