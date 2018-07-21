@@ -174,7 +174,7 @@ public class CalendarServiceImpl implements CalendarService {
 	public void updateCloseTime(Map<String, Object> closeMap) {
 		
 		mapper.updateOpenTime((ReservationTime)closeMap.get("reserveTime"));
-		mapper.updateCloseTime(closeMap);
+		if(closeMap.get("closeArr") != null) mapper.updateCloseTime(closeMap);
 		
 	}
 
