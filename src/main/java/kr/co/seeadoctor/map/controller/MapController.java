@@ -28,11 +28,20 @@ public class MapController {
 	@RequestMapping("/hospitalList.json")
 	@ResponseBody
 	public Map<String , Object> hospitalList(Hospital hospital) {
+		System.out.println("자바 병원 들어옴");
+		System.out.println("과 " +  hospital.getQd());
+		if(hospital.getQd() != null &&hospital.getQd().equals("전체선택")) {
+			System.out.println("전체선택 널값으로 변경");
+			hospital.setQd(null);
+		}
 		int count = mapService.selectCount(hospital);
 		HospitalPage page = new HospitalPage(hospital.getPageNo(), count);
 		hospital.setPageNo(page.getPageStartNo() - 1);
 		List<Hospital> list = mapService.selectHospital(hospital);
 		Map<String , Object> map = new HashMap<>();
+		if(!list.isEmpty()) {
+			System.out.println(list.get(0).getDutyName());
+		}
 		map.put("list", list);
 		map.put("page", page);
 		return map;

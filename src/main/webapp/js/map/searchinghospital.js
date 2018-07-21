@@ -2,6 +2,7 @@ let map;
 let latitude;
 let longitude;
 let markers = [];
+let infowindowArr = [];
 
 function getContextPath() {
 	var hostIndex = location.href.indexOf( location.host ) + location.host.length;
@@ -12,13 +13,13 @@ function getContextPath() {
 $('#resultpage > ul').on('click', 'li', function(){
 	if($(this).find('a').hasClass('prev')){
 		if(!$(this).find('a').hasClass('disabled')){
-			hospitalList(latitude , longitude , parseInt($(this).parent().find('li:nth-of-type(2) > a').text()) -10)
+			hospitalList(latitude , longitude , parseInt($(this).parent().find('li:nth-of-type(2) > a').text()) -10, $("#hospiDept").text() )
 		}
 		return;
 	}
 	if($(this).find('a').hasClass('next')){
 		if(!$(this).find('a').hasClass('disabled')){
-			hospitalList(latitude , longitude , parseInt($(this).parent().find('li:nth-of-type(11) > a').text()) + 1)
+			hospitalList(latitude , longitude , parseInt($(this).parent().find('li:nth-of-type(11) > a').text()) + 1 , $("#hospiDept").text() )
 		}
 		return;
 	}
@@ -84,21 +85,18 @@ document.querySelector('#resultaddress ul').addEventListener('click',(e) => {
 		if(items){
 			latlng = new naver.maps.LatLng(items[0].point.y, items[0].point.x); 
 			map.setCenter(latlng);
-			marker = new naver.maps.Marker({
+			let marker = new naver.maps.Marker({
 			    position: latlng,
 			    map: map
 			});
 			markers.push(marker);
-			var contentString = [
+			let contentString = [
 		        '<div class="iw_inner">',
 		        '   <h3>검색한 위치</h3>',
 		        '</div>'
 		    ].join('');
-			infoWindow = new naver.maps.InfoWindow({
-		        content: ''
-		    });
 
-			var infowindow = new naver.maps.InfoWindow({
+			let infowindow = new naver.maps.InfoWindow({
 			    content: contentString
 			});
 	
@@ -141,39 +139,48 @@ function hospitalList( x , y , pageNo , qd){
 		$("#resultlist").empty();
 		if(!result) return;
 		$('#count').text(result.page.count);
+		markers.map( item => item.setMap(null) );
+		console.log("list", result.list.length);
+		if(!result.list.length){
+			setPageNo(result.page, pageNo);
+			setHospitalList( "검색결과가 존재하지 않습니다." , "다시 검색해주세요");
+			return;
+		}
+		infowindowArr = [];
+		markers = [];
 		setPageNo(result.page, pageNo);
-		markers.filter((item,index) => index !== 0).map( item => item.setMap(null) );
-		result.list.map( item => {
+		result.list.map( (item,index) => {
 			let latlng = new naver.maps.LatLng(item.wgs84Lat, item.wgs84Lon); 
 			let marker = new naver.maps.Marker({
 			    position: latlng,
 			    map: map
 			});
 			markers.push(marker);
-			setHospitalList( item.dutyName , item.dutyAddr);
-			var contentString = [
+			setHospitalList( item.dutyName , item.dutyAddr, index );
+			let contentString = [
 		        '<div class="iw_inner">',
 		        '   <h3><a href="',
 		        getContextPath(),
 		        '/hospital/about.do?hospitalSeq='+ item.hospitalSeq + '">',
 		        item.dutyName,
 		        '</a></h3>',
-		        '   <p>'+item.dutyAddr+'</p>',
+		        '   <p>'+item.dutyTel1+'</p>',
 		        '</div>'
 		    ].join('');
-			infoWindow = new naver.maps.InfoWindow({
+			let infoWindow = new naver.maps.InfoWindow({
 		        content: ''
 		    });
 
-			var infowindow = new naver.maps.InfoWindow({
+			infowindow = new naver.maps.InfoWindow({
 			    content: contentString
 			});
-	
+			infowindow.close();
+			infowindowArr.push(infowindow);
 			naver.maps.Event.addListener(marker, "click", function(e) {
 			    if (infowindow.getMap()) {
 			        infowindow.close();
 			    } else {
-			        infowindow.open(map, marker);
+			        infowindowArr[index].open(map, marker);
 			    }
 			});
 		})
@@ -182,7 +189,7 @@ function hospitalList( x , y , pageNo , qd){
 
 
 
-function setHospitalList(name ,address){
-	let content = '<div><h3>'+ name +'</h3><p>' + address + '</p></div>';
+function setHospitalList(name ,address, index){
+	let content = '<div><h3 data-flag="' + index +'">'+ name +'</h3><p>' + address + '</p></div>';
 	$("#resultlist").append(content);
 }

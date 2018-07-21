@@ -20,10 +20,11 @@ public class InfoController {
 	
 	//병원정보 수정폼
 	@RequestMapping("/infoUpdateForm.do")
-	public void infoForm(HttpSession session, Model model) {
+	public String infoForm(HttpSession session, Model model) {
 		//해당 병원의 시퀀스로 기본정보를 끌어오고 수정 가능하게함
 		User user =(User)session.getAttribute("user"); 
 		model.addAttribute("hospInfo", infoService.selectHospInfo(user.getHospitalSeq()));
+		return "/admin/info/hospiUpdateForm";
 	}
 	
 	@RequestMapping("/infoUpdate.do")

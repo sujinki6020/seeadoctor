@@ -123,13 +123,13 @@
 		from (
 			select * 
 		    from tb_hospital_gangnam 
-		    where cast(wgs84Lat as decimal(17,15)) between #{wgs84Lat} - 0.005 and #{wgs84Lat} + 0.005 
+		    where cast(wgs84Lat as decimal(17,15)) between #{wgs84Lat} - 0.007 and #{wgs84Lat} + 0.007 
 		    group by dutyName
+		    <if test="qd != null">
+		    having dutyName like concat('%' , #{qd} , '%')
+		    </if> 
 		    ) as a  
-		where cast( wgs84Lon as decimal(17,14) ) between #{wgs84Lon} - 0.005 and #{wgs84Lon} + 0.005
-		<if test="qd != null">
-		and qd = #{qd}
-		</if> 
+		where cast( wgs84Lon as decimal(17,14) ) between #{wgs84Lon} - 0.007 and #{wgs84Lon} + 0.007
 		order by wgs84Lon, wgs84Lat
 	</select>
 	
@@ -138,13 +138,13 @@
 		from (
 			select * 
 		    from tb_hospital_gangnam 
-		    where cast(wgs84Lat as decimal(17,15)) between #{wgs84Lat} - 0.005 and #{wgs84Lat} + 0.005 
+		    where cast(wgs84Lat as decimal(17,15)) between #{wgs84Lat} - 0.007 and #{wgs84Lat} + 0.007 
 		    group by dutyName
+		    <if test="qd != null">
+		    having dutyName like concat('%' , #{qd} , '%')
+		    </if> 
 		    ) as a  
-		where cast( wgs84Lon as decimal(17,14) ) between #{wgs84Lon} - 0.005 and #{wgs84Lon} + 0.005
-		<if test="qd != null">
-		and qd = #{qd}
-		</if> 
+		where cast( wgs84Lon as decimal(17,14) ) between #{wgs84Lon} - 0.007 and #{wgs84Lon} + 0.007
 		order by wgs84Lon, wgs84Lat
 		limit #{pageNo} , 10
 	</select>

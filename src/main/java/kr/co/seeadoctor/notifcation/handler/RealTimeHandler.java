@@ -1,4 +1,4 @@
-package kr.co.seeadoctor.notifcation.service;
+package kr.co.seeadoctor.notifcation.handler;
 
 
 import java.util.HashMap;

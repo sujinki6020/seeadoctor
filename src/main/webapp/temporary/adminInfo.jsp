@@ -6,166 +6,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
-<style>
-	#hospiTitle {
-	    margin-top: 2%;
-	    margin-left: 5%;
-	    margin-bottom: 2%;
-	   
-	}
-	form {
-	    margin-top: 3%;
-	    box-sizing: border-box;
-	    margin-left: 5%;
-	    margin-right: 5%;
-	    text-align: left;   
-	    background: #fff;
-	}
-	table {
-	    width: 100%;
-	    border-collapse: collapse;
-	    border-top: 2px solid #555;
-	    font-size: 1.3em;
-	}
-	tr {
-	    height: 50px;
-	    vertical-align: middle; 
-	    border-bottom: 1px solid #ddd;
-	}
-	th {
-	    padding-left: 2%;
-	    font-weight: normal;
-	}
-	#wall {
-	    width: 100%;
-	    height: 5%;
-	    padding-top: 40px;
-	    background: url(http://fiximage.10x10.co.kr/web2015/my10x10/bg_pattern_mint.png) repeat-x 0 0;
-	}
-	#hospiTitle > p {
-	    font-size: 11px;
-	}
-	#hospiTitle > h1 {
-	    font-size: 2em;
-	}
-	#adminBox {
-	    background: #f4eade url(http://fiximage.10x10.co.kr/web2015/my10x10/bg_pattern_beige.png);
-	    height: auto;
-	    min-height: 800px;
-	}
-	.inputs {
-	    padding: 5px 10px;
-	    width: 178px;
-	}
-	input.days {   
-	    vertical-align: middle;
-	}
-	textarea {
-	    resize: none;
-	}
-	.ampm {
-	    padding: 5px 10px;
-	    width: 75px;
-	    margin-left: 1%;
-	    margin-right: 1%;
-	}
-	#btnsBox > div {
-	    width: 20%;
-	    margin: 0 auto;
-	    padding-top: 3%;
-	    padding-bottom: 5%;
-	}
-	#btnsBox > div > button {
-	    width: 47%;
-	    box-sizing: border-box;
-	    padding: 15px 32px;
-	    background-color: #dc3545;
-	    color: white;
-	    text-decoration: none;
-	    border: none;
-	    font-size: 1.2em;
-	    margin: 0 1%;
-	}
-	#times > div {
-	    margin-top: 1%;
-	    margin-bottom: 1%;  
-	}
-	.monday {
-	    background-image: url("http://localhost/seeadoctor/temporary/monday1.png");
-	    position: absolute;
-	    background-position: center;
-	    background-size: 50%;
-	    background-repeat: no-repeat;
-	    width: 50px;
-	    height: 30px;
-	}
-	.tuesday {
-		background-image: url("http://localhost/seeadoctor/temporary/tuesday.png");
-	    position: absolute;
-	    background-position: center;
-	    background-size: 50%;
-	    background-repeat: no-repeat;
-	    width: 50px;
-	    height: 30px;
-	}
-	.wednesday {
-		background-image: url("http://localhost/seeadoctor/temporary/wednesday.png");
-	    position: absolute;
-	    background-position: center;
-	    background-size: 50%;
-	    background-repeat: no-repeat;
-	    width: 50px;
-	    height: 30px;
-	}
-	.thursday {
-		background-image: url("http://localhost/seeadoctor/temporary/thursday.png");
-	    position: absolute;
-	    background-position: center;
-	    background-size: 50%;
-	    background-repeat: no-repeat;
-	    width: 50px;
-	    height: 30px;
-	}
-	.friday {
-		background-image: url("http://localhost/seeadoctor/temporary/thursday.png");
-	    position: absolute;
-	    background-position: center;
-	    background-size: 50%;
-	    background-repeat: no-repeat;
-	    width: 50px;
-	    height: 30px;
-	}
-	.saturday {
-		background-image: url("http://localhost/seeadoctor/temporary/saturday.png");
-	    position: absolute;
-	    background-position: center;
-	    background-size: 50%;
-	    background-repeat: no-repeat;
-	    width: 50px;
-	    height: 30px;
-	}
-	.sunday {
-		background-image: url("http://localhost/seeadoctor/temporary/sunday.png");
-	    position: absolute;
-	    background-position: center;
-	    background-size: 50%;
-	    background-repeat: no-repeat;
-	    width: 50px;
-	    height: 30px;
-	}
-	.medical {
-		background-image: url("http://localhost/seeadoctor/temporary/medical.png");
-	    position: absolute;
-	    background-position: center;
-	    background-size: 50%;
-	    background-repeat: no-repeat;
-	    width: 50px;
-	    height: 30px;
-	}
-	.start {
-		margin-left: 5%;
-	}
-</style>
 </head>
 <body>
 	<div id="adminBox">
@@ -176,31 +16,39 @@
 	        </div>
 	    </div>
 	    <div id="modForm">
-	        <form action="" method="post" enctype="multipart/form-data">
-	            <table>
+	        <form action="" method="post" enctype="multipart/form-data" id="hospiForm">
+	            <table id="hospiTable">
 	                <colgroup>
 	                    <col style="width: 10%;background: #f7f7f7;">
 	                    <col style="width: 50%;">
 	                </colgroup>
-	                <tr>
-	                    <th>병원명</th>
-	                    <th>
+	                <tr class="hospiRows">
+	                    <th class="hospiDetail">병원명</th>
+	                    <th class="hospiDetail">
 	                        <input class="inputs" type="text" name="hospiName" id="hospiName" placeholder="병원명을 입력해주세요">
 	                    </th>
 	                </tr>
-	                <tr>
-	                    <th>주소</th>
-	                    <th>
-	                        <input class="inputs" type="text" name="hospiAddr" id="hospiAddr" placeholder="주소를 입력해주세요">
+	                <tr class="hospiRows">
+	                    <th class="hospiDetail">주소</th>
+	                    <th class="hospiDetail">
+	                    	<div>
+		                        <input class="inputs" type="text" name="hospiAddr" id="hospiAddr" placeholder="우편번호">
+		                        <a href="#1">주소검색</a>
+	                    	</div>
+	                    	<div>
+		                        <input class="hospiAddr" type="text" name="hospiAddr" id="hospiAddr" placeholder="도로명주소">
+		                        <input class="hospiAddrDetail" type="text" name="hospiAddr" id="hospiAddr" placeholder="상세주소">
+		                        <input class="hospiAddrDetail" type="text" name="hospiAddr" id="hospiAddr" placeholder="상세주소">
+	                    	</div>
 	                    </th>
 	                </tr>
-	                <tr>
-	                    <th>전화번호</th>
-	                    <th><input class="inputs" name="hospiPhone" type="text" placeholder="전화번호를 입력하세요"></th>
+	                <tr class="hospiRows">
+	                    <th class="hospiDetail">전화번호</th>
+	                    <th class="hospiDetail"><input class="inputs" name="hospiPhone" type="text" placeholder="전화번호를 입력하세요"></th>
 	                </tr>
-	                <tr>
-	                    <th>운영요일 설정</th>
-	                    <th>
+	                <tr class="hospiRows">
+	                    <th class="hospiDetail">운영요일 설정</th>
+	                    <th class="hospiDetail">
 	                        <input type="checkbox" name="monday" id="mon" class="days">
 	                        <label for="mon">월요일</label>
 	                        <input type="checkbox" name="tuesday" id="tue" class="days">
@@ -219,9 +67,9 @@
 	                        <label for="medical">공휴일</label>
 	                    </th>
 	                </tr>
-	                <tr>
-	                    <th>영업시간</th>
-	                    <th id="times">
+	                <tr class="hospiRows">
+	                    <th class="hospiDetail">영업시간</th>
+	                    <th id="times" class="hospiDetail">
 	                        <div data-flag="monday" style="display:none;">
 	                            <div class="monday"></div>
 	                            <label for="" class="start">시작시간:</label>
@@ -280,21 +128,21 @@
 	                        </div>
 	                    </th>
 	                </tr>
-	                <tr>
-	                    <th>병원 분류</th>
-	                    <th><input type="text" name="hospiKind" class="inputs" placeholder="병원분류를 입력해주세요"></th>
+	                <tr class="hospiRows">
+	                    <th class="hospiDetail">병원 분류</th>
+	                    <th class="hospiDetail"><input type="text" name="hospiKind" class="inputs" placeholder="병원분류를 입력해주세요"></th>
 	                </tr>
-	                <tr>
-	                    <th>진료항목</th>
-	                    <th><input type="text" name="treatDept" class="inputs" placeholder="진료항목을 입력하세요"></th>
+	                <tr class="hospiRows">
+	                    <th class="hospiDetail">진료항목</th>
+	                    <th class="hospiDetail"><input type="text" name="treatDept" class="inputs" placeholder="진료항목을 입력하세요"></th>
 	                </tr>
-	                <tr>
-	                    <th>병원사진</th>
-	                    <th><input type="file" name="file"></th>
+	                <tr class="hospiRows">
+	                    <th class="hospiDetail">병원사진</th>
+	                    <th class="hospiDetail"><input type="file" name="file"></th>
 	                </tr>
-	                <tr>
-	                    <th>부가정보</th>
-	                    <th><textarea name="addInfo" cols="100" rows="10"></textarea></th>
+	                <tr class="hospiRows">
+	                    <th class="hospiDetail">부가정보</th>
+	                    <th class="hospiDetail"><textarea name="addInfo" cols="100" rows="10"></textarea></th>
 	                </tr>
 	            </table>
 	        </form>
