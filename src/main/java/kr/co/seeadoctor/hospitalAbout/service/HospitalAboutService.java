@@ -22,7 +22,7 @@ public interface HospitalAboutService {
 	public List<HospitalAbout> selectAllHospLike(String id);
 	
 	//글리뷰가져오기
-	public Map<String, Object> selectHospReview(Search search) throws Exception;
+	public Map<String, Object> selectHospReview(Search search, Board board) throws Exception;
 	public Map<String, Object> detailReview(Board b) throws Exception;
 	public void updateReview(Board board)throws Exception;
 	public void insertReview(Board board)throws Exception;

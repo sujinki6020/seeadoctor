@@ -43,19 +43,17 @@ public class HospitalAboutController {
 		//페이지 방문수 카운트
 		hospService.visitCnt(hospitalSeq);
 	
-		//Map<String, Object> result = hospService.loadHospAbout(hospAbout, hospital);//해당병원 좋아요했는지
 		User user = (User)session.getAttribute("user");
-//		result.put("hospLike", hospAbout);
 		model.addAttribute("result", hospService.loadHospAbout(user.getId(), hospitalSeq));
 	}
 	
 	@RequestMapping("/review.json") 
 	@ResponseBody
-	public Map<String, Object> review(Search search) throws Exception {
+	public Map<String, Object> review(Search search, Board board) throws Exception {
 		System.out.println(search.getHospitalSeq());
 		System.out.println(search.getSelectCategory());
 		System.out.println(search.getSearchKeyWord());
-		return hospService.selectHospReview(search);
+		return hospService.selectHospReview(search, board);
 	}
 
 	@RequestMapping("/write.json") 
@@ -101,9 +99,7 @@ public class HospitalAboutController {
 		
 
 		String filePath = request.getParameter("filePath");
-		System.out.println("파일패쓰"+filePath);
 		String sysName = request.getParameter("sysName");
-		System.out.println("실제파일명"+sysName);
 	
 		File file = new File(filePath,sysName);
 		//System.out.println("f:파일객체생성"+file);
@@ -238,17 +234,7 @@ public class HospitalAboutController {
 		return files;
 	}
 	
-	/*
-	//검색
-	@RequestMapping("/search.json")
-	@ResponseBody
-	public List<Board> search(Search search){
-		System.out.println("aa");
-		List<Board> searchBoard = hospService.searchKeyWord(search);
-		System.out.println(searchBoard.get(0).getContent());
-		return searchBoard;
-	}
-	*/
+
 }
 
 
