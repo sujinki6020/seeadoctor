@@ -35,9 +35,10 @@
       <tbody>
       
       <c:forEach var="chatBoard" items="${cbList}">
+      <p id="adminId">${chatBoard.adminId}</p>
         <tr>
           <td id="td1"><input type="checkbox" name="check" id="checkedOrNot" /></td>
-          <td id="td2"><a href="#" onclick="chat()")>${chatBoard.userId}</a> - ${chatBoard.userName}</td>
+          <td id="td2"><a href="#" class="userId">${chatBoard.userId}</a> - ${chatBoard.userName}</td>
           <td id="td3">${chatBoard.date}</td>
           <td id="td4"><textarea id="memo" name="memo" rows="2" cols="75" style="resize:none; color:black; font-size:14px;">${chatBoard.memo}</textarea></td>
         </tr>
@@ -61,6 +62,16 @@ $("#td4").on("keyup", function () {
 		type: "post",
 		data: {"adminId":adminId,"memo":memo}
 	});
+});
+
+// $("#userId").on("click", function(){
+// 	console.log("$(this).text",$(this).text());
+// 	console.log("#userId).text",$("#userId").text());
+// 	window.open('http://localhost:8001/seeadoctor/chat/chatWindow.do?receiverId='+ $(this).text(), 'popup01', 'width=400, height=500, scrollbars= 0, toolbar=0, menubar=no');
+// })
+
+$("#tb2").on("click",".userId",function(){
+	window.open('http://localhost:8001/seeadoctor/chat/chatWindow.do?receiverId=' + $(this).text(), 'popup01', 'width=400, height=500, scrollbars= 0, toolbar=0, menubar=no');
 });
 </script>
 </body>

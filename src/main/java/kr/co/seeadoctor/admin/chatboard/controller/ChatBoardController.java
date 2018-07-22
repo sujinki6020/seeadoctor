@@ -15,32 +15,27 @@ import kr.co.seeadoctor.repository.vo.ChatBoard;
 import kr.co.seeadoctor.repository.vo.User;
 
 @Controller
-
+@RequestMapping("/admin/chatboard")
 public class ChatBoardController {
 	@Autowired
 	private ChatBoardService chatBoardService;
 	
-	@RequestMapping("/admin/chatboard/chatBoard.do")
+	@RequestMapping("/chatBoard.do")
 	public String callChatBoard(HttpSession session, Model model) throws Exception {
 		String adminId = ((User)session.getAttribute("user")).getId();
 		List<ChatBoard> cbList = chatBoardService.retrieveChatBoard(adminId);
 		model.addAttribute("cbList", cbList);
 		return "admin/chatboard/chatBoard";
 	}
-	
-	@RequestMapping("chat/chatWindow.do")
-	public String callChatWindow() throws Exception {
-		return "chat/chatWindow";
-	}
-	
-	@RequestMapping("/admin/chatboard/insertChatBoard.do")
+
+	@RequestMapping("/insertChatBoard.do")
 	public String insertChatBoard(ChatBoard ChatBoard) {
 		chatBoardService.insertChatBoard(ChatBoard);
 		return "admin/chatboard/chatBoard";
 	}
 	
 	@ResponseBody
-	@RequestMapping("/admin/chatboard/addMemo.do") 
+	@RequestMapping("/addMemo.do") 
 	public void addMemo(ChatBoard chatBoard) {
 //		String adminId = ((User)session.getAttribute("user")).getId();
 //		System.out.println("addmemo controller IN" + adminId);
@@ -50,7 +45,7 @@ public class ChatBoardController {
 //		return cbList;
 	}
 	
-	@RequestMapping("/admin/chatboard/deleteChatBoard.do") 
+	@RequestMapping("/deleteChatBoard.do") 
 	public String deleteChatBoard(String adminId) {
 		chatBoardService.deleteChatBoard(adminId);
 		return "admin/chatboard/chatBoard";
