@@ -211,6 +211,7 @@ textarea.form-control {
 		   		<div id= search_area>
 					<form id="search">
 					   		<select name="selectCategory" class="btn btn-default search-bar1" style="width:100px;">
+					   			<option value="">선택</option>
 				   				<option value="1">글쓴이</option>
 				   				<option value="2">제목+내용</option>
 				   			</select>
