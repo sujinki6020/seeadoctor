@@ -181,9 +181,9 @@ textarea.form-control {
 					<div id="time_help">점심시간은 통상 12시부터 1시30분까지이므로 방문시 미리 전화 주세요</div>
 				</div>
 				
-			<div id="wrong_info">
-				<a href="${pageContext.request.contextPath}/hospital/wrongInfoForm.do">잘못된 정보 수정하기</a>
-			</div>
+<!-- 			<div id="wrong_info"> -->
+<%-- 				<a href="${pageContext.request.contextPath}/hospital/wrongInfoForm.do">잘못된 정보 수정하기</a> --%>
+<!-- 			</div> -->
 			</div>
 		</div>
 
@@ -381,7 +381,7 @@ $(function () {
 	      $("#buttons").hide();
 	      $("#content_review").hide();
 	      photo("${param.hospitalSeq}");
-	   }else {
+	   }else if("${param.tabNo}" == 3){
 	      $("#content_box").hide();
 	      $("#content_photo").hide();
 	      $("#content_area_writeForm").hide();
@@ -548,7 +548,6 @@ function search(){
 */
 
 function makeReviewList(result) {
-	console.log(result.list);
 	
 	$("#content_box").hide();
 	$("#content_photo").hide();
@@ -656,6 +655,9 @@ function photo(hospitalSeq) {
 			var file = files[i];
 			fileList += " <div class='swiper-slide'><img width='600px' height='400px' src='${pageContext.request.contextPath}/hospital/fileOutPut.do?filePath="+file.filePath+"&sysName="+file.sysName+"'/></div>"
 			}
+		if (files.length == 0) {
+			fileList += "<div><img width='600px' height='400px' src='${pageContext.request.contextPath}/images/board/no.png'/></div>"
+		}
 		$("#picCnt").html(files.length);
 		$(".swiper-wrapper").html(fileList);
 			var swiper = new Swiper('.swiper-container', {
@@ -837,12 +839,6 @@ function updateReview(board){
 		console.dir(err)
 	})
 }
-
-
-
-
-
-
 
 
 //댓글 삭제

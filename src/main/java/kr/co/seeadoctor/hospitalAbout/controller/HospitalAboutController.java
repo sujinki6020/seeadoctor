@@ -37,6 +37,7 @@ public class HospitalAboutController {
 	@RequestMapping("/about.do")
 	public void hospAbout(int hospitalSeq ,HttpSession session,  Model model) {
 		
+		System.out.println("어바웃쩜두 들어옴");
 		// 아래의 정보를 가져오기 위한 서비스 필요한 병원정보 가져오기
 		// 전체 좋아요 개수, 해당병원 좋아요 여부(cnt), 중복 좋아요 안되게 막기
 		
@@ -50,6 +51,7 @@ public class HospitalAboutController {
 	@RequestMapping("/review.json") 
 	@ResponseBody
 	public Map<String, Object> review(Search search) throws Exception {
+		System.out.println("리뷰제이슨" + search.getHospitalSeq());
 		return hospService.selectHospReview(search);
 	}
 
@@ -227,7 +229,7 @@ public class HospitalAboutController {
 	@ResponseBody
 	public List<BoardFile> photo(int hospitalSeq) {
 		List<BoardFile> files = hospService.outPutPhoto(hospitalSeq);
-		System.out.println("컨트롤러파일스: " + files.get(0).getSysName());
+//		System.out.println("컨트롤러파일스: " + files.get(0).getSysName());
 		return files;
 	}
 	
