@@ -5,8 +5,8 @@ import java.util.Date;
 import org.springframework.web.multipart.MultipartFile;
 
 
-public class Board extends Page {
-
+public class Board {
+	private int commentCnt;
 	private int userSeq; //id
 	private int no;
 	private String title;
@@ -19,8 +19,24 @@ public class Board extends Page {
 	private String name;
 	private MultipartFile[] files;
 	private int hospitalSeq;
+	private Integer reserveSeq;
 	
 	
+	
+	
+
+	public Integer getReserveSeq() {
+		return reserveSeq;
+	}
+	public void setReserveSeq(Integer reserveSeq) {
+		this.reserveSeq = reserveSeq;
+	}
+	public int getCommentCnt() {
+		return commentCnt;
+	}
+	public void setCommentCnt(int commentCnt) {
+		this.commentCnt = commentCnt;
+	}
 	public MultipartFile[] getFiles() {
 		return files;
 	}

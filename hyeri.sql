@@ -4,11 +4,13 @@ CREATE TABLE tb_reservation
     `user_seq`        INT           NOT NULL    COMMENT '유저시퀀스', 
     `hospital_seq`       INT(10)           NOT NULL    COMMENT '병원코드', 
     `doctor_seq`        INT           NOT NULL    COMMENT '의사코드', 
+    `reg_date`        datetime      default now()    COMMENT '접수날짜', 
     `reserve_date`    DATE          NOT NULL    COMMENT '날짜', 
     `reserve_time`    VARCHAR(4)      NOT NULL    COMMENT '시간', 
     `symptom`         VARCHAR(600)       NOT NULL    COMMENT '증상', 
     `reserve_status`  VARCHAR(1)   default '1'    COMMENT '방문상태', 
     `review_status`   VARCHAR(1)    default 'f'    COMMENT '리뷰작성', 
+    `review_no`   INT    NULL    COMMENT '리뷰글번호'
     PRIMARY KEY (reserve_seq)
 );
 ALTER TABLE tb_reservation COMMENT '예약정보 테이블';

@@ -50,7 +50,11 @@ public class ChatHandler extends TextWebSocketHandler {
 			return;
 		}
 		// message에서 온 정보
-		if(findUser(rcvId) == null) return; // findUser() : 채팅 상대방이 들어왔는지 확인 (상대방의 websocket session이 생성되었는지 확인)
+		if(findUser(rcvId) == null) {
+			System.out.println("왜 안들어와ㅠㅠㅠㅠ");
+			return;
+			// findUser() : 채팅 상대방이 들어왔는지 확인 (상대방의 websocket session이 생성되었는지 확인)
+		}
 		findUser(rcvId).sendMessage(new TextMessage(user.getId() + ":" +msg)); // 받는 상대방에게 내 아이디 + msg 보내기
 		
 		// 이전내용 불러오기 작업을 위한 insert

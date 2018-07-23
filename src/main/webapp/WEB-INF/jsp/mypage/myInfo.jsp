@@ -96,7 +96,6 @@
 					<div class="large-12 columns">
 
 						<ul class="small-block-grid-2 medium-block-grid-3 flip-cards">
-
 							<c:forEach var="like" items="${hList}">
 							<li ontouchstart="this.classList.toggle('hover');">
 								<div class="large button card-front">
@@ -180,7 +179,18 @@
 	});
 	
 	$(".panel").on("click",".chat",function(){
-	window.open('http://localhost:8001/seeadoctor/chat/chatWindow.do?receiverId=' + $(this).data("flag"), 'popup01', 'width=400, height=500, scrollbars= 0, toolbar=0, menubar=no');
+		var userId = "${sessionScope.user.id}";
+		var adminId = $(this).data("flag");
+		console.log("userId : ", userId);
+		console.log("adminId : ", adminId);
+		$.ajax({
+			url: "${pageContext.request.contextPath}/admin/chatboard/chatBoard.do",
+			data: {"adminId":adminId,"userId":userId},
+			type: "post",
+			success : function () {
+					window.open('http://localhost:8001/seeadoctor/chat/chatWindow.do?receiverId=' + adminId, 'popup01', 'width=400, height=550, toolbar=0, menubar=no');
+			}
+		});
 	});
 	
 	</script>

@@ -25,6 +25,9 @@ public interface ReservationMapper {
 	void updateOpenTime(ReservationTime reserveTime);
 	void updateReservationCancle(int reserveSeq);
 	void updateReserveStatusNoShow(Date today);
+	
+	/*리뷰*/
+	void updateReservationReview(Reservation reservation);
 
 	/*통계*/
 	Integer selectReservationCntByMonth(Map<String, Object> paramMap);

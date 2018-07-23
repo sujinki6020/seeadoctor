@@ -15,7 +15,40 @@ $(function() {
    });
 });
 
+$("#reservBtn").click(function(){
+	var result = checkFields() == true ? true : false;
+	if(result==true) $("form").submit();
+});
+
+function checkFields(){
+	var result = true;
+	if(!$('input:radio[name=doctorSeq]:checked').val()) {
+		alert("담당의사를 선택하세요");
+		result = false;
+		return false;
+	};
+	if($("input[name=date]").val()==""){
+		alert("예약날짜를 선택하세요");
+		$("input[name=date]").focus();
+		result = false;
+		return false;
+	};
+	if($("input[name=reserveTime]").val()=="") {
+		alert("예약시간을 선택하세요");
+		result = false;
+		return false;
+	};
+	return result;
+};
+
+
 function dayOfTheWeek() {
+	
+	var doctor_check = $('input:radio[name=doctorSeq]:checked').val();
+	if ( !doctor_check ) {
+	    return false;
+	}
+	
 	var date = new Date($("#datepicker").datepicker({ dateFormat: 'yy-mm-dd' }).val());
 	//1월~6토, 0일
 	//db는 1월~7일

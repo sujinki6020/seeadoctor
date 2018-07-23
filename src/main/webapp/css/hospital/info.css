@@ -130,7 +130,7 @@
 #time_help{
 	margin: 0 auto;
     width: 420px;
-    line-height: 70px;
+    line-height: 85px;
 }
 #review_hr{
 	background: #ccc;
@@ -314,7 +314,7 @@
 	background: #ccc;
     margin: auto;
     height: 1px;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     width: 632px;
 }
 #detail_content{
@@ -340,7 +340,8 @@
     width: 600px;
 }
 #info1{
-	height: 100px;
+	    height: 23px;
+    float: left;
 }
 
 

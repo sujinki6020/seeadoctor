@@ -18,6 +18,8 @@ public class Reservation {
 	    private Integer doctorSeq;
 
 	    // 날짜 
+	    private Date regDate;
+	    // 날짜 
 	    private Date reserveDate;
 
 	    // 시간 
@@ -31,6 +33,8 @@ public class Reservation {
 
 	    // 리뷰작성 
 	    private String reviewStatus;
+	    // 리뷰글번호 
+	    private int reviewNo;
 	    
 	    private User user;
 	    private Doctor doctor;
@@ -41,6 +45,22 @@ public class Reservation {
 	  
 
 	
+
+		public int getReviewNo() {
+			return reviewNo;
+		}
+
+		public void setReviewNo(int reviewNo) {
+			this.reviewNo = reviewNo;
+		}
+
+		public Date getRegDate() {
+			return regDate;
+		}
+
+		public void setRegDate(Date regDate) {
+			this.regDate = regDate;
+		}
 
 		public Hospital getHospital() {
 			return hospital;

@@ -7,11 +7,13 @@
 		<result column="user_seq" property="userSeq" />
 		<result column="hospital_seq" property="hospitalSeq" />
 		<result column="doctor_seq" property="doctorSeq" />
+		<result column="reg_date" property="regDate" />
 		<result column="reserve_date" property="reserveDate" />
 		<result column="reserve_time" property="reserveTime" />
 		<result column="symptom" property="symptom" />
 		<result column="reserve_status" property="reserveStatus" />
 		<result column="review_status" property="reviewStatus" />
+		<result column="review_no" property="reviewNo" />
 		<collection property="user" resultMap="userMap"/>
 		<collection property="doctor" resultMap="doctorMap"/>
 		<collection property="hospital" resultMap="hospitalMap"/>
@@ -96,14 +98,11 @@
 		   	</when>
 		   	<when test="name eq 'reserveDate'">
 	   			<choose>
-					<when test="val == 1">
-					    and reserve_date <![CDATA[>=]]> date_add(now(), interval -1 month)
-					</when>
 					<when test="val == 4">
-					    and reserve_date <![CDATA[<=]]> date_add(now(), interval -4 month)
+					    and reg_date <![CDATA[<=]]> date_add(now(), interval -4 month)
 					</when>
 					<otherwise>
-			   			and reserve_date between date_add(now(), interval -#{val} month) and date_add(now(), interval -(#{val}-1) month)
+			   			and reg_date between date_add(now(), interval -#{val} month) and date_add(now(), interval -(#{val}-1) month)
 					</otherwise>
 				</choose>
 		   	</when>
@@ -178,6 +177,14 @@
 		update tb_reservation
 	       set reserve_status = 2
      	 where reserve_seq = #{reserveSeq}
+	</update>
+	
+	<!-- 리뷰쿼리 -->
+	<update id="updateReservationReview" parameterType="reservation">
+	update tb_reservation
+	   set review_status = 't',
+	       review_no = #{reviewNo}
+	 where reserve_seq = #{reserveSeq}
 	</update>
 	
 	<!-- 통계쿼리 -->

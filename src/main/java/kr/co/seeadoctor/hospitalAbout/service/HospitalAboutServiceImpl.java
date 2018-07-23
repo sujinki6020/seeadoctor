@@ -12,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.seeadoctor.repository.mapper.DoctorMapper;
 import kr.co.seeadoctor.repository.mapper.HospitalAboutMapper;
+import kr.co.seeadoctor.repository.mapper.ReservationMapper;
 import kr.co.seeadoctor.repository.mapper.UserMapper;
 import kr.co.seeadoctor.repository.mapper.VisitCntMapper;
 import kr.co.seeadoctor.repository.vo.Board;
@@ -19,6 +20,7 @@ import kr.co.seeadoctor.repository.vo.BoardFile;
 import kr.co.seeadoctor.repository.vo.Comment;
 import kr.co.seeadoctor.repository.vo.HospitalAbout;
 import kr.co.seeadoctor.repository.vo.PageResult;
+import kr.co.seeadoctor.repository.vo.Reservation;
 import kr.co.seeadoctor.repository.vo.Search;
 @Service
 public class HospitalAboutServiceImpl implements HospitalAboutService{
@@ -31,6 +33,8 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	private DoctorMapper docMapper;
 	@Autowired
 	private UserMapper userMapper;
+	@Autowired
+	private ReservationMapper reserveMapper;
 
 	// 아래의 정보를 가져오기 위한 서비스 필요한
 	// 병원 정보 가져오기
@@ -52,7 +56,7 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 		int cnt = hospMapper.selectHospLikeCnt(hospAbout); //중복
 		int docCnt = docMapper.countDoctorByHospSeq(hospitalSeq); //예약가능여부 확인
 		
-		System.out.println("부가정보:" + hospResult.getDutyEtc());
+//		System.out.println("부가정보:" + hospResult.getDutyEtc());
 		result.put("hospResult", hospResult);
 		result.put("myCnt", myCnt);
 		result.put("cnt", cnt);
@@ -80,19 +84,21 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 
 
 	@Override
-	public Map<String, Object> selectHospReview(Search search, Board board) throws Exception {
+	public Map<String, Object> selectHospReview(Search search) throws Exception {
 		Map<String, Object> result = new HashMap<>();
 		
-		List<Board> list = hospMapper.selectReview(search);
-
-		int sPageNo = board.getPageNo(); //탭시작번호
-		board.setPageNo(sPageNo == 0 ? 1 : sPageNo); //시작번호가0이면 1로, 그게아니면 그걸로
-
+		
+		List<Board> list = hospMapper.selectReview(search); //전체 게시글 조회
 		int count = hospMapper.selectReviewCount(search); //총 게시글수
+		
+		
+		int sPageNo = search.getPageNo(); //탭시작번호
+		search.setPageNo(sPageNo == 0 ? 1 : sPageNo); //시작번호가0이면 1로, 그게아니면 그걸로
+
 		
 		result.put("list", list);
 		result.put("count", count);
-		result.put("pageResult", new PageResult(board.getPageNo(), count));
+		result.put("pageResult", new PageResult(search.getPageNo(), count)); // 생성자에 매개변수가 두개
 		return result;
 	}
 
@@ -120,6 +126,13 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 					fileVO.setHospitalSeq(board.getHospitalSeq());
 					hospMapper.insertReviewFiles(fileVO);
 			 }
+		}
+		
+		if(board.getReserveSeq() != null) {
+			Reservation reservation = new Reservation();
+			reservation.setReviewNo(board.getNo()); //xml에서 selectKey로 받아오기
+			reservation.setReserveSeq(board.getReserveSeq()); //BoardVO에 넣어주기
+			reserveMapper.updateReservationReview(reservation);
 		}
 	}
 	

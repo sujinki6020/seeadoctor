@@ -95,7 +95,7 @@ textarea.form-control {
 			<div id="head_btn_area">
 				<div id="head_btns">
 				
-					<a href="">
+					<a href="https://map.naver.com/?eText=${result.hospResult.dutyName}&elng=${result.hospResult.wgs84Lon}&elat=${result.hospResult.wgs84Lat}">
 						<img src="${pageContext.request.contextPath}/images/board/search.png" class="pull-right" id="btn_search"/><br>
 						<span>길찾기</span>
 					</a>
@@ -170,9 +170,9 @@ textarea.form-control {
 						<span style="padding-left: 26px;">${result.hospResult.dutyTel1}</span>
 						<span style="padding-left: 26px;">${result.hospResult.dutyTel3}</span>
 					</div>
-					<div style="height: 47px;">
+					<div style="height:47px; width: 670px;">
 						<span id="info1">부가정보</span>
-						<span style="padding-left: 26px;">${result.hospResult.dutyEtc}, ${result.hospResult.dutyInf}</span><br>
+						<span style="padding-left:80px; float:right; margin-top: -24px;">${result.hospResult.dutyEtc}, ${result.hospResult.dutyInf}</span><br>
 					</div>
 				</div>
 				<div style="width: 710px; margin: 28px 13px 0px -34px;">
@@ -181,9 +181,9 @@ textarea.form-control {
 					<div id="time_help">점심시간은 통상 12시부터 1시30분까지이므로 방문시 미리 전화 주세요</div>
 				</div>
 				
-			<div id="wrong_info">
-				<a href="${pageContext.request.contextPath}/hospital/wrongInfoForm.do">잘못된 정보 수정하기</a>
-			</div>
+<!-- 			<div id="wrong_info"> -->
+<%-- 				<a href="${pageContext.request.contextPath}/hospital/wrongInfoForm.do">잘못된 정보 수정하기</a> --%>
+<!-- 			</div> -->
 			</div>
 		</div>
 
@@ -254,6 +254,7 @@ textarea.form-control {
 				<div id="form1">
 					<form id="form" enctype="multipart/form-data" method="post">
 					<input type="hidden" name="hospitalSeq" value="${param.hospitalSeq}">
+					<input type="hidden" name="reserveSeq" value="${param.reserveSeq}">
 					<div id="review_row1">
 					<span id="review">리뷰쓰기</span>
 
@@ -283,7 +284,7 @@ textarea.form-control {
 						<button type="button" id="updateBtn" class="btn btn-default" style="display:none; margin-bottom: 10px;" onclick="updateReview();">수정</button>
 						<button type="button" id="registBtn" class="btn btn-default" style="display:none; margin-bottom: 10px;" onclick="writeReview();">등록</button>
 						<button type="button" class="btn btn-default" style="margin-bottom: 10px;" 
-								onclick="review(${param.hospitalSeq});">취소</button>
+								onclick="review()">취소</button>
 					</div>
 				</form>
 				</div>
@@ -329,7 +330,7 @@ textarea.form-control {
 							
 							<div id="commentWrite" style="height: 140px;">
 								<label class="sr-only" for="content">댓글내용입력</label>
-								<textarea class="form-control" id="content" name="content" placeholder="내용을 입력하세요"></textarea>
+								<textarea class="form-control" id="cmt_Content" name="content" placeholder="내용을 입력하세요"></textarea>
 								
 								<button type="submit" id="btnCommentWrite" class="btn btn-primary btnCommentWrite">댓글쓰기</button>
 							</div>
@@ -342,7 +343,7 @@ textarea.form-control {
 			<div id="buttons" style="display: none;">
 				<div id="btn_s">
 					<%-- 목록버튼 --%>
-					<button type="button" class="btn btn-default" onclick="review(${param.hospitalSeq})">목록</button>
+					<button type="button" class="btn btn-default" onclick="review()">목록</button>
 					<%-- 글쓰기버튼 --%>
 					<button type="button" class="btn btn-default" id="writeid" onclick="writeForm();">글쓰기</button>
 					<%-- 수정삭제버튼--%>
@@ -366,32 +367,49 @@ textarea.form-control {
 //탭 케이스 이름 줘서 각각 페이지로 들어갈 수 있도록 하는 코드
 
 $(function () {
-	   if ("${param.tabNo}" == 1) {
-	      $("#content_box").show();
-	      $("#content_photo").hide();
-	      $("#content_area_writeForm").hide();
-	      $("#content_detail").hide();
-	      $("#buttons").hide();
-	      $("#content_review").hide();
-	   }else if("${param.tabNo}" == 2) {
-	      $("#content_box").hide();
-	      $("#content_photo").show();
-	      $("#content_area_writeForm").hide();
-	      $("#content_detail").hide();
-	      $("#buttons").hide();
-	      $("#content_review").hide();
-	      photo("${param.hospitalSeq}");
-	   }else {
-	      $("#content_box").hide();
-	      $("#content_photo").hide();
-	      $("#content_area_writeForm").hide();
-	      $("#content_detail").hide();
-	      $("#buttons").hide();
-	      $("#content_review").show();
-	      review();
-	   }
-	});
+	   if("${param.review}" == 1){
+			$("#content_box").hide();
+			$("#content_review").hide();
+			$("#content_photo").hide();
+			$("#content_area_writeForm").show();
+			$("#content_detail").hide();
+			
+			$("#registBtn").show();
+			$("#updateBtn").hide();
 
+			/*예약리뷰용*/
+			//$("#form input[name='reserveSeq']").val("${param.reserveSeq}");
+			
+			$("#form input[name='name']").val("${sessionScope.user.name}");
+			$("#form input[name='no']").val("0");
+			$("#form input[name='title']").val("");
+			$("#form textarea[name='content']").val("");
+	   }
+	   if("${param.review}" == 2){
+				$("#content_box").hide();
+				$("#content_area_writeForm").show();
+				
+			$.ajax({
+				url : "updateForm.json",
+				data : {
+					no: "${param.reviewNo}",
+					hospitalSeq: "${param.hospitalSeq}"
+				},
+				dataType: "json"
+			})
+			.done(function(result){
+				$("#content_detail").hide();
+				
+				$("#registBtn").hide();
+				$("#updateBtn").show();
+				
+				$("#form input[name='name']").val(result.board.name);
+				$("#form input[name='no']").val(result.board.no);
+				$("#form input[name='title']").val(result.board.title);
+				$("#form textarea[name='content']").val(result.board.content);
+			});
+	};
+});
 
 //위에 지도맵코드
 let map = new naver.maps.Map('map', {center : new naver.maps.LatLng( "${result.hospResult.wgs84Lat}" , "${result.hospResult.wgs84Lon}")} );
@@ -505,24 +523,26 @@ function minusStar(target){
 
 
 // 리뷰
-function review() {
-	
-	console.log($("select[name='selectCategory']").val());
-	console.log($("input[name='searchKeyWord']").val());
+function review(pageNo) { //밑에 페이지번호 눌렀을 때도 실행됨
+	if(pageNo === undefined){ //=== 타입과 값이 같을 때. 타입까지 같이 비교
+		pageNo=1;
+	}
+// 	console.log($("select[name='selectCategory']").val());
+// 	console.log($("input[name='searchKeyWord']").val());
 	$.ajax({
 		url:"review.json",
 		data : {
 			hospitalSeq: "${param.hospitalSeq}",
 			selectCategory : $("select[name='selectCategory']").val(),
-			searchKeyWord : $("input[name='searchKeyWord']").val()
+			searchKeyWord : $("input[name='searchKeyWord']").val(),
+			pageNo : pageNo
 		}
 	})
 	.done(function(result){
-		console.log("던");
 		makeReviewList(result);
 	})
 	.fail(function(result){
-// 		console.log(result);
+		console.log(result);
 	})	
 		
 }
@@ -546,8 +566,6 @@ function search(){
 */
 
 function makeReviewList(result) {
-	console.log("메이크함수");
-	console.log(result.list);
 	
 	$("#content_box").hide();
 	$("#content_photo").hide();
@@ -555,13 +573,14 @@ function makeReviewList(result) {
 	$("#content_area_writeForm").hide();
 	$("#content_detail").hide();
 	$("#buttons").hide();
+	$("#btn_update_delete").hide();
 	$("#reviewCount").text(result.count);
 	
 	var reviewListHtml = "";	
 	for(var i = 0; i < result.list.length; i++) {
 		var board = result.list[i];
 		reviewListHtml += "<tr>";
-			reviewListHtml += "<td><a href='#1' onclick='detail("+ board.no +");'>" + board.title + "</a></td>";
+		reviewListHtml += "<td><a href='#1' onclick='detail("+ board.no +");'>" + board.title+"("+board.commentCnt+")" + "</a></td>";
 		var date = new Date(board.regDate);
 		var time = date.getFullYear()+"-"+(date.getMonth()+1)
 				+"-"+ date.getDate();
@@ -573,8 +592,62 @@ function makeReviewList(result) {
 		reviewListHtml += '<tr><td colspan="4">아직 작성된 리뷰가 없습니다!</td></tr>';
 	}
 	$("#content_review > table > tbody").html(reviewListHtml);
-
+	
+	makePageLink(result.pageResult);
 }
+
+//페이징
+function makePageLink(paging){
+	var html="";
+	if(paging.count != 0){
+		var clz="";
+		if(paging.prev == false){ //없으면
+			clz = "disabled";
+		}
+		html += '<li class="'+clz+'">';
+		
+		var fn="";
+		
+		if(paging.prev == true){//탭이 있으면
+			fn = "javascript:review("+(paging.beginPage-1)+");"; //언제 이렇게 쓰느건가요? 코드이해안됨.. 비긴페이지-1이 무슨뜻인가요?
+		}
+		html += '<a href="'+fn+'"aria-label="Previous">';
+		html += '	<span aria-hidden="true">&laquo;</span>';
+		html += '</a>';
+		html += '</li>';
+// 		alert("beginPage"+paging.beginPage);
+// 		alert("endPage"+paging.endPage);
+		for (var i = paging.beginPage; i <= paging.endPage; i++){
+			if(i == paging.pageNo){
+				html += '<li class="active"><a href="#1">' + i + '</a></li>'; //코드이해못함
+			}
+			else{
+				html += '<li><a href="javascript:review(' + i + ');">' + i + '</a></li>';
+			}
+		}
+		
+		clz = "";
+		if(paging.next === false){
+		//alert("다음페이지가 없으면" + paging.next) //탭의 다음탭? 1~10번, 11~20번
+			clz="disabled";
+		}
+		html += '<li class="'+clz+'">';
+		
+		fn="";
+		
+		if(paging.next == true){
+			fn = "javascript:review("+(paging.endPage+1)+");";
+		}
+		html += '<a href="'+fn+'" aria-label="Next">';
+		html += '	<span aria-hidden="true">&raquo;</span>';
+		html += '</a>';
+		html += '</li>'
+	}
+	$("nav > ul.pagination").html(html);
+}
+
+
+
 //사진
 function photo(hospitalSeq) {
 
@@ -585,7 +658,6 @@ function photo(hospitalSeq) {
 		}
 	})
 	.done(function(files){
- alert("done")	
 		$("#content_box").hide();
 		$("#content_review").hide();
 		$("#content_photo").show();
@@ -600,6 +672,9 @@ function photo(hospitalSeq) {
 			var file = files[i];
 			fileList += " <div class='swiper-slide'><img width='600px' height='400px' src='${pageContext.request.contextPath}/hospital/fileOutPut.do?filePath="+file.filePath+"&sysName="+file.sysName+"'/></div>"
 			}
+		if (files.length == 0) {
+			fileList += "<div><img width='600px' height='400px' src='${pageContext.request.contextPath}/images/board/no.png'/></div>"
+		}
 		$("#picCnt").html(files.length);
 		$(".swiper-wrapper").html(fileList);
 			var swiper = new Swiper('.swiper-container', {
@@ -637,11 +712,23 @@ function writeForm(){
 	$("#form input[name='no']").val("0");
 	$("#form input[name='title']").val("");
 	$("#form textarea[name='content']").val("");
+	$("#form input[name='files']").val("");
 }
 
 //글쓰기
 function writeReview() {
+	
+	if($("input[name=title]").val()==""){
+		alert("제목을 입력하세요")
+	return false;
+	}
+	if($("textarea[name=content]").val()==""){
+		alert("내용을 입력하세요")
+	return false;
+	}
+	
 	var formData = new FormData($("#form")[0])
+	
 	$.ajax({ 
 		url:"write.json",
 		data: formData,
@@ -661,7 +748,7 @@ function writeReview() {
 		$("#content_detail").hide();
 		$("#content_review").show();
 		$("#buttons").show();
-		review('${param.hospitalSeq}');
+		review();
 	});
 }
 
@@ -684,7 +771,6 @@ function detail(no){
 		}
 	})
 	.done(function(result) { //가지고온 result에 접근해서 result.board.no 이렇게 쓸 수 있는것.
-		console.dir(result);
 		
 		detailNo = result.board.no;
 		
@@ -708,8 +794,11 @@ function detail(no){
 		$("#filearea").html(filearea)
 		
 		if("${sessionScope.user.userSeq}" == result.board.userSeq){
+			console.log("${sessionScope.user.userSeq}");
+			console.log(result.board.userSeq);
 			$("#btn_update_delete").show()
 		}
+			console.dir(result.board);
 		makeCommentList();
 	});
 }
@@ -726,7 +815,7 @@ function delete1(){
 		$("#content_review").show();
 		$("#content_area_writeForm").hide();
 		$("#content_detail").hide();
- 		review('${param.hospitalSeq}');
+ 		review();
 	})
 	.fail(function(err){
 		console.dir(err)
@@ -745,7 +834,6 @@ function updateForm(){
 	.done(function(result){
 		
 		console.dir("------------result")
-		console.dir(result)
 		$("#content_detail").hide();
 		$("#content_area_writeForm").show();
 		
@@ -775,18 +863,12 @@ function updateReview(board){
 	.done(function(result){
 		$("#content_area_writeForm").hide();
 		$("#content_review").show();
- 		review('${param.hospitalSeq}');
+ 		review();
 	})
 	.fail(function(err){
 		console.dir(err)
 	})
 }
-
-
-
-
-
-
 
 
 //댓글 삭제
@@ -839,7 +921,6 @@ function commentUpdate(commentNo) {
 			content : $("#modRow" + commentNo + " input[name=content]").val()
 		},
 		success : function() {
-			console.log("안녕");
 			makeCommentList();
 		}
 	});
@@ -856,7 +937,12 @@ function commentCancel(commentNo){
 //댓글등록
 $("#rForm").submit(function(e){
 		e.preventDefault();
-		alert(detailNo);
+		
+	if($("#rForm textarea[name='content']").val()==""){
+		alert("댓글 내용을 입력하세요")
+	return false;
+	}
+		
 	$.ajax({
 		url : "commentRegist.json",
 		type : "POST",
@@ -899,7 +985,6 @@ function makeCommentList() {
 	
 		for(var i=0; i<result.length; i++){
 			var comment = result[i];
-			console.log(comment.content);
 			html+='<tr id="row'+comment.commentNo+'" width="600px">';
 			html+='	<td width="150px">' + comment.name+'</td>';
 			html+='	<td width="300px">'+comment.content+'</td>';
@@ -927,6 +1012,22 @@ function makeCommentList() {
 	});
 }
 
+$(document).ready(function(){
+	$("#cmt_Content").on("keyup", function(){
+		if($(this).val().length > 1000){
+			alert("1000자 이상은 쓸 수 없습니다");
+			$(this).val($(this).val().substring(0,1000));
+		}
+	})
+})
+$(document).ready(function(){
+	$("#cmt_Content").on("keyup", function(){
+		if($(this).val().length > 1000){
+			alert("1000자 이상은 쓸 수 없습니다");
+			$(this).val($(this).val().substring(0,1000));
+		}
+	})
+})
 
 
 

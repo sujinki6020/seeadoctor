@@ -41,7 +41,7 @@ public interface HospitalAboutMapper {
 	
 	
 	//댓글
-	List<Comment> selectCommentByNo(int no); //
+	List<Comment> selectCommentByNo(int no); 
 	void insertComment(Comment comment);
 	void deleteComment(int commentNo);
 	void updateComment(Comment comment);
