@@ -87,7 +87,6 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	public Map<String, Object> selectHospReview(Search search) throws Exception {
 		Map<String, Object> result = new HashMap<>();
 		
-//		new Page(search.getPageNo());
 		
 		List<Board> list = hospMapper.selectReview(search); //전체 게시글 조회
 		int count = hospMapper.selectReviewCount(search); //총 게시글수

@@ -15,7 +15,6 @@
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=IutEeaTAqvux8P5IXvhG&submodules=geocoder"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.6/css/swiper.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.2.6/js/swiper.min.js"></script>
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=X_0Pf35zZ_CLoet1bVpE&submodules=geocoder"></script>
 <style>
 body { 
    font-family: 'NanumSquare', sans-serif; 
@@ -96,7 +95,7 @@ textarea.form-control {
 			<div id="head_btn_area">
 				<div id="head_btns">
 				
-					<a href="">
+					<a href="https://map.naver.com/?eText=${result.hospResult.dutyName}&elng=${result.hospResult.wgs84Lon}&elat=${result.hospResult.wgs84Lat}">
 						<img src="${pageContext.request.contextPath}/images/board/search.png" class="pull-right" id="btn_search"/><br>
 						<span>길찾기</span>
 					</a>
@@ -171,9 +170,9 @@ textarea.form-control {
 						<span style="padding-left: 26px;">${result.hospResult.dutyTel1}</span>
 						<span style="padding-left: 26px;">${result.hospResult.dutyTel3}</span>
 					</div>
-					<div style="height: 47px;">
+					<div style="height:47px; width: 670px;">
 						<span id="info1">부가정보</span>
-						<span style="padding-left: 26px;">${result.hospResult.dutyEtc}, ${result.hospResult.dutyInf}</span><br>
+						<span style="padding-left:80px; float:right; margin-top: -24px;">${result.hospResult.dutyEtc}, ${result.hospResult.dutyInf}</span><br>
 					</div>
 				</div>
 				<div style="width: 710px; margin: 28px 13px 0px -34px;">
