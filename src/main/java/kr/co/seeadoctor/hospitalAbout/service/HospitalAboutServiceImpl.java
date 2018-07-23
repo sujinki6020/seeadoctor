@@ -12,14 +12,15 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.seeadoctor.repository.mapper.DoctorMapper;
 import kr.co.seeadoctor.repository.mapper.HospitalAboutMapper;
+import kr.co.seeadoctor.repository.mapper.ReservationMapper;
 import kr.co.seeadoctor.repository.mapper.UserMapper;
 import kr.co.seeadoctor.repository.mapper.VisitCntMapper;
 import kr.co.seeadoctor.repository.vo.Board;
 import kr.co.seeadoctor.repository.vo.BoardFile;
 import kr.co.seeadoctor.repository.vo.Comment;
 import kr.co.seeadoctor.repository.vo.HospitalAbout;
-import kr.co.seeadoctor.repository.vo.Page;
 import kr.co.seeadoctor.repository.vo.PageResult;
+import kr.co.seeadoctor.repository.vo.Reservation;
 import kr.co.seeadoctor.repository.vo.Search;
 @Service
 public class HospitalAboutServiceImpl implements HospitalAboutService{
@@ -32,6 +33,8 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	private DoctorMapper docMapper;
 	@Autowired
 	private UserMapper userMapper;
+	@Autowired
+	private ReservationMapper reserveMapper;
 
 	// 아래의 정보를 가져오기 위한 서비스 필요한
 	// 병원 정보 가져오기
@@ -124,6 +127,13 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 					fileVO.setHospitalSeq(board.getHospitalSeq());
 					hospMapper.insertReviewFiles(fileVO);
 			 }
+		}
+		
+		if(board.getReserveSeq() != null) {
+			Reservation reservation = new Reservation();
+			reservation.setReviewNo(board.getNo()); //xml에서 selectKey로 받아오기
+			reservation.setReserveSeq(board.getReserveSeq()); //BoardVO에 넣어주기
+			reserveMapper.updateReservationReview(reservation);
 		}
 	}
 	

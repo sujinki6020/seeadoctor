@@ -255,6 +255,7 @@ textarea.form-control {
 				<div id="form1">
 					<form id="form" enctype="multipart/form-data" method="post">
 					<input type="hidden" name="hospitalSeq" value="${param.hospitalSeq}">
+					<input type="hidden" name="reserveSeq" value="${param.reserveSeq}">
 					<div id="review_row1">
 					<span id="review">리뷰쓰기</span>
 
@@ -367,32 +368,49 @@ textarea.form-control {
 //탭 케이스 이름 줘서 각각 페이지로 들어갈 수 있도록 하는 코드
 
 $(function () {
-	   if ("${param.tabNo}" == 1) {
-	      $("#content_box").show();
-	      $("#content_photo").hide();
-	      $("#content_area_writeForm").hide();
-	      $("#content_detail").hide();
-	      $("#buttons").hide();
-	      $("#content_review").hide();
-	   }else if("${param.tabNo}" == 2) {
-	      $("#content_box").hide();
-	      $("#content_photo").show();
-	      $("#content_area_writeForm").hide();
-	      $("#content_detail").hide();
-	      $("#buttons").hide();
-	      $("#content_review").hide();
-	      photo("${param.hospitalSeq}");
-	   }else if("${param.tabNo}" == 3){
-	      $("#content_box").hide();
-	      $("#content_photo").hide();
-	      $("#content_area_writeForm").hide();
-	      $("#content_detail").hide();
-	      $("#buttons").hide();
-	      $("#content_review").show();
-	      review();
-	   }
-	});
+	   if("${param.review}" == 1){
+			$("#content_box").hide();
+			$("#content_review").hide();
+			$("#content_photo").hide();
+			$("#content_area_writeForm").show();
+			$("#content_detail").hide();
+			
+			$("#registBtn").show();
+			$("#updateBtn").hide();
 
+			/*예약리뷰용*/
+			//$("#form input[name='reserveSeq']").val("${param.reserveSeq}");
+			
+			$("#form input[name='name']").val("${sessionScope.user.name}");
+			$("#form input[name='no']").val("0");
+			$("#form input[name='title']").val("");
+			$("#form textarea[name='content']").val("");
+	   }
+	   if("${param.review}" == 2){
+				$("#content_box").hide();
+				$("#content_area_writeForm").show();
+				
+			$.ajax({
+				url : "updateForm.json",
+				data : {
+					no: "${param.reviewNo}",
+					hospitalSeq: "${param.hospitalSeq}"
+				},
+				dataType: "json"
+			})
+			.done(function(result){
+				$("#content_detail").hide();
+				
+				$("#registBtn").hide();
+				$("#updateBtn").show();
+				
+				$("#form input[name='name']").val(result.board.name);
+				$("#form input[name='no']").val(result.board.no);
+				$("#form input[name='title']").val(result.board.title);
+				$("#form textarea[name='content']").val(result.board.content);
+			});
+	};
+});
 
 //위에 지도맵코드
 let map = new naver.maps.Map('map', {center : new naver.maps.LatLng( "${result.hospResult.wgs84Lat}" , "${result.hospResult.wgs84Lon}")} );

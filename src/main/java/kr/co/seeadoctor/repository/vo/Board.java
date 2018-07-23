@@ -19,8 +19,18 @@ public class Board {
 	private String name;
 	private MultipartFile[] files;
 	private int hospitalSeq;
+	private Integer reserveSeq;
 	
 	
+	
+	
+
+	public Integer getReserveSeq() {
+		return reserveSeq;
+	}
+	public void setReserveSeq(Integer reserveSeq) {
+		this.reserveSeq = reserveSeq;
+	}
 	public int getCommentCnt() {
 		return commentCnt;
 	}
