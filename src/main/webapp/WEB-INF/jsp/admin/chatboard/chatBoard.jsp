@@ -35,7 +35,7 @@
       <tbody>
       
       <c:forEach var="chatBoard" items="${cbList}">
-      <p id="adminId">${chatBoard.adminId}</p>
+<%--       <p id="adminId">${chatBoard.adminId}</p> --%>
         <tr>
           <td id="td1"><input type="checkbox" name="check" id="checkedOrNot" /></td>
           <td id="td2"><a href="#" class="userId">${chatBoard.userId}</a> - ${chatBoard.userName}</td>
@@ -71,7 +71,7 @@ $("#td4").on("keyup", function () {
 // })
 
 $("#tb2").on("click",".userId",function(){
-	window.open('http://localhost:8001/seeadoctor/chat/chatWindow.do?receiverId=' + $(this).text(), 'popup01', 'width=400, height=500, scrollbars= 0, toolbar=0, menubar=no');
+	window.open('http://localhost:8001/seeadoctor/chat/chatWindow.do?receiverId=' + $(this).text(), 'popup01', 'width=400, height=550, toolbar=0, menubar=no');
 });
 </script>
 </body>

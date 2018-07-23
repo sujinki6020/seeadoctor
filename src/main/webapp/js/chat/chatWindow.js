@@ -31,7 +31,10 @@
 		$("#chatArea").append("<p class='me'>" + msg + "<br>" + time + "</p><br>");
 		var rcvId = $("#rcvId").val();
 		msg = rcvId + ":" + msg;
-		websocket.send(msg); 
+		websocket.send(msg);
+		$("#message").remove();
+		$("#rcvId").before('<textarea rows="4" cols="40" id="message" placeholder="Type a message"></textarea>');
+		
 	};
 	
 	function getTime() {
@@ -66,16 +69,11 @@
 			
 			var time = getTime();
 			$("#chatArea").append("<p class='them'>" + msg + "<br>" + time + "</p><br>");
-			
-			var inputAreaHeight = $("#inputArea").height();
-			var maxScroll = $("#chatArea").height() - inputAreaHeight;
-			$("#inputArea").scrollTop(maxScroll);
 		}
 	};
 	
-	function enter() {
-		if (event.keyCode == 13) {
+	$(document).on("keydown", "#message", function (event) {
+		if(event.keyCode == 13){
 			send();
 		}
-		event.stopPropagation();
-	};
+	});

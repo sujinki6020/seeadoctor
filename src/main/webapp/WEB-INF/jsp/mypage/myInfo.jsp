@@ -180,7 +180,7 @@
 	});
 	
 	$(".panel").on("click",".chat",function(){
-	window.open('http://localhost:8001/seeadoctor/chat/chatWindow.do?receiverId=' + $(this).data("flag"), 'popup01', 'width=400, height=500, scrollbars= 0, toolbar=0, menubar=no');
+	window.open('http://localhost:8001/seeadoctor/chat/chatWindow.do?receiverId=' + $(this).data("flag"), 'popup01', 'width=400, height=550, toolbar=0, menubar=no');
 	});
 	
 	</script>
