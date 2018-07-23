@@ -10,6 +10,7 @@ CREATE TABLE tb_reservation
     `symptom`         VARCHAR(600)       NOT NULL    COMMENT '증상', 
     `reserve_status`  VARCHAR(1)   default '1'    COMMENT '방문상태', 
     `review_status`   VARCHAR(1)    default 'f'    COMMENT '리뷰작성', 
+    `review_no`   INT    NULL    COMMENT '리뷰글번호'
     PRIMARY KEY (reserve_seq)
 );
 ALTER TABLE tb_reservation COMMENT '예약정보 테이블';

@@ -13,6 +13,7 @@
 		<result column="symptom" property="symptom" />
 		<result column="reserve_status" property="reserveStatus" />
 		<result column="review_status" property="reviewStatus" />
+		<result column="review_no" property="reviewNo" />
 		<collection property="user" resultMap="userMap"/>
 		<collection property="doctor" resultMap="doctorMap"/>
 		<collection property="hospital" resultMap="hospitalMap"/>
@@ -176,6 +177,14 @@
 		update tb_reservation
 	       set reserve_status = 2
      	 where reserve_seq = #{reserveSeq}
+	</update>
+	
+	<!-- 리뷰쿼리 -->
+	<update id="updateReservationReview" parameterType="reservation">
+	update tb_reservation
+	   set review_status = 't',
+	       review_no = #{reviewNo}
+	 where reserve_seq = #{reserveSeq}
 	</update>
 	
 	<!-- 통계쿼리 -->
