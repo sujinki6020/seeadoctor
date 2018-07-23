@@ -9,7 +9,8 @@ a:link, a:hover {
 
 .viewWrap {
 	font-size: medium;
-	width: 1315px;
+	width: 1200px;
+	margin-left: 40px;
 	padding: 20px 150px;
 	box-sizing: border-box;
 }
@@ -76,6 +77,18 @@ border: 1px solid #ddd;
     margin-right: 5px;
     outline: none;
     cursor: pointer;
+}
+.stateCancle {
+	color: #f4427a;
+    border: 1px solid #f4427a;
+}
+.stateWrite {
+	color: #5398e8;
+    border: 1px solid #5398e8;
+}
+.stateUpdate {
+	color: #66c178;
+    border: 1px solid #66c178;
 }
 #topBtn {
     position: fixed;

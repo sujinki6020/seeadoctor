@@ -56,13 +56,13 @@ function lastPostFunc(name, val) {
 						appendData += '<div class="stateIcon state'+list[i].reserveStatus+'">'+status+'</div>';
 						appendData += '<span>　'+hour+':'+min+' | '+list[i].hospital.dutyName+' | '+list[i].doctor.doctorName+' 원장</span>';
 						if(list[i].reserveStatus==1) {
-						appendData += '<button type="button" class="stateBnts" onclick="cancle('+list[i].reserveSeq+')">예약취소</button>';
+						appendData += '<button type="button" class="stateBnts stateCancle" onclick="cancle('+list[i].reserveSeq+')">예약취소</button>';
 						}
 						if(list[i].reserveStatus==4 && list[i].reviewStatus=='f') {
-						appendData += '<a href="/seeadoctor/hospital/about.do?hospitalSeq='+list[i].hospitalSeq+'&review=1&reserveSeq='+list[i].reserveSeq+'"><button type="button" class="stateBnts">리뷰작성</button></a>';
+						appendData += '<a href="/seeadoctor/hospital/about.do?hospitalSeq='+list[i].hospitalSeq+'&review=1&reserveSeq='+list[i].reserveSeq+'"><button type="button" class="stateBnts stateWrite">리뷰작성</button></a>';
 						}
 						if(list[i].reserveStatus==4 && list[i].reviewStatus=='t') {
-							appendData += '<a href="/seeadoctor/hospital/about.do?hospitalSeq='+list[i].hospitalSeq+'&review=2&reviewNo='+list[i].reviewNo+'"><button type="button" class="stateBnts">리뷰수정</button></a>';
+							appendData += '<a href="/seeadoctor/hospital/about.do?hospitalSeq='+list[i].hospitalSeq+'&review=2&reviewNo='+list[i].reviewNo+'"><button type="button" class="stateBnts stateUpdate">리뷰수정</button></a>';
 						}
 						appendData += '</div>';
 				};
