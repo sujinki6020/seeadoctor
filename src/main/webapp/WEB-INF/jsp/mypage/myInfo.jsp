@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage/mypage.css" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage/myInfo.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage/myInfo.css?ver=1" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage/like.css" />
 </head>
 <body>
@@ -92,10 +92,6 @@
 	</section>
 
 	<section id="content2">
-<!-- 		<div id="likeContainer" class="container"> -->
-
-<!-- 			<section class="hero-unit"> -->
-
 				<div class="row">
 					<div class="large-12 columns">
 
@@ -106,16 +102,16 @@
 								<div class="large button card-front">
 									<a href="#">${like.dutyName}</a> <i class="fa fa-code card-icon "></i>
 								</div>
-								<div class="panel card-back"><p>name</p></div>
-								<div class="panel card-back"><a href="#" class="chat" data-flag="${like.adminId}">관리자와 채팅하기</a></div>
+								<div class="panel card-back">
+									<br><br>
+									<a href="#" class="chat" data-flag="${like.adminId}" >관리자와 채팅하기</a>
+								</div>
 							</li>
 							</c:forEach>
 
 						</ul>
 					</div>
 				</div>
-<!-- 			</section> -->
-<!-- 		</div> -->
 	</section>
 	</main>
 	
@@ -183,19 +179,10 @@
 		}
 	});
 	
-	$(document).on("click",".chat",function(){
-		//ws.send("admin99"+":테스트중..")
-	})
+	$(".panel").on("click",".chat",function(){
+	window.open('http://localhost:8001/seeadoctor/chat/chatWindow.do?receiverId=' + $(this).data("flag"), 'popup01', 'width=400, height=500, scrollbars= 0, toolbar=0, menubar=no');
+	});
 	
-	function chat(id) {
-		console.log('아아디',id);
-		//ws.send(""+ ":채팅을 보냈습니다.")
-		// 팝업을 띄우기, width 300, height 400, 스크롤바, 툴바, 메뉴바를 모두 숨기는 경우
-		//window.open('http://localhost:8001/seeadoctor/chat/chatWindow.do', 'popup01', 'width=400, height=500, scrollbars= 0, toolbar=0, menubar=no');
-	};
-	
-// 	alert('${hList}');
-
 	</script>
 </body>
 </html>

@@ -29,6 +29,8 @@ public class MyPageController {
 //		List<User> userList = myPageService.retrieveUser(id);
 	    model.addAttribute("hList", hList);
 
+	    // adminId를 가져와서 model에 담아서 보내기
+	    
 		return "mypage/myInfo";
 	}
 	

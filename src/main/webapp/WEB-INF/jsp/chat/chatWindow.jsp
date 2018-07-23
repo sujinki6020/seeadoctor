@@ -12,17 +12,19 @@
 <script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-            <div id="chatArea">
+		<div style="height:500px;">
+            <div id="chatArea" style="height:400px;">
 				<blockquote class="chatBox">
 				</blockquote>
 			</div>
 			
-             <div style="background:whitesmoke; float:bottom; !important" id="inputArea">
+             <div style="background:whitesmoke; float:bottom; height:100px; !important" id="inputArea">
 	            ${sessionScope.user.id}님 : 
 	   			<textarea rows="2" cols="40" id="message" placeholder="Type a message" onkeydown="enter();"></textarea>				
 				<input type="hidden" id="rcvId" value="${chat.receiverId}" />
 	            <button class="glyphicon glyphicon-share-alt"></button>
              </div> 
+		</div>
 <script src="${pageContext.request.contextPath}/js/chat/chatWindow.js"></script>
 <script>
 	$(".glyphicon glyphicon-share-alt").click(function () {

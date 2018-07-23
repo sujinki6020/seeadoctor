@@ -6,7 +6,8 @@
 }
 
 form, input {
-  font-family: "Poppins", sans-serif;
+/*   font-family: "Poppins", sans-serif; */
+  font-family: Verdana,Arial, Helvetica, sans-serif;
 }
 
 body, html {
@@ -16,13 +17,9 @@ body, html {
     background-color: #f0f0f0;
     margin:10px;
 }
-/* body { */
-/*     font-size: 70%; */
-/* } */
 p {
     padding: 7px 0 7px 0;
     font-weight: 500;
-/*     font-size: 30px; */
 }
 a {
     color: #656565;
@@ -34,7 +31,6 @@ a:hover{
 }
 
 #myH1 {
-    font-weight:200;
     color: #33BBEA;
     font-size:20pt;
     background: transparent url("http://localhost:8001/seeadoctor/images/mypage/h1.png") no-repeat center left;
@@ -45,7 +41,7 @@ form.register{
     width:100%;
     margin: 20px auto 0px auto;
     margin: auto;
-    height:auto;
+    height:900px;
     background-color:#fff;
     padding:5px;
     -moz-border-radius:20px;
@@ -78,7 +74,7 @@ form.register fieldset.row2
     border-top:1px solid #F1F1F1;
     border-right:1px solid #F1F1F1;
     width: 480px;
-    height:220px;
+    height:400px;
     padding:5px;
     float:left;
     margin:15px;
@@ -108,7 +104,6 @@ form.register legend
     margin-left: 14px;
     font-weight:bold;
     font-size: 20px;
-    font-weight:100;
 }
 form.register label{
     color:#444;
@@ -173,7 +168,7 @@ form.register input[type=password]
 }
 .button
 {
-/*     background:rgba(61, 149, 218, 1.0) url("http://localhost:8001/seeadoctor/images/mypage/overlay.png") repeat-x; */
+    background:rgba(61, 149, 218, 1.0) url("http://localhost:8001/seeadoctor/images/mypage/overlay.png") repeat-x;
     padding: 8px 10px 8px;
     color: #fff;
     text-decoration: none;
@@ -183,7 +178,7 @@ form.register input[type=password]
     -webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
     text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
     cursor: pointer;
-/*     float:right; */
+    float:right;
     font-size:15px;
     margin: 150px;
 }
