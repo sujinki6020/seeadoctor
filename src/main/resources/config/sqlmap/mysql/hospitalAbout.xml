@@ -181,7 +181,6 @@
 	
 		<insert id="insertReviewFiles" parameterType="boardFile">
 			insert into tb_board_file(
-<<<<<<< HEAD
 				no, file_path, sys_name,hospital_seq
 				<if test="type == 2">
 				,type
@@ -191,11 +190,9 @@
 				<if test="type == 2">
 				, #{type}
 				</if>
-=======
 				no, file_path, sys_name
 			) values(
 				#{no},#{filePath},#{sysName}
->>>>>>> 4303f90a5939e7d6dd99d6c647795413e0e9e799
 			)
 		</insert>
 		
