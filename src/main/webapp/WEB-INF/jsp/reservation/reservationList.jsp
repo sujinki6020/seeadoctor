@@ -25,7 +25,7 @@
                 <option value = "4">진료완료</option>
            </select>
            <select name="reserveDate" onchange="selectCategory(this.name, this.value)">
-                <option value = "">예약일자</option>
+                <option value = "">접수일자</option>
                 <option value = "1">최근 한 달</option>
                 <option value = "2">2개월 전</option>
                 <option value = "3">3개월 전</option>

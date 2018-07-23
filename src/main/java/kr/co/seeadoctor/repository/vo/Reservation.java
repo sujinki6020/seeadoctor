@@ -18,6 +18,8 @@ public class Reservation {
 	    private Integer doctorSeq;
 
 	    // 날짜 
+	    private Date regDate;
+	    // 날짜 
 	    private Date reserveDate;
 
 	    // 시간 
@@ -41,6 +43,14 @@ public class Reservation {
 	  
 
 	
+
+		public Date getRegDate() {
+			return regDate;
+		}
+
+		public void setRegDate(Date regDate) {
+			this.regDate = regDate;
+		}
 
 		public Hospital getHospital() {
 			return hospital;

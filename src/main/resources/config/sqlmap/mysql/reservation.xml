@@ -7,6 +7,7 @@
 		<result column="user_seq" property="userSeq" />
 		<result column="hospital_seq" property="hospitalSeq" />
 		<result column="doctor_seq" property="doctorSeq" />
+		<result column="reg_date" property="regDate" />
 		<result column="reserve_date" property="reserveDate" />
 		<result column="reserve_time" property="reserveTime" />
 		<result column="symptom" property="symptom" />
@@ -96,14 +97,11 @@
 		   	</when>
 		   	<when test="name eq 'reserveDate'">
 	   			<choose>
-					<when test="val == 1">
-					    and reserve_date <![CDATA[>=]]> date_add(now(), interval -1 month)
-					</when>
 					<when test="val == 4">
-					    and reserve_date <![CDATA[<=]]> date_add(now(), interval -4 month)
+					    and reg_date <![CDATA[<=]]> date_add(now(), interval -4 month)
 					</when>
 					<otherwise>
-			   			and reserve_date between date_add(now(), interval -#{val} month) and date_add(now(), interval -(#{val}-1) month)
+			   			and reg_date between date_add(now(), interval -#{val} month) and date_add(now(), interval -(#{val}-1) month)
 					</otherwise>
 				</choose>
 		   	</when>
