@@ -96,12 +96,15 @@
 		   	</when>
 		   	<when test="name eq 'reserveDate'">
 	   			<choose>
-					<when test="val != 4">
-			   			and reserve_date between date_add(now(), interval -#{val} month) and date_add(now(), interval -(#{val}-1) month)
+					<when test="val == 1">
+					    and reserve_date <![CDATA[>=]]> date_add(now(), interval -1 month)
 					</when>
 					<when test="val == 4">
 					    and reserve_date <![CDATA[<=]]> date_add(now(), interval -4 month)
 					</when>
+					<otherwise>
+			   			and reserve_date between date_add(now(), interval -#{val} month) and date_add(now(), interval -(#{val}-1) month)
+					</otherwise>
 				</choose>
 		   	</when>
 	   	</choose>
@@ -155,6 +158,7 @@
 	     from tb_reservation r, tb_doctor d
 	   	where r.doctor_seq = d.doctor_seq
 	   	  and user_seq = #{userSeq}
+	   	order by reserve_date desc, cast(reserve_time as unsigned) asc
 	</select>
 	
 	<update id="updateReserveStatusFinish" parameterType="int">
