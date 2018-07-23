@@ -5,7 +5,7 @@ import java.util.Date;
 import org.springframework.web.multipart.MultipartFile;
 
 
-public class Board extends Page {
+public class Board {
 
 	private int userSeq; //id
 	private int no;

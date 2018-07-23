@@ -118,7 +118,9 @@
 				 		</when>
 			 		</choose>
 		 		</if>
-			 order by no desc 
+		 		order by no desc
+		 	    limit #{pageNo}, 10	
+			  
 		</select>
 		
 		<select id="selectReviewCount" resultType="int" parameterType="search">

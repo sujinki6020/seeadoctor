@@ -49,11 +49,8 @@ public class HospitalAboutController {
 	
 	@RequestMapping("/review.json") 
 	@ResponseBody
-	public Map<String, Object> review(Search search, Board board) throws Exception {
-		System.out.println(search.getHospitalSeq());
-		System.out.println(search.getSelectCategory());
-		System.out.println(search.getSearchKeyWord());
-		return hospService.selectHospReview(search, board);
+	public Map<String, Object> review(Search search) throws Exception {
+		return hospService.selectHospReview(search);
 	}
 
 	@RequestMapping("/write.json") 

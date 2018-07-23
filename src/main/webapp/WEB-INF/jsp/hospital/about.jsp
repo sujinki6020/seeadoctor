@@ -283,7 +283,7 @@ textarea.form-control {
 						<button type="button" id="updateBtn" class="btn btn-default" style="display:none; margin-bottom: 10px;" onclick="updateReview();">수정</button>
 						<button type="button" id="registBtn" class="btn btn-default" style="display:none; margin-bottom: 10px;" onclick="writeReview();">등록</button>
 						<button type="button" class="btn btn-default" style="margin-bottom: 10px;" 
-								onclick="review(${param.hospitalSeq});">취소</button>
+								onclick="review(${param.hospitalSeq})">취소</button>
 					</div>
 				</form>
 				</div>
@@ -505,20 +505,23 @@ function minusStar(target){
 
 
 // 리뷰
-function review() {
+function review(pageNo) { //밑에 페이지번호 눌렀을 때도 실행됨
+	if(pageNo === undefined){ //=== 타입과 값이 같을 때. 타입까지 같이 비교
+		pageNo=1;
+	}
 	
-	console.log($("select[name='selectCategory']").val());
-	console.log($("input[name='searchKeyWord']").val());
+// 	console.log($("select[name='selectCategory']").val());
+// 	console.log($("input[name='searchKeyWord']").val());
 	$.ajax({
 		url:"review.json",
 		data : {
 			hospitalSeq: "${param.hospitalSeq}",
 			selectCategory : $("select[name='selectCategory']").val(),
-			searchKeyWord : $("input[name='searchKeyWord']").val()
+			searchKeyWord : $("input[name='searchKeyWord']").val(),
+			pageNo : pageNo
 		}
 	})
 	.done(function(result){
-		console.log("던");
 		makeReviewList(result);
 	})
 	.fail(function(result){
@@ -546,7 +549,6 @@ function search(){
 */
 
 function makeReviewList(result) {
-	console.log("메이크함수");
 	console.log(result.list);
 	
 	$("#content_box").hide();
@@ -561,7 +563,7 @@ function makeReviewList(result) {
 	for(var i = 0; i < result.list.length; i++) {
 		var board = result.list[i];
 		reviewListHtml += "<tr>";
-			reviewListHtml += "<td><a href='#1' onclick='detail("+ board.no +");'>" + board.title + "</a></td>";
+		reviewListHtml += "<td><a href='#1' onclick='detail("+ board.no +");'>" + board.title + "</a></td>";
 		var date = new Date(board.regDate);
 		var time = date.getFullYear()+"-"+(date.getMonth()+1)
 				+"-"+ date.getDate();
@@ -573,8 +575,63 @@ function makeReviewList(result) {
 		reviewListHtml += '<tr><td colspan="4">아직 작성된 리뷰가 없습니다!</td></tr>';
 	}
 	$("#content_review > table > tbody").html(reviewListHtml);
-
+	
+	makePageLink(result.pageResult);
 }
+
+//페이징
+function makePageLink(paging){
+	console.dir(paging)
+	var html="";
+	if(paging.count != 0){
+		var clz="";
+		if(paging.prev == false){ //없으면
+			clz = "disabled";
+		}
+		html += '<li class="'+clz+'">';
+		
+		var fn="";
+		
+		if(paging.prev == true){//탭이 있으면
+			fn = "javascript:review("+(paging.beginPage-1)+");"; //언제 이렇게 쓰느건가요? 코드이해안됨.. 비긴페이지-1이 무슨뜻인가요?
+		}
+		html += '<a href="'+fn+'"aria-label="Previous">';
+		html += '	<span aria-hidden="true">&laquo;</span>';
+		html += '</a>';
+		html += '</li>';
+// 		alert("beginPage"+paging.beginPage);
+// 		alert("endPage"+paging.endPage);
+		for (var i = paging.beginPage; i <= paging.endPage; i++){
+			if(i == paging.pageNo){
+				html += '<li class="active"><a href="#1">' + i + '</a></li>'; //코드이해못함
+			}
+			else{
+				html += '<li><a href="javascript:review(' + i + ');">' + i + '</a></li>';
+			}
+		}
+		
+		clz = "";
+		if(paging.next === false){
+		//alert("다음페이지가 없으면" + paging.next) //탭의 다음탭? 1~10번, 11~20번
+			clz="disabled";
+		}
+		html += '<li class="'+clz+'">';
+		
+		fn="";
+		
+		if(paging.next == true){
+			fn = "javascript:review("+(paging.endPage+1)+");";
+		}
+		html += '<a href="'+fn+'" aria-label="Next">';
+		html += '	<span aria-hidden="true">&raquo;</span>';
+		html += '</a>';
+		html += '</li>'
+	}
+	$("nav > ul.pagination").html(html);
+}
+
+
+
 //사진
 function photo(hospitalSeq) {
 
@@ -585,7 +642,6 @@ function photo(hospitalSeq) {
 		}
 	})
 	.done(function(files){
- alert("done")	
 		$("#content_box").hide();
 		$("#content_review").hide();
 		$("#content_photo").show();
@@ -856,7 +912,6 @@ function commentCancel(commentNo){
 //댓글등록
 $("#rForm").submit(function(e){
 		e.preventDefault();
-		alert(detailNo);
 	$.ajax({
 		url : "commentRegist.json",
 		type : "POST",

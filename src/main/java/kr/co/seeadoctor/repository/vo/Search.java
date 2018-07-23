@@ -1,6 +1,6 @@
 package kr.co.seeadoctor.repository.vo;
 
-public class Search {
+public class Search extends Page{
 	
 	private int hospitalSeq;
 	private String selectCategory;

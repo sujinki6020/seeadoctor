@@ -80,19 +80,19 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 
 
 	@Override
-	public Map<String, Object> selectHospReview(Search search, Board board) throws Exception {
+	public Map<String, Object> selectHospReview(Search search) throws Exception {
 		Map<String, Object> result = new HashMap<>();
 		
-		List<Board> list = hospMapper.selectReview(search);
-
-		int sPageNo = board.getPageNo(); //탭시작번호
-		board.setPageNo(sPageNo == 0 ? 1 : sPageNo); //시작번호가0이면 1로, 그게아니면 그걸로
-
+		List<Board> list = hospMapper.selectReview(search); //전체 게시글 조회
 		int count = hospMapper.selectReviewCount(search); //총 게시글수
+
+		int sPageNo = search.getPageNo(); //탭시작번호
+		search.setPageNo(sPageNo == 0 ? 1 : sPageNo); //시작번호가0이면 1로, 그게아니면 그걸로
+
 		
 		result.put("list", list);
 		result.put("count", count);
-		result.put("pageResult", new PageResult(board.getPageNo(), count));
+		result.put("pageResult", new PageResult(search.getPageNo(), count)); // 매개변수가 두개
 		return result;
 	}
 
