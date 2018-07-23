@@ -18,6 +18,7 @@ import kr.co.seeadoctor.repository.vo.Board;
 import kr.co.seeadoctor.repository.vo.BoardFile;
 import kr.co.seeadoctor.repository.vo.Comment;
 import kr.co.seeadoctor.repository.vo.HospitalAbout;
+import kr.co.seeadoctor.repository.vo.Page;
 import kr.co.seeadoctor.repository.vo.PageResult;
 import kr.co.seeadoctor.repository.vo.Search;
 @Service
@@ -83,9 +84,12 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	public Map<String, Object> selectHospReview(Search search) throws Exception {
 		Map<String, Object> result = new HashMap<>();
 		
+//		new Page(search.getPageNo());
+		
 		List<Board> list = hospMapper.selectReview(search); //전체 게시글 조회
 		int count = hospMapper.selectReviewCount(search); //총 게시글수
-
+		
+		
 		int sPageNo = search.getPageNo(); //탭시작번호
 		search.setPageNo(sPageNo == 0 ? 1 : sPageNo); //시작번호가0이면 1로, 그게아니면 그걸로
 

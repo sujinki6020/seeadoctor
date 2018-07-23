@@ -41,6 +41,10 @@ public class PageResult {
 		next = endPage != lastPage; //해당탭의마지막페이지가 마지막페이지가 아닐 때 다음페이지가 있다
 	}
 	
+	public int getTabSize() {
+		return tabSize;
+	}
+	
 	public int getPageNo() {
 		return pageNo;
 	}
@@ -49,6 +53,9 @@ public class PageResult {
 		return count;
 	}
 	
+	public int getBeginPage() {
+		return beginPage;
+	}
 	public int getLastPage() {
 		return lastPage;
 	}
@@ -56,21 +63,16 @@ public class PageResult {
 	public int getEndPage() {
 		return endPage;
 	}
-	
+
+	public void setBeginPage(int beginPage) {
+		this.beginPage = beginPage;
+	}
 	public boolean getPrev() {
 		return prev;
 	}
 	
 	public boolean getNext() {
 		return next;
-	}
-
-	public int getBeginPage() {
-		return beginPage;
-	}
-
-	public void setBeginPage(int beginPage) {
-		this.beginPage = beginPage;
 	}
 	
 }

@@ -283,7 +283,7 @@ textarea.form-control {
 						<button type="button" id="updateBtn" class="btn btn-default" style="display:none; margin-bottom: 10px;" onclick="updateReview();">수정</button>
 						<button type="button" id="registBtn" class="btn btn-default" style="display:none; margin-bottom: 10px;" onclick="writeReview();">등록</button>
 						<button type="button" class="btn btn-default" style="margin-bottom: 10px;" 
-								onclick="review(${param.hospitalSeq})">취소</button>
+								onclick="review()">취소</button>
 					</div>
 				</form>
 				</div>
@@ -329,7 +329,7 @@ textarea.form-control {
 							
 							<div id="commentWrite" style="height: 140px;">
 								<label class="sr-only" for="content">댓글내용입력</label>
-								<textarea class="form-control" id="content" name="content" placeholder="내용을 입력하세요"></textarea>
+								<textarea class="form-control" id="cmt_Content" name="content" placeholder="내용을 입력하세요"></textarea>
 								
 								<button type="submit" id="btnCommentWrite" class="btn btn-primary btnCommentWrite">댓글쓰기</button>
 							</div>
@@ -342,7 +342,7 @@ textarea.form-control {
 			<div id="buttons" style="display: none;">
 				<div id="btn_s">
 					<%-- 목록버튼 --%>
-					<button type="button" class="btn btn-default" onclick="review(${param.hospitalSeq})">목록</button>
+					<button type="button" class="btn btn-default" onclick="review()">목록</button>
 					<%-- 글쓰기버튼 --%>
 					<button type="button" class="btn btn-default" id="writeid" onclick="writeForm();">글쓰기</button>
 					<%-- 수정삭제버튼--%>
@@ -555,13 +555,14 @@ function makeReviewList(result) {
 	$("#content_area_writeForm").hide();
 	$("#content_detail").hide();
 	$("#buttons").hide();
+	$("#btn_update_delete").hide();
 	$("#reviewCount").text(result.count);
 	
 	var reviewListHtml = "";	
 	for(var i = 0; i < result.list.length; i++) {
 		var board = result.list[i];
 		reviewListHtml += "<tr>";
-		reviewListHtml += "<td><a href='#1' onclick='detail("+ board.no +");'>" + board.title + "</a></td>";
+		reviewListHtml += "<td><a href='#1' onclick='detail("+ board.no +");'>" + board.title+"("+board.commentCnt+")" + "</a></td>";
 		var date = new Date(board.regDate);
 		var time = date.getFullYear()+"-"+(date.getMonth()+1)
 				+"-"+ date.getDate();
@@ -570,7 +571,6 @@ function makeReviewList(result) {
 		reviewListHtml += "</tr>";
 	}
 	if (result.list.length == 0) {
-		console.dir("글쓰기후 다시 리뷰출력해" + result);
 		reviewListHtml += '<tr><td colspan="4">아직 작성된 리뷰가 없습니다!</td></tr>';
 	}
 	$("#content_review > table > tbody").html(reviewListHtml);
@@ -580,7 +580,6 @@ function makeReviewList(result) {
 
 //페이징
 function makePageLink(paging){
-	console.dir(paging)
 	var html="";
 	if(paging.count != 0){
 		var clz="";
@@ -695,11 +694,23 @@ function writeForm(){
 	$("#form input[name='no']").val("0");
 	$("#form input[name='title']").val("");
 	$("#form textarea[name='content']").val("");
+	$("#form input[name='files']").val("");
 }
 
 //글쓰기
 function writeReview() {
+	
+	if($("input[name=title]").val()==""){
+		alert("제목을 입력하세요")
+	return false;
+	}
+	if($("textarea[name=content]").val()==""){
+		alert("내용을 입력하세요")
+	return false;
+	}
+	
 	var formData = new FormData($("#form")[0])
+	
 	$.ajax({ 
 		url:"write.json",
 		data: formData,
@@ -719,7 +730,7 @@ function writeReview() {
 		$("#content_detail").hide();
 		$("#content_review").show();
 		$("#buttons").show();
-		review('${param.hospitalSeq}');
+		review();
 	});
 }
 
@@ -742,7 +753,6 @@ function detail(no){
 		}
 	})
 	.done(function(result) { //가지고온 result에 접근해서 result.board.no 이렇게 쓸 수 있는것.
-		console.dir(result);
 		
 		detailNo = result.board.no;
 		
@@ -766,8 +776,11 @@ function detail(no){
 		$("#filearea").html(filearea)
 		
 		if("${sessionScope.user.userSeq}" == result.board.userSeq){
+			console.log("${sessionScope.user.userSeq}");
+			console.log(result.board.userSeq);
 			$("#btn_update_delete").show()
 		}
+			console.dir(result.board);
 		makeCommentList();
 	});
 }
@@ -784,7 +797,7 @@ function delete1(){
 		$("#content_review").show();
 		$("#content_area_writeForm").hide();
 		$("#content_detail").hide();
- 		review('${param.hospitalSeq}');
+ 		review();
 	})
 	.fail(function(err){
 		console.dir(err)
@@ -803,7 +816,6 @@ function updateForm(){
 	.done(function(result){
 		
 		console.dir("------------result")
-		console.dir(result)
 		$("#content_detail").hide();
 		$("#content_area_writeForm").show();
 		
@@ -833,7 +845,7 @@ function updateReview(board){
 	.done(function(result){
 		$("#content_area_writeForm").hide();
 		$("#content_review").show();
- 		review('${param.hospitalSeq}');
+ 		review();
 	})
 	.fail(function(err){
 		console.dir(err)
@@ -891,7 +903,6 @@ function commentUpdate(commentNo) {
 			content : $("#modRow" + commentNo + " input[name=content]").val()
 		},
 		success : function() {
-			console.log("안녕");
 			makeCommentList();
 		}
 	});
@@ -908,6 +919,12 @@ function commentCancel(commentNo){
 //댓글등록
 $("#rForm").submit(function(e){
 		e.preventDefault();
+		
+	if($("#rForm textarea[name='content']").val()==""){
+		alert("댓글 내용을 입력하세요")
+	return false;
+	}
+		
 	$.ajax({
 		url : "commentRegist.json",
 		type : "POST",
@@ -950,7 +967,6 @@ function makeCommentList() {
 	
 		for(var i=0; i<result.length; i++){
 			var comment = result[i];
-			console.log(comment.content);
 			html+='<tr id="row'+comment.commentNo+'" width="600px">';
 			html+='	<td width="150px">' + comment.name+'</td>';
 			html+='	<td width="300px">'+comment.content+'</td>';
@@ -978,6 +994,22 @@ function makeCommentList() {
 	});
 }
 
+$(document).ready(function(){
+	$("#cmt_Content").on("keyup", function(){
+		if($(this).val().length > 1000){
+			alert("1000자 이상은 쓸 수 없습니다");
+			$(this).val($(this).val().substring(0,1000));
+		}
+	})
+})
+$(document).ready(function(){
+	$("#cmt_Content").on("keyup", function(){
+		if($(this).val().length > 1000){
+			alert("1000자 이상은 쓸 수 없습니다");
+			$(this).val($(this).val().substring(0,1000));
+		}
+	})
+})
 
 
 

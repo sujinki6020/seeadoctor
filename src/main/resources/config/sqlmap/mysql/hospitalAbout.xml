@@ -104,23 +104,25 @@
 	</resultMap>
 	
 		<select id="selectReview" resultMap="reviewMap" parameterType="search">
-			select *
-			  from tb_board
-			 where hospital_seq = #{hospitalSeq}
+			select b.*, IFNULL(count(c.comment_no),0)commentCnt
+			  from tb_board b
+			  LEFT JOIN  tb_comment c
+			    on b.no=c.no
+			 where b.hospital_seq = #{hospitalSeq} 
 			 	<if test ="selectCategory != null">
 			 		<choose>
 				 		<when test="selectCategory == 1 ">
-				 			and name like concat('%', #{searchKeyWord} , '%')
+				 			and b.name like concat('%', #{searchKeyWord} , '%')
 				 		</when>
 				 		<when test="selectCategory == 2 "> 
-				 			and title like concat('%' , #{searchKeyWord} , '%')
-				 			 or content like concat('%' , #{searchKeyWord} , '%' ) 
+				 			and b.title like concat('%' , #{searchKeyWord} , '%')
+				 			 or b.content like concat('%' , #{searchKeyWord} , '%' ) 
 				 		</when>
 			 		</choose>
 		 		</if>
+				group by b.no
 		 		order by no desc
-		 	    limit #{pageNo}, 10	
-			  
+		 	    limit #{begin}, 10	
 		</select>
 		
 		<select id="selectReviewCount" resultType="int" parameterType="search">
@@ -187,17 +189,16 @@
 	
 		<insert id="insertReviewFiles" parameterType="boardFile">
 			insert into tb_board_file(
-				no, file_path, sys_name,hospital_seq
+				no, file_path, sys_name
 			) values(
-				#{no},#{filePath},#{sysName},#{hospitalSeq}
+				#{no},#{filePath},#{sysName}
 			)
 		</insert>
 		
 		<select id="selectReviewFileByNo" parameterType="board" resultMap="reviewFileMap">
 			select *
 			  from tb_board_file
-			  where hospital_seq = #{hospitalSeq}
-			    and no = #{no}  
+			  where no = #{no}
 		</select>
 		
 		<select id="outPutPhoto" parameterType="int" resultMap="reviewFileMap">
@@ -244,7 +245,5 @@
 			   set  content = #{content}
 			 where comment_no = #{commentNo}
 		</update>
-		
-		
 		
 </mapper>

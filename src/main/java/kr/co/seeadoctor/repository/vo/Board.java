@@ -6,7 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 public class Board {
-
+	private int commentCnt;
 	private int userSeq; //id
 	private int no;
 	private String title;
@@ -21,6 +21,12 @@ public class Board {
 	private int hospitalSeq;
 	
 	
+	public int getCommentCnt() {
+		return commentCnt;
+	}
+	public void setCommentCnt(int commentCnt) {
+		this.commentCnt = commentCnt;
+	}
 	public MultipartFile[] getFiles() {
 		return files;
 	}
