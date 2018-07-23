@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/login/login.css" />
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.25.3/dist/sweetalert2.all.min.js"></script>
 </head>
 <body>
 	<div class="wrapper fadeInDown">
@@ -31,5 +32,11 @@
 			</div>
 		</div>
 	</div>
+	
+	<script>
+	if('${msg}') {
+		swal('${msg}');
+	}
+	</script>
 </body>
 </html>

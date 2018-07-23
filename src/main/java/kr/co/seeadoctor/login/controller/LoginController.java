@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,7 +23,7 @@ public class LoginController {
 	}
 	
 	@RequestMapping("/login.do")
-	public String login(HttpSession session, User user) throws Exception {
+	public String login(HttpSession session, User user, Model model) throws Exception {
 		System.out.println("로그인 처리");
 //		request.getSession().setAttribute("user", true);
 		
@@ -36,13 +37,22 @@ public class LoginController {
 	        // 로그인이 성공하면 UserVO 객체를 반환
 	        User vo = loginService.login(user);
 	         
+	        String msg ="";
 	        if ( vo != null ){ // 로그인 성공
-	            session.setAttribute("user", vo); // 세션에 login인이란 이름으로 User 객체 저장
-	            returnURL = "redirect:/index.jsp"; // 로그인 성공 시 main(index)로 바로 이동
-	        }else { // 로그인 실패
-	            returnURL = "login/loginForm"; // 로그인 폼으로 다시 
+	            if(user.getPw().equals(vo.getPw())) {
+	            	System.out.println("usergetpw : "+user.getPw()+" // vogetpw : " + vo.getPw());
+	            	session.setAttribute("user", vo); // 세션에 login인이란 이름으로 User 객체 저장
+	            	returnURL = "redirect:/index.jsp"; // 로그인 성공 시 main(index)로 바로 이동
+	            } else {
+	            	System.out.println("22222usergetpw : "+user.getPw()+" // vogetpw : " + vo.getPw());
+	            	msg = "비밀번호가 틀렸습니다.";
+	            	returnURL = "login/loginForm"; // 로그인 폼으로 다시 
+	            }
+	        } else { 
+	        	msg = "아이디가 틀렸습니다.";
+	        	returnURL = "login/loginForm"; // 로그인 폼으로 다시 
 	        }
-	         
+	        model.addAttribute("msg", msg);
 	        return returnURL; // 위에서 설정한 returnURL 을 반환해서 이동시킴
 	}
 	

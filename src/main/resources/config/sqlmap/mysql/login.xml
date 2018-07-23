@@ -22,8 +22,7 @@
 	
 	<select id="login" resultMap="userMap">
 		select * from tb_user
-			where id=#{id} 
-			and pw=#{pw}
+			where id=#{id}
 	</select>
 	
 	<select id="findId" parameterType="user" resultType="string">
