@@ -144,7 +144,7 @@
                 </tr>
                 <tr class="hospiRows">
                     <th class="hospiDetail">부가정보</th>
-                    <th class="hospiDetail"><textarea name="dutyEtc" cols="100" rows="10">"${hospInfo.dutyEtc}"</textarea></th>
+                    <th class="hospiDetail"><textarea name="dutyEtc" cols="100" rows="10">"${hospInfo.dutyEtc }"</textarea></th>
                 </tr>
             </table>
         </form>
