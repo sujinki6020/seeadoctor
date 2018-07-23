@@ -4,7 +4,7 @@ public class PageResult {
 
 	//한 페이지에 몇개의 게시물을 나타낼 것인지
 	//하나의 블럭에 몇개의 페이지를 나타낼 것인지
-	private int listSize = 10; // 한 페이지당 게시글 수
+	private int listSize = 10; // 한 페이지당 게시글 수, xml에 limit로 설정해놓은 값과 동일해야함
 	private int tabSize =10; // 총 탭의 수
 	private int pageNo; //현재 페이지번호
 	private int count; //총 페이지 수

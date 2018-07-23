@@ -52,7 +52,7 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 		int cnt = hospMapper.selectHospLikeCnt(hospAbout); //중복
 		int docCnt = docMapper.countDoctorByHospSeq(hospitalSeq); //예약가능여부 확인
 		
-		System.out.println("부가정보:" + hospResult.getDutyEtc());
+//		System.out.println("부가정보:" + hospResult.getDutyEtc());
 		result.put("hospResult", hospResult);
 		result.put("myCnt", myCnt);
 		result.put("cnt", cnt);
@@ -92,7 +92,7 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 		
 		result.put("list", list);
 		result.put("count", count);
-		result.put("pageResult", new PageResult(search.getPageNo(), count)); // 매개변수가 두개
+		result.put("pageResult", new PageResult(search.getPageNo(), count)); // 생성자에 매개변수가 두개
 		return result;
 	}
 

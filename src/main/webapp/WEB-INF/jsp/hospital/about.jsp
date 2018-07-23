@@ -509,7 +509,6 @@ function review(pageNo) { //밑에 페이지번호 눌렀을 때도 실행됨
 	if(pageNo === undefined){ //=== 타입과 값이 같을 때. 타입까지 같이 비교
 		pageNo=1;
 	}
-	
 // 	console.log($("select[name='selectCategory']").val());
 // 	console.log($("input[name='searchKeyWord']").val());
 	$.ajax({
@@ -525,7 +524,7 @@ function review(pageNo) { //밑에 페이지번호 눌렀을 때도 실행됨
 		makeReviewList(result);
 	})
 	.fail(function(result){
-// 		console.log(result);
+		console.log(result);
 	})	
 		
 }
@@ -572,6 +571,7 @@ function makeReviewList(result) {
 		reviewListHtml += "</tr>";
 	}
 	if (result.list.length == 0) {
+		console.dir("글쓰기후 다시 리뷰출력해" + result);
 		reviewListHtml += '<tr><td colspan="4">아직 작성된 리뷰가 없습니다!</td></tr>';
 	}
 	$("#content_review > table > tbody").html(reviewListHtml);
