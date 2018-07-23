@@ -5,6 +5,12 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/form/hospiUpdateform.css">
+<style>
+	.docCode {
+		height: 31px;
+    	margin-left: 5px;
+	}
+</style>
 </head>
 <body>
 <div id="adminBox">
@@ -15,148 +21,171 @@
         </div>
     </div>
     <div id="modForm">
-        <form action="" method="post" enctype="multipart/form-data" id="hospiForm">
+        <form action="infoUpdate.do" method="post" enctype="multipart/form-data" id="hospiForm">
             <table id="hospiTable">
                 <colgroup>
                     <col style="width: 10%;background: #f7f7f7;">
                     <col style="width: 50%;">
                 </colgroup>
+                <tr class="hospiRows" style="display:none;">
+                    <th class="hospiDetail">
+                        <input class="inputs" type="text" name="hospitalSeq" id="hospiName" placeholder="병원명을 입력해주세요" value="${hospInfo.hospitalSeq}">
+                    </th>
+                </tr>
                 <tr class="hospiRows">
                     <th class="hospiDetail">병원명</th>
                     <th class="hospiDetail">
-                        <input class="inputs" type="text" name="hospiName" id="hospiName" placeholder="병원명을 입력해주세요" value="${hospInfo.dutyName}">
+                        <input class="inputs" type="text" name="dutyName" id="hospiName" placeholder="병원명을 입력해주세요" value="${hospInfo.dutyName}">
                     </th>
                 </tr>
                 <tr class="hospiRows">
                     <th class="hospiDetail">주소</th>
                     <th class="hospiDetail">
                     	<div>
-	                        <input class="inputs" type="text" name="hospiAddr" id="hospiAddr" placeholder="우편번호">
-	                        <a href="#1">주소검색</a>
-                    	</div>
-                    	<div>
-	                        <input class="hospiAddr" type="text" name="hospiAddr" id="hospiAddr" placeholder="도로명주소">
-	                        <input class="hospiAddrDetail" type="text" name="hospiAddr" id="hospiAddr" placeholder="상세주소">
-	                        <input class="hospiAddrDetail" type="text" name="hospiAddr" id="hospiAddr" placeholder="상세주소">
+	                        <input class="hospiAddr" type="text" name="dutyAddr" id="hospiAddr" placeholder="주소를 입력해주세요" value="${hospInfo.dutyAddr}">
                     	</div>
                     </th>
                 </tr>
                 <tr class="hospiRows">
                     <th class="hospiDetail">전화번호</th>
-                    <th class="hospiDetail"><input class="inputs" name="hospiPhone" type="text" placeholder="전화번호를 입력하세요" value="${hospInfo.dutyTel1}"></th>
-                </tr>
-                <tr class="hospiRows">
-                    <th class="hospiDetail">운영요일 설정</th>
-                    <th class="hospiDetail">
-                        <input type="checkbox" name="monday" id="mon" class="days">
-                        <label for="mon">월요일</label>
-                        <input type="checkbox" name="tuesday" id="tue" class="days">
-                        <label for="tue">화요일</label>
-                        <input type="checkbox" name="wednesday" id="wed" class="days">
-                        <label for="wed">수요일</label>
-                        <input type="checkbox" name="thursday" id="thu" class="days">
-                        <label for="thu">목요일</label>
-                        <input type="checkbox" name="friday" id="fri" class="days">
-                        <label for="fri">금요일</label>
-                        <input type="checkbox" name="saturday" id="sat" class="days">
-                        <label for="sat">토요일</label>
-                        <input type="checkbox" name="sunday" id="sun" class="days">
-                        <label for="sun">일요일</label>
-                        <input type="checkbox" name="medical" id="medical" class="days">
-                        <label for="medical">공휴일</label>
-                    </th>
+                    <th class="hospiDetail"><input class="inputs" name="dutyTel1" type="text" placeholder="전화번호를 입력하세요" value="${hospInfo.dutyTel1}"></th>
                 </tr>
                 <tr class="hospiRows">
                     <th class="hospiDetail">영업시간</th>
                     <th id="times" class="hospiDetail">
-                        <div data-flag="monday" style="display:none;">
+                        <div data-flag="monday" >
                             <div class="monday"></div>
                             <label for="" class="start">시작시간:</label>
-                            <input type="text" name="mondayAM" class="ampm" maxlength="4" value="${hospInfo.dutyTime1s}">
+                            <input type="text" name="dutyTime1s" class="ampm" maxlength="4" value="${hospInfo.dutyTime1s}">
                             <label for="">종료시간:</label>
-                            <input type="text" name="mondayPM" class="ampm" maxlength="4" value="${hospInfo.dutyTime1c}">
+                            <input type="text" name="dutyTime1c" class="ampm" maxlength="4" value="${hospInfo.dutyTime1c}">
                         </div>
-                        <div data-flag="tuesday" style="display:none;">
+                        <div data-flag="tuesday">
                             <div class="tuesday"></div>
                             <label for="" class="start">시작시간:</label>
-                            <input type="text" name="tuesdayAM" class="ampm" maxlength="4" value="${hospInfo.dutyTime2s}">
+                            <input type="text" name="dutyTime2s" class="ampm" maxlength="4" value="${hospInfo.dutyTime2s}">
                             <label for="">종료시간:</label>
-                            <input type="text" name="tuesdayPM" class="ampm" maxlength="4" value="${hospInfo.dutyTime2c}">
+                            <input type="text" name="dutyTime2c" class="ampm" maxlength="4" value="${hospInfo.dutyTime2c}">
                         </div>
-                        <div data-flag="wednesday" style="display:none;">
+                        <div data-flag="wednesday">
                             <div class="wednesday"></div>
                             <label for="" class="start">시작시간:</label>
-                            <input type="text" name="wednesdayAM" class="ampm" maxlength="4" value="${hospInfo.dutyTime3s}">
+                            <input type="text" name="dutyTime3s" class="ampm" maxlength="4" value="${hospInfo.dutyTime3s}">
                             <label for="">종료시간:</label>
-                            <input type="text" name="wednesdayPM" class="ampm" maxlength="4" value="${hospInfo.dutyTime3c}">
+                            <input type="text" name="dutyTime3c" class="ampm" maxlength="4" value="${hospInfo.dutyTime3c}">
                         </div>
-                        <div data-flag="thursday" style="display:none;">
+                        <div data-flag="thursday">
                             <div class="thursday"></div>
                             <label for="" class="start">시작시간:</label>
-                            <input type="text" name="thursdayAM" class="ampm" maxlength="4" value="${hospInfo.dutyTime4s}">
+                            <input type="text" name="dutyTime4s" class="ampm" maxlength="4" value="${hospInfo.dutyTime4s}">
                             <label for="">종료시간:</label>
-                            <input type="text" name="thursdayPM" class="ampm" maxlength="4" value="${hospInfo.dutyTime4c}">
+                            <input type="text" name="dutyTime4c" class="ampm" maxlength="4" value="${hospInfo.dutyTime4c}">
                         </div>
-                        <div data-flag="friday" style="display:none;">
+                        <div data-flag="friday">
                             <div class="friday"></div>
                             <label for="" class="start">시작시간:</label>
-                            <input type="text" name="fridayAM" class="ampm" maxlength="4" value="${hospInfo.dutyTime5s}">
+                            <input type="text" name="dutyTime5s" class="ampm" maxlength="4" value="${hospInfo.dutyTime5s}">
                             <label for="">종료시간:</label>
-                            <input type="text" name="fridayPM" class="ampm" maxlength="4" value="${hospInfo.dutyTime5c}">
+                            <input type="text" name="dutyTime5c" class="ampm" maxlength="4" value="${hospInfo.dutyTime5c}">
                         </div>
-                        <div data-flag="saturday" style="display:none;">
+                        <div data-flag="saturday">
                             <div class="saturday"></div>
                             <label for="" class="start">시작시간:</label>
-                            <input type="text" name="saturdayAM" class="ampm" maxlength="4" value="${hospInfo.dutyTime6s}">
+                            <input type="text" name="dutyTime6s" class="ampm" maxlength="4" value="${hospInfo.dutyTime6s}">
                             <label for="">종료시간:</label>
-                            <input type="text" name="saturdayPM" class="ampm" maxlength="4" value="${hospInfo.dutyTime6c}">
+                            <input type="text" name="dutyTime6c" class="ampm" maxlength="4" value="${hospInfo.dutyTime6c}">
                         </div>
-                        <div data-flag="sunday" style="display:none;">
+                        <div data-flag="sunday">
                             <div class="sunday"></div>
                             <label for="" class="start">시작시간:</label>
-                            <input type="text" name="sundayAM" class="ampm" maxlength="4" value="${hospInfo.dutyTime7s}">
+                            <input type="text" name="dutyTime7s" class="ampm" maxlength="4" value="${hospInfo.dutyTime7s}">
                             <label for="">종료시간:</label>
-                            <input type="text" name="sundayPM" class="ampm" maxlength="4" value="${hospInfo.dutyTime7c}">
+                            <input type="text" name="dutyTime7c" class="ampm" maxlength="4" value="${hospInfo.dutyTime7c}">
                         </div>
-                        <div data-flag="medical" style="display:none;">
+                        <div data-flag="medical">
                             <div class="medical"></div>
                             <label for="" class="start">시작시간:</label>
-                            <input type="text" name="medicalAM" class="ampm" maxlength="4" value="${hospInfo.dutyTime8s}">
+                            <input type="text" name="dutyTime8s" class="ampm" maxlength="4" value="${hospInfo.dutyTime8s}">
                             <label for="">종료시간:</label>
-                            <input type="text" name="medicalPM" class="ampm" maxlength="4" value="${hospInfo.dutyTime8c}">
+                            <input type="text" name="dutyTime8c" class="ampm" maxlength="4" value="${hospInfo.dutyTime8c}">
                         </div>
                     </th>
                 </tr>
                 <tr class="hospiRows">
                     <th class="hospiDetail">병원 분류</th>
-                    <th class="hospiDetail"><input type="text" name="hospiKind" class="inputs" placeholder="병원분류를 입력해주세요" value="${hospInfo.dutyDivNam}"></th>
+                    <th class="hospiDetail"><input type="text" name="dutyDivNam" class="inputs" placeholder="병원분류를 입력해주세요" value="${hospInfo.dutyDivNam}" readonly="readonly"></th>
                 </tr>
                 <tr class="hospiRows">
                     <th class="hospiDetail">진료항목</th>
-                    <th class="hospiDetail"><input type="text" name="treatDept" class="inputs" placeholder="진료항목을 입력하세요" value="${hospInfo.addTreat}"></th>
+                    <th class="hospiDetail"><input type="text" name="addTreat" class="inputs" placeholder="진료항목을 입력하세요" value="${hospInfo.addTreat}"></th>
+                </tr>
+                <tr class="hospiRows">
+                    <th class="hospiDetail">의사정보</th>
+                    <th class="hospiDetail">
+                    	<div>
+	                        <input class="inputs" type="text" name="doctorName" class="hospiDoctor" placeholder="의사이름을 입력하세요"><select class="inputs docCode" name="majorSeq" required="required">
+							<option value="1">가정의학과</option>
+							<option value="2">내과</option>
+							<option value="3">소아과</option>
+							<option value="4">신경정신과</option>
+							<option value="5">이비인후과</option>
+							<option value="6">안과</option>
+							<option value="7">피부과</option>
+							<option value="8">성형외과</option>
+							<option value="9">정형외과</option>
+							<option value="10">흉부외과</option>
+	                        </select><a href="#1" id="addDoctor">의사추가</a>
+                    	</div>
+                    </th>
                 </tr>
                 <tr class="hospiRows">
                     <th class="hospiDetail">병원사진</th>
-                    <th class="hospiDetail"><input type="file" name="file"></th>
+                    <th class="hospiDetail"><input type="file" name="files" multiple="multiple"></th>
                 </tr>
                 <tr class="hospiRows">
                     <th class="hospiDetail">부가정보</th>
-                    <th class="hospiDetail"><textarea name="addInfo" cols="100" rows="10">"${hospInfo.dutyInf}"</textarea></th>
+                    <th class="hospiDetail"><textarea name="dutyEtc" cols="100" rows="10">"${hospInfo.dutyEtc}"</textarea></th>
                 </tr>
             </table>
         </form>
         <div id="btnsBox">
             <div>
-                <button>수정</button>
-                <button>취소</button>
+                <button id="hospiMod">수정</button>
             </div>
         </div>
     </div>
 </div>
 <script type="text/javascript">
-	$(".days").click(function(){
-		var name = $(this).attr("name");
-		$("#times").find("div[data-flag='" + name + "']").toggle();
+	$(".ampm").keyup(function(e){
+		var regNumber = /^[0-9]*$/;
+		if(!regNumber.test($(this).val())){
+			$(this).val("");
+			alert("숫자값을 입력하세요");
+			return;
+		}
+	})
+	$("#addDoctor").click(function(){
+		var text = ['<select class="inputs docCode" name="majorSeq" required="required">',
+    	'<option value="1">가정의학과</option>',
+    	'<option value="2">내과</option>',
+    	'<option value="3">소아과</option>',
+    	'<option value="4">신경정신과</option>',
+    	'<option value="5">이비인후과</option>',
+    	'<option value="6">안과</option>',
+    	'<option value="7">피부과</option>',
+    	'<option value="8">성형외과</option>',
+    	'<option value="9">정형외과</option>',
+    	'<option value="10">흉부외과</option>',
+    	'</select>'
+    	].join('');
+		$(this).parent().parent().append('<div><input class="inputs" type="text" name="doctorName" class="hospiDoctor" placeholder="의사이름을 입력하세요">'+ text +'<a href="#1" class="removeDoctor">의사삭제</a></div>')
+	});
+	$(".hospiDetail").on("click",'.removeDoctor',function(){
+		$(this).parent().remove();
+	})
+	$("#hospiMod").click(function(){
+		$("#hospiForm").submit();
+		
 	})
 </script>
 </body>

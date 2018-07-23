@@ -39,6 +39,7 @@
 		<result column="wgs84Lon" property="wgs84Lon"/>
 		<result column="wgs84Lat" property="wgs84Lat"/>
 		<result column="dutyInf" property="dutyInf"/>
+		<result column="add_treat" property="addTreat"/>
 	</resultMap>
 	
 	
@@ -155,6 +156,33 @@
 	  from tb_hospital_gangnam
 	 where hospital_seq = #{hospitalSeq}
 	</select>
+	
+	<update id="updateHospital" parameterType="hospital">
+		update tb_hospital_gangnam
+		   set dutyName = #{dutyName},
+		   	   dutyAddr = #{dutyAddr},
+		   	   dutyTel1 = #{dutyTel1},
+		   	   dutyTime1s = #{dutyTime1s},
+		   	   dutyTime2s = #{dutyTime2s},
+		   	   dutyTime3s = #{dutyTime3s},
+		   	   dutyTime4s = #{dutyTime4s},
+		   	   dutyTime5s = #{dutyTime5s},
+		   	   dutyTime6s = #{dutyTime6s},
+		   	   dutyTime7s = #{dutyTime7s},
+		   	   dutyTime8s = #{dutyTime8s},
+		   	   dutyTime1c = #{dutyTime1c},
+		   	   dutyTime2c = #{dutyTime2c},
+		   	   dutyTime3c = #{dutyTime3c},
+		   	   dutyTime4c = #{dutyTime4c},
+		   	   dutyTime5c = #{dutyTime5c},
+		   	   dutyTime6c = #{dutyTime6c},
+		   	   dutyTime7c = #{dutyTime7c},
+		   	   dutyTime8c = #{dutyTime8c},
+		   	   dutyDivNam = #{dutyDivNam},
+		   	   add_treat = #{addTreat},
+		   	   dutyEtc = #{dutyEtc}
+		 where hospital_seq = #{hospitalSeq}	
+	</update>
 	
 </mapper>
 	

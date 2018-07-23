@@ -39,6 +39,7 @@ public class Hospital {
 	private String dutyInf;
 	private int pageNo;
 	private int count;
+	private String addTreat;
 	
 	
 	
@@ -46,6 +47,14 @@ public class Hospital {
 	
 	
 	
+	
+	
+	public String getAddTreat() {
+		return addTreat;
+	}
+	public void setAddTreat(String addTreat) {
+		this.addTreat = addTreat;
+	}
 	public int getCount() {
 		return count;
 	}

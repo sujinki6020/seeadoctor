@@ -50,6 +50,7 @@ CREATE TABLE tb_major_code
 ALTER TABLE tb_major_code COMMENT '진료과목 코드테이블';
 /*가정의학과, 내과, 소아과, 신경정신과, 이비인후과, 안과, 피부과, 성형외과, 정형외과, 흉부외과 */
 
+
 /*방문자수(통계) 테이블*/
 CREATE TABLE tb_visit_cnt
 (

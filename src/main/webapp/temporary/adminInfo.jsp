@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/admin/form/hospiUpdateform.css">
 </head>
 <body>
 	<div id="adminBox">
@@ -134,6 +135,10 @@
 	                </tr>
 	                <tr class="hospiRows">
 	                    <th class="hospiDetail">진료항목</th>
+	                    <th class="hospiDetail"><input type="text" name="treatDept" class="inputs" placeholder="진료항목을 입력하세요"></th>
+	                </tr>
+	                <tr class="hospiRows">
+	                    <th class="hospiDetail">의사정보</th>
 	                    <th class="hospiDetail"><input type="text" name="treatDept" class="inputs" placeholder="진료항목을 입력하세요"></th>
 	                </tr>
 	                <tr class="hospiRows">

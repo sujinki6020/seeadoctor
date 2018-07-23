@@ -8,10 +8,18 @@ public class BoardFile {
 	private String sysName;
 	private String oriName;
 	private int hospitalSeq;
+	private String type;
 	
 	
 	
 	
+	
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	public int getHospitalSeq() {
 		return hospitalSeq;
 	}

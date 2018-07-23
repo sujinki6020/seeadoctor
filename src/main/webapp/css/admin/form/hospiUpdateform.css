@@ -75,7 +75,7 @@ textarea {
     padding-bottom: 5%;
 }
 #btnsBox > div > button {
-    width: 47%;
+    width: 100%;
     box-sizing: border-box;
     padding: 15px 32px;
     background-color: #dc3545;

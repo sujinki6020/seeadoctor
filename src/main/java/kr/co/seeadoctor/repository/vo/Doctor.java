@@ -18,8 +18,25 @@ public class Doctor {
 	    private Hospital hospital;
 	    
 	    
+	    
+	    
+	    
 
-	    public Hospital getHospital() {
+	    public Doctor() {
+		}
+
+		public Doctor(Integer doctorSeq, Integer hospitalSeq, String doctorName, String majorSeq, MajorCode majorCode,
+				Hospital hospital) {
+			super();
+			this.doctorSeq = doctorSeq;
+			this.hospitalSeq = hospitalSeq;
+			this.doctorName = doctorName;
+			this.majorSeq = majorSeq;
+			this.majorCode = majorCode;
+			this.hospital = hospital;
+		}
+
+		public Hospital getHospital() {
 			return hospital;
 		}
 

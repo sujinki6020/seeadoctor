@@ -33,6 +33,7 @@
 		<result column="dutyTime6s" property="dutyTime6s"/>
 		<result column="dutyTime7s" property="dutyTime7s"/>
 		<result column="dutyTime8s" property="dutyTime8s"/>
+		<result column="add_treat" property="addTreat"/>
 	</resultMap>
 	
 		<select id="loadHospital" parameterType="int" resultMap="hospAboutMap">
@@ -75,16 +76,7 @@
 			   and hospital_seq = #{hospitalSeq}
 		</delete>
 		
-		<update id="updateHospInfo" parameterType="hospitalAbout">
-			update tb_hospital_gangnam
-			   set dutyName = #{dutyName},
-			   	   dutyAddr = #{dutyAddr},
-			   	   dutyTel1 = #{dutyTel1},
-			   	   dutyTel3 = #{dutyTel3},
-			   	   dutyDivNam = #{dutyDivNam},
-			   	   dutyEtc = #{dutyEtc}
-			 where hospital_seq = #{hospitalSeq}	
-		</update>
+	
 			
 		
 		
@@ -186,8 +178,14 @@
 		<insert id="insertReviewFiles" parameterType="boardFile">
 			insert into tb_board_file(
 				no, file_path, sys_name,hospital_seq
+				<if test="type == 2">
+				,type
+				</if>
 			) values(
 				#{no},#{filePath},#{sysName},#{hospitalSeq}
+				<if test="type == 2">
+				, #{type}
+				</if>
 			)
 		</insert>
 		

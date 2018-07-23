@@ -11,4 +11,4 @@
 	   <img id="mainpic" src="${pageContext.request.contextPath}/images/main/02_doctor.jpg"/>
 	</div>
 </body>
-</html>
+</html>     

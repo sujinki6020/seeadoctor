@@ -67,6 +67,10 @@
 		where hospital_seq = #{hospitalSeq};
 	</select>
 	
+	<insert id="insertDoctorByHospSeq" parameterType="doctor">
+		insert into tb_doctor (doctor_name , major_seq , hospital_seq) values (#{doctorName}, #{majorSeq}, #{hospitalSeq})
+	</insert>
+	
 </mapper>
 
 
