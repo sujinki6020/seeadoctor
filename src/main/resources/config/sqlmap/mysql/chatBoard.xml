@@ -14,14 +14,13 @@
 	</resultMap>
 	
 	<select id="selectChatBoard" parameterType="string" resultMap="chatBoardMap">
-		select * from tb_chat_board
+		select distinct * from tb_chat_board
 			where admin_id = #{adminId}
 	</select>
 	
 	<insert id="insertChatBoard" parameterType="chatBoard">
 		insert into tb_chat_board(admin_id, user_id, user_name)
-		select (admin_id, user_id, user_name) from tb_like 
-		where admin_id=#{adminId}
+		select admin_id, user_id, user_name from tb_like where admin_id=#{adminId} and user_id = #{userId}
 	</insert>
 	
 	<update id="addMemo" parameterType="chatBoard">

@@ -64,12 +64,6 @@ $("#td4").on("keyup", function () {
 	});
 });
 
-// $("#userId").on("click", function(){
-// 	console.log("$(this).text",$(this).text());
-// 	console.log("#userId).text",$("#userId").text());
-// 	window.open('http://localhost:8001/seeadoctor/chat/chatWindow.do?receiverId='+ $(this).text(), 'popup01', 'width=400, height=500, scrollbars= 0, toolbar=0, menubar=no');
-// })
-
 $("#tb2").on("click",".userId",function(){
 	window.open('http://localhost:8001/seeadoctor/chat/chatWindow.do?receiverId=' + $(this).text(), 'popup01', 'width=400, height=550, toolbar=0, menubar=no');
 });

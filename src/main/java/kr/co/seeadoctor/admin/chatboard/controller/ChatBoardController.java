@@ -21,18 +21,19 @@ public class ChatBoardController {
 	private ChatBoardService chatBoardService;
 	
 	@RequestMapping("/chatBoard.do")
-	public String callChatBoard(HttpSession session, Model model) throws Exception {
+	public String callChatBoard(ChatBoard chatBoard,HttpSession session, Model model) throws Exception {
+		chatBoardService.insertChatBoard(chatBoard);
 		String adminId = ((User)session.getAttribute("user")).getId();
 		List<ChatBoard> cbList = chatBoardService.retrieveChatBoard(adminId);
 		model.addAttribute("cbList", cbList);
 		return "admin/chatboard/chatBoard";
 	}
 
-	@RequestMapping("/insertChatBoard.do")
-	public String insertChatBoard(ChatBoard ChatBoard) {
-		chatBoardService.insertChatBoard(ChatBoard);
-		return "admin/chatboard/chatBoard";
-	}
+//	@RequestMapping("/insertChatBoard.do")
+//	public void insertChatBoard(HttpSession session, ChatBoard chatBoard) {
+//		chatBoardService.insertChatBoard(chatBoard);
+//		return "admin/chatboard/chatBoard";
+//	}
 	
 	@ResponseBody
 	@RequestMapping("/addMemo.do") 

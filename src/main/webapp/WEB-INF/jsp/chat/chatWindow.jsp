@@ -20,8 +20,8 @@
 			
              <div style="background:whitesmoke; height:100px; postion:absolute;" id="inputArea">
 	            ${sessionScope.user.id}님 : 
-	   			<textarea rows="4" cols="40" id="message" placeholder="Type a message"></textarea>				
-				<input type="hidden" id="rcvId" value="${chat.receiverId}" />
+	   			<textarea rows="4" cols="40" id="message" placeholder="Type a message"></textarea>
+				<input type="hidden" id="rcvId" value="${param.receiverId}" />
 	            <button id="sendBtn" class="glyphicon glyphicon-share-alt"></button>
              </div> 
 		</div>
