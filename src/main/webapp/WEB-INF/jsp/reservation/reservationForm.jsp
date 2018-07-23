@@ -55,7 +55,7 @@
 <div id="radioArea">
 
 <c:forEach items="${docList}" var="doc">
- 	<input type="radio" id="${doc.doctorSeq}" name="doctorSeq" value="${doc.doctorSeq}" onchange="dayOfTheWeek()" />
+ 	<input type="radio" id="${doc.doctorSeq}" name="doctorSeq" value="${doc.doctorSeq}" onchange="dayOfTheWeek()"/>
     <label for="${doc.doctorSeq}"><span></span><font size="4px"><strong>${doc.doctorName} 원장</strong></font> (${doc.majorCode.majorName})</label><br>
 </c:forEach>
     
@@ -84,7 +84,7 @@
 <h2><img src="${pageContext.request.contextPath}/images/reservation/check-list.png" /> 증상 기입</h2>
 <textarea id="symptoms" name="symptom" maxlength="200"></textarea>
 </div>
-<button id="reservBtn">예약 접수</button>
+<button type="button" id="reservBtn">예약 접수</button>
 </div>
 
 </form>
