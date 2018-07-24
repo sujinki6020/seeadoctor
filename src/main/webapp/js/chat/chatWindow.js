@@ -3,7 +3,7 @@
 	var ws = null;
 	
 	(function(){
-		ws = new WebSocket('ws://192.168.10.66/seeadoctor/notification.do');
+		ws = new WebSocket('ws://localhost/seeadoctor/notification.do');
 		ws.onopen = function() {
 	   	    console.log('웹소켓 서버 접속 성공');
 	   	    ws.send("login");
