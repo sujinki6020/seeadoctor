@@ -6,7 +6,7 @@ import kr.co.seeadoctor.repository.vo.HospitalAbout;
 import kr.co.seeadoctor.repository.vo.User;
 
 public interface MyPageService {
-	public List<User> retrieveUser(String id);
+	public User retrieveUser(String id);
 	
 	public List<HospitalAbout> retrieveLike(String id);
 	

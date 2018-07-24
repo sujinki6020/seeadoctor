@@ -15,7 +15,7 @@ public class MyPageServiceImpl implements MyPageService {
 	private UserMapper umapper;
 	
 	@Override
-	public List<User> retrieveUser(String id) {
+	public User retrieveUser(String id) {
 		return umapper.selectByUser(id);
 	}
 
@@ -26,7 +26,6 @@ public class MyPageServiceImpl implements MyPageService {
 
 	@Override
 	public void updateUser(User user) {
-		System.out.println(user +"아이디");
 		umapper.updateUser(user);
 	}
 	

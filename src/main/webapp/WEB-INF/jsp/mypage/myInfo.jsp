@@ -18,16 +18,16 @@
 
 	<section id="content1"">
 		<div id="myInfo">
-			<form class="register" id="updateTest" action="${pageContext.request.contextPath}/mypage/updateUser.do">
+			<form class="register" id="update">
 				<h1 id="myH1">My Information</h1>
 				<fieldset class="row1">
 					<legend>ID & PW </legend>
 					<p>
-						<label>ID </label> <input type="text" name="id" id="id" readonly value="${user.id}" />
+						<label>ID </label> <input type="text" name="id" id="id" readonly value="${myUser.id}" />
 					</p>
 					<p>
 						<label>Password </label> 
-						<input type="password" name="pw" id="password" value="${user.pw}"/> 
+						<input type="password" name="pw" id="password" value="${myUser.pw}"/> 
 						<label>Repeat Password </label> 
 						<input type="password" name="password_confirmation" id="password_confirmation" />
 						<p id="pwp" style="color:red;"></p>
@@ -38,44 +38,44 @@
 					<legend>Personal Details </legend>
 					<p>
 						<label>Name </label> 
-						<input type="text" class="long" name="name" id="name" readonly value="${user.name}" />
+						<input type="text" class="long" name="name" id="name" readonly value="${myUser.name}" />
 					</p>
 					<p>
 						<label>Phone </label> 
-						<input type="text" name="phone" id="phone" value="${user.phone}"/>
+						<input type="text" name="phone" id="phone" value="${myUser.phone}"/>
 						<p id="phonep" style="color:red;"></p>
 					</p>
 					<p>
 						<label>Address </label> 
-						<input type="text" class="long" name="addr1" id="addr1" value="${user.addr1}"/>
+						<input type="text" class="long" name="addr1" id="addr1" value="${myUser.addr1}"/>
 					</p>
 					<p>
 						<label>Address(Detail) </label> 
-						<input type="text" class="long" name="addr2" id="addr2" value="${user.addr2}"/>
+						<input type="text" class="long" name="addr2" id="addr2" value="${myUser.addr2}"/>
 					</p>
 					<p>
 						<label>Email </label> 
-						<input type="text" class="long" name="email" id="email" value="${user.email}" />
+						<input type="text" class="long" name="email" id="email" value="${myUser.email}" />
 						<p id="emailp" style="color:red;"></p>
 					</p>
 				</fieldset>
 				<fieldset class="row3">
 					<legend>Further Information </legend>
 					<p>
-					<c:set var="userGender">${user.gender}</c:set>
+					<c:set var="userGender">${myUser.gender}</c:set>
 						<c:choose>
 							<c:when test="${userGender eq 'M'}">
 							<label>Gender</label>  
-								<input type="radio" name="gender" value="M" checked /> 
+								<input type="radio" name="gender" value="M" disabled="disabled" checked /> 
 								<label class="gender">Male</label> 
-								<input type="radio" name="gender" value="F" /> 
+								<input type="radio" name="gender" value="F" disabled="disabled" /> 
 								<label class="gender">Female</label>
 							</c:when>
 							<c:otherwise>
 							<label>Gender</label>  
-								<input type="radio" name="gender" value="M"  /> 
+								<input type="radio" name="gender" value="M" disabled="disabled" /> 
 								<label class="gender">Male</label> 
-								<input type="radio" name="gender" value="F" checked/> 
+								<input type="radio" name="gender" value="F" disabled="disabled" checked/> 
 								<label class="gender">Female</label>
 							</c:otherwise>
 						</c:choose>
@@ -83,10 +83,10 @@
 					<p>
 						<label>Birthdate</label> 
 <%-- 						${user.birth}  --%>
-						<input class="birth" type="text" size="6" maxlength="6" readonly value="${user.birth}" />
+						<input class="birth" type="text" size="6" maxlength="6" readonly value="${myUser.birth}" />
 					</p>
 				</fieldset>
-						<button type="submit" class="button" id="updateInfo">수정하기</button>
+						<button type="button" class="button" id="updateInfo">수정하기</button>
 			</form>
 		</div>
 	</section>
@@ -116,13 +116,24 @@
 	
 	<script>
 	$("#updateInfo").on("click", function(event) {
-	    event.preventDefault();
+// 	    event.preventDefault();
+	    var data = $("#update").serialize();
+	    console.dir(data);
+	    $.ajax({
+	    	url:"${pageContext.request.contextPath}/mypage/updateUser.do",
+	    	type: "post",
+	    	data: data,
+	    	success: function () {
+	    		alert("update 성공?????");
+	    		location.href="${pageContext.request.contextPath}/mypage/myInfo.do?id=${sessionScope.user.id}"
+	    	}
+	    })
 // 	    console.log("addr1", addr1);
 // 	    console.log("addr2", addr2);
-	    console.log("pw", $('#password').val());
-	    console.log("name", $('#name').val());
-	    console.log("id", $('#id').val());
-	    $('#updateTest').submit();
+// 	    console.log("pw", $('#password').val());
+// 	    console.log("name", $('#name').val());
+// 	    console.log("id", $('#id').val());
+// 	    $('#updateTest').submit();
 	 });
 	
 	$("#password").keyup(function () {

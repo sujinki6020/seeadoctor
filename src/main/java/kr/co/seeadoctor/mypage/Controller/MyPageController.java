@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.seeadoctor.hospitalAbout.service.HospitalAboutService;
 import kr.co.seeadoctor.mypage.service.MyPageService;
@@ -26,26 +27,29 @@ public class MyPageController {
 	@RequestMapping("/myInfo.do")
 	public String callMyInfo(String id, Model model) {
 	    List<HospitalAbout> hList = hospsService.selectAllHospLike(id);
-//		List<User> userList = myPageService.retrieveUser(id);
+		User myUser = myPageService.retrieveUser(id);
+	    model.addAttribute("myUser", myUser);
 	    model.addAttribute("hList", hList);
 
-	    // adminId를 가져와서 model에 담아서 보내기
-	    
 		return "mypage/myInfo";
 	}
 	
+	@ResponseBody
 	@RequestMapping("/updateUser.do")
-	public String update(HttpSession session, User user) {
-		session.setAttribute("user", user);
-		String id = user.getId();
+	public void update(HttpSession session, User user) {
+		System.out.println(user.getId());
+		System.out.println(user.getAddr1());
+		System.out.println(user.getAddr2());
+		System.out.println(user.getEmail());
+		System.out.println(user.getPhone());
+		System.out.println(user.getPw());
+//		String id = ((User)session.getAttribute("user")).getId();
 		myPageService.updateUser(user);
-		hospsService.selectAllHospLike(id);
-		return "mypage/myInfo";
+//		myPageService.retrieveUser(user.getId());
 	}
 	
 	@RequestMapping("/chatWindow.do")
 	public String callChatWindow() throws Exception {
 		return "chat/chatWindow";
 	}
-	
 }

@@ -7,7 +7,7 @@ import kr.co.seeadoctor.repository.vo.User;
 
 public interface UserMapper {
 	
-	public List<User> selectByUser(String id);
+	public User selectByUser(String id);
 	
 	public void insertUser(User user);
 
