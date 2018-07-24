@@ -153,27 +153,26 @@ textarea.form-control {
 			<div id="content_area_about">
 				<div id="about_s">
 					<div>
-						병원명
+						<img src="${pageContext.request.contextPath}/images/board/hospital2.png"/> 병원명
 						<span style="padding-left: 37px;">${result.hospResult.dutyName}</span>
 					</div>
 					<div>
-						주소
+						<img src="${pageContext.request.contextPath}/images/board/navigation1.png"/> 주소
 						<span style="padding-left: 50px;">${result.hospResult.dutyAddr}</span>
 					</div>
 					<div>
-						진료항목
+						<img src="${pageContext.request.contextPath}/images/board/doc.png"/> 진료항목
 						<span style="padding-left: 22px;">${result.hospResult.addTreat}</span>
-	<%-- 					<span>#내과#이비인후과#영상의학과#통증의학과#통증틀리닉#건강검진</span>//병원어드민이 상세정보 입력 시 가져올수있음 --%>
+	<%-- 					병원어드민이 상세정보 입력 시 가져올수있음 --%>
 					</div>
 					<div>
-						전화번호
+						<img src="${pageContext.request.contextPath}/images/board/phone.png"/> 전화번호
 						<span style="padding-left: 26px;">${result.hospResult.dutyTel1}</span>
 						<span style="padding-left: 26px;">${result.hospResult.dutyTel3}</span>
 					</div>
-					<div style="height:47px; width: 670px;">
-						<span id="info1">부가정보</span>
-						<span style="padding-left:29px; margin-top: -24px;">${result.hospResult.dutyEtc}</span><br>
-						<span style="padding-left:29px; margin-top: -24px;">${result.hospResult.dutyInf}</span><br>
+					<div style="height: auto; width: 670px;">
+						<img style="float: left;" src="${pageContext.request.contextPath}/images/board/text1.png"/><span id="info1"> 부가정보</span>
+						<div style="width: 595px;margin-left: 105px;">${result.hospResult.dutyEtc}<br>${result.hospResult.dutyInf}</div><br>
 					</div>
 					
 					
@@ -182,7 +181,7 @@ textarea.form-control {
 			
 					
 						<div id="days">
-							<span>진료시간</span>
+							<img src="${pageContext.request.contextPath}/images/board/clock.png"/><span>진료시간</span>
 							<div id="day_time" style="margin: 8px 0px 0px 25px; display:  inline-table;">
 								<div>
 									<span id="mon"><span class="nn">[월]</span>${result.hospResult.dutyTime1s.substring(0,2)}:${result.hospResult.dutyTime1s.substring(2)}
@@ -280,7 +279,7 @@ textarea.form-control {
 					   	
 					   	<input type="text" name="searchKeyWord" class="search" placeholder="검색어를 입력하세요" style="height: 30px;"/>
 						<button type="button" class="btn btn-default search-bar1" onclick="review()">검색</button> 
-						<button type="button" id="writeid" class="btn btn-default pull-right"onclick='writeForm()'>글쓰기</button>
+<!-- 						<button type="button" id="writeid" class="btn btn-default pull-right"onclick='writeForm()'>글쓰기</button> -->
 					</form>
 				</div>
 			</div>
@@ -407,7 +406,7 @@ textarea.form-control {
 					<%-- 목록버튼 --%>
 					<button type="button" class="btn btn-default" onclick="review()">목록</button>
 					<%-- 글쓰기버튼 --%>
-					<button type="button" class="btn btn-default" id="writeid" onclick="writeForm();">글쓰기</button>
+<!-- 					<button type="button" class="btn btn-default" id="writeid" onclick="writeForm();">글쓰기</button> -->
 					<%-- 수정삭제버튼--%>
 					<div id="btn_update_delete" style="display:none;">
 						<button type="button" class="btn btn-default" id="updateid" onclick="updateForm()">수정</button>
