@@ -37,8 +37,10 @@ public class MyPageController {
 	@RequestMapping("/updateUser.do")
 	public String update(HttpSession session, User user) {
 		session.setAttribute("user", user);
+		String id = user.getId();
 		myPageService.updateUser(user);
-		return "redirect:/index.jsp";
+		hospsService.selectAllHospLike(id);
+		return "mypage/myInfo";
 	}
 	
 	@RequestMapping("/chatWindow.do")
