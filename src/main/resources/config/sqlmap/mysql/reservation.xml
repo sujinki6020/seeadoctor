@@ -94,9 +94,12 @@
    	 <if test="name !=null">
 	   	<choose>
 		   	<when test="name eq 'reserveStatus'">
+		   	<if test="val != ''">
 		   		and reserve_status = #{val}
+		   	</if>
 		   	</when>
 		   	<when test="name eq 'reserveDate'">
+		    <if test="val != ''">
 	   			<choose>
 					<when test="val == 4">
 					    and reg_date <![CDATA[<=]]> date_add(now(), interval -4 month)
@@ -105,6 +108,7 @@
 			   			and reg_date between date_add(now(), interval -#{val} month) and date_add(now(), interval -(#{val}-1) month)
 					</otherwise>
 				</choose>
+			</if>
 		   	</when>
 	   	</choose>
    	 </if>
