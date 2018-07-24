@@ -8,7 +8,6 @@ import kr.co.seeadoctor.repository.vo.Reservation;
 import kr.co.seeadoctor.repository.vo.ReservationTime;
 import kr.co.seeadoctor.repository.vo.ScrollPaging;
 import kr.co.seeadoctor.repository.vo.Statistics;
-import kr.co.seeadoctor.repository.vo.VisitCnt;
 
 public interface ReservationMapper {
 	
@@ -25,6 +24,8 @@ public interface ReservationMapper {
 	void updateOpenTime(ReservationTime reserveTime);
 	void updateReservationCancle(int reserveSeq);
 	void updateReserveStatusNoShow(Date today);
+	Reservation selectReservationByReserveSeq(int reserveSeq);
+	void updateTimeAfterCancle(Reservation reservation);
 	
 	/*리뷰*/
 	void updateReservationReview(Reservation reservation);

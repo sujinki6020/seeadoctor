@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 @Component
 public class LoginInterceptor extends HandlerInterceptorAdapter{
-
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
@@ -16,6 +16,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			response.sendRedirect(request.getContextPath() + "/login/loginForm.do");
 			return false;
 		}
+		
 		return true;
 	}
 	
