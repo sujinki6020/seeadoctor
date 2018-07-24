@@ -188,7 +188,7 @@
 			data: {"adminId":adminId,"userId":userId},
 			type: "post",
 			success : function () {
-					window.open('http://localhost:8001/seeadoctor/chat/chatWindow.do?receiverId=' + adminId, 'popup01', 'width=400, height=550, toolbar=0, menubar=no');
+					window.open('http://192.168.10.66/seeadoctor/chat/chatWindow.do?receiverId=' + adminId, 'popup01', 'width=400, height=550, toolbar=0, menubar=no');
 			}
 		});
 	});

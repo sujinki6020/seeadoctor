@@ -6,6 +6,16 @@ public class Notification {
 	private String receiveId;
 	private String message;
 	private char past;
+	private String eventType;
+	
+	
+	
+	public String getEventType() {
+		return eventType;
+	}
+	public void setEventType(String eventType) {
+		this.eventType = eventType;
+	}
 	public Integer getNotifSeq() {
 		return notifSeq;
 	}

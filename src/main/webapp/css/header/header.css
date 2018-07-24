@@ -185,7 +185,7 @@ header address::after {
 .checkIcon {
 	width: 20%;
 	height: 100%;
-	background-image: url("http://localhost/seeadoctor/temporary/error1.png");
+	background-image: url("http://localhost/seeadoctor/images/header/error1.png");
 	box-sizing: border-box;
 	position: absolute;
 	background-position: center;
@@ -195,7 +195,7 @@ header address::after {
 .cancelIcon {
 	width: 50px;
 	height: 100%;
-	background-image: url("http://localhost/seeadoctor/temporary/error1.png");
+	background-image: url("http://localhost/seeadoctor/images/header/error1.png");
 	box-sizing: border-box;
 	position: absolute;
 	background-position: center;
@@ -205,7 +205,7 @@ header address::after {
 .successIcon {
 	width: 50px;
 	height: 100%;
-	background-image: url("http://localhost/seeadoctor/temporary/success.png");
+	background-image: url("http://localhost/seeadoctor/images/header/success.png");
 	box-sizing: border-box;
 	position: absolute;
 	background-position: center;
@@ -215,7 +215,7 @@ header address::after {
 .questionIcon {
 	width: 50px;
 	height: 100%;
-	background-image: url("http://localhost/seeadoctor/temporary/question.png");
+	background-image: url("http://localhost/seeadoctor/images/header/question.png");
 	box-sizing: border-box;
 	position: absolute;
 	background-position: center;
@@ -225,7 +225,7 @@ header address::after {
 .infoIcon {
 	width: 50px;
 	height: 100%;
-	background-image: url("http://localhost/seeadoctor/temporary/icon.png");
+	background-image: url("http://localhost/seeadoctor/images/header/icon.png");
 	box-sizing: border-box;
 	position: absolute;
 	background-position: center;
@@ -233,7 +233,7 @@ header address::after {
    	background-repeat: no-repeat;
 }
 .xIcon {
-	background-image: url("http://localhost/seeadoctor/temporary/cancel-music.png");
+	background-image: url("http://localhost/seeadoctor/images/header/cancel-music.png");
 	box-sizing: border-box;
     position: absolute;
     width: 20px;

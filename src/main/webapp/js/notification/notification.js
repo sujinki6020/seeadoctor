@@ -1,6 +1,6 @@
 let ws = null;
 function startAlarm(){
-	ws = new WebSocket('ws://localhost/seeadoctor/notification.do');
+	ws = new WebSocket('ws://192.168.10.66/seeadoctor/notification.do');
 	ws.onopen = function() {
    	    console.log('웹소켓 서버 접속 성공');
    	    ws.send("login");
@@ -14,15 +14,20 @@ function startAlarm(){
     		alarm = JSON.parse(evt.data);
     		$("#notifCount").text(alarm.length);
     		let text = "";
+    		// 1: 예약 , 2: 예약 취소  , 3:채팅
     		for(let i = 0 ; i < alarm.length ; i++){
-    			text += '<div class="notif"><p><span>' + alarm[i].sendId + '</span>님이 채팅을 보냈습니다.</p></div>';
+    			text += setCss(alarm.css, alarm.sendId);
     		}
     		$("#notifList").append(text);
     		$("#notification, #notifCount").animate({"left":"-=5"},100).animate({"left":"+=10"},100).animate({"left":"-=5"},100);
-    	}catch(e){
+    	} catch(e){
     		alarm = evt.data;
+    		var pureData = alarm.split(":");
+    		var id = pureData[0];
+    		var css = pureData[1];
+    		var msg = pureData[2];
     		$("#notifCount").text(parseInt($("#notifCount").text()) + 1);
-    		let text = "<div class='notif'><p><span>" + alarm + '</span>님이 채팅을 보냈습니다</p></div>';
+    		let text = setCss(css, id);
     		$("#notifList").append(text);
     		$("#notification, #notifCount").animate({"left":"-=5"},100).animate({"left":"+=10"},100).animate({"left":"-=5"},100);
     	}
@@ -50,6 +55,7 @@ $(document).on("click","#notification",function(){
 
 $(document).on("click",".xIcon",function(){
 	$(this).parent().animate({"opacity":0, "height": 0 }, "slow" ,function(){
+		$("#notifCount").text(parseInt($("#notifCount").text()) - 1);
 		$(this).remove();
 	});
 })
@@ -57,3 +63,26 @@ $(document).on('click','#userOut',function(){
 	console.log("로그아웃중...");
 	ws.send("logout");
 })
+
+function setCss(css ,id){
+	var cssText ="";
+	switch(css){
+	case "1":
+		cssText += '<div class="notif success"><div class="successIcon"></div><div class="xIcon"></div>'+
+		'<p><span>'+ id + '</span>님이 예약을 했습니다.</p></div>';
+		break;
+	case "2":
+		cssText += '<div class="notif danger"><div class="cancelIcon"></div>'+
+		'<div class="xIcon"></div><p><span>'+ id + '</span>님이 예약을 취소했습니다.</p></div>';
+		break;
+	case "3":
+		cssText += '<div class="notif info"><div class="infoIcon"></div><div class="xIcon"></div>'+
+		'<p><span>'+ id + '</span>님이 채팅을 보냈습니다.</p></div>';
+		break;
+	case "4":
+		cssText += '<div class="notif warning"><div class="questionIcon"></div><div class="xIcon"></div>'+
+		'<p><span>'+ id + '</span>님이 리뷰를 등록했습니다.</p></div>';
+		break;		
+	}
+	return cssText;
+}

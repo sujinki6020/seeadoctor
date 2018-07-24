@@ -26,7 +26,7 @@ $('#resultpage > ul').on('click', 'li', function(){
 	$(this).find('a').addClass("circleActive");
 	let pageNo = $(this).find('a').text();
 	infowindowArr.map(item => item.close());
-	hospitalList(latitude, longitude , pageNo)
+	hospitalList(latitude, longitude , pageNo , $("#hospiDept").text())
 })
 
 function setPageNo(page, currentPage){
@@ -209,12 +209,11 @@ function setHospitalList(name ,address, index){
 	$("#resultlist").append(content);
 }
 
-$("#searchForName").click(function(){
+$("#search").click(function(){
 	$("#categorybox").toggle();
 	$("#resultlist").toggle();
 })
 $("#category > li >  a").click(function(){
-	console.log(getContextPath())
 	$("#hospiDept").text($(this).text());
 	hospitalList( latitude , longitude , 1 , $(this).text());
 	$("#categorybox").toggle();
