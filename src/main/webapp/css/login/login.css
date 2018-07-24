@@ -17,10 +17,11 @@ body {
 }
 
 a {
-  color: #92badd;
+  color: black;
   display:inline-block;
   text-decoration: none;
-  font-weight: 400;
+/*   font-weight: 400; */
+  font-family: "NanumSquare" , sans-serif;
 }
 
 h2 {
