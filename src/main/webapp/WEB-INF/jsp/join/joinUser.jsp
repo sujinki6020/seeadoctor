@@ -30,7 +30,7 @@
 					<hr class="colorgraph">
 					<div class="form-group">
 						<input type="text" name="id" id="id" class="form-control input-lg"
-							placeholder="아이디" tabindex="1" oninput="checkId();">
+							placeholder="아이디" tabindex="1">
 						<span id = "chkMsg"></span>
 						<p id="idp"></p>
 					</div>
@@ -134,11 +134,17 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAdd
 $("#id").keyup(function () {
 	var id = $(this).val();
 	var idReg = /^[a-z]+[a-z0-9]{5,19}$/g;
+	if(!$(this).val()) {
+		$("#idp").hide();
+		$('#chkMsg').html("");
+		return;
+	}
 	if(!idReg.test(id)) {
 		$("#idp").show();
 		$("#idp").text("id는 영문자로 시작하는 6~20자 영문자/숫자 조합이어야 합니다.");
 	} else {
 		$("#idp").hide();
+		checkId();
 	}
 });
 $("#password").keyup(function () {
