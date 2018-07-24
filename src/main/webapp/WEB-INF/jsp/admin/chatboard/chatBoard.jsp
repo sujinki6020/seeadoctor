@@ -5,9 +5,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/chat/chatBoard.css">
-<script  src="${pageContext.request.contextPath}/js/admin/chat/chatBoard.js"></script>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"> -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/chatboard/chatBoard.css">
+<script  src="${pageContext.request.contextPath}/js/admin/chatboard/chatBoard.js"></script>
 </head>
 <body>
  <section>
@@ -36,10 +36,10 @@
       
       <c:forEach var="chatBoard" items="${cbList}">
         <tr>
-          <td id="td1"><input type="checkbox" name="check" class="deleteChatBoard" /></td>
-          <td id="td2"><a href="#" class="userId">${chatBoard.userId}</a> - ${chatBoard.userName}</td>
-          <td id="td3">${chatBoard.date}</td>
-          <td id="td4">
+          <td class="td1"><input type="checkbox" name="check" class="deleteChatBoard" id="chat${chatBoard.chatBoardSeq}" /></td>
+          <td class="td2"><a href="#" class="userId">${chatBoard.userId}</a> - ${chatBoard.userName}</td>
+          <td class="td3">${chatBoard.date}</td>
+          <td class="td4">
 	          <input type="hidden" name="chatBoardSeq" class="chatBoardSeq" value="${chatBoard.chatBoardSeq}" />
 	          <textarea id="memo" name="memo" rows="2" cols="75" style="resize:none; color:black; font-size:14px;">${chatBoard.memo}
 	          </textarea>
@@ -61,7 +61,7 @@ $("#td4").on("keyup", function () {
 	$.ajax({
 		url: "${pageContext.request.contextPath}/admin/chatboard/addMemo.do",
 		type: "post",
-		data: {"chatBoardSeq":chatBoardSeq,"memo":memo},
+		data: {"chatBoardSeq":chatBoardSeq,"memo":memo}
 	});
 });
 
@@ -70,17 +70,31 @@ $("#tb2").on("click",".userId",function(){
 });
 
 $(".deleteChatBoard").click(function () {
-	$(".deleteChatBoard").prop("checked", true);
-	var n = $( "input:checked" ).length;
-	$("#deleteBtn").click(function () {
-		var chatBoardSeq = $(".chatBoardSeq");
-		var chatSeqs = "";
-		for(i=1; i<=n, i++) {
-			chatBoardSeq[i].val();
-			chatSeqs += chatBoardSeq[i].val();
-			console.log(chatBoardSeq[i].val());
-		}
-	});
+//  	alert($(this).attr("id"));
+	$(this).prop("checked", true);
+});
+
+$("#deleteBtn").click(function () {
+	var n = $("input:checkbox[name='check']:checked").length;
+	var $chatBoardSeq = $(".chatBoardSeq");
+	var chatSeqs = "";
+	chatSeqs += $chatBoardSeq.val();
+	alert(chatSeqs);
+// 		for(i=0; i<n; i++) {
+// 	console.dir($chatBoardSeq.val());
+// 			$.ajax({
+// 				alert(chatBoardSeq.val());
+// 				url: "${pageContext.request.contextPath}/admin/chatboard/deleteChatBoard.do",
+// 				type: "post",
+// 				data: data,
+// 				success: function () {
+// 					alert("삭제 성공");
+// 				}
+// 			});
+// 			chatBoardSeq[i].val();
+// 			chatSeqs += chatBoardSeq[i].val();
+// 			console.log(chatBoardSeq[i].val());
+// 	}
 });
 </script>
 </body>
