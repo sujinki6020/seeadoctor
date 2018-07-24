@@ -11,7 +11,7 @@
 	    
 	})();
 	function connect() {
-		websocket = new WebSocket("ws://192.168.10.66/seeadoctor/chat.do");
+		websocket = new WebSocket("ws://localhost/seeadoctor/chat.do");
 		
 		websocket.onopen = function() {
 //			console.log("websocket onopen()!");
