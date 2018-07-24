@@ -18,7 +18,7 @@
 				</blockquote>
 			</div>
 			
-             <div style="background:whitesmoke; height:100px; postion:absolute;" id="inputArea">
+             <div style="background:lavender; height:100px; postion:absolute;" id="inputArea">
 	            ${sessionScope.user.id}님 : 
 	   			<textarea rows="4" cols="40" id="message" placeholder="Type a message"></textarea>
 				<input type="hidden" id="rcvId" value="${param.receiverId}" />
