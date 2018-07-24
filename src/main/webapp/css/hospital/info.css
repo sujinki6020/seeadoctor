@@ -343,7 +343,7 @@
 }
 
 #days{
-	    margin-bottom: 50px;
+    margin-bottom: 75px;
 }
 
 /* 주요정보 */
@@ -355,4 +355,12 @@
 }
 .nn{
 	margin-right: 10px;
+}
+.dd > span{
+	margin-right: 30px;
+}
+#time_hr{
+	background: #fafafa;
+    width: 635px;
+    margin-left: 0px;
 }
