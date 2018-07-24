@@ -116,7 +116,8 @@
 	
 	<script>
 	$("#updateInfo").on("click", function(event) {
-// 	    event.preventDefault();
+		if($("#password_confirmation").val() != "") {
+	    event.preventDefault();
 	    var data = $("#update").serialize();
 	    console.dir(data);
 	    $.ajax({
@@ -124,16 +125,12 @@
 	    	type: "post",
 	    	data: data,
 	    	success: function () {
-	    		alert("update 성공?????");
 	    		location.href="${pageContext.request.contextPath}/mypage/myInfo.do?id=${sessionScope.user.id}"
 	    	}
 	    })
-// 	    console.log("addr1", addr1);
-// 	    console.log("addr2", addr2);
-// 	    console.log("pw", $('#password').val());
-// 	    console.log("name", $('#name').val());
-// 	    console.log("id", $('#id').val());
-// 	    $('#updateTest').submit();
+		} else {
+			alert("비밀번호 확인란이 비어 있습니다.");
+		}
 	 });
 	
 	$("#password").keyup(function () {
