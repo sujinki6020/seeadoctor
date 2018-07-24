@@ -226,14 +226,16 @@ function searchHospName() {
 	 var tel = hospitals[index].dutyTel1; 
 	 var addr1 = hospitals[index].dutyAddr; 
 	 var hospitalSeq = hospitals[index].hospitalSeq; 
-	 console.log("hospInfo", dutyName)
-	 console.log("hospInfo", tel)
-	 console.log("hospInfo", addr1)
-	 console.log("hospInfo", hospitalSeq)
+// 	 console.log("hospInfo", dutyName)
+// 	 console.log("hospInfo", tel)
+// 	 console.log("hospInfo", addr1)
+// 	 console.log("hospInfo", hospitalSeq)
 	 $("input[name='dutyName']").val(dutyName);
 	 $("input[name='tel']").val(tel);
 	 $("input[name='addr1']").val(addr1);
 	 $("input[name='hospitalSeq']").val(hospitalSeq);
+	 
+	 $("#results").html("");
  };
  
  $("#save").on("submit", function(event) {

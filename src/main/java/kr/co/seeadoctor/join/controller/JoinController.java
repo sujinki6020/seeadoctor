@@ -50,7 +50,7 @@ public class JoinController {
 	@ResponseBody
 	@RequestMapping(value="/searchHospName.do", method = RequestMethod.POST)
 	public List<Hospital> searchHospName(String dutyName) {
-		System.out.println("java console dutyName : " + dutyName);
+//		System.out.println("java console dutyName : " + dutyName);
 		return joinService.searchHospName(dutyName);
 	}
 	
