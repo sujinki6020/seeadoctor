@@ -58,7 +58,7 @@
              </td>
              
              <td align ="right">
-             	<form id="searchForm" method="post" action="/seeadoctor/admin/search/nameList.do"><input type="text" name="name"> <button id="searchBnt">이름검색</button></form>
+             	<form id="searchForm" method="post" action="/seeadoctor/admin/search/nameList.do"><input type="hidden" name="hospitalSeq" value="${sessionScope.user.hospitalSeq}"><input type="text" name="name"> <button id="searchBnt">이름검색</button></form>
              	<input id="todayBnt" type="button" onclick="javascript:location.href='<c:url value='/admin/calendar/calendar.do' />'" value="TODAY"/>
 			</td>
 
