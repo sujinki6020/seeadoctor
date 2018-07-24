@@ -31,7 +31,7 @@ public class ChatBoardServiceImpl implements ChatBoardService {
 	}
 
 	@Override
-	public void deleteChatBoard(String adminId) {
-		cbmapper.deleteChat(adminId);
+	public void deleteChatBoard(int chatBoardSeq) {
+		cbmapper.deleteChatBoard(chatBoardSeq);
 	}
 }

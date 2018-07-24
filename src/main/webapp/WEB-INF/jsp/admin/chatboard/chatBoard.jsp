@@ -14,7 +14,7 @@
   <!--for demo wrap-->
   <h1 id="chatH1">1:1 채팅</h1>
   <div>
-  	<button type="button" class="btn btn-default">채팅 목록에서 제거</button>
+  	<button type="button" id="deleteBtn" class="btn btn-default">채팅 목록에서 제거</button>
 <!--   	<button type="button" class="btn btn-danger">스팸</button> -->
 
   </div>
@@ -35,12 +35,15 @@
       <tbody>
       
       <c:forEach var="chatBoard" items="${cbList}">
-<%--       <p id="adminId">${chatBoard.adminId}</p> --%>
         <tr>
-          <td id="td1"><input type="checkbox" name="check" id="checkedOrNot" /></td>
+          <td id="td1"><input type="checkbox" name="check" class="deleteChatBoard" /></td>
           <td id="td2"><a href="#" class="userId">${chatBoard.userId}</a> - ${chatBoard.userName}</td>
           <td id="td3">${chatBoard.date}</td>
-          <td id="td4"><textarea id="memo" name="memo" rows="2" cols="75" style="resize:none; color:black; font-size:14px;">${chatBoard.memo}</textarea></td>
+          <td id="td4">
+	          <input type="hidden" name="chatBoardSeq" class="chatBoardSeq" value="${chatBoard.chatBoardSeq}" />
+	          <textarea id="memo" name="memo" rows="2" cols="75" style="resize:none; color:black; font-size:14px;">${chatBoard.memo}
+	          </textarea>
+          </td>
         </tr>
       </c:forEach>
  
@@ -54,18 +57,30 @@
 $("#td4").on("keyup", function () {
 // 	alert("keyup");
 	var memo = $("#memo").val();
-	var adminId = "${sessionScope.user.id}";
-	console.log("memo : ", memo);
-	console.log("adminId : ", adminId);
+	var chatBoardSeq = $(".chatBoardSeq").val();
 	$.ajax({
 		url: "${pageContext.request.contextPath}/admin/chatboard/addMemo.do",
 		type: "post",
-		data: {"adminId":adminId,"memo":memo}
+		data: {"chatBoardSeq":chatBoardSeq,"memo":memo},
 	});
 });
 
 $("#tb2").on("click",".userId",function(){
 	window.open('http://192.168.10.66/seeadoctor/chat/chatWindow.do?receiverId=' + $(this).text(), 'popup01', 'width=400, height=550, toolbar=0, menubar=no');
+});
+
+$(".deleteChatBoard").click(function () {
+	$(".deleteChatBoard").prop("checked", true);
+	var n = $( "input:checked" ).length;
+	$("#deleteBtn").click(function () {
+		var chatBoardSeq = $(".chatBoardSeq");
+		var chatSeqs = "";
+		for(i=1; i<=n, i++) {
+			chatBoardSeq[i].val();
+			chatSeqs += chatBoardSeq[i].val();
+			console.log(chatBoardSeq[i].val());
+		}
+	});
 });
 </script>
 </body>

@@ -26,13 +26,12 @@
 	<update id="addMemo" parameterType="chatBoard">
 		update tb_chat_board
 			set memo = #{memo}
-			where admin_id = #{adminId} 
+			where chat_board_seq = #{chatBoardSeq} 
 	</update>
 	
-	<delete id="deleteChat" parameterType="string">
+	<delete id="deleteChatBoard" parameterType="int">
 		delete from tb_chat_board
-			where admin_id = #{adminId}
-				and quit = 'T'
+			where chat_board_seq = #{chatBoardSeq}
 	</delete>
 	
 </mapper>

@@ -12,6 +12,6 @@ public interface ChatBoardMapper {
 	
 	public void addMemo(ChatBoard ChatBoard);
 	
-	public void deleteChat(String adminId);
+	public void deleteChatBoard(int chatBoardSeq);
 
 }
