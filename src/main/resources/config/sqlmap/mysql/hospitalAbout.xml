@@ -76,10 +76,6 @@
 			   and hospital_seq = #{hospitalSeq}
 		</delete>
 		
-	
-			
-		
-		
 		
 	<resultMap id="reviewMap" type="board">
 		<result column="no" property="no"/>
@@ -183,14 +179,24 @@
 		<insert id="insertReviewFiles" parameterType="boardFile">
 			insert into tb_board_file(
 				file_path, sys_name,hospital_seq
-				<if test="type != null">
-				,type
-				</if>
+				<choose>
+					<when test="type != null">
+					,type
+					</when>
+					<otherwise>
+					,no
+					</otherwise>
+				</choose>
 			) values (
 				#{filePath},#{sysName},#{hospitalSeq}
-				<if test="type != null">
-				,#{type}
-				</if>
+				<choose>
+					<when test="type != null">
+					,#{type}
+					</when>
+					<otherwise>
+					,no
+					</otherwise>
+				</choose>
 			)
 		</insert>
 		
