@@ -15,6 +15,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import kr.co.seeadoctor.repository.mapper.NotificationMapper;
+import kr.co.seeadoctor.repository.mapper.UserMapper;
 import kr.co.seeadoctor.repository.vo.Notification;
 import kr.co.seeadoctor.repository.vo.User;
 
@@ -23,6 +24,9 @@ public class RealTimeHandler extends TextWebSocketHandler  {
 	
 	@Autowired 
 	private NotificationMapper mapper;
+	
+	@Autowired
+	private UserMapper userMapper;
 	
 	private Map<String , WebSocketSession> connectedUser = new HashMap<>();
 	
@@ -57,6 +61,26 @@ public class RealTimeHandler extends TextWebSocketHandler  {
 			return;
 		}else if(rcvMsg.startsWith("logout")) {
 			mapper.updateNotification(user.getId());
+			return;
+		}
+		
+		if(rcvMsg.startsWith("check") || rcvMsg.startsWith("cancel")) {
+			String[] pureData = rcvMsg.split(":");
+			String kind = pureData[0];
+			String hospitalSeq = pureData[1];
+			String rcvId = pureData[2];
+			String css = pureData[3];
+			String adminId = userMapper.selectAdminId(Integer.parseInt(hospitalSeq));
+			WebSocketSession adminUser = findUser(adminId);
+			Notification notif = new Notification();
+			notif.setSendId(user.getId());
+			notif.setReceiveId(rcvId);
+			notif.setEventType(css);
+			mapper.insertNotification(notif);
+			if(adminUser == null) {
+				return;
+			}
+			adminUser.sendMessage(new TextMessage(user.getId() + ":"+ css));
 			return;
 		}
 		String[] datas = rcvMsg.split(":");

@@ -46,7 +46,7 @@
 </table>
 <hr>
 </div>
-
+<input type="text" id="checkId" value="${sessionScope.user.id}" style="display:none;">
 <form action="${pageContext.request.contextPath}/reservation/reserve.do" method="post">
 <input type="hidden" name="hospitalSeq" value="${docList[0].hospitalSeq}">
 <div id="selectZone">

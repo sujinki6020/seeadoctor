@@ -17,7 +17,11 @@ $(function() {
 
 $("#reservBtn").click(function(){
 	var result = checkFields() == true ? true : false;
-	if(result==true) $("form").submit();
+	if(result==true) {
+		console.dir(ws);
+		ws.send("check:" + $("input[name='hospitalSeq']").val() + ":" + $("#checkId").val() + ":1")
+		$("form").submit();
+	}
 });
 
 function checkFields(){

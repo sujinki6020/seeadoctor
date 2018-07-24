@@ -12,7 +12,7 @@
 <body>
 
 <div class="viewWrap">
-
+<input type="text" id="reservationId" value="${sessionScope.user.id}" style="display:none;">
 <div id="titleArea">
 <h3 style="display:inline-block;"><font color="#529dbc">예약 현황 확인</font></h3>
 

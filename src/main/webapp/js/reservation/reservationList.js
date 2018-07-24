@@ -56,7 +56,7 @@ function lastPostFunc(name, val) {
 						appendData += '<div class="stateIcon state'+list[i].reserveStatus+'">'+status+'</div>';
 						appendData += '<span>　'+hour+':'+min+' | '+list[i].hospital.dutyName+' | '+list[i].doctor.doctorName+' 원장</span>';
 						if(list[i].reserveStatus==1) {
-						appendData += '<button type="button" class="stateBnts stateCancle" onclick="cancle('+list[i].reserveSeq+')">예약취소</button>';
+						appendData += '<button type="button" class="stateBnts stateCancle" onclick="cancle('+list[i].reserveSeq+ ',' + list[i].hospitalSeq +')">예약취소</button>';
 						}
 						if(list[i].reserveStatus==4 && list[i].reviewStatus=='f') {
 						appendData += '<a href="/seeadoctor/hospital/about.do?hospitalSeq='+list[i].hospitalSeq+'&review=1&reserveSeq='+list[i].reserveSeq+'"><button type="button" class="stateBnts stateWrite">리뷰작성</button></a>';
@@ -100,7 +100,7 @@ function selectCategory(name, val) {
 	lastPostFunc(name, val);
 }
 
-function cancle(reserveSeq) {
+function cancle(reserveSeq,hospitalSeq) {
 	
 	if (confirm("예약을 취소하시겠습니까?") == true){    //확인
 	}else{   //취소
@@ -116,6 +116,7 @@ function cancle(reserveSeq) {
 		},
 		success: function () {
 			alert("예약이 취소되었습니다. 감사합니다.");
+			ws.send("cancel:" + hospitalSeq + ":" +  $("#reservationId").val() + ":2");
 			location.reload();
 		}
 	});
