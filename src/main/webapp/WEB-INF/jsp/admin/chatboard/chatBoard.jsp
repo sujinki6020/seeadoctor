@@ -66,7 +66,7 @@ $("#td4").on("keyup", function () {
 });
 
 $("#tb2").on("click",".userId",function(){
-	window.open('http://192.168.10.66/seeadoctor/chat/chatWindow.do?receiverId=' + $(this).text(), 'popup01', 'width=400, height=550, toolbar=0, menubar=no');
+	window.open('http://localhost/seeadoctor/chat/chatWindow.do?receiverId=' + $(this).text(), 'popup01', 'width=400, height=550, toolbar=0, menubar=no');
 });
 
 $(".deleteChatBoard").click(function () {
