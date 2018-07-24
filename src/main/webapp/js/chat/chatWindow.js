@@ -1,8 +1,17 @@
 	
 	var websocket = null;
+	var ws = null;
 	
+	(function(){
+		ws = new WebSocket('ws://192.168.10.66/seeadoctor/notification.do');
+		ws.onopen = function() {
+	   	    console.log('웹소켓 서버 접속 성공');
+	   	    ws.send("login");
+	    };
+	    
+	})();
 	function connect() {
-		websocket = new WebSocket("ws://localhost:8001/seeadoctor/chat.do");
+		websocket = new WebSocket("ws://192.168.10.66/seeadoctor/chat.do");
 		
 		websocket.onopen = function() {
 //			console.log("websocket onopen()!");
@@ -34,7 +43,8 @@
 		websocket.send(msg);
 		$("#message").remove();
 		$("#rcvId").before('<textarea rows="4" cols="40" id="message" placeholder="Type a message"></textarea>');
-		
+		ws.send(rcvId+":3");
+		console.dir(sw);
 	};
 	
 	function getTime() {

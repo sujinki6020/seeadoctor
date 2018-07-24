@@ -62,20 +62,18 @@ public class RealTimeHandler extends TextWebSocketHandler  {
 		String[] datas = rcvMsg.split(":");
 		String rcvId = datas[0];
 		String css = datas[1];
-		String sendMsg = datas[2];
 		System.out.println(rcvId);
 		Notification notif = new Notification();
 		notif.setSendId(user.getId());
 		notif.setReceiveId(rcvId);
-		notif.setMessage(sendMsg);
+		notif.setEventType(css);
 		mapper.insertNotification(notif);
 		if(findUser(rcvId) == null) {
 			System.out.println("해당 유저가 접속중이 아닙니다.");
 			return;
 		} 
-		findUser(rcvId).sendMessage(new TextMessage(user.getId() + ":"+ css + ":" + sendMsg));
+		findUser(rcvId).sendMessage(new TextMessage(user.getId() + ":"+ css));
 		System.out.println("sendId :" +  rcvId);
-		System.out.println("sendMsg : " + sendMsg);
 		System.out.println("users : " + connectedUser);
 	}
 

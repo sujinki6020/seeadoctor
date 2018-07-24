@@ -16,8 +16,9 @@ function startAlarm(){
     		let text = "";
     		// 1: 예약 , 2: 예약 취소  , 3:채팅
     		for(let i = 0 ; i < alarm.length ; i++){
-    			text += setCss(alarm.css, alarm.sendId);
+    			text += setCss(alarm[i].eventType, alarm[i].sendId);
     		}
+    		console.log('텍스트1',text);
     		$("#notifList").append(text);
     		$("#notification, #notifCount").animate({"left":"-=5"},100).animate({"left":"+=10"},100).animate({"left":"-=5"},100);
     	} catch(e){
@@ -25,9 +26,9 @@ function startAlarm(){
     		var pureData = alarm.split(":");
     		var id = pureData[0];
     		var css = pureData[1];
-    		var msg = pureData[2];
     		$("#notifCount").text(parseInt($("#notifCount").text()) + 1);
     		let text = setCss(css, id);
+    		console.log('텍스트2',text);
     		$("#notifList").append(text);
     		$("#notification, #notifCount").animate({"left":"-=5"},100).animate({"left":"+=10"},100).animate({"left":"-=5"},100);
     	}
@@ -47,9 +48,11 @@ function startAlarm(){
 startAlarm();
 
 $(document).on("click","#notification",function(){
-	console.log("알림 실행중")
-	if($("#notifCount").text() != 0){
+	console.log("알림 실행중");
+	console.log("카운트",$("#notifCount").text());
+	if($("#notifCount").text()){
 		$("#notifList").toggle();
+		console.log('알림 리스트',$("#notifList"));
 	}
 });
 

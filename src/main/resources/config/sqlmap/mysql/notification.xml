@@ -6,8 +6,8 @@
 		<result column="notif_seq" property="notifSeq"/>
 		<result column="send_id" property="sendId"/>
 		<result column="receive_id" property="receiveId"/>
-		<result column="message" property="message"/>
 		<result column="past" property="past"/>
+		<result column="eventType" property="eventType"/>
 	</resultMap>
 	
 	<select id="selectNotification" parameterType="string" resultMap="notificationMap">
@@ -20,12 +20,12 @@
 	<insert id="insertNotification">
 		insert into tb_notif(
 			send_id ,
-			receive_id , 
-			message
+			receive_id ,
+			eventType
 		) values (
 			#{sendId},
 			#{receiveId},
-			#{message}
+			#{eventType}
 		)
 	</insert>
 	
