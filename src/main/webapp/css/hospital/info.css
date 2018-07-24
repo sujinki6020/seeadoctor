@@ -109,9 +109,7 @@
     margin: 23px 0px 0px 518px;
 }
 
-#about_s > div{
-	height: 28px;
-}
+
 
 #content_area{
  	width: 700px;
@@ -344,13 +342,17 @@
      float: left;
 }
 
-
-/* 차트 */
-#day_time{
-	display: inline-grid;
-    margin: 4px 0px 0px 25px;
-}
-#day_time > span{
-	margin-right: 20px;	
+#days{
+	    margin-bottom: 50px;
 }
 
+/* 주요정보 */
+#days div{
+	height: 50px;
+}
+#about_s > div{
+	height: 30px;
+}
+.nn{
+	margin-right: 10px;
+}

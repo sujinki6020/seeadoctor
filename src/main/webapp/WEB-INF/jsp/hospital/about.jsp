@@ -162,8 +162,8 @@ textarea.form-control {
 					</div>
 					<div>
 						진료항목
-						<span style="padding-left: 22px;">#내과#이비인후과#영상의학과#통증의학과#피부과#피부클리닉#통장클리닉</span>
-	<%-- 					<span>${result.hospResult.addTreat}</span>//병원어드민이 상세정보 입력 시 가져올수있음 --%>
+						<span style="padding-left: 22px;">${result.hospResult.addTreat}</span>
+	<%-- 					<span>#내과#이비인후과#영상의학과#통증의학과#통증틀리닉#건강검진</span>//병원어드민이 상세정보 입력 시 가져올수있음 --%>
 					</div>
 					<div>
 						전화번호
@@ -172,32 +172,67 @@ textarea.form-control {
 					</div>
 					<div style="height:47px; width: 670px;">
 						<span id="info1">부가정보</span>
-						<span style="padding-left:29px; margin-top: -24px;">${result.hospResult.dutyEtc}, ${result.hospResult.dutyInf}</span><br>
+						<span style="padding-left:29px; margin-top: -24px;">${result.hospResult.dutyEtc}</span><br>
+						<span style="padding-left:29px; margin-top: -24px;">${result.hospResult.dutyInf}</span><br>
 					</div>
+					
+					
 				</div>
 				
-<%-- 				<c:choose> --%>
-<%-- 					<c:when test="${result.hospResult.dutyTime1s == empty || result.hospResult.dutyTime2s == empty  --%>
-<%--  								 ||result.hospResult.dutyTime3s == empty ||result.hospResult.dutyTime4s == empty   --%>
-<%--  								 ||result.hospResult.dutyTime5s == empty ||result.hospResult.dutyTime6s == empty   --%>
-<%--  								 ||result.hospResult.dutyTime7s == empty}">  --%>
-<!-- 							휴무 -->
-<%-- 					</c:when> --%>
-<%-- 					<c:otherwise> --%>
+			
+					
 						<div id="days">
 							<span>진료시간</span>
-							<div id="day_time" style="display:inline-grid; margin: 4px 0px 0px 25px;">
-								<span id="mon"><span>[월]</span>${result.hospResult.dutyTime1s}~${result.hospResult.dutyTime1c}</span><br>
-								<span id="tue"><span>[화]</span>${result.hospResult.dutyTime2s}~${result.hospResult.dutyTime2c}</span><br>
-								<span id="wed"><span>[수]</span>${result.hospResult.dutyTime3s}~${result.hospResult.dutyTime3c}</span><br>
-								<span id="thu"><span>[목]</span>${result.hospResult.dutyTime4s}~${result.hospResult.dutyTime4c}</span><br>
-								<span id="fri"><span>[금]</span>${result.hospResult.dutyTime5s}~${result.hospResult.dutyTime5c}</span><br>
-								<span id="sat"><span>[토]</span>${result.hospResult.dutyTime6s}~${result.hospResult.dutyTime6c}</span><br>
-								<span id="sun"><span>[일]</span>${result.hospResult.dutyTime7s}~${result.hospResult.dutyTime7c}</span><br>
+							<div id="day_time" style="margin: 8px 0px 0px 25px; display:  inline-table;">
+								<div>
+									<span id="mon"><span class="nn">[월]</span>${result.hospResult.dutyTime1s.substring(0,2)}:${result.hospResult.dutyTime1s.substring(2)}
+										~
+										${result.hospResult.dutyTime1c.substring(0,2)}:${result.hospResult.dutyTime1c.substring(2)}</span>
+									<span id="tue"style="margin-left: 115px;"><span class="nn">[화]</span>${result.hospResult.dutyTime2s.substring(0,2)}:${result.hospResult.dutyTime2s.substring(2)}
+										~
+										${result.hospResult.dutyTime2c.substring(0,2)}:${result.hospResult.dutyTime2c.substring(2)}</span><br>
+								</div>	
+								<div>
+									<span id="wed"><span class="nn">[수]</span>${result.hospResult.dutyTime3s.substring(0,2)}:${result.hospResult.dutyTime3s.substring(2)}
+										~
+										${result.hospResult.dutyTime3c.substring(0,2)}:${result.hospResult.dutyTime3c.substring(2)}</span>
+									<span id="thu"style="margin-left: 115px;"><span class="nn">[목]</span>${result.hospResult.dutyTime4s.substring(0,2)}:${result.hospResult.dutyTime4s.substring(2)}
+										~
+										${result.hospResult.dutyTime4c.substring(0,2)}:${result.hospResult.dutyTime4c.substring(2)}</span><br>
+								</div>
+								<div>
+									<span id="fri"><span class="nn">[금]</span>${result.hospResult.dutyTime1s.substring(0,2)}:${result.hospResult.dutyTime1s.substring(2)}
+										~
+										${result.hospResult.dutyTime5c.substring(0,2)}:${result.hospResult.dutyTime5c.substring(2)}</span><br>
+								</div>
+								<div>
+								<c:choose>
+									<c:when test="${empty result.hospResult.dutyTime6s}">
+										<span id="sat"><span class="nn">[토]</span>휴무</span>
+									</c:when>
+									<c:otherwise>
+										<span id="sat"><span class="nn">[토]</span>${result.hospResult.dutyTime6s.substring(0,2)}:${result.hospResult.dutyTime6s.substring(2)}
+											~
+											${result.hospResult.dutyTime6c.substring(0,2)}:${result.hospResult.dutyTime6c.substring(2)}</span>
+									
+									</c:otherwise>
+								</c:choose>
+								
+								<c:choose>
+									<c:when test="${empty result.hospResult.dutyTime7s}">
+										<span id="sat" style="margin-left: 181px;"><span class="nn">[일]</span>휴무</span><br>
+									</c:when>
+									<c:otherwise>
+									<span id="sun" style="margin-left: 181px;"><span class="nn">[일]</span>${result.hospResult.dutyTime7s.substring(0,2)}:${result.hospResult.dutyTime7s.substring(2)}
+									~
+									${result.hospResult.dutyTime7c.substring(0,2)}:${result.hospResult.dutyTime7c.substring(2)}</span><br>
+									</c:otherwise>
+								</c:choose>
+								</div>
+								
 							</div>
 						</div>
-<%-- 					</c:otherwise> --%>
-<%-- 				</c:choose> --%>
+				
 				
 			
 				
@@ -245,7 +280,7 @@ textarea.form-control {
 					   	
 					   	<input type="text" name="searchKeyWord" class="search" placeholder="검색어를 입력하세요" style="height: 30px;"/>
 						<button type="button" class="btn btn-default search-bar1" onclick="review()">검색</button> 
-<!-- 						<button type="button" id="writeid" class="btn btn-default pull-right"onclick='writeForm()'>글쓰기</button> -->
+						<button type="button" id="writeid" class="btn btn-default pull-right"onclick='writeForm()'>글쓰기</button>
 					</form>
 				</div>
 			</div>
@@ -1052,10 +1087,7 @@ $(document).ready(function(){
 })
 
 
-// if(result.hospResult.dutyTime1s == '' && result.hospResult.dutyTime2s == '' &&result.hospResult.dutyTime3s == '' 
-//    &&result.hospResult.dutyTime4s == '' &&result.hospResult.dutyTime5s == '' &&result.hospResult.dutyTime7s){
-// 	빈값일때 휴무라고 띄울거임
-// }
+
 
 
 
