@@ -71,10 +71,11 @@ public class RealTimeHandler extends TextWebSocketHandler  {
 			String rcvId = pureData[2];
 			String css = pureData[3];
 			String adminId = userMapper.selectAdminId(Integer.parseInt(hospitalSeq));
+			System.out.println("병원 어드민 아이디 : " + adminId);
 			WebSocketSession adminUser = findUser(adminId);
 			Notification notif = new Notification();
 			notif.setSendId(user.getId());
-			notif.setReceiveId(rcvId);
+			notif.setReceiveId(adminId);
 			notif.setEventType(css);
 			mapper.insertNotification(notif);
 			if(adminUser == null) {
