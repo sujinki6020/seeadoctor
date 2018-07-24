@@ -7,7 +7,7 @@ import kr.co.seeadoctor.repository.vo.User;
 
 public interface SearchService {
 
-	List<User> retrieveCustomerByName(String name);
+	List<User> retrieveCustomerByName(User user);
 
 	Map<String, Object> retriveReservationByUserSeq(int userSeq);
 

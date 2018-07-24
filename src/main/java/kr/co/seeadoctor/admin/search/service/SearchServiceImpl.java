@@ -22,8 +22,8 @@ public class SearchServiceImpl implements SearchService {
    
    
    @Override
-   public List<User> retrieveCustomerByName(String name) {
-      return userMapper.selectUserByName(name);
+   public List<User> retrieveCustomerByName(User user) {
+      return userMapper.selectUserByName(user);
    }
 
 

@@ -19,8 +19,8 @@ public class SearchController {
 	private SearchService service;
 	
 	@RequestMapping("/nameList.do")
-	public void searchResult(String name, Model model) {
-		List<User> userList = service.retrieveCustomerByName(name);
+	public void searchResult(User user, Model model) {
+		List<User> userList = service.retrieveCustomerByName(user);
 		model.addAttribute("userList", userList);
 	}
 	

@@ -70,13 +70,16 @@
 	
 	<!-- 예약파트 -->
 	
-	<select id="selectUserByName" parameterType="string" resultMap="userMap">
-		select user_seq, name, gender, birth, phone
-		  from tb_user
-		 where admin = 'N'
-		   and name = #{name} 
+	<select id="selectUserByName" parameterType="user" resultMap="userMap">
+		select u.user_seq, u.name, u.gender, u.birth, u.phone
+          from tb_user u
+	   	 inner join tb_reservation r
+			on u.user_seq = r.user_seq
+		 where r.hospital_seq = #{hospitalSeq}
+		   and u.name = #{name}
+		 group by u.user_seq
 	</select>
-	
+
 	<select id="selectUserBySeq" parameterType="int" resultMap="userMap">
 		select *
 		  from tb_user

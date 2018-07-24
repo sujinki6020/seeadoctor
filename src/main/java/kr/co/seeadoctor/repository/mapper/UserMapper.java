@@ -11,7 +11,7 @@ public interface UserMapper {
 	
 	public void insertUser(User user);
 
-	public List<User> selectUserByName(String name);
+	public List<User> selectUserByName(User user);
 	
 	public void updateUser(User user);
 
