@@ -176,7 +176,7 @@ textarea.form-control {
 					</div>
 					<div style="height: auto; width: 620px;">
 						<img style="float: left;" src="${pageContext.request.contextPath}/images/board/text1.png"/><span id="info1"> 부가정보</span>
-						<div style="width: 527px;margin-left: 105px;">${result.hospResult.dutyEtc}<br><br>${result.hospResult.dutyInf}</div><br>
+						<div style="width: 527px;margin-left: 125px;">${result.hospResult.dutyEtc}<br><br>${result.hospResult.dutyInf}</div><br>
 					</div>
 					
 					
@@ -185,7 +185,7 @@ textarea.form-control {
 			<hr id="time_hr">
 					
 						<div id="days">
-							<img src="${pageContext.request.contextPath}/images/board/clock.png"/><span>진료시간</span>
+							<img src="${pageContext.request.contextPath}/images/board/clock.png" style="margin-right: 20px;"/><span>진료시간</span>
 							<div id="day_time" style="margin: 8px 0px 0px 25px; display:  inline-table;">
 								<div class="dd">
 									<span id="mon"><span class="nn">[월]</span>${result.hospResult.dutyTime1s.substring(0,2)}:${result.hospResult.dutyTime1s.substring(2)}
@@ -345,13 +345,18 @@ textarea.form-control {
 						<textarea class="form-control" id="content" name="content" placeholder="내용을 입력해주세요"></textarea>
 					</div>
 
+
 					<div id="filearea_write">
-							<span id="file_span" >첨부파일</span>
-							<input type="file" multiple="multiple" name="files" id="file"
-									accept=".gif, .jpg, .png" placeholder="지원되는 파일 양식: jpg, png, gif">
-									
-							<div onchange="dropfile();">Drap and Drop here.</div>
+						<span id="file_span" >첨부파일</span>
+						<input type="file" multiple="multiple" name="files" id="file"
+								accept=".gif, .jpg, .png" placeholder="지원되는 파일 양식: jpg, png, gif">
+						<div class="flist">
+        					 <c:forEach var="fl" items="${result.files}" >
+        					 	파일이름:${fl.oriName}<button type="button" id="button" value="${fl.fileSeq}">x</button>
+         					</c:forEach>
+     					</div>
 					</div>
+
 
 					<hr id="review_hr">
 					<div id="btn_adm">
@@ -921,6 +926,7 @@ function updateForm(){
 		$("#form input[name='no']").val(result.board.no);
 		$("#form input[name='title']").val(result.board.title);
 		$("#form textarea[name='content']").val(result.board.content);
+		$("#form input[name='file']").val(result.files);
 	})
 }
 
@@ -1098,8 +1104,19 @@ $(document).ready(function(){
 	})
 })
 
-
-
+//파일삭제
+   $("#button").click(function (fileSeq) {
+      $.ajax({
+         type : "POST",
+         url : "deleteFile.json",
+           data: {
+              fileSeq : fileSeq
+           }
+      .done(function(result){
+    	  
+      })
+      });
+   });
 
 
 

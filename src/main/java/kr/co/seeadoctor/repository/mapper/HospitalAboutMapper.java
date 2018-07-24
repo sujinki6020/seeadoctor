@@ -35,6 +35,7 @@ public interface HospitalAboutMapper {
 	//파일첨부
 	void insertReviewFiles(BoardFile fileVO);
 	List<BoardFile> selectReviewFileByNo(Board board);
+	void deleteFile(int fileSeq);
 	
 	//포토요약
 	List<BoardFile> outPutPhoto(int hospSeq);

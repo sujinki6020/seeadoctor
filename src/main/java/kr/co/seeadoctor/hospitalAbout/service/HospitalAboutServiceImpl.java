@@ -115,13 +115,14 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 					if(index != -1) {
 						ext = file.getOriginalFilename().substring(index);
 					}
-					
+					String oriName=file.getOriginalFilename();
 					String sysName = "final-"+UUID.randomUUID().toString()+ext;
 					file.transferTo(new File("c:/java-lec/upload/"+sysName));
 					
 					BoardFile fileVO = new BoardFile();
 					fileVO.setNo(board.getNo());
 					fileVO.setFilePath("c:/java-lec/upload/");
+					fileVO.setOriName(oriName);
 					fileVO.setSysName(sysName);
 					fileVO.setHospitalSeq(board.getHospitalSeq());
 					hospMapper.insertReviewFiles(fileVO);
@@ -210,11 +211,18 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 		return hospMapper.selectMyLikeCnt(id);
 	}	
 
+	
+	public void deleteFile(int fileSeq) {
+		hospMapper.deleteFile(fileSeq);
+	}
+	
+	
+	
 	/*
 	@Override
 	public List<Board> searchKeyWord(Search search){
 		
-Map<String, Object> result = new HashMap<>();
+	Map<String, Object> result = new HashMap<>();
 		
 		List<Board> list = hospMapper.selectReview(search);
 

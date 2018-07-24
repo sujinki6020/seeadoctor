@@ -211,10 +211,10 @@ public class HospitalAboutController {
 		return hospService.selectMyCnt(id);
 	}
 	
-	//병원잘못된정보수정
-	@RequestMapping("/wrongInfoForm.do")
-	public void wrongInfoForm() {
-	}
+//	//병원잘못된정보수정
+//	@RequestMapping("/wrongInfoForm.do")
+//	public void wrongInfoForm() {
+//	}
 	
 //	//내가 좋아요한 리스트
 //	@RequestMapping("")
@@ -233,7 +233,16 @@ public class HospitalAboutController {
 		return files;
 	}
 	
+	//사진삭제
+	@RequestMapping("/deleteFile.json")
+	@ResponseBody
+	public void deleteFile(int fileSeq) {
+		hospService.deleteFile(fileSeq);
+	}
+	
 
+	
+	
 }
 
 

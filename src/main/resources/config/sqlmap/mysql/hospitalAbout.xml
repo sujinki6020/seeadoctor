@@ -210,7 +210,14 @@
 			select *
 			  from tb_board_file
 			 where hospital_seq = #{hospitalSeq} 
+			   and type = 2
 		</select>
+		
+		<delete id="deleteFile" parameterType="int">
+			delete
+			  from tb_board_file
+			 where file_seq = #{fileSeq}
+		</delete>
 		
 	
 	<resultMap id="commentMap" type="comment">

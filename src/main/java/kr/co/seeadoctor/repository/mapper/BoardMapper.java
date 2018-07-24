@@ -29,7 +29,8 @@ public interface BoardMapper {
 	void deleteComment(int commentNo);
 	void updateComment(Comment comment);
 	
-	
+	//파일삭제
+	void deleteFile(int fileSeq);
 	
 }
 

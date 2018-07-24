@@ -13,7 +13,6 @@ public class BoardFile {
 	
 	
 	
-	
 	public String getType() {
 		return type;
 	}

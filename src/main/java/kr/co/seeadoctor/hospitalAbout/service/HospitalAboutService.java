@@ -47,5 +47,7 @@ public interface HospitalAboutService {
 	//myCnt
 	public int selectMyCnt(String id);
 	
+	//사진삭제
+	public void deleteFile(int fileSeq);
 //	public List<Board>searchKeyWord(Search search);
 }
