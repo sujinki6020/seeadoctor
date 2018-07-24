@@ -123,8 +123,8 @@
                 <tr class="hospiRows">
                     <th class="hospiDetail">의사정보</th>
                     <th class="hospiDetail">
-                    	<div>
-	                        <input class="inputs" type="text" name="doctorName" class="hospiDoctor" placeholder="의사이름을 입력하세요"><select class="inputs docCode" name="majorSeq" required="required">
+                   		<div>
+	                        <input class="inputs" type="text" name="doctorName" class="hospiDoctor" placeholder="의사이름을 입력하세요"><select class="inputs docCode" name="majorSeq">
 							<option value="1">가정의학과</option>
 							<option value="2">내과</option>
 							<option value="3">소아과</option>
@@ -137,6 +137,22 @@
 							<option value="10">흉부외과</option>
 	                        </select><a href="#1" id="addDoctor">의사추가</a>
                     	</div>
+                    	<c:forEach var="item" items="${doctors}">
+                    		<div>
+                    			<input class="inputs" type="text" name="doctorName" class="hospiDoctor" placeholder="의사이름을 입력하세요" value="${item.doctorName}"><select class="inputs docCode" name="majorSeq">
+								<option value="1" ${item.majorSeq == 1 ? "selected" : "" }>가정의학과</option>
+								<option value="2" ${item.majorSeq == 2 ? "selected" : "" }>내과</option>
+								<option value="3" ${item.majorSeq == 3 ? "selected" : "" }>소아과</option>
+								<option value="4" ${item.majorSeq == 4 ? "selected" : "" }>신경정신과</option>
+								<option value="5" ${item.majorSeq == 5 ? "selected" : "" }>이비인후과</option>
+								<option value="6" ${item.majorSeq == 6 ? "selected" : "" }>안과</option>
+								<option value="7" ${item.majorSeq == 7 ? "selected" : "" }>피부과</option>
+								<option value="8" ${item.majorSeq == 8 ? "selected" : "" }>성형외과</option>
+								<option value="9" ${item.majorSeq == 9 ? "selected" : "" }>정형외과</option>
+								<option value="10"${item.majorSeq == 10 ? "selected" : "" }>흉부외과</option>
+                    			</select><a href="#1" class="removeDoctor">의사삭제</a>
+                    		</div>
+                    	</c:forEach>
                     </th>
                 </tr>
                 <tr class="hospiRows">
@@ -145,7 +161,7 @@
                 </tr>
                 <tr class="hospiRows">
                     <th class="hospiDetail">부가정보</th>
-                    <th class="hospiDetail"><textarea name="dutyEtc" cols="100" rows="10">"${hospInfo.dutyEtc }"</textarea></th>
+                    <th class="hospiDetail"><textarea name="dutyEtc" cols="100" rows="10">"${hospInfo.dutyEtc}"</textarea></th>
                 </tr>
             </table>
         </form>

@@ -20,6 +20,6 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public List<User> retrieveUser(String id) {
-		return umapper.selectByUser(id);
+		return (List<User>) umapper.selectByUser(id);
 	}
 }

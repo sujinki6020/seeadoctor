@@ -5,12 +5,12 @@
     margin-bottom: 2%;
 }
 #hospiForm {
-    margin-top: 3%;
     box-sizing: border-box;
-    margin-left: 5%;
-    margin-right: 5%;
     text-align: left;   
     background: #fff;
+    margin: 0 auto;
+    margin-top: 3%;
+    width: 90%;
 }
 #hospiTable {
     width: 100%;
@@ -90,7 +90,7 @@ textarea {
     margin-bottom: 1%;  
 }
 .monday {
-    background-image: url("http://localhost/seeadoctor/images/form/monday1.png");
+    background-image: url("http://localhost/seeadoctor/images/admin/form/monday1.png");
     position: absolute;
     background-position: center;
     background-size: 50%;
@@ -99,7 +99,7 @@ textarea {
     height: 30px;
 }
 .tuesday {
-	background-image: url("http://localhost/seeadoctor/images/form/tuesday.png");
+	background-image: url("http://localhost/seeadoctor/images/admin/form/tuesday.png");
     position: absolute;
     background-position: center;
     background-size: 50%;
@@ -108,7 +108,7 @@ textarea {
     height: 30px;
 }
 .wednesday {
-	background-image: url("http://localhost/seeadoctor/images/form/wednesday.png");
+	background-image: url("http://localhost/seeadoctor/images/admin/form/wednesday.png");
     position: absolute;
     background-position: center;
     background-size: 50%;
@@ -117,7 +117,7 @@ textarea {
     height: 30px;
 }
 .thursday {
-	background-image: url("http://localhost/seeadoctor/images/form/thursday.png");
+	background-image: url("http://localhost/seeadoctor/images/admin/form/thursday.png");
     position: absolute;
     background-position: center;
     background-size: 50%;
@@ -126,7 +126,7 @@ textarea {
     height: 30px;
 }
 .friday {
-	background-image: url("http://localhost/seeadoctor/images/form/friday.png");
+	background-image: url("http://localhost/seeadoctor/images/admin/form/friday.png");
     position: absolute;
     background-position: center;
     background-size: 50%;
@@ -135,7 +135,7 @@ textarea {
     height: 30px;
 }
 .saturday {
-	background-image: url("http://localhost/seeadoctor/images/form/saturday.png");
+	background-image: url("http://localhost/seeadoctor/images/admin/form/saturday.png");
     position: absolute;
     background-position: center;
     background-size: 50%;
@@ -144,7 +144,7 @@ textarea {
     height: 30px;
 }
 .sunday {
-	background-image: url("http://localhost/seeadoctor/images/form/sunday.png");
+	background-image: url("http://localhost/seeadoctor/images/admin/form/sunday.png");
     position: absolute;
     background-position: center;
     background-size: 50%;
@@ -153,7 +153,7 @@ textarea {
     height: 30px;
 }
 .medical {
-	background-image: url("http://localhost/seeadoctor/images/form/medical.png");
+	background-image: url("http://localhost/seeadoctor/images/admin/form/medical.png");
     position: absolute;
     background-position: center;
     background-size: 50%;
@@ -180,4 +180,8 @@ textarea {
 .hospiDetail > div > a:hover {
 	text-decoration: none;
 	color: black;
+}
+.docCode {
+	height: 31px;
+   	margin-left: 5px;
 }
