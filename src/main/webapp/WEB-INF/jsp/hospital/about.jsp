@@ -172,15 +172,42 @@ textarea.form-control {
 					</div>
 					<div style="height:47px; width: 670px;">
 						<span id="info1">부가정보</span>
-						<span style="padding-left:80px; float:right; margin-top: -24px;">${result.hospResult.dutyEtc}, ${result.hospResult.dutyInf}</span><br>
+						<span style="padding-left:29px; margin-top: -24px;">${result.hospResult.dutyEtc}, ${result.hospResult.dutyInf}</span><br>
 					</div>
 				</div>
+				
+<%-- 				<c:choose> --%>
+<%-- 					<c:when test="${result.hospResult.dutyTime1s == empty || result.hospResult.dutyTime2s == empty  --%>
+<%--  								 ||result.hospResult.dutyTime3s == empty ||result.hospResult.dutyTime4s == empty   --%>
+<%--  								 ||result.hospResult.dutyTime5s == empty ||result.hospResult.dutyTime6s == empty   --%>
+<%--  								 ||result.hospResult.dutyTime7s == empty}">  --%>
+<!-- 							휴무 -->
+<%-- 					</c:when> --%>
+<%-- 					<c:otherwise> --%>
+						<div id="days">
+							<span>진료시간</span>
+							<div id="day_time" style="display:inline-grid; margin: 4px 0px 0px 25px;">
+								<span id="mon"><span>[월]</span>${result.hospResult.dutyTime1s}~${result.hospResult.dutyTime1c}</span><br>
+								<span id="tue"><span>[화]</span>${result.hospResult.dutyTime2s}~${result.hospResult.dutyTime2c}</span><br>
+								<span id="wed"><span>[수]</span>${result.hospResult.dutyTime3s}~${result.hospResult.dutyTime3c}</span><br>
+								<span id="thu"><span>[목]</span>${result.hospResult.dutyTime4s}~${result.hospResult.dutyTime4c}</span><br>
+								<span id="fri"><span>[금]</span>${result.hospResult.dutyTime5s}~${result.hospResult.dutyTime5c}</span><br>
+								<span id="sat"><span>[토]</span>${result.hospResult.dutyTime6s}~${result.hospResult.dutyTime6c}</span><br>
+								<span id="sun"><span>[일]</span>${result.hospResult.dutyTime7s}~${result.hospResult.dutyTime7c}</span><br>
+							</div>
+						</div>
+<%-- 					</c:otherwise> --%>
+<%-- 				</c:choose> --%>
+				
+			
+				
+				<%--  차트
 				<div style="width: 710px; margin: 28px 13px 0px -34px;">
-<%-- 					<span style="padding: 0px;">${result.hospResult.time}</span> //차트--%>
+					<span style="padding: 0px;">${result.hospResult.time}</span> //차트
 					<canvas id="myChart" width="700" height="300"></canvas>
 					<div id="time_help">점심시간은 통상 12시부터 1시30분까지이므로 방문시 미리 전화 주세요</div>
 				</div>
-				
+				--%>
 <!-- 			<div id="wrong_info"> -->
 <%-- 				<a href="${pageContext.request.contextPath}/hospital/wrongInfoForm.do">잘못된 정보 수정하기</a> --%>
 <!-- 			</div> -->
@@ -218,7 +245,7 @@ textarea.form-control {
 					   	
 					   	<input type="text" name="searchKeyWord" class="search" placeholder="검색어를 입력하세요" style="height: 30px;"/>
 						<button type="button" class="btn btn-default search-bar1" onclick="review()">검색</button> 
-						<button type="button" id="writeid" class="btn btn-default pull-right"onclick='writeForm()'>글쓰기</button>
+<!-- 						<button type="button" id="writeid" class="btn btn-default pull-right"onclick='writeForm()'>글쓰기</button> -->
 					</form>
 				</div>
 			</div>
@@ -415,6 +442,7 @@ $(function () {
 let map = new naver.maps.Map('map', {center : new naver.maps.LatLng( "${result.hospResult.wgs84Lat}" , "${result.hospResult.wgs84Lon}")} );
 let marker = new naver.maps.Marker( { position : new naver.maps.LatLng( "${result.hospResult.wgs84Lat}" , "${result.hospResult.wgs84Lon}") ,  map:map });
 
+/* 챁트
 console.log( "${result.cnt}")
 var ctx = document.getElementById("myChart").getContext('2d');
 
@@ -453,13 +481,15 @@ var myChart = new Chart(ctx, {
            	xAxes: [{
                	ticks: {
                    	beginAtZero:false,
-                   	min:0,
-           			stepSize:60
+                   	min:900,
+                   	max:2400,
+           			stepSize:100
                	}
            	}]
     	}
     }
 });
+*/
 var myCnt = 0;
 
 $("#btn_unlike").click(function(){
@@ -1020,19 +1050,18 @@ $(document).ready(function(){
 		}
 	})
 })
-$(document).ready(function(){
-	$("#cmt_Content").on("keyup", function(){
-		if($(this).val().length > 1000){
-			alert("1000자 이상은 쓸 수 없습니다");
-			$(this).val($(this).val().substring(0,1000));
-		}
-	})
-})
 
+
+// if(result.hospResult.dutyTime1s == '' && result.hospResult.dutyTime2s == '' &&result.hospResult.dutyTime3s == '' 
+//    &&result.hospResult.dutyTime4s == '' &&result.hospResult.dutyTime5s == '' &&result.hospResult.dutyTime7s){
+// 	빈값일때 휴무라고 띄울거임
+// }
 
 
 
 </script>
+
+
 	
 
 </body>
