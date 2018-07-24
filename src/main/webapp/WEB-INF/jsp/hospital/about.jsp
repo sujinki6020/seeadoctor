@@ -95,7 +95,7 @@ textarea.form-control {
 			<div id="head_btn_area">
 				<div id="head_btns">
 				
-					<a href="https://map.naver.com/?eText=${result.hospResult.dutyName}&elng=${result.hospResult.wgs84Lon}&elat=${result.hospResult.wgs84Lat}">
+					<a href="https://map.naver.com/?eText=${result.hospResult.dutyName}&elng=${result.hospResult.wgs84Lon}&elat=${result.hospResult.wgs84Lat}"target="_blank">
 						<img src="${pageContext.request.contextPath}/images/board/search.png" class="pull-right" id="btn_search"/><br>
 						<span>길찾기</span>
 					</a>
@@ -292,7 +292,7 @@ textarea.form-control {
 					   	
 					   	<input type="text" name="searchKeyWord" class="search" placeholder="검색어를 입력하세요" style="height: 30px;"/>
 						<button type="button" class="btn btn-default search-bar1" onclick="review()">검색</button> 
-<!-- 						<button type="button" id="writeid" class="btn btn-default pull-right"onclick='writeForm()'>글쓰기</button> -->
+						<button type="button" id="writeid" class="btn btn-default pull-right"onclick='writeForm()'>글쓰기</button>
 					</form>
 				</div>
 			</div>
