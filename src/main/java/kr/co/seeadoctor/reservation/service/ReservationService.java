@@ -17,11 +17,11 @@ public interface ReservationService {
 
 	List<ReservationTime> makeTimeList(ReservationTime reservationTime, int day);
 
-	void cancleReservation(int reserveSeq);
-
 	void ReservationNoShow(Date today);
 
 	List<Doctor> retrieveDoctor(int hospitalSeq);
+
+	void cancleReservation(int reserveSeq);
 
 
 

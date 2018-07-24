@@ -145,6 +145,9 @@ public class ReservationServiceImpl implements ReservationService {
 	@Override
 	public void cancleReservation(int reserveSeq) {
 		mapper.updateReservationCancle(reserveSeq);
+		Reservation reservation = mapper.selectReservationByReserveSeq(reserveSeq);
+		System.out.println(reservation.getSymptom());
+		mapper.updateTimeAfterCancle(reservation);
 		
 	}
 

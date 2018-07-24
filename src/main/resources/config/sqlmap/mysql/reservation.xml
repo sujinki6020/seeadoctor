@@ -183,6 +183,21 @@
      	 where reserve_seq = #{reserveSeq}
 	</update>
 	
+	<select id="selectReservationByReserveSeq" parameterType="int" resultMap="reservationMap">
+	select *
+	  from tb_reservation
+	 where reserve_seq = #{reserveSeq}
+	</select>
+	
+	<update id="updateTimeAfterCancle" parameterType="reservation">
+     update tb_reservation_time
+	    set booked_status = 'f'
+	  where hospital_seq = #{hospitalSeq}
+	    and doctor_seq = #{doctorSeq}
+	    and date = #{reserveDate}
+	    and time = #{reserveTime}
+	</update>
+	
 	<!-- 리뷰쿼리 -->
 	<update id="updateReservationReview" parameterType="reservation">
 	update tb_reservation
