@@ -40,7 +40,6 @@ public interface HospitalAboutMapper {
 	//포토요약
 	List<BoardFile> outPutPhoto(int hospSeq);
 	
-	
 	//댓글
 	List<Comment> selectCommentByNo(int no); 
 	void insertComment(Comment comment);

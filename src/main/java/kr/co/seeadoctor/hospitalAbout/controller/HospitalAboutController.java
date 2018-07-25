@@ -79,7 +79,6 @@ public class HospitalAboutController {
 	public Map<String, Object> detail(Board board) throws Exception {
 		Map<String, Object> result = hospService.detailReview(board);
 		Board b=(Board)result.get("board");
-		System.out.println("글번호:"+ b.getNo());
 		return result;
 	}
 	
@@ -170,8 +169,6 @@ public class HospitalAboutController {
 	@ResponseBody
 	public List<Comment> commentRegist(Comment comment){
 		hospService.insertComment(comment);
-		System.out.println("커멘트" + comment.getNo());
-//		System.out.println("왔니");
 		return hospService.selectCommentByNo(comment.getNo());
 	}
 	//댓글삭제
@@ -179,7 +176,6 @@ public class HospitalAboutController {
 	@ResponseBody
 	public void commentDelete(int commentNo) {
 		hospService.deleteComment(commentNo);
-//		System.out.println("댓글넘버"+commentNo);
 	}
 	
 	//댓글수정
@@ -228,11 +224,10 @@ public class HospitalAboutController {
 	@ResponseBody
 	public List<BoardFile> photo(int hospitalSeq) {
 		List<BoardFile> files = hospService.outPutPhoto(hospitalSeq);
-//		System.out.println("컨트롤러파일스: " + files.get(0).getSysName());
 		return files;
 	}
 	
-	//사진삭제
+	//리뷰사진삭제
 	@RequestMapping("/deleteFile.json")
 	@ResponseBody
 	public void deleteFile(int fileSeq) {

@@ -385,10 +385,6 @@ textarea.form-control {
 			
 			<!-- 댓글파트 -->
 			<div id="allComment">
-<!-- 				<form action="commentUpdate.json" method="post"> -->
-<%-- 					<input type="hidden" name="no" value="${result.board.no}"/> --%>
-<!-- 					<input type="hidden" name="commentNo" value=""/> -->
-<!-- 				</form> -->
 					
 					<%-- 댓글 리스트--%>
 					<div id="commentList"></div>
@@ -777,6 +773,7 @@ function photo(hospitalSeq) {
 
 //글쓰기폼
 function writeForm(){
+	$("#flist").html("")
 	$("#content_box").hide();
 	$("#content_review").hide();
 	$("#content_photo").hide();
@@ -933,6 +930,7 @@ function updateForm(){
 	})
 }
 
+//사진삭제
 function delFile(fileSeq) {
 	console.log(fileSeq);
 	$.ajax({
@@ -940,7 +938,12 @@ function delFile(fileSeq) {
 		data : "fileSeq=" + fileSeq
 	})	
 	.done(function(result){
- 		$("#file" + fileSeq).remove();
+		if(confirm("사진이 완전히 삭제됩니다")){
+	 		$("#file" + fileSeq).remove();
+		}else{
+			return false;
+		}
+		
 	})
 }
 

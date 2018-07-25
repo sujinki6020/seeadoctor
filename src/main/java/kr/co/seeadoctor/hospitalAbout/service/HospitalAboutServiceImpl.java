@@ -115,7 +115,7 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 					if(index != -1) {
 						ext = file.getOriginalFilename().substring(index);
 					}
-					String oriName=file.getOriginalFilename();
+					String oriName = file.getOriginalFilename();
 					String sysName = "final-"+UUID.randomUUID().toString()+ext;
 					file.transferTo(new File("c:/java-lec/upload/"+sysName));
 					
