@@ -70,7 +70,8 @@ $(".td4").on("keyup", function () {
 });
 
 $(".td2").on("click",function(){
-	window.open('http://localhost/seeadoctor/chat/chatWindow.do?receiverId=' + $(this).text(), 'popup01', 'width=400, height=550, toolbar=0, menubar=no');
+// 	alert($(this).text().split("-")[0].trim());
+	window.open('http://localhost/seeadoctor/chat/chatWindow.do?receiverId=' + $(this).text().split("-")[0].trim(), 'popup01', 'width=400, height=550, toolbar=0, menubar=no');
 });
 
 $("#deleteBtn").click(function () {
