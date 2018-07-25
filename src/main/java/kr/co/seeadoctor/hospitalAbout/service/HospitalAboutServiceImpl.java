@@ -109,11 +109,11 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 			 for(MultipartFile file: board.getFiles()) {
 				 
 				 String ext="";
-				 int index = file.getOriginalFilename().lastIndexOf(".");
+				 String oriName = file.getOriginalFilename();
+				 int index = oriName.lastIndexOf(".");
 					if(index != -1) {
-						ext = file.getOriginalFilename().substring(index);
+						ext = oriName.substring(index);
 					}
-					String oriName = file.getOriginalFilename();
 					String sysName = "final-"+UUID.randomUUID().toString()+ext;
 					file.transferTo(new File("c:/java-lec/upload/"+sysName));
 					
