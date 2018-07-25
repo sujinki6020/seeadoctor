@@ -25,11 +25,13 @@ public class MyPageController {
 	private HospitalAboutService hospsService;
 
 	@RequestMapping("/myInfo.do")
-	public String callMyInfo(String id, Model model) {
+	public String callMyInfo(HttpSession session, String id, Model model) {
+		
 	    List<HospitalAbout> hList = hospsService.selectAllHospLike(id);
 		User myUser = myPageService.retrieveUser(id);
 	    model.addAttribute("myUser", myUser);
 	    model.addAttribute("hList", hList);
+	    session.setAttribute("user", myUser);
 
 		return "mypage/myInfo";
 	}
