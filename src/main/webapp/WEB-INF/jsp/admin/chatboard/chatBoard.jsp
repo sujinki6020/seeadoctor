@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,8 +15,7 @@
   <!--for demo wrap-->
   <h1 id="chatH1">1:1 채팅</h1>
   <div>
-  	<button type="button" id="deleteBtn" class="btn btn-default">채팅 목록에서 제거</button>
-<!--   	<button type="button" class="btn btn-danger">스팸</button> -->
+  	<button type="button" id="deleteBtn" class="btn btn-default" style="font-weight:650;">채팅 목록에서 제거</button>
 
   </div>
   <div class="tbl-header">
@@ -37,13 +37,13 @@
       <c:forEach var="chatBoard" items="${cbList}">
         <tr>
           <td class="td1">
-          <input type="checkbox" name="check" class="deleteChatBoard" id="chat${chatBoard.chatBoardSeq}" />${chatBoard.chatBoardSeq}
-	      <input type="hidden" name="chatBoardSeq" class="chatBoardSeq" value="${chatBoard.chatBoardSeq}" />
+          	<input type="checkbox" name="check" class="deleteChatBoard" id="chat${chatBoard.chatBoardSeq}" />
+	      	<input type="hidden" name="chatBoardSeq" class="chatBoardSeq" value="${chatBoard.chatBoardSeq}" />
           </td>
           <td class="td2"><a href="#" class="userId">${chatBoard.userId}</a> - ${chatBoard.userName}</td>
-          <td class="td3">${chatBoard.date}</td>
+          <td class="td3"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${chatBoard.date}" /></td>
           <td class="td4">
-	          <textarea class="memo" name="memo" rows="2" cols="75" style="resize:none; color:black; font-size:14px;">${chatBoard.memo}
+	          <textarea class="memo" name="memo" rows="2" cols="55" style="resize:none; color:black; font-size:14px;">${chatBoard.memo}
 	          </textarea>
           </td>
         </tr>
@@ -59,8 +59,8 @@
 $(".td4").on("keyup", function () {
 // 	alert("keyup");
 	var memo = $(this).children().val().trim();
-	var chatBoardSeq = $(this).prev().prev().prev().text();
-// 	alert(chatBoardSeq);
+	var chatBoardSeq = $(this).prev().prev().prev().find("input[name='chatBoardSeq']").val();
+	console.log(chatBoardSeq);
 	console.log(memo);
 	$.ajax({
 		url: "${pageContext.request.contextPath}/admin/chatboard/addMemo.do",

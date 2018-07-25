@@ -19,60 +19,61 @@
 	<section id="content1"">
 		<div id="myInfo">
 			<form class="register" id="update">
-				<h1 id="myH1">My Information</h1>
+				<h1 id="myH1">내 정보 수정</h1>
 				<fieldset class="row1">
-					<legend>ID & PW </legend>
+					<legend>아이디 & 비밀번호</legend>
 					<p>
-						<label>ID </label> <input type="text" name="id" id="id" readonly value="${myUser.id}" />
+						<label>아이디</label> <input type="text" name="id" id="id" readonly value="${myUser.id}" />
 					</p>
 					<p>
-						<label>Password </label> 
+						<label>비밀번호</label> 
 						<input type="password" name="pw" id="password" value="${myUser.pw}"/> 
-						<label>Repeat Password </label> 
+						<label>비밀번호 확인</label> 
 						<input type="password" name="password_confirmation" id="password_confirmation" />
 						<p id="pwp" style="color:red;"></p>
 						<p id="pwConfirm" style="color:red;"></p>
 					</p>
 				</fieldset>
 				<fieldset class="row2">
-					<legend>Personal Details </legend>
+					<legend>개인 상세 정보</legend>
 					<p>
-						<label>Name </label> 
+						<label>이름</label> 
 						<input type="text" class="long" name="name" id="name" readonly value="${myUser.name}" />
 					</p>
 					<p>
-						<label>Phone </label> 
+						<label>핸드폰 번호</label> 
 						<input type="text" name="phone" id="phone" value="${myUser.phone}"/>
 						<p id="phonep" style="color:red;"></p>
 					</p>
 					<p>
-						<label>Address </label> 
-						<input type="text" class="long" name="addr1" id="addr1" value="${myUser.addr1}"/>
+						<label>주소</label> 
+						<textarea rows="2" cols="27" name="addr1" id="addr1" style="resize:none; margin-left:20px; border: 1px solid #E1E1E1; font-family: Verdana,Arial, Helvetica, sans-serif; font-size:17px; color:#505050;">${myUser.addr1}</textarea>
+<%-- 						<input type="text" class="long" name="addr1" id="addr1" value="${myUser.addr1}"/> --%>
 					</p>
 					<p>
-						<label>Address(Detail) </label> 
+						<label>상세 주소</label> 
 						<input type="text" class="long" name="addr2" id="addr2" value="${myUser.addr2}"/>
 					</p>
 					<p>
-						<label>Email </label> 
+						<label>이메일</label> 
 						<input type="text" class="long" name="email" id="email" value="${myUser.email}" />
 						<p id="emailp" style="color:red;"></p>
 					</p>
 				</fieldset>
 				<fieldset class="row3">
-					<legend>Further Information </legend>
+					<legend>기타 정보</legend>
 					<p>
 					<c:set var="userGender">${myUser.gender}</c:set>
 						<c:choose>
 							<c:when test="${userGender eq 'M'}">
-							<label>Gender</label>  
+							<label>성별</label>  
 								<input type="radio" name="gender" value="M" disabled="disabled" checked /> 
 								<label class="gender">Male</label> 
 								<input type="radio" name="gender" value="F" disabled="disabled" /> 
 								<label class="gender">Female</label>
 							</c:when>
 							<c:otherwise>
-							<label>Gender</label>  
+							<label>성별</label>  
 								<input type="radio" name="gender" value="M" disabled="disabled" /> 
 								<label class="gender">Male</label> 
 								<input type="radio" name="gender" value="F" disabled="disabled" checked/> 
@@ -81,7 +82,7 @@
 						</c:choose>
 					</p>
 					<p>
-						<label>Birthdate</label> 
+						<label>생년월일</label> 
 <%-- 						${user.birth}  --%>
 						<input class="birth" type="text" size="6" maxlength="6" readonly value="${myUser.birth}" />
 					</p>
@@ -99,11 +100,11 @@
 							<c:forEach var="like" items="${hList}">
 							<li ontouchstart="this.classList.toggle('hover');">
 								<div class="large button card-front">
-									<a href="#">${like.dutyName}</a> <i class="fa fa-code card-icon "></i>
+									<a href="#">${like.dutyName}</a>
 								</div>
 								<div class="panel card-back">
 									<br><br>
-									<a href="#" class="chat" data-flag="${like.adminId}" >관리자와 채팅하기</a>
+									<a href="#" class="chat" data-flag="${like.adminId}" style="display: block;font-size:17px; text-align: center;width: 100%;" >관리자와 채팅하기</a>
 								</div>
 							</li>
 							</c:forEach>
