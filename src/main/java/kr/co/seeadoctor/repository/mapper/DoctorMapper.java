@@ -9,6 +9,5 @@ public interface DoctorMapper {
 	List<Doctor> selectDoctorByHospSeq(int hospitalSeq);
 	int countDoctorByHospSeq(int hospitalSeq);
 	void insertDoctorByHospSeq(Doctor doctor);
-	void updateDoctor(Doctor doctor);
-	void deleteDoctor(int doctorSeq);
+
 }
