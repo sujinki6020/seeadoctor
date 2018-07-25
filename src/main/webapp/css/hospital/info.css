@@ -133,7 +133,7 @@
 #review_hr{
 	background: #ccc;
     margin: auto;
-    height: 1px;
+    height: 0px;
 }
 #chart{
 	width: 675px;
@@ -194,17 +194,18 @@
 	margin-left: 40px;
     width: 625px;
     height: 100%;
+    margin: 20px 0px 20px 43px;
+    background: #fafafa;
 }
 #filearea{
     margin-left: 38px;
     margin-right: 30px;
 }
-}
+
 #file_span{
 	display: inline-flex;
 }
 #file{
-	background:#fafafa;
     width: 625px;
 }
 #btn_adm{
@@ -240,6 +241,7 @@
 }
 
 #view_cnt1{
+	margin-left: 3px;
 }
 #date1{
       float: right;
@@ -247,7 +249,7 @@
 
 #buttons{
 	position: relative;
-	margin-top : 20px;
+    margin: 20px 0px 15px 4px;
 }
 #btn_s{
     padding-bottom: 10px;
@@ -370,8 +372,14 @@
 #about_s img{
 	margin-right: 20px;
 }
-.flist{
-	width: 500px;
-    border: 1px solid;
-    height: 200px;
+/*적용이안됨!!!
+#flist{
+    height: 0 auto;
+    width: 625px;
+    margin: 17px;
+}
+*/
+#file_hr{
+	height: 0px;
+    margin: 14px;
 }

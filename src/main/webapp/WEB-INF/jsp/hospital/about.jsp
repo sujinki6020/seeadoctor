@@ -348,15 +348,11 @@ textarea.form-control {
 
 					<div id="filearea_write">
 						<span id="file_span" >첨부파일</span>
-						<div class="flist">
-<%--         					 <c:forEach var="fl" items="${result.files}" > --%>
-<%--         					 	파일이름:${fl.oriName} --%>
-<%--          					</c:forEach> --%>
-     					</div>
 						<input type="file" multiple="multiple" name="files" id="file"
 								accept=".gif, .jpg, .png" placeholder="지원되는 파일 양식: jpg, png, gif">
+					<hr id="file_hr">
+						<div id="flist" style=" background: #fafafa; margin-bottom: 21px;"></div>
 					</div>
-<%-- <button type="button" id="button" value="${fl.fileSeq}">x</button> --%>
 
 					<hr id="review_hr">
 					<div id="btn_adm">
@@ -871,7 +867,7 @@ function detail(no){
 			
 			let file = result.files[i];
 			filearea += "<img class='imgFile' src='${pageContext.request.contextPath}/hospital/fileOutPut.do?filePath="+result.files[i].filePath+"&sysName="+result.files[i].sysName+"'/><br>"
-			filearea += "<button type='button' class='btn btn default' style='margin: 5px 0px 20px;'><a href='${pageContext.request.contextPath}/hospital/fileOutPut.do?filepath="+file.filePath+"&sysName="+file.sysName+"'>다운로드</a></button><br>"
+			filearea += "<button type='button' class='btn btn-default' style='margin: 5px 0px 20px;'><a href='${pageContext.request.contextPath}/hospital/fileOutPut.do?filepath="+file.filePath+"&sysName="+file.sysName+"'>다운로드</a></button><br>"
 		}
 		$("#filearea").html(filearea)
 		
@@ -903,7 +899,7 @@ function delete1(){
 		console.dir(err)
 	})
 }
-
+//수정, 사진삭제가능
 function updateForm(){
 	$.ajax({
 		url : "updateForm.json",
@@ -931,9 +927,9 @@ function updateForm(){
 		var fileHtml = "";
 		for(var i = 0; i < result.files.length; i++) {
 			var f = result.files[i];
-			fileHtml += "<div id='file" + f.fileSeq + "'>" + f.oriName + "<a href='#1' onclick='delFile(" + f.fileSeq + ")'>삭제 </a></div>"
+			fileHtml += "<div id='file" + f.fileSeq + "'>" + f.oriName + "<a href='#1' onclick='delFile(" + f.fileSeq + ")'> [삭제] </a></div>"
 		}
-		$(".flist").html(fileHtml)
+		$("#flist").html(fileHtml)
 	})
 }
 
@@ -944,7 +940,6 @@ function delFile(fileSeq) {
 		data : "fileSeq=" + fileSeq
 	})	
 	.done(function(result){
- 		alert("파일");
  		$("#file" + fileSeq).remove();
 	})
 }
