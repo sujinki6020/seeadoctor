@@ -26,7 +26,6 @@ public class StatisticsServiceImpl implements StatisticsService {
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("dateStr", dateStr);
-		System.out.println("날짜"+dateStr);
 		paramMap.put("hospitalSeq", hospitalSeq);
 		
 		/*성별통계*/
@@ -52,7 +51,6 @@ public class StatisticsServiceImpl implements StatisticsService {
 			paramMap.put("end", (10*(i+1))+9);
 			if(i==6) paramMap.put("end", 150);
 			Integer ageCnt = mapper.selectReservationCntByAge(paramMap);
-			System.out.println("나이카운트"+ageCnt);
 			if(ageCnt==null) ageCnt = 0;
 			
 			double agePer = ((double)ageCnt/(double)allCnt)*100;
