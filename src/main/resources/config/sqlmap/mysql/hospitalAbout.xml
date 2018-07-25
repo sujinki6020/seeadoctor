@@ -168,7 +168,7 @@
 	
 	
 	<resultMap id="reviewFileMap" type="boardFile">
-		<result column="file_sql" property="fileSql"/>
+		<result column="file_seq" property="fileSeq"/>
 		<result column="no" property="no"/>
 		<result column="file_path" property="filePath"/>
 		<result column="sys_name" property="sysName"/>

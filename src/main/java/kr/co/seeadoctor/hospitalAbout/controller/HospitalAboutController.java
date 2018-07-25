@@ -51,7 +51,6 @@ public class HospitalAboutController {
 	@RequestMapping("/review.json") 
 	@ResponseBody
 	public Map<String, Object> review(Search search) throws Exception {
-		System.out.println("리뷰제이슨" + search.getHospitalSeq());
 		return hospService.selectHospReview(search);
 	}
 
