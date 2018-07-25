@@ -11,4 +11,5 @@ public interface DoctorMapper {
 	void insertDoctorByHospSeq(Doctor doctor);
 	void updateDoctor(Doctor doctor);
 	void deleteDoctor(int doctorSeq);
+
 }

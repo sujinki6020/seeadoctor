@@ -18,6 +18,8 @@ import kr.co.seeadoctor.repository.vo.DoctorPic;
 import kr.co.seeadoctor.repository.vo.Hospital;
 import kr.co.seeadoctor.repository.vo.HospitalAbout;
 
+
+
 @Service
 public class InfoServiceImpl implements InfoService{
 	
@@ -121,8 +123,4 @@ public class InfoServiceImpl implements InfoService{
 		picMapper.deleteDocPic(doctorSeq);
 	}
 
-	
-	
-	
-	
 }

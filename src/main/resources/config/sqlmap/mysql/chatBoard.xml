@@ -16,6 +16,7 @@
 	<select id="selectChatBoard" parameterType="string" resultMap="chatBoardMap">
 		select distinct * from tb_chat_board
 			where admin_id = #{adminId}
+			order by date desc
 	</select>
 	
 	<insert id="insertChatBoard" parameterType="chatBoard">

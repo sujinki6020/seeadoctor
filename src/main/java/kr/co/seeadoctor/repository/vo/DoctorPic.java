@@ -36,5 +36,4 @@ public class DoctorPic {
 	public void setSysName(String sysName) {
 		this.sysName = sysName;
 	}
-	
 }

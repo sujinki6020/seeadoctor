@@ -322,7 +322,7 @@ textarea.form-control {
 			
 		</div>
 		
-<!-- 	글쓰기,수정 -->
+<!-- 	글쓰기 -->
 			<div id="content_area_writeForm" style="display: none;">
 				
 				<div id="form1">
@@ -350,9 +350,19 @@ textarea.form-control {
 						<span id="file_span" >첨부파일</span>
 						<input type="file" multiple="multiple" name="files" id="file"
 								accept=".gif, .jpg, .png" placeholder="지원되는 파일 양식: jpg, png, gif">
+<<<<<<< HEAD
 					<hr id="file_hr">
 						<div id="flist" style=" background: #fafafa; margin-bottom: 21px;"></div>
 					</div>
+=======
+						<div class="flist">
+        					 <c:forEach var="fl" items="${result.files}" >
+        					 	파일이름:${fl.oriName}<button type="button" id="button" value="${fl.fileSeq}">x</button>
+         					</c:forEach>
+     					</div>
+					</div>
+
+>>>>>>> 1178116efdbaf5258e4e49cc66865d298ec9cf3f
 
 					<hr id="review_hr">
 					<div id="btn_adm">
@@ -912,7 +922,6 @@ function updateForm(){
 	.done(function(result){
 		
 		console.dir("------------result")
-		console.dir(result)
 		$("#content_detail").hide();
 		$("#content_area_writeForm").show();
 		
@@ -923,6 +932,7 @@ function updateForm(){
 		$("#form input[name='no']").val(result.board.no);
 		$("#form input[name='title']").val(result.board.title);
 		$("#form textarea[name='content']").val(result.board.content);
+<<<<<<< HEAD
 		
 		var fileHtml = "";
 		for(var i = 0; i < result.files.length; i++) {
@@ -941,6 +951,9 @@ function delFile(fileSeq) {
 	})	
 	.done(function(result){
  		$("#file" + fileSeq).remove();
+=======
+		$("#form input[name='file']").val(result.files);
+>>>>>>> 1178116efdbaf5258e4e49cc66865d298ec9cf3f
 	})
 }
 
@@ -1117,6 +1130,22 @@ $(document).ready(function(){
 		}
 	})
 })
+
+//파일삭제
+   $("#button").click(function (fileSeq) {
+      $.ajax({
+         type : "POST",
+         url : "deleteFile.json",
+           data: {
+              fileSeq : fileSeq
+           }
+      .done(function(result){
+    	  
+      })
+      });
+   });
+
+
 
 </script>
 

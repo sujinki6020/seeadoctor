@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.seeadoctor.admin.info.service.InfoService;
@@ -32,12 +31,11 @@ public class InfoController {
 		//해당 병원의 시퀀스로 기본정보를 끌어오고 수정 가능하게함
 		User user =(User)session.getAttribute("user"); 
 		model.addAttribute("hospInfo", infoService.selectHospInfo(user.getHospitalSeq()));
-		model.addAttribute("doctors", infoService.selectDoctors(user.getHospitalSeq()));
 		return "/admin/info/hospiUpdateForm";
 	}
 	
 	@RequestMapping("/infoUpdate.do")
-	public String info(Hospital hospital, MultipartFile[] files, String[] doctorName, String[] majorSeq, String[] doctorSeq) {
+	public String info(Hospital hospital, MultipartFile[] files, String[] doctorName, String[] majorSeq) {
 		List<Doctor> list = new ArrayList<>();
 		System.out.println("되니?: " + hospital.getDutyName());
 		for(MultipartFile m : files) {
@@ -53,20 +51,8 @@ public class InfoController {
 			doctor.setHospitalSeq(hospital.getHospitalSeq());
 			doctors[i] = doctor;
 		}
-		System.out.println("doctorSeq : " +Arrays.toString(doctorSeq));
-//		infoService.updateHospital(hospital, files, doctors);
+		infoService.updateHospital(hospital, files, doctors);
 		return "redirect:/";
-	}
-	
-	@RequestMapping("/updateDoctor.do")
-	@ResponseBody
-	public String updateDoctor(MultipartFile attach , String hospitalSeq , String doctorName, String doctorDept  ) {
-		Doctor doctor = new Doctor();
-		doctor.setDoctorName(doctorName);
-		doctor.setMajorSeq(doctorDept);
-		doctor.setHospitalSeq(Integer.parseInt(hospitalSeq));
-		
-		return "success";
 	}
 	
 }
