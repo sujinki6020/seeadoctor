@@ -2,12 +2,14 @@ package kr.co.seeadoctor.admin.chatboard.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.seeadoctor.admin.chatboard.service.ChatBoardService;
@@ -31,18 +33,20 @@ public class ChatBoardController {
 	
 	@ResponseBody
 	@RequestMapping("/addMemo.do") 
-	public void addMemo(ChatBoard chatBoard, HttpSession session) {
-		String adminId = ((User)session.getAttribute("user")).getId();
+	public String addMemo(ChatBoard chatBoard, HttpSession session) {
+//		String adminId = ((User)session.getAttribute("user")).getId();
 		chatBoardService.addMemo(chatBoard);
-		chatBoardService.retrieveChatBoard(adminId);
+//		chatBoardService.retrieveChatBoard(adminId);
+		return "admin/chatboard/chatBoard";
 	}
 	
 	@ResponseBody
 	@RequestMapping("/deleteChatBoard.do") 
-	public void deleteChatBoard(int chatBoardSeq, HttpSession session) {
-		String adminId = ((User)session.getAttribute("user")).getId();
-		chatBoardService.deleteChatBoard(chatBoardSeq);
-		chatBoardService.retrieveChatBoard(adminId);
-//		return "admin/chatboard/chatBoard";
+	public String deleteChatBoard(ChatBoard cb, String arr) {
+		
+		cb.setArrSeq(arr.split(","));
+		
+		chatBoardService.deleteChatBoard(cb);
+		return "admin/chatboard/chatBoard";
 	}
 }

@@ -36,12 +36,14 @@
       
       <c:forEach var="chatBoard" items="${cbList}">
         <tr>
-          <td class="td1"><input type="checkbox" name="check" class="deleteChatBoard" id="chat${chatBoard.chatBoardSeq}" /></td>
+          <td class="td1">
+          <input type="checkbox" name="check" class="deleteChatBoard" id="chat${chatBoard.chatBoardSeq}" />${chatBoard.chatBoardSeq}
+	      <input type="hidden" name="chatBoardSeq" class="chatBoardSeq" value="${chatBoard.chatBoardSeq}" />
+          </td>
           <td class="td2"><a href="#" class="userId">${chatBoard.userId}</a> - ${chatBoard.userName}</td>
           <td class="td3">${chatBoard.date}</td>
           <td class="td4">
-	          <input type="hidden" name="chatBoardSeq" class="chatBoardSeq" value="${chatBoard.chatBoardSeq}" />
-	          <textarea id="memo" name="memo" rows="2" cols="75" style="resize:none; color:black; font-size:14px;">${chatBoard.memo}
+	          <textarea class="memo" name="memo" rows="2" cols="75" style="resize:none; color:black; font-size:14px;">${chatBoard.memo}
 	          </textarea>
           </td>
         </tr>
@@ -56,16 +58,14 @@
 
 $(".td4").on("keyup", function () {
 // 	alert("keyup");
-	var memo = $("#memo").val();
-	var chatBoardSeq = $(".chatBoardSeq").val();
+	var memo = $(this).children().val().trim();
+	var chatBoardSeq = $(this).prev().prev().prev().text();
+// 	alert(chatBoardSeq);
+	console.log(memo);
 	$.ajax({
 		url: "${pageContext.request.contextPath}/admin/chatboard/addMemo.do",
 		type: "post",
-		data: {"chatBoardSeq":chatBoardSeq,"memo":memo},
-		success: function () {
-			alert("update 성공");
-// 			location.href("${pageContext.request.contextPath}/admin/chatboard/chatBoard.do");
-		}
+		data: {"chatBoardSeq":chatBoardSeq,"memo":memo}
 	});
 });
 
@@ -73,39 +73,22 @@ $(".td2").on("click",function(){
 	window.open('http://localhost/seeadoctor/chat/chatWindow.do?receiverId=' + $(this).text(), 'popup01', 'width=400, height=550, toolbar=0, menubar=no');
 });
 
-$(".deleteChatBoard").click(function () {
-//  	alert($(this).attr("id"));
-	$(this).prop("checked", true);
-	var n = $("input:checkbox[name='check']:checked").length;
-	var seq;
-	var $chatBoardSeq = $(".chatBoardSeq");
-	for(i=0; i<n; i++) {
-		seq.push($chatBoardSeq.val());
-	}
-	console.dir(seq);
+$("#deleteBtn").click(function () {
+	var arr = new Array();
+	var checked = $(".deleteChatBoard:checked");
+	checked.each(function(){
+		arr.push($(this).next().val())
+	})
+			$.ajax({
+				url: "${pageContext.request.contextPath}/admin/chatboard/deleteChatBoard.do",
+				type: "post",
+				data: {arr: arr.join(",")},
+				success: function () {
+					location.reload();
+				}
+			});
 });
 
-$("#deleteBtn").click(function () {
-	var $chatBoardSeq = $(".chatBoardSeq");
-	var chatSeqs = "";
-	chatSeqs += $chatBoardSeq.val();
-	alert(chatSeqs);
-// 		for(i=0; i<n; i++) {
-// 	console.dir($chatBoardSeq.val());
-// 			$.ajax({
-// 				alert(chatBoardSeq.val());
-// 				url: "${pageContext.request.contextPath}/admin/chatboard/deleteChatBoard.do",
-// 				type: "post",
-// 				data: data,
-// 				success: function () {
-// 					alert("삭제 성공");
-// 				}
-// 			});
-// 			chatBoardSeq[i].val();
-// 			chatSeqs += chatBoardSeq[i].val();
-// 			console.log(chatBoardSeq[i].val());
-// 	}
-});
 </script>
 </body>
 </html>

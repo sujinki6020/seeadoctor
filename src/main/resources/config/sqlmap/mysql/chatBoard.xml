@@ -30,9 +30,12 @@
 			where chat_board_seq = #{chatBoardSeq} 
 	</update>
 	
-	<delete id="deleteChatBoard" parameterType="int">
+	<delete id="deleteChatBoard" parameterType="chatBoard">
 		delete from tb_chat_board
-			where chat_board_seq = #{chatBoardSeq}
+			where chat_board_seq in
+			        <foreach collection="arrSeq" item="seq" open="(" close=")" separator=",">
+            			#{seq}
+        			</foreach>
 	</delete>
 	
 </mapper>

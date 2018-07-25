@@ -3,6 +3,7 @@ package kr.co.seeadoctor.repository.vo;
 import java.util.Date;
 
 public class ChatBoard {
+	private String[] arrSeq;
 	private int chatBoardSeq;
 	private String adminId;
 	private String userId;
@@ -11,6 +12,13 @@ public class ChatBoard {
 	private String memo;
 	private char quit;
 	private char check;
+	
+	public String[] getArrSeq() {
+		return arrSeq;
+	}
+	public void setArrSeq(String[] arrSeq) {
+		this.arrSeq = arrSeq;
+	}
 	public int getChatBoardSeq() {
 		return chatBoardSeq;
 	}

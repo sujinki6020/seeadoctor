@@ -14,4 +14,6 @@ public interface ChatBoardMapper {
 	
 	public void deleteChatBoard(int chatBoardSeq);
 
+	public void deleteChatBoard(ChatBoard cb);
+
 }

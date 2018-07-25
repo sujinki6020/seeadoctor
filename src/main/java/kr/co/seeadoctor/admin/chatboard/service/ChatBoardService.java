@@ -11,5 +11,5 @@ public interface ChatBoardService {
 
 	public void addMemo(ChatBoard ChatBoard);
 	
-	public void deleteChatBoard(int chatBoardSeq);
+	public void deleteChatBoard(ChatBoard cb);
 }
