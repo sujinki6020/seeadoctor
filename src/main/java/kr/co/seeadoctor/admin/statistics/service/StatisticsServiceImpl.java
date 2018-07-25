@@ -26,6 +26,7 @@ public class StatisticsServiceImpl implements StatisticsService {
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("dateStr", dateStr);
+		System.out.println("날짜"+dateStr);
 		paramMap.put("hospitalSeq", hospitalSeq);
 		
 		/*성별통계*/
@@ -40,8 +41,9 @@ public class StatisticsServiceImpl implements StatisticsService {
 		double femalePer = ((double)femaleCnt/(double)allCnt)*100;
 		double malePer = ((double)maleCnt/(double)allCnt)*100;
 		double[] sexArr = new double[2];
-		sexArr[0] = femalePer;
-		sexArr[1] = malePer;
+		Double.parseDouble(String.format("%.1f",femalePer));
+		sexArr[0] = Double.parseDouble(String.format("%.1f",femalePer));
+		sexArr[1] = Double.parseDouble(String.format("%.1f",malePer));
 		
 		/*나이대통계*/
 		double[] ageArr = new double[7];
@@ -50,11 +52,12 @@ public class StatisticsServiceImpl implements StatisticsService {
 			paramMap.put("end", (10*(i+1))+9);
 			if(i==6) paramMap.put("end", 150);
 			Integer ageCnt = mapper.selectReservationCntByAge(paramMap);
+			System.out.println("나이카운트"+ageCnt);
 			if(ageCnt==null) ageCnt = 0;
 			
 			double agePer = ((double)ageCnt/(double)allCnt)*100;
 			
-			ageArr[i] = agePer;
+			ageArr[i] = Double.parseDouble(String.format("%.1f",agePer));
 		}
 		
 		Map<String, Object> pieData = new HashMap<String, Object>();

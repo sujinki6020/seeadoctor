@@ -241,15 +241,16 @@
 	<select id="selectReservationCntByAge" parameterType="hashmap" resultType="int">
 	select stat.cnt
 	  from 
-		   (select date_format(reserve_date,'%Y-%m') month, count(*) cnt
+		   (select date_format(r.reserve_date,'%Y-%m') month, count(*) cnt
 			  from tb_reservation r, tb_user u
 			 where r.user_seq = u.user_seq
 			   and r.hospital_seq = #{hospitalSeq}
 			   and (year(now()) - (mid(u.birth, 1, 2)+1900))
-		   between #{start} and #{end}) stat
+		   between #{start} and #{end}
+		     group by month) stat
   	 where stat.month = #{dateStr}
 	</select>
-	
+
 </mapper>
 
 
