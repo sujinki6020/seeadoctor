@@ -30,9 +30,9 @@
 						<input type="password" name="pw" id="password" value="${myUser.pw}"/> 
 						<label>비밀번호 확인</label> 
 						<input type="password" name="password_confirmation" id="password_confirmation" />
+					</p>
 						<p id="pwp" style="color:red;"></p>
 						<p id="pwConfirm" style="color:red;"></p>
-					</p>
 				</fieldset>
 				<fieldset class="row2">
 					<legend>개인 상세 정보</legend>
@@ -48,7 +48,6 @@
 					<p>
 						<label>주소</label> 
 						<textarea rows="2" cols="27" name="addr1" id="addr1" style="resize:none; margin-left:20px; border: 1px solid #E1E1E1; font-family: Verdana,Arial, Helvetica, sans-serif; font-size:17px; color:#505050;">${myUser.addr1}</textarea>
-<%-- 						<input type="text" class="long" name="addr1" id="addr1" value="${myUser.addr1}"/> --%>
 					</p>
 					<p>
 						<label>상세 주소</label> 
@@ -57,33 +56,35 @@
 					<p>
 						<label>이메일</label> 
 						<input type="text" class="long" name="email" id="email" value="${myUser.email}" />
-						<p id="emailp" style="color:red;"></p>
 					</p>
+						<p id="emailp" style="color:red;"></p>
 				</fieldset>
 				<fieldset class="row3">
+				<p></p>
 					<legend>기타 정보</legend>
-					<p>
 					<c:set var="userGender">${myUser.gender}</c:set>
 						<c:choose>
 							<c:when test="${userGender eq 'M'}">
+							<p>
 							<label>성별</label>  
 								<input type="radio" name="gender" value="M" disabled="disabled" checked /> 
 								<label class="gender">Male</label> 
 								<input type="radio" name="gender" value="F" disabled="disabled" /> 
 								<label class="gender">Female</label>
+							</p>
 							</c:when>
 							<c:otherwise>
+							<p>
 							<label>성별</label>  
 								<input type="radio" name="gender" value="M" disabled="disabled" /> 
 								<label class="gender">Male</label> 
 								<input type="radio" name="gender" value="F" disabled="disabled" checked/> 
 								<label class="gender">Female</label>
+							</p>
 							</c:otherwise>
 						</c:choose>
-					</p>
 					<p>
 						<label>생년월일</label> 
-<%-- 						${user.birth}  --%>
 						<input class="birth" type="text" size="6" maxlength="6" readonly value="${myUser.birth}" />
 					</p>
 				</fieldset>

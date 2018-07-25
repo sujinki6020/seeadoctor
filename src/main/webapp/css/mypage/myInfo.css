@@ -72,7 +72,7 @@ form.register fieldset.row1 label{
 form.register fieldset.row2
 {
     border-top:1px solid #F1F1F1;
-    border-right:1px solid #F1F1F1;
+/*     border-right:1px solid #F1F1F1; */
     width: 480px;
     height:400px;
     padding:5px;
@@ -84,7 +84,7 @@ form.register fieldset.row3
     border-top:1px solid #F1F1F1;
     padding:5px;
     float:left;
-    margin-bottom:15px;
+    margin:15px;
     width:400px;
 }
 form.register fieldset.row4
@@ -144,18 +144,16 @@ form.register input.short{
 }
 form.register input[type=radio]
 {
-/* 	margin: 15px 25px; */
     float:left;
     width:15px;
+    vertical-align:middle;
 }
 form.register label.gender{
-/* 	margin: 15px 25px; */
     margin-top:-1px;
     margin-bottom:2px;
     width:34px;
     float:left;
-    text-align:left;
-    line-height:19px;
+    vertical-align:middle;
 }
 form.register input[type=text]
 {
@@ -171,7 +169,8 @@ form.register input[type=password]
 }
 .button
 {
-    background:rgba(61, 149, 218, 1.0) url("http://localhost:8001/seeadoctor/images/mypage/overlay.png") repeat-x;
+/*     background:rgba(61, 149, 218, 1.0) url("http://localhost:8001/seeadoctor/images/mypage/overlay.png") repeat-x; */
+    background:rgba(61, 149, 218, 1.0);
     padding: 8px 10px 8px;
     color: #fff;
     text-decoration: none;

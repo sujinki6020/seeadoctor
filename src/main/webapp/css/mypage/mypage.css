@@ -92,6 +92,7 @@ label:hover {
   border: 1px solid #ddd;
   border-top: 2px solid rgba(61, 149, 218, 1.0);
   border-bottom: 1px solid #fff;
+  font-size: 15px;
 }
 
 #tab1:checked ~ #content1,
