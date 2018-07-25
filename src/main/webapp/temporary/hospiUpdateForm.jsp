@@ -619,9 +619,11 @@ $(document).on("click",".addDoctor",function(){
         }
 	})
 })	
+
 function sendFile(file){
    	var fd = new FormData();
    	fd.append("attach",file); // 객체를 어펜드 시킨다.
+   	fd.append("")
    	$.ajax({
    		url : "upload.do",
    		data : fd,
