@@ -54,28 +54,38 @@
 
 <script>
 
-$("#td4").on("keyup", function () {
+$(".td4").on("keyup", function () {
 // 	alert("keyup");
 	var memo = $("#memo").val();
 	var chatBoardSeq = $(".chatBoardSeq").val();
 	$.ajax({
 		url: "${pageContext.request.contextPath}/admin/chatboard/addMemo.do",
 		type: "post",
-		data: {"chatBoardSeq":chatBoardSeq,"memo":memo}
+		data: {"chatBoardSeq":chatBoardSeq,"memo":memo},
+		success: function () {
+			alert("update 성공");
+// 			location.href("${pageContext.request.contextPath}/admin/chatboard/chatBoard.do");
+		}
 	});
 });
 
-$("#tb2").on("click",".userId",function(){
+$(".td2").on("click",function(){
 	window.open('http://localhost/seeadoctor/chat/chatWindow.do?receiverId=' + $(this).text(), 'popup01', 'width=400, height=550, toolbar=0, menubar=no');
 });
 
 $(".deleteChatBoard").click(function () {
 //  	alert($(this).attr("id"));
 	$(this).prop("checked", true);
+	var n = $("input:checkbox[name='check']:checked").length;
+	var seq;
+	var $chatBoardSeq = $(".chatBoardSeq");
+	for(i=0; i<n; i++) {
+		seq.push($chatBoardSeq.val());
+	}
+	console.dir(seq);
 });
 
 $("#deleteBtn").click(function () {
-	var n = $("input:checkbox[name='check']:checked").length;
 	var $chatBoardSeq = $(".chatBoardSeq");
 	var chatSeqs = "";
 	chatSeqs += $chatBoardSeq.val();
