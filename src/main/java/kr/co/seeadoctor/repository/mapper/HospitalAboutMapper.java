@@ -46,5 +46,11 @@ public interface HospitalAboutMapper {
 	void deleteComment(int commentNo);
 	void updateComment(Comment comment);
 	
+	// 병원 사진 뽑기
+	Integer insertHospitalPic(BoardFile file);
+	List<BoardFile> selectHospitalPic(int hospitalSeq);
+	void updateHospitalPic(BoardFile file);
+	void deleteHospitalPic(int fileSeq);
+	
 	
 }

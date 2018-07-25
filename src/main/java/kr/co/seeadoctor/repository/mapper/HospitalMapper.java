@@ -12,4 +12,6 @@ public interface HospitalMapper {
 	
 	/*예약파트*/
 	Hospital selectDutyTime(int hospitalSeq);
+	
+	
 }

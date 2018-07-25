@@ -1,12 +1,9 @@
 package kr.co.seeadoctor.admin.info.service;
 
-import java.io.File;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.seeadoctor.repository.mapper.DoctorMapper;
 import kr.co.seeadoctor.repository.mapper.DoctorPicMapper;
@@ -42,32 +39,7 @@ public class InfoServiceImpl implements InfoService{
 	}
 
 	@Override
-	public void updateHospital(Hospital hospital, MultipartFile[] files, Doctor[] doctors) {
-		for(MultipartFile m : files) {
-			if(!m.getOriginalFilename().equals("")) {
-				String ext="";
-			 	int index = m.getOriginalFilename().lastIndexOf(".");
-				if(index != -1) {
-					ext = m.getOriginalFilename().substring(index);
-				}
-				
-				String sysName = "final-"+UUID.randomUUID().toString()+ext;
-				try {
-					m.transferTo(new File("c:/java-lec/upload/"+sysName));
-				} catch (Exception e) {
-					
-				}
-				BoardFile fileVO = new BoardFile(); 
-				fileVO.setFilePath("c:/java-lec/upload/");
-				fileVO.setSysName(sysName);
-				fileVO.setHospitalSeq(hospital.getHospitalSeq());
-				fileVO.setType("2");
-				hospMapper.insertReviewFiles(fileVO);
-			}
-		}
-		for(Doctor s : doctors) {
-			docMapper.insertDoctorByHospSeq(s);
-		}
+	public void updateHospital(Hospital hospital) {
 		mapper.updateHospital(hospital);
 	}
 
@@ -76,6 +48,11 @@ public class InfoServiceImpl implements InfoService{
 		return docMapper.selectDoctorByHospSeq(hospitalSeq);
 	}
 
+	
+	//포토요약
+	public List<BoardFile> outPutPhoto(int hospitalSeq) {
+		return hospMapper.outPutPhoto(hospitalSeq);
+	}
 	
 	// 내가 작성한 것
 	@Override
@@ -104,8 +81,8 @@ public class InfoServiceImpl implements InfoService{
 	}
 
 	@Override
-	public void insertDoctorPic(DoctorPic doctorPic) {
-		picMapper.insertDocPic(doctorPic);
+	public Integer insertDoctorPic(DoctorPic doctorPic) {
+		return picMapper.insertDocPic(doctorPic);
 	}
 
 	@Override
@@ -114,7 +91,7 @@ public class InfoServiceImpl implements InfoService{
 	}
 
 	@Override
-	public DoctorPic selectDoctorPic(int doctorSeq) {
+	public List<DoctorPic> selectDoctorPic(int doctorSeq) {
 		return picMapper.selectDocPic(doctorSeq);
 	}
 
@@ -123,4 +100,27 @@ public class InfoServiceImpl implements InfoService{
 		picMapper.deleteDocPic(doctorSeq);
 	}
 
+	@Override
+	public Integer insertHospitalPic(BoardFile file) {
+		hospMapper.insertHospitalPic(file);
+		System.out.println("파일 시퀀스"+ file.getFileSeq());
+		return file.getFileSeq();
+	}
+
+	@Override
+	public void updateHospitalPic(BoardFile file) {
+		hospMapper.updateHospitalPic(file);
+	}
+
+	@Override
+	public List<BoardFile> selectHospitalPic(int hospitalSeq) {
+		return hospMapper.selectHospitalPic(hospitalSeq);
+	}
+
+	@Override
+	public void deleteHospitalPic(int fileSeq) {
+		hospMapper.deleteHospitalPic(fileSeq);
+	}
+	
+	
 }
