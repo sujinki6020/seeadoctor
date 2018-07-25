@@ -539,6 +539,11 @@ textarea {
     </div>
 </div>
 <script type="text/javascript">
+$(document).on("change",".majorSeq",function(){
+	console.log(123);
+})
+
+
 $("#addFirstDoc").click(function(){
 	$("#emptyDoc").hide();
 	var docText = ['<div class="doctor" >',
@@ -579,7 +584,6 @@ $("#addFirstDoc").click(function(){
                 console.log(files[i].size);
                 console.log($(item).find("img"));
                 $(item).find("img").attr("src", URL.createObjectURL(files[i]));
-                // sendFile(file,hospitalSeq, doctorName , doctorDept , doctorSeq , fileSeq)
                 sendFile(files[i],$(item));
             }
             return false;
@@ -742,9 +746,10 @@ $(document).on("click",".addDoctor",function(){
 		'<a href="#1" class="removeDoctor">의사삭제</a>',
 		'</div></div>'].join("");
 	$(".doctor").each(function(){
-		$(this).hide();
+		$(this).removeClass("movePic");
 	})
-	$('#pics > div').prepend(docText).addClass("whiteBackground");;
+	$('#pics > div').prepend(docText);
+	$(".doctor").eq(0).addClass("movePic").addClass("whiteBackground");
 	console.log("파일업로드중")
 	var doctors = document.querySelectorAll(".doctor");
 	console.log("의사들",doctors)
@@ -897,6 +902,7 @@ function sendFile(file, doctor){
    		if($(".doctor").length == 0){
    			$("#emptyDoc").show();
    		}
+   		return;
    	}
    	fd.append("hospitalSeq",hospitalSeq);
    	fd.append("doctorDept",doctorDept);
