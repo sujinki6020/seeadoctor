@@ -370,3 +370,8 @@
 #about_s img{
 	margin-right: 20px;
 }
+.flist{
+	width: 500px;
+    border: 1px solid;
+    height: 200px;
+}

@@ -168,17 +168,18 @@
 	
 	
 	<resultMap id="reviewFileMap" type="boardFile">
-		<result column="file_sql" property="fileSql"/>
+		<result column="file_seq" property="fileSeq"/>
 		<result column="no" property="no"/>
 		<result column="file_path" property="filePath"/>
 		<result column="sys_name" property="sysName"/>
+		<result column="ori_name" property="oriName"/>
 		<result column="hospital_seq" property="hospitalSeq"/>
 		<result column="type" property="type"/>
 	</resultMap>
 	
 		<insert id="insertReviewFiles" parameterType="boardFile">
 			insert into tb_board_file(
-				file_path, sys_name,hospital_seq
+				file_path, sys_name,hospital_seq,ori_name
 				<choose>
 					<when test="type != null">
 					,type
@@ -188,7 +189,7 @@
 					</otherwise>
 				</choose>
 			) values (
-				#{filePath},#{sysName},#{hospitalSeq}
+				#{filePath},#{sysName},#{hospitalSeq}, #{oriName}
 				<choose>
 					<when test="type != null">
 					,#{type}

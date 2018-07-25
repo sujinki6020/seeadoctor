@@ -322,7 +322,7 @@ textarea.form-control {
 			
 		</div>
 		
-<!-- 	글쓰기 -->
+<!-- 	글쓰기,수정 -->
 			<div id="content_area_writeForm" style="display: none;">
 				
 				<div id="form1">
@@ -348,15 +348,15 @@ textarea.form-control {
 
 					<div id="filearea_write">
 						<span id="file_span" >첨부파일</span>
+						<div class="flist">
+<%--         					 <c:forEach var="fl" items="${result.files}" > --%>
+<%--         					 	파일이름:${fl.oriName} --%>
+<%--          					</c:forEach> --%>
+     					</div>
 						<input type="file" multiple="multiple" name="files" id="file"
 								accept=".gif, .jpg, .png" placeholder="지원되는 파일 양식: jpg, png, gif">
-						<div class="flist">
-        					 <c:forEach var="fl" items="${result.files}" >
-        					 	파일이름:${fl.oriName}<button type="button" id="button" value="${fl.fileSeq}">x</button>
-         					</c:forEach>
-     					</div>
 					</div>
-
+<%-- <button type="button" id="button" value="${fl.fileSeq}">x</button> --%>
 
 					<hr id="review_hr">
 					<div id="btn_adm">
@@ -916,6 +916,7 @@ function updateForm(){
 	.done(function(result){
 		
 		console.dir("------------result")
+		console.dir(result)
 		$("#content_detail").hide();
 		$("#content_area_writeForm").show();
 		
@@ -926,7 +927,25 @@ function updateForm(){
 		$("#form input[name='no']").val(result.board.no);
 		$("#form input[name='title']").val(result.board.title);
 		$("#form textarea[name='content']").val(result.board.content);
-		$("#form input[name='file']").val(result.files);
+		
+		var fileHtml = "";
+		for(var i = 0; i < result.files.length; i++) {
+			var f = result.files[i];
+			fileHtml += "<div id='file" + f.fileSeq + "'>" + f.oriName + "<a href='#1' onclick='delFile(" + f.fileSeq + ")'>삭제 </a></div>"
+		}
+		$(".flist").html(fileHtml)
+	})
+}
+
+function delFile(fileSeq) {
+	console.log(fileSeq);
+	$.ajax({
+		url : "deleteFile.json",
+		data : "fileSeq=" + fileSeq
+	})	
+	.done(function(result){
+ 		alert("파일");
+ 		$("#file" + fileSeq).remove();
 	})
 }
 
@@ -1103,22 +1122,6 @@ $(document).ready(function(){
 		}
 	})
 })
-
-//파일삭제
-   $("#button").click(function (fileSeq) {
-      $.ajax({
-         type : "POST",
-         url : "deleteFile.json",
-           data: {
-              fileSeq : fileSeq
-           }
-      .done(function(result){
-    	  
-      })
-      });
-   });
-
-
 
 </script>
 
