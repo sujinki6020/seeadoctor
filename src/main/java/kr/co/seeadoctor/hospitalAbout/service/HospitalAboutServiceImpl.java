@@ -102,9 +102,7 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 		return result;
 	}
 
-	@Override
-	public void insertReview(Board board)throws Exception {
-		hospMapper.insertReview(board);
+	public void insertFile(Board board) throws Exception{//파일등록하기
 //		System.out.println("보드파일의 오리네임:" + board.getFiles()[0].getOriginalFilename());
 		if(!board.getFiles()[0].getOriginalFilename().equals("")) { //오리지날네임이 공백이 아닐 때
 			
@@ -128,7 +126,14 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 					hospMapper.insertReviewFiles(fileVO);
 			 }
 		}
-		
+	}
+	
+	
+	@Override
+	public void insertReview(Board board)throws Exception {
+		hospMapper.insertReview(board);
+		insertFile(board);
+	
 		if(board.getReserveSeq() != null) {
 			Reservation reservation = new Reservation();
 			reservation.setReviewNo(board.getNo()); //xml에서 selectKey로 받아오기
@@ -143,7 +148,6 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 		Map<String, Object> result = new HashMap<>();
 		hospMapper.updateReviewViewCnt(no);
 		Board board = hospMapper.detailReview(b);
-//		System.out.println("board -> 2" + board.getContent());
 		
 		List<BoardFile> files = hospMapper.selectReviewFileByNo(b);
 		System.out.println("files: " + files);
@@ -163,6 +167,7 @@ public class HospitalAboutServiceImpl implements HospitalAboutService{
 	@Override
 	public void updateReview(Board board) throws Exception{
 		hospMapper.updateReview(board);
+		insertFile(board);
 	}
 		
 	@Override

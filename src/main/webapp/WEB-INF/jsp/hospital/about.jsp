@@ -938,12 +938,8 @@ function delFile(fileSeq) {
 		data : "fileSeq=" + fileSeq
 	})	
 	.done(function(result){
-		if(confirm("사진이 완전히 삭제됩니다")){
-	 		$("#file" + fileSeq).remove();
-		}else{
-			return false;
-		}
-		
+	 	$("#file" + fileSeq).remove();
+// 		confirm("사진이 완전히 삭제됩니다")
 	})
 }
 

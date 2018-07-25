@@ -36,13 +36,10 @@ public class HospitalAboutController {
 	//병원정보 가져오기
 	@RequestMapping("/about.do")
 	public void hospAbout(int hospitalSeq ,HttpSession session,  Model model) {
-		
-		System.out.println("어바웃쩜두 들어옴");
 		// 아래의 정보를 가져오기 위한 서비스 필요한 병원정보 가져오기
 		// 전체 좋아요 개수, 해당병원 좋아요 여부(cnt), 중복 좋아요 안되게 막기
 		
-		//페이지 방문수 카운트
-		hospService.visitCnt(hospitalSeq);
+		hospService.visitCnt(hospitalSeq);//페이지 방문수 카운트
 	
 		User user = (User)session.getAttribute("user");
 		model.addAttribute("result", hospService.loadHospAbout(user.getId(), hospitalSeq));
