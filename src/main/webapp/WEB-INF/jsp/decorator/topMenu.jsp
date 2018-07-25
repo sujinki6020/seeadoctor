@@ -63,7 +63,11 @@
     <div id="bottomArea">
         <ul class="etcInfo">
 	        <li style="font-weight:900;">
+	        <c:choose>
+	        <c:when test="${empty sessionScope.user}">
 	        	<a href="${pageContext.request.contextPath}/join/joinAdmin.do" id="joinAdmin">Admin 회원가입</a> 
+	        </c:when>
+	        </c:choose>
 	        </li>
             <li>
                 <a href="#1">About us</a>
