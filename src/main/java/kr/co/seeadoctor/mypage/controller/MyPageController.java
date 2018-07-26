@@ -1,4 +1,4 @@
-package kr.co.seeadoctor.mypage.Controller;
+package kr.co.seeadoctor.mypage.controller;
 
 import java.util.List;
 
@@ -25,7 +25,7 @@ public class MyPageController {
 	private HospitalAboutService hospsService;
 
 	@RequestMapping("/myInfo.do")
-	public String callMyInfo(HttpSession session, String id, Model model) {
+	public void callMyInfo(HttpSession session, String id, Model model) {
 		
 	    List<HospitalAbout> hList = hospsService.selectAllHospLike(id);
 		User myUser = myPageService.retrieveUser(id);
@@ -33,7 +33,6 @@ public class MyPageController {
 	    model.addAttribute("hList", hList);
 	    session.setAttribute("user", myUser);
 
-		return "mypage/myInfo";
 	}
 	
 	@ResponseBody

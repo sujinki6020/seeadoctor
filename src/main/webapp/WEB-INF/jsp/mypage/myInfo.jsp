@@ -111,6 +111,7 @@
 								<div class="panel card-back">
 									<br><br>
 									<a href="#" class="chat" data-flag="${like.adminId}" style="display: block;font-size:17px; text-align: center;width: 100%;" >관리자와 채팅하기</a>
+									<a href="${pageContext.request.contextPath}/hospital/about.do?hospitalSeq=${like.hospitalSeq}" style="display: block;font-size:17px; text-align: center;width: 100%;" >병원 정보</a>
 								</div>
 							</li>
 							</c:forEach>
