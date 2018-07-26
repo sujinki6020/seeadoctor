@@ -292,7 +292,7 @@ textarea.form-control {
 					   	
 					   	<input type="text" name="searchKeyWord" class="search" placeholder="검색어를 입력하세요" style="height: 30px;"/>
 						<button type="button" class="btn btn-default search-bar1" onclick="review()">검색</button> 
-						<button type="button" id="writeid" class="btn btn-default pull-right"onclick='writeForm()'>글쓰기</button>
+<!-- 						<button type="button" id="writeid" class="btn btn-default pull-right" onclick='writeForm()'>글쓰기</button> -->
 					</form>
 				</div>
 			</div>
@@ -618,8 +618,9 @@ function review(pageNo) { //밑에 페이지번호 눌렀을 때도 실행됨
 	.fail(function(result){
 		console.log(result);
 	})	
-		
 }
+
+
 
 /*
 //검색
@@ -1049,11 +1050,7 @@ $("#rForm").submit(function(e){
 			name :$("#rForm input[name='name']").val()
 		}
 	}).done(function(){
-		/*
-		if(!'${result.board.userSeq}'){
-			$("#rForm input[name='userSeq']").val("");
-		}
-		*/
+		
 		$("#rForm textarea[name='content']").val("");
 		makeCommentList();
 	})
@@ -1101,7 +1098,7 @@ function makeCommentList() {
 			html += '</tr>';
 			}
 		if (result.length == 0) {
-			html += '<tr><td colspan="4">댓글이 존재하지 않습니다.</td></tr>';
+			html += '<tr><td colspan="4">댓글을 달아주세요.</td></tr>';
 		}
 		html += "</title>";
 		$("#commentList").html(html);
