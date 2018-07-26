@@ -470,6 +470,7 @@ $(function () {
 			})
 			.done(function(result){
 				$("#content_detail").hide();
+				$("#content_area_writeForm").show();
 				
 				$("#registBtn").hide();
 				$("#updateBtn").show();
@@ -478,6 +479,14 @@ $(function () {
 				$("#form input[name='no']").val(result.board.no);
 				$("#form input[name='title']").val(result.board.title);
 				$("#form textarea[name='content']").val(result.board.content);
+				
+				var fileHtml = "";
+				for(var i = 0; i < result.files.length; i++) {
+					var f = result.files[i];
+					fileHtml += "<div id='file" + f.fileSeq + "'>" + f.oriName + "<a href='#1' onclick='delFile(" + f.fileSeq + ")'> [삭제] </a></div>"
+				}
+				$("#flist").html(fileHtml)
+				
 			});
 	};
 });
