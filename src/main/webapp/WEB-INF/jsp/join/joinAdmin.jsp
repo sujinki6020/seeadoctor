@@ -21,8 +21,7 @@
 	<div class="container">
 
 		<div class="row">
-			<div
-				class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+			<div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
 				<form role="form" name="form" id="form" method="post" action="insertAdmin.do">
 					<h2>
 						회원가입 <small>Admin</small>
@@ -150,7 +149,6 @@ $("#email").keyup(function() {
 $("#phone").keyup(function () {
 	var phone = $(this).val();
 	var phoneReg = /^01([016789]?)-?([0-9]{3,4})-?([0-9]{4})$/;
-// 	console.log(phone);
 	if(!phoneReg.test(phone)) {
 		$("#phonep").show();
 		$("#phonep").text("핸드폰 번호는 -을 포함한 숫자로만 입력해 주세요.");
@@ -220,16 +218,11 @@ function searchHospName() {
 	}); 
  };
  
- 
  function hospInfo(index) {
 	 var dutyName = hospitals[index].dutyName; 
 	 var tel = hospitals[index].dutyTel1; 
 	 var addr1 = hospitals[index].dutyAddr; 
 	 var hospitalSeq = hospitals[index].hospitalSeq; 
-// 	 console.log("hospInfo", dutyName)
-// 	 console.log("hospInfo", tel)
-// 	 console.log("hospInfo", addr1)
-// 	 console.log("hospInfo", hospitalSeq)
 	 $("input[name='dutyName']").val(dutyName);
 	 $("input[name='tel']").val(tel);
 	 $("input[name='addr1']").val(addr1);
@@ -242,7 +235,6 @@ function searchHospName() {
 	    event.preventDefault();
 });
 	 
- 
 </script>
 </body>
 </html>

@@ -103,17 +103,14 @@
 	</div>
 	
 <script>
-// opener관련 오류가 발생하는 경우 아래 주석을 해지하고, 사용자의 도메인정보를 입력합니다. ("팝업API 호출 소스"도 동일하게 적용시켜야 합니다.)
+// opener관련 오류가 발생하는 경우 아래 주석을 해지하고, 사용자의 도메인정보를 입력("팝업API 호출 소스"도 동일하게 적용시켜야 합니다.)
 //document.domain = "abc.go.kr";
 var addr1;
 var addr2;
 var zip;
 function goPopup(){
-	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출하게 됩니다.
+	// 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrLinkUrl.do)를 호출
     var pop = window.open("${pageContext.request.contextPath}/join/jusoPopup.do","pop","width=570,height=420, scrollbars=yes, resizable=yes"); 
-    
-	// 모바일 웹인 경우, 호출된 페이지(jusopopup.jsp)에서 실제 주소검색URL(http://www.juso.go.kr/addrlink/addrMobileLinkUrl.do)를 호출하게 됩니다.
-    //var pop = window.open("/popup/jusoPopup.jsp","pop","scrollbars=yes, resizable=yes"); 
 }
 /** API 서비스 제공항목 확대 (2017.02) **/
 function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAddr, jibunAddr, zipNo, admCd, rnMgtSn, bdMgtSn
@@ -130,7 +127,6 @@ function jusoCallBack(roadFullAddr,roadAddrPart1,addrDetail,roadAddrPart2,engAdd
 }
 
 // 회원가입Form 유효성 검사(정규식 표현)
-
 $("#id").keyup(function () {
 	var id = $(this).val();
 	var idReg = /^[a-z]+[a-z0-9]{5,19}$/g;
@@ -204,7 +200,6 @@ function checkId(){
         type:'post',
         data:{id:id},
         success:function(data){
-//         	console.log("data",data);
             if($.trim(data)==0){
                 $('#chkMsg').html("<p style='color:blue;'>사용가능한 ID입니다.</p>");
             }else{

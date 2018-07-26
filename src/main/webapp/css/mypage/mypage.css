@@ -6,16 +6,11 @@
   box-sizing: border-box;
 }
 
-/* html, #geBody { */
-/*   height: 100vh; */
-/* } */
-
 form, input {
   font-family: "Poppins", sans-serif;
 }
 
 body {
-/*   font: 14px/1 'Open Sans', sans-serif; */
   font: Helvetica Neue",Helvetica,Arial,sans-serif;
   color: #555;
   background: #eee;
@@ -26,11 +21,6 @@ body {
   font-weight: 400;
   text-align: center;
 }
-
-/* p {
-  margin: 0 0 20px;
-  line-height: 1.5;
-} */
 
 main {
   min-width: 330px;

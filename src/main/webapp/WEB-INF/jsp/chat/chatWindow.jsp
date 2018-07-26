@@ -14,8 +14,7 @@
 <body>
 		<div style="position:relative; height:500px;">
             <div id="chatArea" style="height:400px; overflow:scroll;">
-				<blockquote class="chatBox">
-				</blockquote>
+				<blockquote class="chatBox"></blockquote>
 			</div>
 			
              <div style="background:lavender; height:100px; postion:absolute;" id="inputArea">

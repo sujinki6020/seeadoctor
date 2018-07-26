@@ -4,10 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/login/find.css" />
-<!-- <script src="sweetalert2.all.min.js"></script> -->
-<!-- <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script> -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/login/find.css" />
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.25.3/dist/sweetalert2.all.min.js"></script>
 </head>
 <body>
@@ -52,61 +49,61 @@
 		</form>
 	</div>
 
-	<script>
-		function openCity(evt, cityName) {
-			var i, tabcontent, tablinks;
-			tabcontent = document.getElementsByClassName("tabcontent");
-			for (i = 0; i < tabcontent.length; i++) {
-				tabcontent[i].style.display = "none";
-			}
-			tablinks = document.getElementsByClassName("tablinks");
-			for (i = 0; i < tablinks.length; i++) {
-				tablinks[i].className = tablinks[i].className.replace(
-						" active", "");
-			}
-			document.getElementById(cityName).style.display = "block";
-			evt.currentTarget.className += " active";
+<script>
+	function openCity(evt, cityName) {
+		var i, tabcontent, tablinks;
+		tabcontent = document.getElementsByClassName("tabcontent");
+		for (i = 0; i < tabcontent.length; i++) {
+			tabcontent[i].style.display = "none";
 		}
+		tablinks = document.getElementsByClassName("tablinks");
+		for (i = 0; i < tablinks.length; i++) {
+			tablinks[i].className = tablinks[i].className.replace(
+					" active", "");
+		}
+		document.getElementById(cityName).style.display = "block";
+		evt.currentTarget.className += " active";
+	}
 
-		// Get the element with id="defaultOpen" and click on it
-		document.getElementById("defaultOpen").click();
-		
-		// ID & PW 찾기		
-		$("#findId").on("submit", function (event) {
-			var name = $("#name").val();
-			var birth = $("#birth").val();
-			event.preventDefault();
-			$.ajax({
-				url: "${pageContext.request.contextPath}/login/findId.do",
-				data: {name:name, birth:birth},
-				type: "POST",
-				success: function(data) {
-					if(data == "") {
-						swal('사용자 정보와 일치하는 ID가 존재하지 않습니다.');
-					} else {
-						swal('고객님의 ID는' + data + '입니다.');
-					}
+	// Get the element with id="defaultOpen" and click on it
+	document.getElementById("defaultOpen").click();
+	
+	// ID & PW 찾기		
+	$("#findId").on("submit", function (event) {
+		var name = $("#name").val();
+		var birth = $("#birth").val();
+		event.preventDefault();
+		$.ajax({
+			url: "${pageContext.request.contextPath}/login/findId.do",
+			data: {name:name, birth:birth},
+			type: "POST",
+			success: function(data) {
+				if(data == "") {
+					swal('사용자 정보와 일치하는 ID가 존재하지 않습니다.');
+				} else {
+					swal('고객님의 ID는' + data + '입니다.');
 				}
-			});
+			}
 		});
-		
-		$("#findPw").on("submit", function (event) {
-			var id = $("#id").val();
-			var email = $("#email").val();
-			event.preventDefault();
-			$.ajax({
-				url: "${pageContext.request.contextPath}/login/findPw.do",
-				data: {id:id, email:email},
-				type: "POST",
-				success: function(data) {
-					if(data == "") {
-						swal('사용자 정보와 일치하는 비밀번호를 찾을 수 없습니다.');
-					} else {
-						swal('고객님의 비밀번호는' + data + '입니다.');
-					}
+	});
+	
+	$("#findPw").on("submit", function (event) {
+		var id = $("#id").val();
+		var email = $("#email").val();
+		event.preventDefault();
+		$.ajax({
+			url: "${pageContext.request.contextPath}/login/findPw.do",
+			data: {id:id, email:email},
+			type: "POST",
+			success: function(data) {
+				if(data == "") {
+					swal('사용자 정보와 일치하는 비밀번호를 찾을 수 없습니다.');
+				} else {
+					swal('고객님의 비밀번호는' + data + '입니다.');
 				}
-			});
+			}
 		});
-		</script>
+	});
+	</script>
 </body>
 </html>

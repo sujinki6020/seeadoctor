@@ -21,7 +21,7 @@
 	<input id="tab2" type="radio" name="tabs"> 
 		<label id="geLabel" for="tab2">즐겨찾기(병원)</label>
 
-	<section id="content1"">
+	<section id="content1">
 		<div id="myInfo">
 			<form class="register" id="update">
 				<h1 id="myH1">내 정보 수정</h1>
@@ -121,93 +121,93 @@
 	</section>
 	</main>
 	
-	<script>
-	$("#updateInfo").on("click", function(event) {
-		if($("#password_confirmation").val() != "") {
-	    event.preventDefault();
-	    var data = $("#update").serialize();
-	    console.dir(data);
-	    $.ajax({
-	    	url:"${pageContext.request.contextPath}/mypage/updateUser.do",
-	    	type: "post",
-	    	data: data,
-	    	success: function () {
-	    		location.href="${pageContext.request.contextPath}/mypage/myInfo.do?id=${sessionScope.user.id}"
-	    	}
-	    })
-		} else {
-			alert("비밀번호 확인란이 비어 있습니다.");
-		}
-	 });
-	
-	$("#password").keyup(function () {
-		var pw = $(this).val();
-		var pwReg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,20}/;
-		if(pw.length==0) {
-			$("#pwp").hide();
-		} else if(!pwReg.test(pw)) {
-			$("#pwp").show();
-			$("#pwp").text("비밀번호는 6~20자 영문자/숫자/특수문자 조합이어야 합니다.");
-		} else {
-			$("#pwp").hide();
+<script>
+$("#updateInfo").on("click", function(event) {
+	if($("#password_confirmation").val() != "") {
+    event.preventDefault();
+    var data = $("#update").serialize();
+    console.dir(data);
+    $.ajax({
+    	url:"${pageContext.request.contextPath}/mypage/updateUser.do",
+    	type: "post",
+    	data: data,
+    	success: function () {
+    		location.href="${pageContext.request.contextPath}/mypage/myInfo.do?id=${sessionScope.user.id}"
+    	}
+    })
+	} else {
+		alert("비밀번호 확인란이 비어 있습니다.");
+	}
+ });
+
+$("#password").keyup(function () {
+	var pw = $(this).val();
+	var pwReg = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{6,20}/;
+	if(pw.length==0) {
+		$("#pwp").hide();
+	} else if(!pwReg.test(pw)) {
+		$("#pwp").show();
+		$("#pwp").text("비밀번호는 6~20자 영문자/숫자/특수문자 조합이어야 합니다.");
+	} else {
+		$("#pwp").hide();
+	}
+});
+
+$("#password_confirmation").keyup(function () {
+	var pw = $("#password").val();
+	var pwConfirm = $(this).val();
+		console.log(pwConfirm.length);
+		if(pwConfirm.length == 0) {
+		$("#pwConfirm").hide();
+		} else if(pw != pwConfirm) {
+		$("#pwConfirm").show();
+		$("#pwConfirm").text("비밀번호가 일치하지 않습니다.");
+	} else {
+		$("#pwConfirm").hide();
+	}
+});
+
+$("#email").keyup(function() {
+	var email = $(this).val();
+	var emailReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	if(email.length == 0) {
+		$("#emailp").hide();
+	} else if(email.match(emailReg) == null) {
+		$("#emailp").show();
+		$("#emailp").text("email 형식에 맞지 않습니다.");
+	} else {
+		$("#emailp").hide();
+	}
+});
+
+$("#phone").keyup(function () {
+	var phone = $(this).val();
+	var phoneReg = /^01([016789]?)-?([0-9]{3,4})-?([0-9]{4})$/;
+	if(phone.length==0) {
+		$("#phonep").hide();
+	} else if(!phoneReg.test(phone)) {
+		$("#phonep").show();
+		$("#phonep").text("핸드폰 번호는 -을 포함한 숫자로만 입력해 주세요.");
+	} else {
+		$("#phonep").hide();
+	}
+});
+
+$(".panel").on("click",".chat",function(){
+	var userId = "${sessionScope.user.id}";
+	var adminId = $(this).data("flag");
+	console.log("userId : ", userId);
+	console.log("adminId : ", adminId);
+	$.ajax({
+		url: "${pageContext.request.contextPath}/admin/chatboard/chatBoard.do",
+		data: {"adminId":adminId,"userId":userId},
+		type: "post",
+		success : function () {
+				window.open('http://localhost/seeadoctor/chat/chatWindow.do?receiverId=' + adminId, 'popup01', 'width=400, height=550, toolbar=0, menubar=no');
 		}
 	});
-	
-	$("#password_confirmation").keyup(function () {
-		var pw = $("#password").val();
-		var pwConfirm = $(this).val();
- 		console.log(pwConfirm.length);
- 		if(pwConfirm.length == 0) {
-			$("#pwConfirm").hide();
- 		} else if(pw != pwConfirm) {
-			$("#pwConfirm").show();
-			$("#pwConfirm").text("비밀번호가 일치하지 않습니다.");
-		} else {
-			$("#pwConfirm").hide();
-		}
-	});
-	
-	$("#email").keyup(function() {
-		var email = $(this).val();
-		var emailReg = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-		if(email.length == 0) {
-			$("#emailp").hide();
-		} else if(email.match(emailReg) == null) {
-			$("#emailp").show();
-			$("#emailp").text("email 형식에 맞지 않습니다.");
-		} else {
-			$("#emailp").hide();
-		}
-	});
-	
-	$("#phone").keyup(function () {
-		var phone = $(this).val();
-		var phoneReg = /^01([016789]?)-?([0-9]{3,4})-?([0-9]{4})$/;
-		if(phone.length==0) {
-			$("#phonep").hide();
-		} else if(!phoneReg.test(phone)) {
-			$("#phonep").show();
-			$("#phonep").text("핸드폰 번호는 -을 포함한 숫자로만 입력해 주세요.");
-		} else {
-			$("#phonep").hide();
-		}
-	});
-	
-	$(".panel").on("click",".chat",function(){
-		var userId = "${sessionScope.user.id}";
-		var adminId = $(this).data("flag");
-		console.log("userId : ", userId);
-		console.log("adminId : ", adminId);
-		$.ajax({
-			url: "${pageContext.request.contextPath}/admin/chatboard/chatBoard.do",
-			data: {"adminId":adminId,"userId":userId},
-			type: "post",
-			success : function () {
-					window.open('http://localhost/seeadoctor/chat/chatWindow.do?receiverId=' + adminId, 'popup01', 'width=400, height=550, toolbar=0, menubar=no');
-			}
-		});
-	});
-	
-	</script>
+});
+
+</script>
 </body>
 </html>

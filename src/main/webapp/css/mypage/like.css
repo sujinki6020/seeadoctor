@@ -11,7 +11,6 @@ form, input {
 /* Hero Unit ----------------------*/
 .hero-unit {
   height: 640px;
-/*   background: url(https://static.pexels.com/photos/2884/building-vintage-bike-monument.jpg) no-repeat center center; */
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;

@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css"> -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/admin/chatboard/chatBoard.css">
 <script  src="${pageContext.request.contextPath}/js/admin/chatboard/chatBoard.js"></script>
 </head>
@@ -31,7 +30,7 @@
     </table>
   </div>
   <div class="tbl-content">
-    <table id="tb2" cellpadding="0" cellspacing="0" border="0">
+    <table id="tb2">
       <tbody>
       
       <c:forEach var="chatBoard" items="${cbList}">
@@ -57,7 +56,6 @@
 <script>
 
 $(".td4").on("keyup", function () {
-// 	alert("keyup");
 	var memo = $(this).children().val().trim();
 	var chatBoardSeq = $(this).prev().prev().prev().find("input[name='chatBoardSeq']").val();
 	console.log(chatBoardSeq);
@@ -70,7 +68,6 @@ $(".td4").on("keyup", function () {
 });
 
 $(".td2").on("click",function(){
-// 	alert($(this).text().split("-")[0].trim());
 	window.open('http://localhost/seeadoctor/chat/chatWindow.do?receiverId=' + $(this).text().split("-")[0].trim(), 'popup01', 'width=400, height=550, toolbar=0, menubar=no');
 });
 
