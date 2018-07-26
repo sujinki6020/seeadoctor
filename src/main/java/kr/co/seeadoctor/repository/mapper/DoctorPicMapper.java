@@ -9,4 +9,5 @@ public interface DoctorPicMapper {
 	public Integer insertDocPic(DoctorPic doctorPic);
 	public void updateDocPic(DoctorPic doctorPic);
 	public void deleteDocPic(int doctorSeq);
+	public Integer selectDoctorSeq(int fileSeq);
 }

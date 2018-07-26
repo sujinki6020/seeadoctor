@@ -388,6 +388,7 @@ textarea {
     </div>
     <div id="hospiPic">
     	<div>
+    		<input type="text" id="nowHospitalSeq" style="display:none" value="${sessionScope.user.hospitalSeq}">
     		<h3>병원 사진</h3>
     		<div id="hospiPics">
     			<a href="#1" id="prevHosp"></a>
@@ -808,7 +809,7 @@ $(document).on("click",".addHospi",function(){
                 console.log($(item).find("img"));
                 console.log("병원번호",$(item).find("input:eq(0)").val());
                 $(item).find("img").attr("src", URL.createObjectURL(files[i]));
-                sendHospital(files[i] , $(item).find("input:eq(0)").val(), $(item).find("input:eq(1)"));
+                sendHospital(files[i] , $("#nowHospitalSeq").val(), $(item).find("input:eq(1)"));
                 $(".hospis").eq(0).removeClass("whiteBackground");
             }
             return false;
@@ -886,7 +887,7 @@ function sendFile(file, doctor){
    	//hospitalSeq, doctorName , doctorDept , doctorSeq , fileSeq
    	fd.append("attach",file); // 객체를 어펜드 시킨다.
    	console.log("잘들어옴")
-   	var hospitalSeq = doctor.find("input[name='hospitalSeq']").val();
+   	var hospitalSeq = $("#nowHospitalSeq").val();
    	var doctorSeq = doctor.find("input[name='doctorSeq']").val();
    	var fileSeq = doctor.find("input[name='fileSeq']").val();
    	var doctorName = doctor.find("input[name='doctorName']").val();

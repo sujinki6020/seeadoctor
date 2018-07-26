@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import kr.co.seeadoctor.admin.info.service.InfoService;
 import kr.co.seeadoctor.repository.vo.BoardFile;
+import kr.co.seeadoctor.repository.vo.Doctor;
 import kr.co.seeadoctor.repository.vo.DoctorPic;
 import kr.co.seeadoctor.repository.vo.Hospital;
 import kr.co.seeadoctor.repository.vo.User;
@@ -74,19 +75,29 @@ public class InfoController {
 				doctorPic.setOriName(attach.getOriginalFilename());
 				doctorPic.setDoctorName(doctorName);
 				doctorPic.setDoctorDept(doctorDept);
-				doctorPic.setDoctorSeq(Integer.parseInt("1"));
+				doctorPic.setDoctorSeq(Integer.parseInt(doctorSeq));
 				doctorPic.setFileSeq(Integer.parseInt(fileSeq));
+				Doctor doctor = new Doctor();
+				doctor.setDoctorName(doctorName);
+				doctor.setMajorSeq(doctorDept);
+				doctor.setDoctorSeq(Integer.parseInt(doctorSeq));
+				infoService.updateDoctor(doctor);
 				infoService.updateDoctorPic(doctorPic);
 				return 0;
 			}
 			DoctorPic doctorPic = new DoctorPic();
+			Doctor doctor = new Doctor();
+			doctor.setDoctorName(doctorName);
+			doctor.setMajorSeq(doctorDept);
+			doctor.setHospitalSeq(Integer.parseInt(hospitalSeq));
+			Integer nowDoctorSeq = infoService.insertDoctor(doctor);
 			doctorPic.setFilePath("c:/java-lec/upload/");
 			doctorPic.setSysName(sysName);
-			doctorPic.setHospitalSeq(1012);
+			doctorPic.setHospitalSeq(Integer.parseInt(hospitalSeq));
 			doctorPic.setOriName(attach.getOriginalFilename());
 			doctorPic.setDoctorName(doctorName);
 			doctorPic.setDoctorDept(doctorDept);
-			doctorPic.setDoctorSeq(Integer.parseInt("1"));
+			doctorPic.setDoctorSeq(nowDoctorSeq);
 			return infoService.insertDoctorPic(doctorPic);
 		}
 		return -1;
@@ -147,7 +158,8 @@ public class InfoController {
 		System.out.println("파일 시퀀스 :"+ fileSeq);
 		if(fileSeq == null) return "false";
 		if(fileSeq.equals("") || fileSeq.equalsIgnoreCase("undefined")) return "false";
-		infoService.deleteDoctorPic(Integer.parseInt(fileSeq));
+		int doctorSeq = infoService.selectDoctorSeq(Integer.parseInt(fileSeq));
+		infoService.deleteDoctorPic(doctorSeq);
 		return "success";
 	}
 }

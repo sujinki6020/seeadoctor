@@ -40,6 +40,12 @@
 		from tb_doctor_pic
 		where file_seq = #{fileSeq}
 	</delete>
+	
+	<select id="selectDoctorSeq" parameterType="int">
+		select doctor_seq
+		from tb_doctor_pic
+		where file_seq = #{fileSeq}
+	</select>
 </mapper>
 
 

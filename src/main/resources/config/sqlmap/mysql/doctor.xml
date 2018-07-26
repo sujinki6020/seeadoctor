@@ -67,10 +67,21 @@
 		where hospital_seq = #{hospitalSeq};
 	</select>
 	
-	<insert id="insertDoctorByHospSeq" parameterType="doctor">
+	<insert id="insertDoctorByHospSeq" parameterType="doctor" useGeneratedKeys="true" keyProperty="doctorSeq">
 		insert into tb_doctor (doctor_name , major_seq , hospital_seq) values (#{doctorName}, #{majorSeq}, #{hospitalSeq})
 	</insert>
 	
+	<update id="updateDoctor" parameterType="doctor">
+		update tb_doctor
+		set doctor_name = #{doctorName},
+			major_seq = #{majorSeq}
+		where doctor_seq = #{doctorSeq}	
+	</update>
+	
+	<delete id="deleteDoctor" parameterType="int">
+		delete from tb_doctor
+		where doctor_seq = #{doctorSeq}
+	</delete>
 </mapper>
 
 

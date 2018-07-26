@@ -61,8 +61,8 @@ public class InfoServiceImpl implements InfoService{
 	}
 
 	@Override
-	public void insertDoctor(Doctor doctor) {
-		docMapper.insertDoctorByHospSeq(doctor);
+	public Integer insertDoctor(Doctor doctor) {
+		return docMapper.insertDoctorByHospSeq(doctor);
 	}
 
 	@Override
@@ -120,6 +120,11 @@ public class InfoServiceImpl implements InfoService{
 	@Override
 	public void deleteHospitalPic(int fileSeq) {
 		hospMapper.deleteHospitalPic(fileSeq);
+	}
+
+	@Override
+	public Integer selectDoctorSeq(int fileSeq) {
+		return picMapper.selectDoctorSeq(fileSeq);
 	}
 	
 	

@@ -31,7 +31,7 @@ public interface InfoService {
 	public void updateDoctors(Doctor doctor);
 	
 	// 의사 정보
-	public void insertDoctor(Doctor doctor);
+	public Integer insertDoctor(Doctor doctor);
 	public void updateDoctor(Doctor doctor);
 	public List<Doctor> selectDoctor(int hospitalSeq);
 	public void deleteDoctor(int doctorSeq);
@@ -41,4 +41,7 @@ public interface InfoService {
 	public void updateDoctorPic(DoctorPic doctorPic);
 	public List<DoctorPic> selectDoctorPic(int doctorSeq);
 	public void deleteDoctorPic(int doctorSeq);
+	
+	// 의사 한명 파일 시퀀스로 가지고 오기
+	public Integer selectDoctorSeq(int fileSeq);
 }
