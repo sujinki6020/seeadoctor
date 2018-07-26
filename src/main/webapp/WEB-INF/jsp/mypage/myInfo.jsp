@@ -8,6 +8,11 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage/mypage.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage/myInfo.css?ver=1" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mypage/like.css" />
+<style>
+.small-block-grid-2.medium-block-grid-3.flip-cards > li:nth-of-type(3n+1){
+	margin-left: 17%;
+}
+</style>
 </head>
 <body>
 	<main> 
@@ -65,21 +70,21 @@
 					<c:set var="userGender">${myUser.gender}</c:set>
 						<c:choose>
 							<c:when test="${userGender eq 'M'}">
-							<p>
+							<p style="position:relative;">
 							<label>성별</label>  
-								<input type="radio" name="gender" value="M" disabled="disabled" checked /> 
-								<label class="gender">Male</label> 
-								<input type="radio" name="gender" value="F" disabled="disabled" /> 
-								<label class="gender">Female</label>
+								<input type="radio" name="gender" value="M" disabled="disabled" checked style="position:absolute; top:22px;" /> 
+								<label class="gender" style="margin-right:50px;">Male</label> 
+								<input type="radio" name="gender" value="F" disabled="disabled" style="position:absolute; top:22px;" /> 
+								<label class="gender" style="margin-right:50px;">Female</label>
 							</p>
 							</c:when>
 							<c:otherwise>
-							<p>
+							<p style="position:relative;">
 							<label>성별</label>  
-								<input type="radio" name="gender" value="M" disabled="disabled" /> 
-								<label class="gender">Male</label> 
-								<input type="radio" name="gender" value="F" disabled="disabled" checked/> 
-								<label class="gender">Female</label>
+								<input type="radio" name="gender" value="M" disabled="disabled" style="position:absolute; top:22px;" /> 
+								<label class="gender" style="margin-right:50px;">Male</label> 
+								<input type="radio" name="gender" value="F" disabled="disabled" checked /> 
+								<label class="gender" style="margin-right:50px;">Female</label>
 							</p>
 							</c:otherwise>
 						</c:choose>
@@ -99,7 +104,7 @@
 
 						<ul class="small-block-grid-2 medium-block-grid-3 flip-cards">
 							<c:forEach var="like" items="${hList}">
-							<li ontouchstart="this.classList.toggle('hover');">
+							<li ontouchstart="this.classList.toggle('hover');" >
 								<div class="large button card-front">
 									<a href="#">${like.dutyName}</a>
 								</div>
