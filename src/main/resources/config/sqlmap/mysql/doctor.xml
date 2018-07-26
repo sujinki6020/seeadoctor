@@ -67,8 +67,9 @@
 		where hospital_seq = #{hospitalSeq};
 	</select>
 	
-	<insert id="insertDoctorByHospSeq" parameterType="doctor" useGeneratedKeys="true" keyProperty="doctorSeq">
+	<insert id="insertDoctorByHospSeq" parameterType="doctor">
 		insert into tb_doctor (doctor_name , major_seq , hospital_seq) values (#{doctorName}, #{majorSeq}, #{hospitalSeq})
+		<selectKey keyProperty="doctorSeq" resultType="Integer" order="AFTER"> SELECT LAST_INSERT_ID() </selectKey>
 	</insert>
 	
 	<update id="updateDoctor" parameterType="doctor">

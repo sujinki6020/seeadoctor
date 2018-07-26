@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.w3c.dom.traversal.DocumentTraversal;
 
 import kr.co.seeadoctor.admin.info.service.InfoService;
 import kr.co.seeadoctor.repository.vo.BoardFile;
@@ -90,15 +91,19 @@ public class InfoController {
 			doctor.setDoctorName(doctorName);
 			doctor.setMajorSeq(doctorDept);
 			doctor.setHospitalSeq(Integer.parseInt(hospitalSeq));
-			Integer nowDoctorSeq = infoService.insertDoctor(doctor);
+			infoService.insertDoctor(doctor);
+			doctor.getDoctorSeq();
+			System.out.println("의사 시퀀스"+doctor.getDoctorSeq());
 			doctorPic.setFilePath("c:/java-lec/upload/");
 			doctorPic.setSysName(sysName);
 			doctorPic.setHospitalSeq(Integer.parseInt(hospitalSeq));
 			doctorPic.setOriName(attach.getOriginalFilename());
 			doctorPic.setDoctorName(doctorName);
 			doctorPic.setDoctorDept(doctorDept);
-			doctorPic.setDoctorSeq(nowDoctorSeq);
-			return infoService.insertDoctorPic(doctorPic);
+			doctorPic.setDoctorSeq(doctor.getDoctorSeq());
+			infoService.insertDoctorPic(doctorPic);
+			System.out.println("파일시퀀스"+doctorPic.getFileSeq());
+			return doctorPic.getFileSeq();
 		}
 		return -1;
 	}
@@ -159,7 +164,8 @@ public class InfoController {
 		if(fileSeq == null) return "false";
 		if(fileSeq.equals("") || fileSeq.equalsIgnoreCase("undefined")) return "false";
 		int doctorSeq = infoService.selectDoctorSeq(Integer.parseInt(fileSeq));
-		infoService.deleteDoctorPic(doctorSeq);
+		infoService.deleteDoctor(doctorSeq);
+		infoService.deleteDoctorPic(Integer.parseInt(fileSeq));
 		return "success";
 	}
 }
