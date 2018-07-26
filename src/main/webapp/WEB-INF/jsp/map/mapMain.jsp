@@ -74,5 +74,8 @@
         </div>
     </div>
 <script src="${pageContext.request.contextPath}/js/map/searchinghospital.js"></script>
+<script type="text/javascript">
+
+</script>
 </body>
 </html>

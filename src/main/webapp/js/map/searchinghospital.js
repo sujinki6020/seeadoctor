@@ -2,6 +2,7 @@ let map;
 let latitude;
 let longitude;
 let markers = [];
+let currentPosition = [];
 let infowindowArr = [];
 
 function getContextPath() {
@@ -52,6 +53,11 @@ function getLocation(position){
 	longitude = position.coords.longitude || 126.534361;
 	let mapOptions = {center : new naver.maps.LatLng( latitude , longitude )};
 	map = new naver.maps.Map('searchedmap',mapOptions);
+	var nowPosition = new naver.maps.Marker({
+	    position: new naver.maps.LatLng(37.3595704, 127.105399),
+	    map: map
+	});
+	currentPosition.push(nowPosition);
 	hospitalList(latitude , longitude,1);
 }
 

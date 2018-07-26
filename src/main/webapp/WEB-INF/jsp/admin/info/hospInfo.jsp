@@ -923,7 +923,6 @@ function sendFile(file, doctor){
    		},
    		error : function (e) { console.log(e);}
    	})
-        // 이 contentType ,processData 두개를 팔스를 줘야 데이터가 제대로 날라간다.
 }
 </script>
 </body>
