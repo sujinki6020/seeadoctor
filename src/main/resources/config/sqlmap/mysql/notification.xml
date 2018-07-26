@@ -17,7 +17,7 @@
 		and past != 'T'
 	</select>
 	
-	<insert id="insertNotification">
+	<insert id="insertNotification" useGeneratedKeys="true" keyProperty="notifSeq">
 		insert into tb_notif(
 			send_id ,
 			receive_id ,
@@ -33,6 +33,12 @@
 		update tb_notif
 		set past = 'T'
 		where receive_id = #{id}
+	</update>
+	
+	<update id="updateNotificationBySeq" parameterType="int">
+		update tb_notif
+		set past = 'T'
+		where notif_seq = #{notifSeq}
 	</update>
 
 </mapper>

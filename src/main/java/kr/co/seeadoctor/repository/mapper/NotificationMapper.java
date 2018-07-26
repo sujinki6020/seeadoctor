@@ -9,4 +9,5 @@ public interface NotificationMapper {
 	public List<Notification> selectNotification(String id);
 	public void updateNotification(String id);
 	public void insertNotification(Notification notification);
+	public void updateNotificationBySeq(int notifSeq);
 }

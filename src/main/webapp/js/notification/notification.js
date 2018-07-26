@@ -16,7 +16,7 @@ function startAlarm(){
     		let text = "";
     		// 1: 예약 , 2: 예약 취소  , 3:채팅
     		for(let i = 0 ; i < alarm.length ; i++){
-    			text += setCss(alarm[i].eventType, alarm[i].sendId);
+    			text += setCss(alarm[i].eventType, alarm[i].sendId, alarm[i].notifSeq);
     		}
     		console.log('텍스트1',text);
     		$("#notifList").append(text);
@@ -26,8 +26,9 @@ function startAlarm(){
     		var pureData = alarm.split(":");
     		var id = pureData[0];
     		var css = pureData[1];
+    		var notifSeq = pureData[2];
     		$("#notifCount").text(parseInt($("#notifCount").text()) + 1);
-    		let text = setCss(css, id);
+    		let text = setCss(css, id , notifSeq);
     		console.log('텍스트2',text);
     		$("#notifList").append(text);
     		$("#notification, #notifCount").animate({"left":"-=5"},100).animate({"left":"+=10"},100).animate({"left":"-=5"},100);
@@ -57,9 +58,14 @@ $(document).on("click","#notification",function(){
 });
 
 $(document).on("click",".xIcon",function(){
+	var that = $(this);
 	$(this).parent().animate({"opacity":0, "height": 0 }, "slow" ,function(){
 		$("#notifCount").text(parseInt($("#notifCount").text()) - 1);
 		$(this).remove();
+		// notifSeq
+		var notifSeq = that.data("flag");
+		console.log("쪽지 번호" , notifSeq);
+		ws.send("delete:"+ notifSeq);
 	});
 })
 $(document).on('click','#userOut',function(){
@@ -67,23 +73,23 @@ $(document).on('click','#userOut',function(){
 	ws.send("logout");
 })
 
-function setCss(css ,id){
+function setCss(css ,id, notifSeq){
 	var cssText ="";
 	switch(css){
 	case "1":
-		cssText += '<div class="notif success"><div class="successIcon"></div><div class="xIcon"></div>'+
+		cssText += '<div class="notif success"><div class="successIcon"></div><div class="xIcon" data-flag="' + notifSeq + '"></div>'+
 		'<p><span>'+ id + '</span>님이 예약을 했습니다.</p></div>';
 		break;
 	case "2":
-		cssText += '<div class="notif danger"><div class="cancelIcon"></div>'+
-		'<div class="xIcon"></div><p><span>'+ id + '</span>님이 예약을 취소했습니다.</p></div>';
+		cssText += '<div class="notif danger"><div class="cancelIcon"></div><div class="xIcon" data-flag="' + notifSeq + '"></div>'+
+		'<p><span>'+ id + '</span>님이 예약을 취소했습니다.</p></div>';
 		break;
 	case "3":
-		cssText += '<div class="notif info"><div class="infoIcon"></div><div class="xIcon"></div>'+
+		cssText += '<div class="notif info"><div class="infoIcon"></div><div class="xIcon" data-flag="' + notifSeq + '"></div>'+
 		'<p><span>'+ id + '</span>님이 채팅을 보냈습니다.</p></div>';
 		break;
 	case "4":
-		cssText += '<div class="notif warning"><div class="questionIcon"></div><div class="xIcon"></div>'+
+		cssText += '<div class="notif warning"><div class="questionIcon"></div><div class="xIcon" data-flag="' + notifSeq + '"></div>'+
 		'<p><span>'+ id + '</span>님이 리뷰를 등록했습니다.</p></div>';
 		break;		
 	}

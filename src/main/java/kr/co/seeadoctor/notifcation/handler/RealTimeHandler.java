@@ -64,6 +64,12 @@ public class RealTimeHandler extends TextWebSocketHandler  {
 			return;
 		}
 		
+		if(rcvMsg.startsWith("delete")) {
+			String notifSeq = rcvMsg.split(":")[1];
+			mapper.updateNotificationBySeq(Integer.parseInt(notifSeq));
+			return;
+		}
+		
 		if(rcvMsg.startsWith("check") || rcvMsg.startsWith("cancel")) {
 			String[] pureData = rcvMsg.split(":");
 			String kind = pureData[0];
@@ -81,7 +87,8 @@ public class RealTimeHandler extends TextWebSocketHandler  {
 			if(adminUser == null) {
 				return;
 			}
-			adminUser.sendMessage(new TextMessage(user.getId() + ":"+ css));
+			int notifSeq = notif.getNotifSeq();
+			adminUser.sendMessage(new TextMessage(user.getId() + ":"+ css + ":" + notifSeq));
 			return;
 		}
 		String[] datas = rcvMsg.split(":");
@@ -93,11 +100,12 @@ public class RealTimeHandler extends TextWebSocketHandler  {
 		notif.setReceiveId(rcvId);
 		notif.setEventType(css);
 		mapper.insertNotification(notif);
+		int notifSeq = notif.getNotifSeq();
 		if(findUser(rcvId) == null) {
 			System.out.println("해당 유저가 접속중이 아닙니다.");
 			return;
 		} 
-		findUser(rcvId).sendMessage(new TextMessage(user.getId() + ":"+ css));
+		findUser(rcvId).sendMessage(new TextMessage(user.getId() + ":"+ css + ":" + notifSeq));
 		System.out.println("sendId :" +  rcvId);
 		System.out.println("users : " + connectedUser);
 	}
