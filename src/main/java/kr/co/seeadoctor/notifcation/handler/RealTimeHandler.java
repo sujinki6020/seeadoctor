@@ -58,6 +58,7 @@ public class RealTimeHandler extends TextWebSocketHandler  {
 			ObjectMapper toJson = new ObjectMapper();
 			String result = toJson.writeValueAsString(notifs);
 			session.sendMessage(new TextMessage(result));
+			System.out.println("로그인 됨");
 			return;
 		}else if(rcvMsg.startsWith("logout")) {
 			mapper.updateNotification(user.getId());

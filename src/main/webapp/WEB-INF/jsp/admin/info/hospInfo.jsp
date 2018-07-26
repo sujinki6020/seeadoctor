@@ -540,10 +540,6 @@ textarea {
     </div>
 </div>
 <script type="text/javascript">
-$(document).on("change",".majorSeq",function(){
-	console.log(123);
-})
-
 
 $("#addFirstDoc").click(function(){
 	$("#emptyDoc").hide();
@@ -661,6 +657,26 @@ $(document).ready(function(){
             return false;
 		}
 	})
+	var doctors = document.querySelectorAll(".doctor");
+	console.log("의사들",doctors)
+	doctors.forEach(function(item){
+		item.ondragover = function(event){
+            return false;
+        };
+        item.ondrop = function(event){
+            var files = event.dataTransfer.files; 
+            for(var i = 0 ; i < files.length ; i++){
+                console.log(files[i].name);
+                console.log(files[i].size);
+                console.log($(item).find("img"));
+                $(item).find("img").attr("src", URL.createObjectURL(files[i]));
+                sendFile(files[i],$(item));
+                $(".doctor").eq(0).removeClass("whiteBackground");
+            }
+            return false;
+        }
+	})
+	
 })
 
 	$(".ampm").keyup(function(e){
