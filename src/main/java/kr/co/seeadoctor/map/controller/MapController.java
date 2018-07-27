@@ -22,17 +22,22 @@ public class MapController {
 	
 
 	@RequestMapping("/mapMain.do")
-	public void mapMain() {	
+	public String mapMain() {	
+		return "map/mapV2";
 	}
 	
 	@RequestMapping("/hospitalList.json")
 	@ResponseBody
 	public Map<String , Object> hospitalList(Hospital hospital) {
-		System.out.println("자바 병원 들어옴");
-		System.out.println("과 " +  hospital.getQd());
 		if(hospital.getQd() != null &&hospital.getQd().equals("전체선택")) {
 			System.out.println("전체선택 널값으로 변경");
 			hospital.setQd(null);
+		}
+		if(hospital.getQd() != null) {
+			if(hospital.getQd().equalsIgnoreCase("")) {
+				System.out.println("전체선택 널값으로 변경");
+				hospital.setQd(null);
+			}
 		}
 		int count = mapService.selectCount(hospital);
 		HospitalPage page = new HospitalPage(hospital.getPageNo(), count);
@@ -45,5 +50,23 @@ public class MapController {
 		map.put("list", list);
 		map.put("page", page);
 		return map;
+	}
+	@RequestMapping("/seachHospital.do")
+	@ResponseBody
+	public Hospital searchHospital(String dutyName) {
+		System.out.println("병원 검색중");
+		Hospital hospital = mapService.selectHospitalByName(dutyName);
+		System.out.println(hospital);
+		return hospital;
+	}
+	
+	@RequestMapping("/AllHospital.json")
+	@ResponseBody
+	public List<Hospital> allHospital(Hospital hospital){
+		List<Hospital> list = mapService.selectAllHospital(hospital);
+		if(list.size() > 0) {
+			System.out.println(list.get(0).toString());
+		}
+		return list;
 	}
 }

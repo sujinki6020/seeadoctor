@@ -23,4 +23,16 @@ public class MapServiceImpl implements MapService {
 		return mapper.selectCount(hospital);
 	}
 
+	@Override
+	public Hospital selectHospitalByName(String dutyName) {
+		return mapper.searchHospital(dutyName);
+	}
+
+	@Override
+	public List<Hospital> selectAllHospital(Hospital hospital) {
+		return mapper.selectAllHospital(hospital);
+	}
+	
+	
+	
 }

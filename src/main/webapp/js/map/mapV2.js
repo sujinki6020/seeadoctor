@@ -5,10 +5,10 @@ let markers = [];
 let currentPosition = [];
 let infowindowArr = [];
 
-function getContextPath() {
-	var hostIndex = location.href.indexOf( location.host ) + location.host.length;
-	return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
-};
+//function getContextPath() {
+//	var hostIndex = location.href.indexOf( location.host ) + location.host.length;
+//	return location.href.substring( hostIndex, location.href.indexOf('/', hostIndex + 1) );
+//};
 
 
 $('#resultpage > ul').on('click', 'li', function(){
@@ -30,111 +30,111 @@ $('#resultpage > ul').on('click', 'li', function(){
 	hospitalList(latitude, longitude , pageNo , $("#hospiDept").text())
 })
 
-function setPageNo(page, currentPage){
-	$("#resultpage > ul").empty();
-	let text = '<li><a href="#1" class="prev ' + ( !page.prev ? 'disabled' : '') + '"></a></li>';
-	for(var i = page.beginTab ; i <= page.endTab  ; i++ ){
-		text += '<li><a href="#1" data-flag=' + i + ' class='+ ( page.currentTab === i ? 'circleActive' : '') + '>'+i+'</a></li>';
-	}
-	text += '<li><a href="#1" class="next ' + ( !page.next ? 'disabled' : '') + '"></a></li>';
-	$("#resultpage > ul").append(text);
-}
+//function setPageNo(page, currentPage){
+//	$("#resultpage > ul").empty();
+//	let text = '<li><a href="#1" class="prev ' + ( !page.prev ? 'disabled' : '') + '"></a></li>';
+//	for(var i = page.beginTab ; i <= page.endTab  ; i++ ){
+//		text += '<li><a href="#1" data-flag=' + i + ' class='+ ( page.currentTab === i ? 'circleActive' : '') + '>'+i+'</a></li>';
+//	}
+//	text += '<li><a href="#1" class="next ' + ( !page.next ? 'disabled' : '') + '"></a></li>';
+//	$("#resultpage > ul").append(text);
+//}
 
-function setLocationOnMap(){
-	if(navigator.geolocation){
-		console.log('위치정보 지원');
-		navigator.geolocation.getCurrentPosition(getLocation);
-	}else{
-		console.log('위치정보 지원하지 않음');
-	}
-}
+//function setLocationOnMap(){
+//	if(navigator.geolocation){
+//		console.log('위치정보 지원');
+//		navigator.geolocation.getCurrentPosition(getLocation);
+//	}else{
+//		console.log('위치정보 지원하지 않음');
+//	}
+//}
 function getLocation(position){
-	latitude = position.coords.latitude || 33.3590628;
-	longitude = position.coords.longitude || 126.534361;
-	let mapOptions = {center : new naver.maps.LatLng( latitude , longitude )};
-	map = new naver.maps.Map('searchedmap',mapOptions);
-	var nowPosition = new naver.maps.Marker({
-	    position: new naver.maps.LatLng(37.3595704, 127.105399),
-	    map: map
-	});
-	currentPosition.push(nowPosition);
+//	latitude = position.coords.latitude || 33.3590628;
+//	longitude = position.coords.longitude || 126.534361;
+//	let mapOptions = {center : new naver.maps.LatLng( latitude , longitude )};
+//	map = new naver.maps.Map('searchedmap',mapOptions);
+//	var nowPosition = new naver.maps.Marker({
+//	    position: new naver.maps.LatLng(37.3595704, 127.105399),
+//	    map: map
+//	});
+//	currentPosition.push(nowPosition);
 	hospitalList(latitude , longitude,1);
 }
 
-window.onload = () => {
-	document.querySelector('#resultaddress').style.display = 'none';
-	setLocationOnMap();
-}
+//window.onload = () => {
+//	document.querySelector('#resultaddress').style.display = 'none';
+//	setLocationOnMap();
+//}
 
-document.addEventListener("click", function(){
-	document.querySelector('#resultaddress').style.display = 'none';
-	document.querySelector('#searchaddress input').value = "";
-})
+//document.addEventListener("click", function(){
+//	document.querySelector('#resultaddress').style.display = 'none';
+//	document.querySelector('#searchaddress input').value = "";
+//})
 
-document.querySelector('#resultaddress ul').addEventListener('click',(e) => {
-	document.querySelector('#searchaddress input').value = '';
-	let address = null;
-	switch(e.target.tagName){
-		case 'A': address = e.target.lastChild.innerText; break;
-		case 'B': address = e.target.nextElementSibling.innerText; break;
-		default : address = e.target.innerText;
-	}
-	markers.map( item => item.setMap(null) );
-	naver.maps.Service.geocode({
-		address : address
-	}, (status, response) => {
-		if(status !== naver.maps.Service.Status.OK) return;
-		let result = response.result;
-		let items = result.items;
-		latitude = items[0].point.y;
-		longitude = items[0].point.x;
-		hospitalList( latitude , longitude , 1 );
-		if(items){
-			latlng = new naver.maps.LatLng(items[0].point.y, items[0].point.x); 
-			map.setCenter(latlng);
-			let marker = new naver.maps.Marker({
-			    position: latlng,
-			    map: map
-			});
-			markers.push(marker);
-			let contentString = [
-		        '<div class="iw_inner">',
-		        '   <h3>검색한 위치</h3>',
-		        '</div>'
-		    ].join('');
+//document.querySelector('#resultaddress ul').addEventListener('click',(e) => {
+//	document.querySelector('#searchaddress input').value = '';
+//	let address = null;
+//	switch(e.target.tagName){
+//		case 'A': address = e.target.lastChild.innerText; break;
+//		case 'B': address = e.target.nextElementSibling.innerText; break;
+//		default : address = e.target.innerText;
+//	}
+//	markers.map( item => item.setMap(null) );
+//	naver.maps.Service.geocode({
+//		address : address
+//	}, (status, response) => {
+//		if(status !== naver.maps.Service.Status.OK) return;
+//		let result = response.result;
+//		let items = result.items;
+//		latitude = items[0].point.y;
+//		longitude = items[0].point.x;
+//		hospitalList( latitude , longitude , 1 );
+//		if(items){
+//			latlng = new naver.maps.LatLng(items[0].point.y, items[0].point.x); 
+//			map.setCenter(latlng);
+//			let marker = new naver.maps.Marker({
+//			    position: latlng,
+//			    map: map
+//			});
+//			markers.push(marker);
+//			let contentString = [
+//		        '<div class="iw_inner">',
+//		        '   <h3>검색한 위치</h3>',
+//		        '</div>'
+//		    ].join('');
+//
+//			let infowindow = new naver.maps.InfoWindow({
+//			    content: contentString
+//			});
+//	
+//			naver.maps.Event.addListener(marker, "click", function(e) {
+//			    if (infowindow.getMap()) {
+//			        infowindow.close();
+//			    } else {
+//			        infowindow.open(map, marker);
+//			    }
+//			});
+//		}
+//	})
+//})
 
-			let infowindow = new naver.maps.InfoWindow({
-			    content: contentString
-			});
-	
-			naver.maps.Event.addListener(marker, "click", function(e) {
-			    if (infowindow.getMap()) {
-			        infowindow.close();
-			    } else {
-			        infowindow.open(map, marker);
-			    }
-			});
-		}
-	})
-})
-
-document.querySelector('#searchaddress').addEventListener('keyup', () => {
-	let address = document.querySelector('#searchaddress input').value;
-	if(address){
-		$.ajax({
-			url: getContextPath() + "/map/address.do",
-			data : "q=" + address,
-			dataType : "json"
-		})
-		.done(function(result){
-			$("#resultaddress ul").empty();
-			$("#resultaddress").show();
-			result.items.map(function(item){
-				$("#resultaddress ul").append("<li><a href='#1'>"+ item.title +"&nbsp<span>"+ item.roadAddress + "</span></a></li>")
-			})
-		})
-	}
-})
+//document.querySelector('#searchaddress').addEventListener('keyup', () => {
+//	let address = document.querySelector('#searchaddress input').value;
+//	if(address){
+//		$.ajax({
+//			url: getContextPath() + "/map/address.do",
+//			data : "q=" + address,
+//			dataType : "json"
+//		})
+//		.done(function(result){
+//			$("#resultaddress ul").empty();
+//			$("#resultaddress").show();
+//			result.items.map(function(item){
+//				$("#resultaddress ul").append("<li><a href='#1'>"+ item.title +"&nbsp<span>"+ item.roadAddress + "</span></a></li>")
+//			})
+//		})
+//	}
+//})
 
 function hospitalList( x , y , pageNo , qd){
 	$.ajax({
@@ -204,9 +204,9 @@ function hospitalList( x , y , pageNo , qd){
 		})
 	})
 }
-function nullCheck(text){
-	return text? text : '운영안함';
-}
+//function nullCheck(text){
+//	return text? text : '운영안함';
+//}
 
 
 function setHospitalList(name ,address, index){

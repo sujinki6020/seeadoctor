@@ -9,6 +9,8 @@ public interface HospitalMapper {
 	List<Hospital> selectHospital(Hospital hospital);
 	int selectCount(Hospital hospital);
 	void updateHospital(Hospital hospital);
+	Hospital searchHospital(String dutyName);
+	List<Hospital> selectAllHospital(Hospital hospital);
 	
 	/*예약파트*/
 	Hospital selectDutyTime(int hospitalSeq);

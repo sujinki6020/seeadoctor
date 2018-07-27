@@ -296,7 +296,9 @@ public class Hospital {
 				+ ", dutyTime2s=" + dutyTime2s + ", dutyTime3s=" + dutyTime3s + ", dutyTime4s=" + dutyTime4s
 				+ ", dutyTime5s=" + dutyTime5s + ", dutyTime6s=" + dutyTime6s + ", dutyTime7s=" + dutyTime7s
 				+ ", dutyTime8s=" + dutyTime8s + ", hpid=" + hpid + ", postCdn1=" + postCdn1 + ", postCdn2=" + postCdn2
-				+ ", wgs84Lon=" + wgs84Lon + ", wgs84Lat=" + wgs84Lat + ", dutyInf=" + dutyInf + "]";
+				+ ", wgs84Lon=" + wgs84Lon + ", wgs84Lat=" + wgs84Lat + ", dutyInf=" + dutyInf + ", pageNo=" + pageNo
+				+ ", count=" + count + ", addTreat=" + addTreat + "]";
 	}
+	
 	
 }

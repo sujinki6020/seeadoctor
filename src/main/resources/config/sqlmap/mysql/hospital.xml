@@ -134,6 +134,21 @@
 		order by wgs84Lon, wgs84Lat
 	</select>
 	
+	<select id="selectAllHospital" parameterType="hospital" resultMap="hospitalMap">
+		select *
+		from (
+			select * 
+		    from tb_hospital_gangnam 
+		    where cast(wgs84Lat as decimal(17,15)) between #{wgs84Lat} - 0.007 and #{wgs84Lat} + 0.007 
+		    group by dutyName
+		    <if test="qd != null">
+		    having dutyName like concat('%' , #{qd} , '%')
+		    </if> 
+		    ) as a  
+		where cast( wgs84Lon as decimal(17,14) ) between #{wgs84Lon} - 0.007 and #{wgs84Lon} + 0.007
+		order by wgs84Lon, wgs84Lat
+	</select>
+	
 	<select id="selectHospital" parameterType="hospital" resultMap="hospitalMap">
 		select * 
 		from (
@@ -183,6 +198,13 @@
 		   	   dutyEtc = #{dutyEtc}
 		 where hospital_seq = #{hospitalSeq}	
 	</update>
+	
+	<select id="searchHospital" parameterType="string" resultType="hospital">
+		select * 
+	    from tb_hospital_gangnam 
+	    where dutyName like concat('%' , #{dutyName} , '%')
+        group by dutyName;
+	</select>
 	
 </mapper>
 	
